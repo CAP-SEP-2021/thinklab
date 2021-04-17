@@ -38,7 +38,7 @@ public class BookingEntity extends ApplicationPersistenceEntity implements Booki
 
   private String email;
 
-  private Boolean canceled;
+  private boolean canceled;
 
   private BookingType bookingType;
 

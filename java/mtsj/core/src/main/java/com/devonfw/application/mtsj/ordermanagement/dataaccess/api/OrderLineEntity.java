@@ -30,7 +30,7 @@ public class OrderLineEntity extends ApplicationPersistenceEntity implements Ord
 
   private List<IngredientEntity> extras;
 
-  private Integer amount;
+  private int amount;
 
   private String comment;
 
@@ -77,7 +77,7 @@ public class OrderLineEntity extends ApplicationPersistenceEntity implements Ord
    * @return amount
    */
   @Override
-  public Integer getAmount() {
+  public int getAmount() {
 
     return this.amount;
   }
@@ -86,7 +86,7 @@ public class OrderLineEntity extends ApplicationPersistenceEntity implements Ord
    * @param amount new value of {@link #getAmount}.
    */
   @Override
-  public void setAmount(Integer amount) {
+  public void setAmount(int amount) {
 
     this.amount = amount;
   }

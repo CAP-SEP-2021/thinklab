@@ -13,13 +13,13 @@ public class TableEto extends AbstractEto implements Table {
   private Integer seatsNumber;
 
   @Override
-  public Integer getSeatsNumber() {
+  public int getSeatsNumber() {
 
     return this.seatsNumber;
   }
 
   @Override
-  public void setSeatsNumber(Integer seatsNumber) {
+  public void setSeatsNumber(int seatsNumber) {
 
     this.seatsNumber = seatsNumber;
   }
@@ -29,7 +29,7 @@ public class TableEto extends AbstractEto implements Table {
 
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + ((this.seatsNumber == null) ? 0 : this.seatsNumber.hashCode());
+    result = prime * result + this.seatsNumber; // direct implementation of Integer hash function
     return result;
   }
 
@@ -47,11 +47,7 @@ public class TableEto extends AbstractEto implements Table {
       return false;
     }
     TableEto other = (TableEto) obj;
-    if (this.seatsNumber == null) {
-      if (other.seatsNumber != null) {
-        return false;
-      }
-    } else if (!this.seatsNumber.equals(other.seatsNumber)) {
+    if (this.seatsNumber != (other.seatsNumber)) {
       return false;
     }
     return true;

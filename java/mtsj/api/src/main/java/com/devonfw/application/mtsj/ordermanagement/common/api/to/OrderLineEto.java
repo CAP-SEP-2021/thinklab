@@ -43,13 +43,13 @@ public class OrderLineEto extends AbstractEto implements OrderLine {
   }
 
   @Override
-  public Integer getAmount() {
+  public int getAmount() {
 
     return this.amount;
   }
 
   @Override
-  public void setAmount(Integer amount) {
+  public void setAmount(int amount) {
 
     this.amount = amount;
   }

@@ -12,9 +12,9 @@ public interface OrderLine extends ApplicationEntity {
 
   public void setDishId(Long dishId);
 
-  public Integer getAmount();
+  public int getAmount();
 
-  public void setAmount(Integer amount);
+  public void setAmount(int amount);
 
   public String getComment();
 

@@ -24,7 +24,7 @@ public class InvitedGuestEntity extends ApplicationPersistenceEntity implements 
 
   private String email;
 
-  private Boolean accepted;
+  private boolean accepted;
 
   private Instant modificationDate;
 
@@ -58,6 +58,7 @@ public class InvitedGuestEntity extends ApplicationPersistenceEntity implements 
   /**
    * @return guestToken
    */
+  @Override
   public String getGuestToken() {
 
     return this.guestToken;
@@ -66,6 +67,7 @@ public class InvitedGuestEntity extends ApplicationPersistenceEntity implements 
   /**
    * @param guestToken new value of {@link #getguestToken}.
    */
+  @Override
   public void setGuestToken(String guestToken) {
 
     this.guestToken = guestToken;
@@ -74,6 +76,7 @@ public class InvitedGuestEntity extends ApplicationPersistenceEntity implements 
   /**
    * @return email
    */
+  @Override
   public String getEmail() {
 
     return this.email;
@@ -82,6 +85,7 @@ public class InvitedGuestEntity extends ApplicationPersistenceEntity implements 
   /**
    * @param email new value of {@link #getemail}.
    */
+  @Override
   public void setEmail(String email) {
 
     this.email = email;
@@ -90,7 +94,8 @@ public class InvitedGuestEntity extends ApplicationPersistenceEntity implements 
   /**
    * @return accepted
    */
-  public Boolean getAccepted() {
+  @Override
+  public boolean getAccepted() {
 
     return this.accepted;
   }
@@ -98,7 +103,8 @@ public class InvitedGuestEntity extends ApplicationPersistenceEntity implements 
   /**
    * @param accepted new value of {@link #getaccepted}.
    */
-  public void setAccepted(Boolean accepted) {
+  @Override
+  public void setAccepted(boolean accepted) {
 
     this.accepted = accepted;
   }
@@ -106,6 +112,7 @@ public class InvitedGuestEntity extends ApplicationPersistenceEntity implements 
   /**
    * @return modificationDate
    */
+  @Override
   public Instant getModificationDate() {
 
     return this.modificationDate;
@@ -114,6 +121,7 @@ public class InvitedGuestEntity extends ApplicationPersistenceEntity implements 
   /**
    * @param modificationDate new value of {@link #getmodificationDate}.
    */
+  @Override
   public void setModificationDate(Instant modificationDate) {
 
     this.modificationDate = modificationDate;

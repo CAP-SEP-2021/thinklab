@@ -27,9 +27,9 @@ public class OrderedDishesPerMonthEntity extends ApplicationPersistenceEntity im
 
   private DishEntity dish;
 
-  private Integer amount;
+  private int amount;
 
-  private Double temperature;
+  private double temperature;
 
   private Timestamp bookingdate;
 
@@ -55,7 +55,7 @@ public class OrderedDishesPerMonthEntity extends ApplicationPersistenceEntity im
    * @return amount
    */
   @Override
-  public Integer getAmount() {
+  public int getAmount() {
 
     return this.amount;
   }
@@ -64,7 +64,7 @@ public class OrderedDishesPerMonthEntity extends ApplicationPersistenceEntity im
    * @param number of ordered dished per day {@link #getAmount}.
    */
   @Override
-  public void setAmount(Integer amount) {
+  public void setAmount(int amount) {
 
     this.amount = amount;
   }
@@ -73,7 +73,7 @@ public class OrderedDishesPerMonthEntity extends ApplicationPersistenceEntity im
    * @return temperature
    */
   @Override
-  public Double getTemperature() {
+  public double getTemperature() {
 
     return this.temperature;
   }
@@ -82,7 +82,7 @@ public class OrderedDishesPerMonthEntity extends ApplicationPersistenceEntity im
    * @param temperature new value of {@link #getTemperature}.
    */
   @Override
-  public void setTemperature(Double temperature) {
+  public void setTemperature(double temperature) {
 
     this.temperature = temperature;
   }

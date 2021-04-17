@@ -16,31 +16,31 @@ public class OrderedDishesEto extends AbstractEto implements OrderedDishes {
 
   private Double temperature;
 
-  //Designation of holiday or event
+  // Designation of holiday or event
   private String designation;
 
   private Timestamp bookingdate;
 
   @Override
-  public Integer getAmount() {
+  public int getAmount() {
 
     return this.amount;
   }
 
   @Override
-  public void setAmount(Integer amount) {
+  public void setAmount(int amount) {
 
     this.amount = amount;
   }
 
   @Override
-  public Double getTemperature() {
+  public double getTemperature() {
 
     return this.temperature;
   }
 
   @Override
-  public void setTemperature(Double temperature) {
+  public void setTemperature(double temperature) {
 
     this.temperature = temperature;
   }

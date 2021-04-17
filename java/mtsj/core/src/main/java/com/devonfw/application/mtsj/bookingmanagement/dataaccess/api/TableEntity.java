@@ -9,7 +9,7 @@ import com.devonfw.application.mtsj.general.dataaccess.api.ApplicationPersistenc
 @javax.persistence.Table(name = "\"Table\"")
 public class TableEntity extends ApplicationPersistenceEntity implements Table {
 
-  private Integer seatsNumber;
+  private int seatsNumber;
 
   private static final long serialVersionUID = 1L;
 
@@ -17,7 +17,7 @@ public class TableEntity extends ApplicationPersistenceEntity implements Table {
    * @return seatsNumber
    */
   @Override
-  public Integer getSeatsNumber() {
+  public int getSeatsNumber() {
 
     return this.seatsNumber;
   }
@@ -26,7 +26,7 @@ public class TableEntity extends ApplicationPersistenceEntity implements Table {
    * @param seatsNumber new value of {@link #getseatsNumber}.
    */
   @Override
-  public void setSeatsNumber(Integer seatsNumber) {
+  public void setSeatsNumber(int seatsNumber) {
 
     this.seatsNumber = seatsNumber;
   }

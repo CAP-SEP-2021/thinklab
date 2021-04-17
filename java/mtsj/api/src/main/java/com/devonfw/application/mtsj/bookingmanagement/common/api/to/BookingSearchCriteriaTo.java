@@ -29,7 +29,7 @@ public class BookingSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
   private String email;
 
-  private Boolean canceled;
+  private boolean canceled;
 
   private BookingType bookingType;
 

@@ -4,8 +4,8 @@ import com.devonfw.application.mtsj.general.common.api.ApplicationEntity;
 
 public interface Table extends ApplicationEntity {
 
-  public Integer getSeatsNumber();
+  public int getSeatsNumber();
 
-  public void setSeatsNumber(Integer seatsNumber);
+  public void setSeatsNumber(int seatsNumber);
 
 }

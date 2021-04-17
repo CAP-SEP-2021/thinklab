@@ -9,7 +9,7 @@ public class TableSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
   private static final long serialVersionUID = 1L;
 
-  private Integer seatsNumber;
+  private int seatsNumber;
 
   /**
    * The constructor.
@@ -19,12 +19,12 @@ public class TableSearchCriteriaTo extends AbstractSearchCriteriaTo {
     super();
   }
 
-  public Integer getSeatsNumber() {
+  public int getSeatsNumber() {
 
     return this.seatsNumber;
   }
 
-  public void setSeatsNumber(Integer seatsNumber) {
+  public void setSeatsNumber(int seatsNumber) {
 
     this.seatsNumber = seatsNumber;
   }
