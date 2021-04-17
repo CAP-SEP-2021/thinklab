@@ -12,7 +12,7 @@ public class UserRoleEto extends AbstractEto implements UserRole {
 
   private String name;
 
-  private Boolean active;
+  private boolean active;
 
   @Override
   public String getName() {
@@ -44,7 +44,7 @@ public class UserRoleEto extends AbstractEto implements UserRole {
     final int prime = 31;
     int result = super.hashCode();
     result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-    result = prime * result + ((this.active == null) ? 0 : this.active.hashCode());
+    result = prime * result + ((Boolean) this.active).hashCode();
     return result;
   }
 
@@ -69,11 +69,7 @@ public class UserRoleEto extends AbstractEto implements UserRole {
     } else if (!this.name.equals(other.name)) {
       return false;
     }
-    if (this.active == null) {
-      if (other.active != null) {
-        return false;
-      }
-    } else if (!this.active.equals(other.active)) {
+    if (this.active != (other.active)) {
       return false;
     }
     return true;

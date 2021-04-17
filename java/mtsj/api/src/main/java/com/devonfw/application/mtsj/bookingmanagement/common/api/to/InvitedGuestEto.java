@@ -91,7 +91,7 @@ public class InvitedGuestEto extends AbstractEto implements InvitedGuest {
     result = prime * result + ((this.bookingId == null) ? 0 : this.bookingId.hashCode());
     result = prime * result + ((this.guestToken == null) ? 0 : this.guestToken.hashCode());
     result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
-    result = prime * result + (this.accepted ? 1231 : 1237); // direct implementation of Boolean hash function
+    result = prime * result + ((Boolean) this.accepted).hashCode();
     result = prime * result + ((this.modificationDate == null) ? 0 : this.modificationDate.hashCode());
     return result;
   }

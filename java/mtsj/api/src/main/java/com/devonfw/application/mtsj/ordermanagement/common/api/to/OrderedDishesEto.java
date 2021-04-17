@@ -12,9 +12,9 @@ public class OrderedDishesEto extends AbstractEto implements OrderedDishes {
 
   private static final long serialVersionUID = 1L;
 
-  private Integer amount;
+  private int amount;
 
-  private Double temperature;
+  private double temperature;
 
   // Designation of holiday or event
   private String designation;
@@ -74,7 +74,7 @@ public class OrderedDishesEto extends AbstractEto implements OrderedDishes {
     int result = super.hashCode();
 
     result = prime * result + ((this.bookingdate == null) ? 0 : this.bookingdate.hashCode());
-    result = prime * result + ((this.amount == null) ? 0 : this.amount.hashCode());
+    result = prime * result + ((Integer) this.amount).hashCode();
     return result;
   }
 
@@ -93,11 +93,7 @@ public class OrderedDishesEto extends AbstractEto implements OrderedDishes {
     }
     OrderedDishesEto other = (OrderedDishesEto) obj;
 
-    if (this.amount == null) {
-      if (other.amount != null) {
-        return false;
-      }
-    } else if (!this.amount.equals(other.amount)) {
+    if (this.amount != (other.amount)) {
       return false;
     }
     if (this.bookingdate == null) {

@@ -15,7 +15,7 @@ public class CategorySearchCriteriaTo extends AbstractSearchCriteriaTo {
 
   private String description;
 
-  private Integer showOrder;
+  private int showOrder;
 
   private StringSearchConfigTo nameOption;
 
@@ -49,12 +49,12 @@ public class CategorySearchCriteriaTo extends AbstractSearchCriteriaTo {
     this.description = description;
   }
 
-  public Integer getShowOrder() {
+  public int getShowOrder() {
 
     return this.showOrder;
   }
 
-  public void setShowOrder(Integer showOrder) {
+  public void setShowOrder(int showOrder) {
 
     this.showOrder = showOrder;
   }

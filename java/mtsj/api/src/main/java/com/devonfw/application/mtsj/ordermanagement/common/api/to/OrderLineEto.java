@@ -14,7 +14,7 @@ public class OrderLineEto extends AbstractEto implements OrderLine {
 
   private Long dishId;
 
-  private Integer amount;
+  private int amount;
 
   private String comment;
 
@@ -76,7 +76,7 @@ public class OrderLineEto extends AbstractEto implements OrderLine {
 
     result = prime * result + ((this.dishId == null) ? 0 : this.dishId.hashCode());
 
-    result = prime * result + ((this.amount == null) ? 0 : this.amount.hashCode());
+    result = prime * result + ((Integer) this.amount).hashCode();
     result = prime * result + ((this.comment == null) ? 0 : this.comment.hashCode());
     return result;
   }
@@ -112,11 +112,7 @@ public class OrderLineEto extends AbstractEto implements OrderLine {
       return false;
     }
 
-    if (this.amount == null) {
-      if (other.amount != null) {
-        return false;
-      }
-    } else if (!this.amount.equals(other.amount)) {
+    if (this.amount != (other.amount)) {
       return false;
     }
     if (this.comment == null) {

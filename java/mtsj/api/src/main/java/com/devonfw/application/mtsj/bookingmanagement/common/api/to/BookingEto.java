@@ -180,7 +180,7 @@ public class BookingEto extends AbstractEto implements Booking {
     result = prime * result + ((this.expirationDate == null) ? 0 : this.expirationDate.hashCode());
     result = prime * result + ((this.creationDate == null) ? 0 : this.creationDate.hashCode());
     result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
-    result = prime * result + (this.canceled ? 1231 : 1237); // direct implementation of Boolean hash function
+    result = prime * result + ((Boolean) this.canceled).hashCode();
     result = prime * result + ((this.bookingType == null) ? 0 : this.bookingType.hashCode());
 
     result = prime * result + ((this.tableId == null) ? 0 : this.tableId.hashCode());

@@ -15,7 +15,7 @@ public class OrderLineSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
   private Long dishId;
 
-  private Integer amount;
+  private int amount;
 
   private String comment;
 
@@ -65,12 +65,12 @@ public class OrderLineSearchCriteriaTo extends AbstractSearchCriteriaTo {
     this.dishId = dishId;
   }
 
-  public Integer getAmount() {
+  public int getAmount() {
 
     return this.amount;
   }
 
-  public void setAmount(Integer amount) {
+  public void setAmount(int amount) {
 
     this.amount = amount;
   }

@@ -10,7 +10,7 @@ public class TableEto extends AbstractEto implements Table {
 
   private static final long serialVersionUID = 1L;
 
-  private Integer seatsNumber;
+  private int seatsNumber;
 
   @Override
   public int getSeatsNumber() {
@@ -29,7 +29,7 @@ public class TableEto extends AbstractEto implements Table {
 
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + this.seatsNumber; // direct implementation of Integer hash function
+    result = prime * result + ((Integer) this.seatsNumber).hashCode();
     return result;
   }
 
