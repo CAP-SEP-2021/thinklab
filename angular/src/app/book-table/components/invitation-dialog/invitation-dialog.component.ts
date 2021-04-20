@@ -12,7 +12,7 @@ import * as bookTableActions from 'app/book-table/store/actions/book-table.actio
   styleUrls: ['./invitation-dialog.component.scss'],
 })
 export class InvitationDialogComponent implements OnInit {
-  data: any;
+  data: any;//@mo  it make sense that is any because of the injection and anyhow the type is not string please check 
   date: string;
 
   constructor(
@@ -26,6 +26,10 @@ export class InvitationDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.date = moment(this.data.bookingDate).format('LLL');
+    /*
+    console.log("myown"+( typeof this.data  =="string"  ));
+   console.log("myown"+(this.data.constructor.name ));
+   console.log("myown"+(this.data.email ));*/
   }
 
   sendInvitation(): void {

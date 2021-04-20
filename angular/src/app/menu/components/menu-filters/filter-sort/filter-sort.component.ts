@@ -52,7 +52,7 @@ export class FilterSortComponent implements ControlValueAccessor {
 
   // Binding Methods
 
-  onSelectChange($event: any): void {
+  onSelectChange($event: any): void {//@mo we want to acceot all event for Ex KeyboardEvent or MouseEvent or touch so changing it is not the best practice 
     this.sortValue = { ...this.sortValue, ...{ property: $event.value } };
     this.updateForm(this.sortValue);
   }

@@ -11,19 +11,23 @@ import * as bookTableActions from '../../store/actions/book-table.actions';
   styleUrls: ['./book-table-dialog.component.scss'],
 })
 export class BookTableDialogComponent implements OnInit {
-  data: any;
+  data: any; //@mo  it make sense that is any because of the injection and anyhow it is an array as u can say with values of the injection check [Date , String , String ,number]
   date: string;
 
   constructor(
     private store: Store<fromApp.State>,
     private dialog: MatDialogRef<BookTableDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) dialogData: any,
+    @Inject(MAT_DIALOG_DATA) dialogData: any, // @mo object 
   ) {
     this.data = dialogData;
+   
   }
 
   ngOnInit(): void {
-    this.date = moment(this.data.bookingDate).format('LLL');
+    this.date = moment(this.data.bookingDate).format('LLL'); 
+   /* console.log("myown"+( typeof this.data  =="string"  ));
+   console.log("myown"+(this.data.constructor.name ));
+   console.log("myown"+(this.data.name ));*/
   }
 
   sendBooking(): void {

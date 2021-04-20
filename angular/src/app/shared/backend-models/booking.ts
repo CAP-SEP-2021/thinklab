@@ -21,7 +21,7 @@ export class FriendsInvite {
 
 export class OrderInfo {
   orderLine: OrderLineInfo;
-  extras: number[];
+  extras: number[];//@mo scary for later 
 }
 
 export class OrderLineInfo {

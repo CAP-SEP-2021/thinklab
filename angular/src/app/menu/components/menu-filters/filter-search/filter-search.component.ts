@@ -42,7 +42,7 @@ export class FilterSearchComponent implements ControlValueAccessor {
 
   // Binding Methods
 
-  onChange($event: any): void {
+  onChange($event: any): void { //@mo we want to acceot all event for Ex KeyboardEvent or  MouseEvent or touch so changing it is not the best practice 
     this.setInputValue($event.target.value);
   }
 

@@ -31,13 +31,13 @@ describe('InvitationDialogComponent', () => {
   let dialog: MatDialog;
   let fixture: ComponentFixture<InvitationDialogComponent>;
   let el: DebugElement;
-  let bookTableService: any;
+  let bookTableService: BookTableService;// @mo the return type of the inject  method is BookTableService line 65 
   let mockStore: MockStore;
   const initialState = { booking: undefined };
 
   beforeEach(async(() => {
-    const bookTableServiceSpy = jasmine.createSpyObj('BookTableService', [
-      'composeBooking',
+    const bookTableServiceSpy = jasmine.createSpyObj('BookTableService', [ 
+      'composeBooking', 
       'postBooking',
     ]);
     TestBed.configureTestingModule({

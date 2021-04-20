@@ -30,7 +30,7 @@ describe('BookTableService', () => {
     it('should compose correctly booking info type booking', inject(
       [BookTableService],
       (service: BookTableService) => {
-        const bookingData: any = {
+        const bookingData = {// @mo einfach gelöscht , wie in der quelle code gemacht wird  z.b booking line 41
           assistants: 2,
           name: 'name',
           email: 'email@email.com',
@@ -54,7 +54,7 @@ describe('BookTableService', () => {
     it('should compose correctly booking info type reservation', inject(
       [BookTableService],
       (service: BookTableService) => {
-        const reservationData: any = {
+        const reservationData  = {// @mo einfach gelöscht , wie in der quelle code gemacht wird  
           invitedGuests: ['email@email.com', 'email2@email.com'],
           name: 'name',
           email: 'email@email.com',
