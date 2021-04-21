@@ -86,12 +86,11 @@ public class InvitedGuestEto extends AbstractEto implements InvitedGuest {
   public int hashCode() {
 
     final int prime = 31;
-    int result = super.hashCode();
-
+    int result = 1;
+    result = prime * result + (this.accepted ? 1231 : 1237);
     result = prime * result + ((this.bookingId == null) ? 0 : this.bookingId.hashCode());
-    result = prime * result + ((this.guestToken == null) ? 0 : this.guestToken.hashCode());
     result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
-    result = prime * result + ((Boolean) this.accepted).hashCode();
+    result = prime * result + ((this.guestToken == null) ? 0 : this.guestToken.hashCode());
     result = prime * result + ((this.modificationDate == null) ? 0 : this.modificationDate.hashCode());
     return result;
   }
@@ -99,49 +98,35 @@ public class InvitedGuestEto extends AbstractEto implements InvitedGuest {
   @Override
   public boolean equals(Object obj) {
 
-    if (this == obj) {
+    if (this == obj)
       return true;
-    }
-    if (obj == null) {
+    if (obj == null)
       return false;
-    }
-    // class check will be done by super type EntityTo!
-    if (!super.equals(obj)) {
+    if (getClass() != obj.getClass())
       return false;
-    }
     InvitedGuestEto other = (InvitedGuestEto) obj;
-
+    if (this.accepted != other.accepted)
+      return false;
     if (this.bookingId == null) {
-      if (other.bookingId != null) {
+      if (other.bookingId != null)
         return false;
-      }
-    } else if (!this.bookingId.equals(other.bookingId)) {
+    } else if (!this.bookingId.equals(other.bookingId))
       return false;
-    }
-    if (this.guestToken == null) {
-      if (other.guestToken != null) {
-        return false;
-      }
-    } else if (!this.guestToken.equals(other.guestToken)) {
-      return false;
-    }
     if (this.email == null) {
-      if (other.email != null) {
+      if (other.email != null)
         return false;
-      }
-    } else if (!this.email.equals(other.email)) {
+    } else if (!this.email.equals(other.email))
       return false;
-    }
-    if (this.accepted != (other.accepted)) {
+    if (this.guestToken == null) {
+      if (other.guestToken != null)
+        return false;
+    } else if (!this.guestToken.equals(other.guestToken))
       return false;
-    }
     if (this.modificationDate == null) {
-      if (other.modificationDate != null) {
+      if (other.modificationDate != null)
         return false;
-      }
-    } else if (!this.modificationDate.equals(other.modificationDate)) {
+    } else if (!this.modificationDate.equals(other.modificationDate))
       return false;
-    }
     return true;
   }
 

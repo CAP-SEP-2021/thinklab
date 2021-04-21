@@ -70,58 +70,42 @@ public class OrderLineEto extends AbstractEto implements OrderLine {
   public int hashCode() {
 
     final int prime = 31;
-    int result = super.hashCode();
-
-    result = prime * result + ((this.orderId == null) ? 0 : this.orderId.hashCode());
-
-    result = prime * result + ((this.dishId == null) ? 0 : this.dishId.hashCode());
-
-    result = prime * result + ((Integer) this.amount).hashCode();
+    int result = 1;
+    result = prime * result + this.amount;
     result = prime * result + ((this.comment == null) ? 0 : this.comment.hashCode());
+    result = prime * result + ((this.dishId == null) ? 0 : this.dishId.hashCode());
+    result = prime * result + ((this.orderId == null) ? 0 : this.orderId.hashCode());
     return result;
   }
 
   @Override
   public boolean equals(Object obj) {
 
-    if (this == obj) {
+    if (this == obj)
       return true;
-    }
-    if (obj == null) {
+    if (obj == null)
       return false;
-    }
-    // class check will be done by super type EntityTo!
-    if (!super.equals(obj)) {
+    if (getClass() != obj.getClass())
       return false;
-    }
     OrderLineEto other = (OrderLineEto) obj;
-
-    if (this.orderId == null) {
-      if (other.orderId != null) {
-        return false;
-      }
-    } else if (!this.orderId.equals(other.orderId)) {
+    if (this.amount != other.amount)
       return false;
-    }
-
-    if (this.dishId == null) {
-      if (other.dishId != null) {
-        return false;
-      }
-    } else if (!this.dishId.equals(other.dishId)) {
-      return false;
-    }
-
-    if (this.amount != (other.amount)) {
-      return false;
-    }
     if (this.comment == null) {
-      if (other.comment != null) {
+      if (other.comment != null)
         return false;
-      }
-    } else if (!this.comment.equals(other.comment)) {
+    } else if (!this.comment.equals(other.comment))
       return false;
-    }
+    if (this.dishId == null) {
+      if (other.dishId != null)
+        return false;
+    } else if (!this.dishId.equals(other.dishId))
+      return false;
+    if (this.orderId == null) {
+      if (other.orderId != null)
+        return false;
+    } else if (!this.orderId.equals(other.orderId))
+      return false;
     return true;
   }
+
 }

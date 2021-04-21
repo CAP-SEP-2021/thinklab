@@ -42,36 +42,29 @@ public class UserRoleEto extends AbstractEto implements UserRole {
   public int hashCode() {
 
     final int prime = 31;
-    int result = super.hashCode();
+    int result = 1;
+    result = prime * result + (this.active ? 1231 : 1237);
     result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-    result = prime * result + ((Boolean) this.active).hashCode();
     return result;
   }
 
   @Override
   public boolean equals(Object obj) {
 
-    if (this == obj) {
+    if (this == obj)
       return true;
-    }
-    if (obj == null) {
+    if (obj == null)
       return false;
-    }
-    // class check will be done by super type EntityTo!
-    if (!super.equals(obj)) {
+    if (getClass() != obj.getClass())
       return false;
-    }
     UserRoleEto other = (UserRoleEto) obj;
+    if (this.active != other.active)
+      return false;
     if (this.name == null) {
-      if (other.name != null) {
+      if (other.name != null)
         return false;
-      }
-    } else if (!this.name.equals(other.name)) {
+    } else if (!this.name.equals(other.name))
       return false;
-    }
-    if (this.active != (other.active)) {
-      return false;
-    }
     return true;
   }
 

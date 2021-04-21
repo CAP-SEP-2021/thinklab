@@ -28,28 +28,23 @@ public class TableEto extends AbstractEto implements Table {
   public int hashCode() {
 
     final int prime = 31;
-    int result = super.hashCode();
-    result = prime * result + ((Integer) this.seatsNumber).hashCode();
+    int result = 1;
+    result = prime * result + this.seatsNumber;
     return result;
   }
 
   @Override
   public boolean equals(Object obj) {
 
-    if (this == obj) {
+    if (this == obj)
       return true;
-    }
-    if (obj == null) {
+    if (obj == null)
       return false;
-    }
-    // class check will be done by super type EntityTo!
-    if (!super.equals(obj)) {
+    if (getClass() != obj.getClass())
       return false;
-    }
     TableEto other = (TableEto) obj;
-    if (this.seatsNumber != (other.seatsNumber)) {
+    if (this.seatsNumber != other.seatsNumber)
       return false;
-    }
     return true;
   }
 
