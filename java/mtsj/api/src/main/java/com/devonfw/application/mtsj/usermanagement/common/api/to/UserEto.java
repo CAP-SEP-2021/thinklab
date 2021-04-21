@@ -70,51 +70,39 @@ public class UserEto extends AbstractEto implements User {
   public int hashCode() {
 
     final int prime = 31;
-    int result = super.hashCode();
-    result = prime * result + ((this.username == null) ? 0 : this.username.hashCode());
+    int result = 1;
     result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
     result = prime * result + ((this.userRoleId == null) ? 0 : this.userRoleId.hashCode());
-
+    result = prime * result + ((this.username == null) ? 0 : this.username.hashCode());
     return result;
   }
 
   @Override
   public boolean equals(Object obj) {
 
-    if (this == obj) {
+    if (this == obj)
       return true;
-    }
-    if (obj == null) {
+    if (obj == null)
       return false;
-    }
-    // class check will be done by super type EntityTo!
-    if (!super.equals(obj)) {
+    if (getClass() != obj.getClass())
       return false;
-    }
     UserEto other = (UserEto) obj;
-    if (this.username == null) {
-      if (other.username != null) {
-        return false;
-      }
-    } else if (!this.username.equals(other.username)) {
-      return false;
-    }
     if (this.email == null) {
-      if (other.email != null) {
+      if (other.email != null)
         return false;
-      }
-    } else if (!this.email.equals(other.email)) {
+    } else if (!this.email.equals(other.email))
       return false;
-    }
-
     if (this.userRoleId == null) {
-      if (other.userRoleId != null) {
+      if (other.userRoleId != null)
         return false;
-      }
-    } else if (!this.userRoleId.equals(other.userRoleId)) {
+    } else if (!this.userRoleId.equals(other.userRoleId))
       return false;
-    }
-
+    if (this.username == null) {
+      if (other.username != null)
+        return false;
+    } else if (!this.username.equals(other.username))
+      return false;
     return true;
   }
+
 }

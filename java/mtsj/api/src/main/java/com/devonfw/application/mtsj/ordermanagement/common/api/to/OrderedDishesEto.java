@@ -71,39 +71,30 @@ public class OrderedDishesEto extends AbstractEto implements OrderedDishes {
   public int hashCode() {
 
     final int prime = 31;
-    int result = super.hashCode();
-
+    int result = 1;
+    result = prime * result + this.amount;
     result = prime * result + ((this.bookingdate == null) ? 0 : this.bookingdate.hashCode());
-    result = prime * result + ((Integer) this.amount).hashCode();
     return result;
   }
 
   @Override
   public boolean equals(Object obj) {
 
-    if (this == obj) {
+    if (this == obj)
       return true;
-    }
-    if (obj == null) {
+    if (obj == null)
       return false;
-    }
-    // class check will be done by super type EntityTo!
-    if (!super.equals(obj)) {
+    if (getClass() != obj.getClass())
       return false;
-    }
     OrderedDishesEto other = (OrderedDishesEto) obj;
-
-    if (this.amount != (other.amount)) {
+    if (this.amount != other.amount)
       return false;
-    }
     if (this.bookingdate == null) {
-      if (other.bookingdate != null) {
+      if (other.bookingdate != null)
         return false;
-      }
-    } else if (!this.bookingdate.equals(other.bookingdate)) {
+    } else if (!this.bookingdate.equals(other.bookingdate))
       return false;
-    }
-
     return true;
   }
+
 }
