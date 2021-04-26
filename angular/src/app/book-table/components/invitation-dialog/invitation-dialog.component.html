@@ -19,7 +19,7 @@
     <div class="dataRow">
       <span>{{'formFields.friends' | transloco}}</span>
       <div class="invitedGuests">
-        <span *ngFor="let inv of data.invitedGuests">{{inv}}</span>
+        <span *ngFor="let inv of data.invitedGuests">{{inv.email}}</span>
       </div>
     </div>
     <mat-divider></mat-divider>
