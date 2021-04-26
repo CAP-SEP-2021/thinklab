@@ -9,7 +9,7 @@ interface Role {
   permission: number;
 }
 
-export interface Lang { //@mo export added musst export the interface to import im head.compontent 
+export interface Lang {
   label: string;
   value: string;
 }

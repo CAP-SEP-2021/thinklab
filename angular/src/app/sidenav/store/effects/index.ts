@@ -1,3 +1,3 @@
 import { SendOrderEffects } from './send-order.effects';
-export const effects: any[] = [SendOrderEffects];//@mo injectable 
+export const effects: any[] = [SendOrderEffects];
 export * from './send-order.effects';

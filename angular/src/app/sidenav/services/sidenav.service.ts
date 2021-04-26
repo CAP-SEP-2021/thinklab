@@ -69,7 +69,7 @@ export class SidenavService {
   composeOrders(orders: Order[]): OrderInfo[] {
     const composedOrders: OrderInfo[] = [];
     orders.forEach((order: Order) => {
-      const extras:  {id : number}[] = []; //@mo scary see changes in OrderInfo interface 
+      const extras:  {id : number}[] = [];
       order.details.extras.forEach((extra: ExtraView) =>
         extras.push({ id: extra.id }),
       );

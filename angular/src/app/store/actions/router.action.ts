@@ -8,7 +8,7 @@ export const FORWARD = '[Router] Forward';
 export const go = createAction(
   GO,
   props<{
-    path: any[]; //@mo maybe later need to understand func first 
+    path: any[];
     query?: object;
     extras?: NavigationExtras;
   }>(),

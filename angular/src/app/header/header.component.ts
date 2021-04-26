@@ -19,7 +19,7 @@ import { UserAreaService } from '../user-area/services/user-area.service';
 import { Store } from '@ngrx/store';
 import { TranslocoService } from '@ngneat/transloco';
 import { find } from 'lodash';
-import { Lang } from 'app/core/config/config';//@mo import the lang interface from thew config.ts from the  /config folder 
+import { Lang } from 'app/core/config/config'; 
 
 @Component({
   selector: 'app-public-header',
@@ -28,7 +28,7 @@ import { Lang } from 'app/core/config/config';//@mo import the lang interface fr
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  selectableLangs: Lang[];//@mo 
+  selectableLangs: Lang[];
   flag: string;
   currentLang: string;
 

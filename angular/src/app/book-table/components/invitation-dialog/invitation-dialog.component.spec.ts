@@ -31,7 +31,7 @@ describe('InvitationDialogComponent', () => {
   let dialog: MatDialog;
   let fixture: ComponentFixture<InvitationDialogComponent>;
   let el: DebugElement;
-  let bookTableService: BookTableService;// @mo the return type of the inject  method is BookTableService line 65 
+  let bookTableService: BookTableService;
   let mockStore: MockStore;
   const initialState = { booking: undefined };
 

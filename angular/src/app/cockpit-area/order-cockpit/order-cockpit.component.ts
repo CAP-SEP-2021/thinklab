@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
+import { Sort as SortMaterial} from '@angular/material/sort';
 import { TranslocoService } from '@ngneat/transloco';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { ConfigService } from '../../core/config/config.service';
 import {
   FilterCockpit,
   Pageable,
+  Sort,
 } from '../../shared/backend-models/interfaces';
 import { OrderListView } from '../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../services/waiter-cockpit.service';
@@ -26,7 +27,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     pageNumber: 0,
     // total: 1,
   };
-  private sorting: any[] = [];
+  private sorting: Sort[] = [];
 
   pageSize = 8;
 
@@ -108,7 +109,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     this.applyFilters();
   }
 
-  sort(sortEvent: Sort): void {
+  sort(sortEvent: SortMaterial): void {
     this.sorting = [];
     if (sortEvent.direction) {
       this.sorting.push({

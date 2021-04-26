@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
+import { Booking } from 'app/book-table/models/booking.model';
 import * as moment from 'moment';
 import * as fromApp from '../../../store/reducers';
 import * as bookTableActions from '../../store/actions/book-table.actions';
@@ -11,27 +12,31 @@ import * as bookTableActions from '../../store/actions/book-table.actions';
   styleUrls: ['./book-table-dialog.component.scss'],
 })
 export class BookTableDialogComponent implements OnInit {
-  data: any; //@mo  it make sense that is any because of the injection and anyhow it is an array as u can say with values of the injection check [Date , String , String ,number]
+  data: Booking;
   date: string;
 
   constructor(
     private store: Store<fromApp.State>,
     private dialog: MatDialogRef<BookTableDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) dialogData: any, // @mo object 
+    @Inject(MAT_DIALOG_DATA) dialogData: any
   ) {
-    this.data = dialogData;
-   
+    this.data = {
+      booking: {
+        bookingDate: dialogData.bookingDate,
+        name: dialogData.name,
+        email: dialogData.email,
+        assistants: dialogData.assistants,
+        bookingType: 0
+      }
+    };
   }
 
   ngOnInit(): void {
-    this.date = moment(this.data.bookingDate).format('LLL'); 
-   /* console.log("myown"+( typeof this.data  =="string"  ));
-   console.log("myown"+(this.data.constructor.name ));
-   console.log("myown"+(this.data.name ));*/
+    this.date = moment(this.data.booking.bookingDate).format('LLL');
   }
 
   sendBooking(): void {
-    this.store.dispatch(bookTableActions.bookTable({ booking: this.data }));
+    this.store.dispatch(bookTableActions.bookTable({booking: this.data}));
     this.dialog.close(true);
   }
 }

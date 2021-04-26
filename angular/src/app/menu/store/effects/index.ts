@@ -1,3 +1,3 @@
 import { MenuEffects } from './menu.effects';
-export const effects: any[] = [MenuEffects]; // @mo MenuEffects is injectable() class anthing but any would be incompatible type
+export const effects: any[] = [MenuEffects];
 export * from './menu.effects';

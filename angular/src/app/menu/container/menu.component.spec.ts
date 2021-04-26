@@ -62,7 +62,7 @@ const STATE = {
     menu: {
       loading: true,
       loaded: true,
-      dishes: menuDishes.content as any,//@mo content is a jason within it diffrent property with diffrent data 
+      dishes: menuDishes.content as any,
       errorMessage: '',
     },
   },

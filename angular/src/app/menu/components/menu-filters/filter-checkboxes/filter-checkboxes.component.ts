@@ -15,7 +15,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class FilterCheckboxesComponent {
   categoriesValue: CategoriesModel;
-  updateForm: (fn: any) => void; // @mo updateForm  expectes a function with return void and one parameter of type any https://albertgao.xyz/2016/08/11/how-to-declare-a-function-type-variable-in-typescript/
+  updateForm: (fn: any) => void;
   disabled: boolean;
 
   // ControlValueAccessor
