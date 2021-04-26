@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Sort as SortMaterial} from '@angular/material/sort';
+import { Sort as MaterialSort} from '@angular/material/sort';
 import { TranslocoService } from '@ngneat/transloco';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
@@ -36,7 +36,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   orders: OrderListView[] = [];
   totalOrders: number;
 
-  columns: any[];
+  columns: {name: String, label: String}[];
 
   displayedColumns: string[] = [
     'booking.bookingDate',
@@ -109,7 +109,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     this.applyFilters();
   }
 
-  sort(sortEvent: SortMaterial): void {
+  sort(sortEvent: MaterialSort): void {
     this.sorting = [];
     if (sortEvent.direction) {
       this.sorting.push({
