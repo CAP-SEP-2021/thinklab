@@ -96,7 +96,15 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     "/services/rest/bookingmanagement/v1/invitedguest/accept/**",
     "/services/rest/bookingmanagement/v1/invitedguest/decline/**",
     "/services/rest/ordermanagement/v1/order/cancelorder/**",
+    /*
+     * https://github.com/LillYttrium/sep-my-thai-star/commit/d5ef5244b2b5378157a8f5402727c3a7a5ba4205
+     * Adding h2-compatibility
+     */
     "/h2-console/***", "/h2-console/", "/h2-console",
+    /*
+     * https://github.com/LillYttrium/sep-my-thai-star/commit/8b5c8d117bf26f435da90eca5739a84806df1a35
+     * Fixed password issue, adding urls for external testing via postman
+     */
     "/services/rest/usermanagement/v1/user/",
     "/services/rest/usermanagement/v1/user/*",
     "/services/rest/usermanagement/v1/user/**"};
