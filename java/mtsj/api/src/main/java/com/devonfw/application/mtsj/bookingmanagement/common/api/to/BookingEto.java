@@ -225,6 +225,11 @@ public class BookingEto extends AbstractEto implements Booking {
     if (this.email == null) {
       if (other.email != null)
         return false;
+    } else if (!this.status.equals(other.status))
+        return false;
+      if (this.status == null) {
+        if (other.status != null)
+          return false;
     } else if (!this.email.equals(other.email))
       return false;
     if (this.expirationDate == null) {

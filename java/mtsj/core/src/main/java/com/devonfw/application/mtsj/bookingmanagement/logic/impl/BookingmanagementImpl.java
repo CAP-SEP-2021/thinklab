@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.devonfw.application.mtsj.bookingmanagement.common.api.datatype.BookingType;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.exception.CancelInviteNotAllowedException;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingCto;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingEto;
@@ -103,6 +105,12 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     super();
   }
 
+  public boolean found(Long id) {
+	  BookingEntity entity = getBookingDao().find(id);
+	  System.out.println(entity.toString());
+	  return true;
+  }
+  
   @Override
   public BookingCto findBooking(Long id) {
 
@@ -186,6 +194,26 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     return true;
   }
 
+  
+  @Override
+  public BookingEto updateBooking(BookingCto booking) {
+	
+	Objects.requireNonNull(booking, "booking");
+	BookingEntity bookingEntity = getBeanMapper().map(booking.getBooking(), BookingEntity.class);
+	
+	BookingEntity result = getBookingDao().save(bookingEntity);
+	return getBeanMapper().map(result, BookingEto.class);	
+	
+	
+//	//Long id = bookingEntity.getId();
+//	BookingEto bt = findBooking(bookingEntity.getId()).getBooking();
+//	BookingEntity resultEntity = getBeanMapper().map(booking.getBooking(), BookingEntity.class);
+//	resultEntity.setId(new Long(900));
+//	deleteBooking(findBooking(bookingEntity.getId()).getBooking().getId());	
+//	BookingEntity result = getBookingDao().save(resultEntity);
+//	return getBeanMapper().map(result, BookingEto.class);
+  }
+  
   @Override
   public BookingEto saveBooking(BookingCto booking) {
 

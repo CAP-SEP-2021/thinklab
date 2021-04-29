@@ -263,6 +263,10 @@ public void setBookingToken(String bookingToken) {
     this.emailOption = emailOption;
   }
 
+	public void setStatusOption(StringSearchConfigTo statusOption) {
+		this.statusOption = statusOption;
+	}
+  
 	public StringSearchConfigTo getStatusOption() {
 		return this.statusOption;
 	}
