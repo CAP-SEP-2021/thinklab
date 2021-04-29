@@ -9,10 +9,12 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -24,6 +26,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -194,16 +198,19 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     return true;
   }
 
+
   
   @Override
   public BookingEto updateBooking(BookingCto booking) {
-	
+	  
 	Objects.requireNonNull(booking, "booking");
 	BookingEntity bookingEntity = getBeanMapper().map(booking.getBooking(), BookingEntity.class);
 	
-	BookingEntity result = getBookingDao().save(bookingEntity);
-	return getBeanMapper().map(result, BookingEto.class);	
+	getBookingDao().updatestatus("lolol");
 	
+	//BookingEntity result = getBookingDao().save(bookingEntity);
+	//return getBeanMapper().map(result, BookingEto.class);	
+	return getBeanMapper().map(bookingEntity, BookingEto.class);	
 	
 //	//Long id = bookingEntity.getId();
 //	BookingEto bt = findBooking(bookingEntity.getId()).getBooking();
@@ -419,7 +426,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
 
     Objects.requireNonNull(bookingToken, "bookingToken");
     BookingCto bookingCto = findBookingByToken(bookingToken);
-
+    
     if (bookingCto != null) {
       if (!cancelInviteAllowed(bookingCto.getBooking())) {
         throw new CancelInviteNotAllowedException();

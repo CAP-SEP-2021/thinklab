@@ -2,11 +2,18 @@ package com.devonfw.application.mtsj.bookingmanagement.dataaccess.api.repo;
 
 import static com.querydsl.core.alias.Alias.$;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.Instant;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.devonfw.application.mtsj.bookingmanagement.common.api.datatype.BookingType;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingSearchCriteriaTo;
@@ -21,6 +28,11 @@ import com.querydsl.jpa.impl.JPAQuery;
  */
 public interface BookingRepository extends DefaultRepository<BookingEntity> {
 
+  @Transactional
+  @Modifying
+  @Query("UPDATE BookingEntity SET status = :token" //
+		      + " WHERE BOOKINGTOKEN = 'CB_20170509_123502555Z'")
+  void updatestatus(@Param("token") String token);
   /**
    * @param token
    * @return the {@link BookingEntity} objects that matched the search.
