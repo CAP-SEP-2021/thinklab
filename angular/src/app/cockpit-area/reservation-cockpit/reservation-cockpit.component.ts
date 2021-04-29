@@ -3,11 +3,12 @@ import { ReservationView } from '../../shared/view-models/interfaces';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
+import { Sort as MaterialSort} from '@angular/material/sort';
 import { ReservationDialogComponent } from './reservation-dialog/reservation-dialog.component';
 import {
   FilterCockpit,
   Pageable,
+  Sort,
 } from '../../shared/backend-models/interfaces';
 import * as moment from 'moment';
 import { ConfigService } from '../../core/config/config.service';
@@ -20,7 +21,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./reservation-cockpit.component.scss'],
 })
 export class ReservationCockpitComponent implements OnInit, OnDestroy {
-  private sorting: any[] = [];
+  private sorting: Sort[] = [];
   private translocoSubscription = Subscription.EMPTY;
   pageable: Pageable = {
     pageSize: 8,
@@ -33,7 +34,7 @@ export class ReservationCockpitComponent implements OnInit, OnDestroy {
   reservations: ReservationView[] = [];
   totalReservations: number;
 
-  columns: any[];
+  columns: {name: string, label:string}[];
   displayedColumns: string[] = ['bookingDate', 'email', 'bookingToken'];
 
   pageSizes: number[];
@@ -107,7 +108,7 @@ export class ReservationCockpitComponent implements OnInit, OnDestroy {
     this.applyFilters();
   }
 
-  sort(sortEvent: Sort): void {
+  sort(sortEvent: MaterialSort): void {
     this.sorting = [];
     if (sortEvent.direction) {
       this.sorting.push({

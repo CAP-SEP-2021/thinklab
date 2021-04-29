@@ -30,7 +30,7 @@ describe('BookTableService', () => {
     it('should compose correctly booking info type booking', inject(
       [BookTableService],
       (service: BookTableService) => {
-        const bookingData: any = {
+        const bookingData = {
           assistants: 2,
           name: 'name',
           email: 'email@email.com',
@@ -54,7 +54,7 @@ describe('BookTableService', () => {
     it('should compose correctly booking info type reservation', inject(
       [BookTableService],
       (service: BookTableService) => {
-        const reservationData: any = {
+        const reservationData  = {  
           invitedGuests: ['email@email.com', 'email2@email.com'],
           name: 'name',
           email: 'email@email.com',

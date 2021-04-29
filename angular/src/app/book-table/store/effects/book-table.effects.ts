@@ -14,7 +14,7 @@ export class BookTableEffects {
   bookTable$ = createEffect(() =>
     this.actions$.pipe(
       ofType(bookTableActions.bookTable),
-      map((booking) => booking.booking),
+      map((booking) => booking.booking.booking),
       switchMap((booking: any) => {
         return this.bookTableService.postBooking({ booking }).pipe(
           map((res: any) =>

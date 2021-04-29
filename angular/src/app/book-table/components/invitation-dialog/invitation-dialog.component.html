@@ -8,18 +8,18 @@
     <mat-divider></mat-divider>
     <div class="dataRow">
       <span>{{'formFields.name' | transloco}}</span>
-      <span class="nameValue">{{data.name}}</span>
+      <span class="nameValue">{{data.booking.name}}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="dataRow">
       <span>{{'formFields.email' | transloco}}</span>
-      <span class="emailValue">{{data.email}}</span>
+      <span class="emailValue">{{data.booking.email}}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="dataRow">
       <span>{{'formFields.friends' | transloco}}</span>
       <div class="invitedGuests">
-        <span *ngFor="let inv of data.invitedGuests">{{inv}}</span>
+        <span *ngFor="let inv of data.invitedGuests">{{inv.email}}</span>
       </div>
     </div>
     <mat-divider></mat-divider>

@@ -10,8 +10,8 @@ export class MenuCardComponent {
   @Input() extras: ExtraView;
   @Input() menuInfo: DishView;
   @Input() auth: boolean;
-  @Output() orderAdded = new EventEmitter<any>();
-  @Output() extraSelected = new EventEmitter<any>();
+  @Output() orderAdded = new EventEmitter<DishView>();
+  @Output() extraSelected = new EventEmitter< any>();
 
   constructor() {}
 
@@ -21,7 +21,7 @@ export class MenuCardComponent {
 
   selectedOption(extra: ExtraView): void {
     const dish = this.menuInfo;
-    this.extraSelected.emit({ dish, extra });
+    this.extraSelected.emit({dish, extra});
   }
 
   addOrderMenu(): void {

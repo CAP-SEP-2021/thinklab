@@ -27,7 +27,7 @@ describe('BookTableDialogComponent', () => {
   let dialog: MatDialog;
   let fixture: ComponentFixture<BookTableDialogComponent>;
   let el: DebugElement;
-  let bookTableService: any;
+  let bookTableService: BookTableService;
 
   beforeEach(async(() => {
     const bookTableServiceSpy = jasmine.createSpyObj('BookTableService', [

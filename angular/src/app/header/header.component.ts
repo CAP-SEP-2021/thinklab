@@ -19,6 +19,7 @@ import { UserAreaService } from '../user-area/services/user-area.service';
 import { Store } from '@ngrx/store';
 import { TranslocoService } from '@ngneat/transloco';
 import { find } from 'lodash';
+import { Lang } from 'app/core/config/config'; 
 
 @Component({
   selector: 'app-public-header',
@@ -27,7 +28,7 @@ import { find } from 'lodash';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  selectableLangs: any[];
+  selectableLangs: Lang[];
   flag: string;
   currentLang: string;
 
