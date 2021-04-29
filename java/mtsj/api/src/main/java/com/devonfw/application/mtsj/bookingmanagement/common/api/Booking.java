@@ -38,6 +38,10 @@ public interface Booking extends ApplicationEntity {
   public boolean getCanceled();
 
   public void setCanceled(boolean canceled);
+  
+  public void setStatus(String status);
+  
+  public String getStatus();
 
   public BookingType getBookingType();
 

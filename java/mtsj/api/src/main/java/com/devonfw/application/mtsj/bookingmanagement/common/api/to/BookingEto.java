@@ -37,6 +37,8 @@ public class BookingEto extends AbstractEto implements Booking {
   private String email;
 
   private boolean canceled;
+  
+  private String status;
 
   private BookingType bookingType;
 
@@ -278,5 +280,15 @@ public class BookingEto extends AbstractEto implements Booking {
 
     this.userId = userId;
   }
+
+	@Override
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	@Override
+	public String getStatus() {
+		return this.status;
+	}
 
 }

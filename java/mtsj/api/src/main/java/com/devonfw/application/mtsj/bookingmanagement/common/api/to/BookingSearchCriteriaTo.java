@@ -30,6 +30,8 @@ public class BookingSearchCriteriaTo extends AbstractSearchCriteriaTo {
   private String email;
 
   private boolean canceled;
+  
+  private String status;
 
   private BookingType bookingType;
 
@@ -48,6 +50,8 @@ public class BookingSearchCriteriaTo extends AbstractSearchCriteriaTo {
   private StringSearchConfigTo commentOption;
 
   private StringSearchConfigTo emailOption;
+  
+  private StringSearchConfigTo statusOption;
 
   /**
    * The constructor.
@@ -72,7 +76,15 @@ public class BookingSearchCriteriaTo extends AbstractSearchCriteriaTo {
     return this.bookingToken;
   }
 
-  public void setBookingToken(String bookingToken) {
+  public String getStatus() {
+		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+public void setBookingToken(String bookingToken) {
 
     this.bookingToken = bookingToken;
   }
@@ -250,5 +262,9 @@ public class BookingSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
     this.emailOption = emailOption;
   }
+
+	public StringSearchConfigTo getStatusOption() {
+		return this.statusOption;
+	}
 
 }
