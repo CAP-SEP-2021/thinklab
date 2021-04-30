@@ -50,6 +50,7 @@ CREATE TABLE Booking (
   creationDate TIMESTAMP,
   canceled BOOLEAN NOT NULL DEFAULT ((0)) ,
   status VARCHAR(255),
+  bezahlt BOOLEAN NOT NULL DEFAULT ((0)),
   bookingType INTEGER,
   idTable BIGINT,
   idOrder BIGINT,

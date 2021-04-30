@@ -30,9 +30,12 @@ public interface BookingRepository extends DefaultRepository<BookingEntity> {
 
   @Transactional
   @Modifying
-  @Query("UPDATE BookingEntity SET status = :token" //
-		      + " WHERE BOOKINGTOKEN = 'CB_20170509_123502555Z'")
-  void updatestatus(@Param("token") String token);
+  @Query("UPDATE BookingEntity SET status = :status, bezahlt = :bezahlt" //
+		      + " WHERE BOOKINGTOKEN = :token")
+  void updateStatus(@Param("token") String token,
+		  			@Param("status") String status,		  			
+		  			@Param("bezahlt") boolean bezahlt);
+
   /**
    * @param token
    * @return the {@link BookingEntity} objects that matched the search.
@@ -86,6 +89,10 @@ public interface BookingRepository extends DefaultRepository<BookingEntity> {
     Boolean canceled = criteria.getCanceled();
     if (canceled != null) {
       query.where(Alias.$(alias.getCanceled()).eq(canceled));
+    }
+    Boolean bezahlt = criteria.getBezahlung();
+    if (bezahlt != null) {
+      query.where(Alias.$(alias.getBezahlt()).eq(bezahlt));
     }
     BookingType bookingType = criteria.getBookingType();
     if (bookingType != null) {
