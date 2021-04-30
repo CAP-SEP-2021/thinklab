@@ -109,12 +109,15 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     "/services/rest/usermanagement/v1/user/*",
     "/services/rest/usermanagement/v1/user/**",
     /*
-     * 
+     * from capgimini
      */
     "/services/rest/bookingmanagement/v1/booking/",
     "/services/rest/bookingmanagement/v1/booking/*",
     "/services/rest/bookingmanagement/v1/booking/**",
-    
+    /*
+     * for external testing via postman to updating payment status and booking status
+     * https://github.com/LillYttrium/sep-my-thai-star/commit/e2eb0e698515c84b9d7b86e69b6df5ba6239009c
+     */
     "/services/rest/bookingmanagement/v1/bookingupdate/",
     "/services/rest/bookingmanagement/v1/bookingupdate/*",
     "/services/rest/bookingmanagement/v1/bookingupdate/**"};
