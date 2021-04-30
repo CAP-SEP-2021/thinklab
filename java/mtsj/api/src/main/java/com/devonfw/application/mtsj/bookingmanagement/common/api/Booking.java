@@ -43,9 +43,9 @@ public interface Booking extends ApplicationEntity {
   
   public String getStatus();
   
-  public void setBezahlt(boolean bezahlt);
+//  public void setBezahlt(boolean bezahlt);
   
-  public boolean getBezahlt();
+//  public boolean getBezahlt();
 
   public BookingType getBookingType();
 

@@ -22,6 +22,7 @@ public class BookingEto extends AbstractEto implements Booking {
 	  add(new String("Bestellung aufgenommen"));
 	  add(new String("Essen wird zubereitet"));
 	  add(new String("Essen wird ausgeliefert"));
+	  add(new String("Bezahlt"));
   }};
 
   @NotNull
@@ -47,7 +48,7 @@ public class BookingEto extends AbstractEto implements Booking {
   
   private String status;
   
-  private boolean bezahlt;
+//  private boolean bezahlt;
 
   private BookingType bookingType;
 
@@ -190,7 +191,7 @@ public class BookingEto extends AbstractEto implements Booking {
     result = prime * result + (this.canceled ? 1231 : 1237);
     result = prime * result + ((this.comment == null) ? 0 : this.comment.hashCode());
     result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
-    result = prime * result + (this.bezahlt ? 1231 : 1237);
+//    result = prime * result + (this.bezahlt ? 1231 : 1237);
     result = prime * result + ((this.creationDate == null) ? 0 : this.creationDate.hashCode());
     result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
     result = prime * result + ((this.expirationDate == null) ? 0 : this.expirationDate.hashCode());
@@ -241,8 +242,8 @@ public class BookingEto extends AbstractEto implements Booking {
       if (this.status == null) {
         if (other.status != null)
           return false;
-    } else if (this.bezahlt != other.bezahlt) {
-          return false;
+//    } else if (this.bezahlt != other.bezahlt) {
+//          return false;
     } else if (!this.email.equals(other.email))
       return false;
     if (this.expirationDate == null) {
@@ -319,14 +320,14 @@ public class BookingEto extends AbstractEto implements Booking {
 		return this.status;
 	}
 
-	@Override
-	public void setBezahlt(boolean bezahlt) {
-		this.bezahlt = bezahlt;
-	}
-
-	@Override
-	public boolean getBezahlt() {
-		return this.bezahlt;
-	}
+//	@Override
+//	public void setBezahlt(boolean bezahlt) {
+//		this.bezahlt = bezahlt;
+//	}
+//
+//	@Override
+//	public boolean getBezahlt() {
+//		return this.bezahlt;
+//	}
 
 }

@@ -204,7 +204,8 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
   public BookingEto updateBooking(BookingCto booking) {
 	Objects.requireNonNull(booking, "booking");
 	BookingEntity bookingEntity = getBeanMapper().map(booking.getBooking(), BookingEntity.class);
-	getBookingDao().updateStatus(bookingEntity.getBookingToken(), bookingEntity.getStatus(), bookingEntity.getBezahlt());
+//	getBookingDao().updateStatus(bookingEntity.getBookingToken(), bookingEntity.getStatus(), bookingEntity.getBezahlt());
+	getBookingDao().updateStatus(bookingEntity.getBookingToken(), bookingEntity.getStatus());
 	return getBeanMapper().map(bookingEntity, BookingEto.class);	
   }
   
