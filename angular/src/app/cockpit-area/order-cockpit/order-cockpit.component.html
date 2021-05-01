@@ -58,7 +58,26 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[2].label}} </th>
           <td mat-cell *matCellDef="let element"> {{element.booking.bookingToken}} </td>
         </ng-container>
+       <!-- Position Column 
+        <ng-container matColumnDef="booking.status" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="statusContainer"> {{columns[3].label}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.booking.status}} </td>
+        </ng-container> 
+      -->
+ 
+        <ng-container matColumnDef="booking.status" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="statusContainer"> {{columns[3].label}} </th>
+          <mat-cell *matCellDef="let element"  class="statusContainer" id="statusContainer" (click)="onEdit($event ,element)" >
+            <mat-select placeholder="{{element.booking.status}}"  class="statusContainer" id="statusContainer" class="statusOption" >
+              <mat-option value="Bestellung Aufgenommen"  class="statusContainer" id="statusContainer" (onSelectionChange)="change($event)" >Bestellung Aufgenommen</mat-option>
+              <mat-option value="Essen wird zubereitet"  class="statusContainer" id="statusContainer" (onSelectionChange)="change($event)" >Essen wird zubereitet</mat-option>
+              <mat-option value="Essen wird ausgeliefert"  class="statusContainer" id="statusContainer" (onSelectionChange)="change($event)" >Essen wird Ausgeliefert</mat-option>
+              <mat-option value="Bezahlt" class="statusContainer"  id="statusContainer" (onSelectionChange)="change($event)" > Bezahlt </mat-option>
+            </mat-select>
+          </mat-cell>
+        </ng-container>
 
+        
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selected(row)"></tr>
 

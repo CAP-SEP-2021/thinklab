@@ -43,6 +43,7 @@ export interface BookingView {
   tableId?: number;
   bookingToken?: number;
   creationDate?: string;
+  status ?:string;//@mo need to store the status 
 }
 
 export interface FriendsInvite {
