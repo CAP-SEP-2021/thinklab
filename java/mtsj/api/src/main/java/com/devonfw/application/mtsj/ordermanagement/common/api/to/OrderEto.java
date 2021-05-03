@@ -1,5 +1,7 @@
 package com.devonfw.application.mtsj.ordermanagement.common.api.to;
 
+import java.util.ArrayList;
+
 import com.devonfw.application.mtsj.ordermanagement.common.api.Order;
 import com.devonfw.module.basic.common.api.to.AbstractEto;
 
@@ -18,6 +20,13 @@ public class OrderEto extends AbstractEto implements Order {
   
   private String status;
 
+  private ArrayList<String> available_status = new ArrayList<String>() {{
+	  add(new String("Bestellung aufgenommen"));
+	  add(new String("Essen wird zubereitet"));
+	  add(new String("Essen wird ausgeliefert"));
+	  add(new String("Bezahlt"));
+  }};
+  
   /**
    * @return bookingToken
    */
@@ -67,7 +76,7 @@ public class OrderEto extends AbstractEto implements Order {
     int result = super.hashCode();
 
     result = prime * result + ((this.bookingId == null) ? 0 : this.bookingId.hashCode());
-
+    result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
     result = prime * result + ((this.invitedGuestId == null) ? 0 : this.invitedGuestId.hashCode());
 
     return result;
@@ -95,6 +104,13 @@ public class OrderEto extends AbstractEto implements Order {
     } else if (!this.bookingId.equals(other.bookingId)) {
       return false;
     }
+    
+    if (!this.status.equals(other.status))
+        return false;
+      if (this.status == null) {
+        if (other.status != null)
+          return false;
+      }
 
     if (this.invitedGuestId == null) {
       if (other.invitedGuestId != null) {
@@ -122,7 +138,16 @@ public class OrderEto extends AbstractEto implements Order {
 	@Override
 	public void setStatus(String status) {
 		
-		this.status = status;
+		for(String av_status : available_status) {
+			
+			if(status.equals(av_status)) {
+				
+				this.status = av_status;
+				return;
+			}
+		}
+		
+		this.status = "Bestellung Aufgenommen";
 	}
 	
 	@Override

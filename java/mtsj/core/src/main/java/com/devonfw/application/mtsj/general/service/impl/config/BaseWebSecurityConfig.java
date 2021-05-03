@@ -120,7 +120,11 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
      */
     "/services/rest/bookingmanagement/v1/bookingupdate/",
     "/services/rest/bookingmanagement/v1/bookingupdate/*",
-    "/services/rest/bookingmanagement/v1/bookingupdate/**"};
+    "/services/rest/bookingmanagement/v1/bookingupdate/**",
+    
+    "/services/rest/ordermanagement/v1/orderupdate/",
+    "/services/rest/ordermanagement/v1/orderupdate/*",
+    "/services/rest/ordermanagement/v1/orderupdate/**"};
     
     http.userDetailsService(this.userDetailsService).csrf().disable().exceptionHandling().and().sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()

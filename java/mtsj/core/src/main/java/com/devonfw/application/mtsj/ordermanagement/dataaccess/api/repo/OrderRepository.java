@@ -3,8 +3,10 @@ package com.devonfw.application.mtsj.ordermanagement.dataaccess.api.repo;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderSearchCriteriaTo;
 import com.devonfw.application.mtsj.ordermanagement.dataaccess.api.OrderEntity;
@@ -17,6 +19,13 @@ import com.querydsl.jpa.impl.JPAQuery;
  * {@link DefaultRepository} for {@link OrderEntity}.
  */
 public interface OrderRepository extends DefaultRepository<OrderEntity> {
+
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE OrderEntity SET status = :status" //
+			+ " WHERE id = :id")
+	void updateStatus(@Param("id") Long id, @Param("status") String status);
 
   /**
    * @param idBooking

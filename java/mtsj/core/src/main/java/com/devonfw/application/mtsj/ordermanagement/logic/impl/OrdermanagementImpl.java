@@ -25,6 +25,7 @@ import com.devonfw.application.mtsj.bookingmanagement.common.api.datatype.Bookin
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingCto;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingEto;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.InvitedGuestEto;
+import com.devonfw.application.mtsj.bookingmanagement.dataaccess.api.BookingEntity;
 import com.devonfw.application.mtsj.bookingmanagement.logic.api.Bookingmanagement;
 import com.devonfw.application.mtsj.dishmanagement.common.api.Ingredient;
 import com.devonfw.application.mtsj.dishmanagement.common.api.to.DishCto;
@@ -232,6 +233,16 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
     return true;
   }
 
+  @Override
+  public OrderEto updateOrder(OrderCto order) {
+	Objects.requireNonNull(order, "order");
+	
+	OrderEntity orderEntity = getBeanMapper().map(order.getOrder(), OrderEntity.class);
+//	getBookingDao().updateStatus(bookingEntity.getBookingToken(), bookingEntity.getStatus(), bookingEntity.getBezahlt());
+	getOrderDao().updateStatus(orderEntity.getId(), orderEntity.getStatus());
+	return getBeanMapper().map(orderEntity, OrderEto.class);	
+  }
+  
   @Override
   public OrderEto saveOrder(OrderCto order) {
 
