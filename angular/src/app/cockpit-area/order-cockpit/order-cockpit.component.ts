@@ -89,23 +89,19 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   this.tempData.status = option ;
   let temp = {order: { id:this.tempData.id   , "status": option }  };
      this.waiterCockpitService.postOrderStauts(temp).subscribe((data: any) => {
-     
-      console.log("reponse ata printed ");   console.log(data); 
+      this.applyFilters();
     });
+     
 
-   this.applyFilters();
 
   
 }
 
-  onEdit(event :any , selection: OrderListView): void {
+  onEdit(event :any , selection: OrderListView): void {//@mo change and delete it later 
     this.setRowtempData(selection.order);
-
-
   }
   setRowtempData(order : SaveOrderResponse): void{
     this.tempData=order;
-  
   }
 
 

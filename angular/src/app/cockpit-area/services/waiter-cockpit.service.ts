@@ -60,11 +60,11 @@ temp :any;
     );
   }
 
-  postOrderStauts(bookInfo: any): Observable<any> {
+  postOrderStauts(orderInfo: any): Observable<any> {
    
       this.temp = this.restServiceRoot$.pipe(
         exhaustMap((restServiceRoot) =>
-          this.http.post(`${restServiceRoot}${this.orderUpdateRestPath}`, bookInfo),
+          this.http.post(`${restServiceRoot}${this.orderUpdateRestPath}`, orderInfo),
         ),
       );
      
