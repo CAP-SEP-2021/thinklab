@@ -5,7 +5,8 @@ import {
   Pageable,
   Sort,
 } from 'app/shared/backend-models/interfaces';
-import { cloneDeep, map } from 'lodash';
+import { cloneDeep, map, template } from 'lodash';
+import { BookingInfo } from 'app/shared/backend-models/interfaces';
 import { Observable } from 'rxjs';
 import { exhaustMap } from 'rxjs/operators';
 import { ConfigService } from '../../core/config/config.service';
@@ -25,11 +26,12 @@ export class WaiterCockpitService {
     'ordermanagement/v1/order/search';
   private readonly filterOrdersRestPath: string =
     'ordermanagement/v1/order/search';
-
+  private readonly orderUpdateRestPath: string =
+    'ordermanagement/v1/orderupdate';
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
-
+temp :any;
   constructor(
     private http: HttpClient,
     private priceCalculator: PriceCalculatorService,
@@ -57,6 +59,19 @@ export class WaiterCockpitService {
       ),
     );
   }
+
+  postOrderStauts(orderInfo: any): Observable<any> {
+   
+      this.temp = this.restServiceRoot$.pipe(
+        exhaustMap((restServiceRoot) =>
+          this.http.post(`${restServiceRoot}${this.orderUpdateRestPath}`, orderInfo),
+        ),
+      );
+     
+      return this.temp;
+    }
+  
+
 
   getReservations(
     pageable: Pageable,

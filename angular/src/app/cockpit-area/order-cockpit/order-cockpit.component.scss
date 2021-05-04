@@ -7,7 +7,19 @@
   border-bottom: 1px solid lightgrey;
   font-size: 16px;
 }
+.statusHeader{
+min-width: 400px;
+padding-left: 25px;
+}
 
+.statusCell{
+  max-height: fit-content;
+  margin-top: 13px;
+  padding-bottom: 6px;
+  padding-right: 7px;
+ 
+  }
+  
 .formDesktopRow {
   flex: 1;
   justify-content: space-around;

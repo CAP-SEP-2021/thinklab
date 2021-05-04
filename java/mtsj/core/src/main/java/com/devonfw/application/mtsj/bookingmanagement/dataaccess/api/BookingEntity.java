@@ -39,6 +39,8 @@ public class BookingEntity extends ApplicationPersistenceEntity implements Booki
   private String email;
 
   private boolean canceled;
+  
+//  private boolean bezahlt;
 
   private BookingType bookingType;
 
@@ -392,5 +394,15 @@ public class BookingEntity extends ApplicationPersistenceEntity implements Booki
       this.user = userEntity;
     }
   }
+  
+//	@Override
+//	public void setBezahlt(boolean bezahlt) {
+//		this.bezahlt = bezahlt;
+//	}
+//
+//	@Override
+//	public boolean getBezahlt() {
+//		return this.bezahlt;
+//	}
 
 }

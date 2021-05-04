@@ -43,6 +43,7 @@ export interface BookingView {
   tableId?: number;
   bookingToken?: number;
   creationDate?: string;
+  status ?:string;//@mo need to store the status delete it later 
 }
 
 export interface FriendsInvite {
@@ -86,6 +87,7 @@ export interface OrderViewResult {
 export interface OrderListView {
   orderLines: OrderView[];
   booking: BookingView;
+  order?:SaveOrderResponse ;
 }
 
 export interface OrderDishListView {
@@ -143,6 +145,7 @@ export interface SaveOrderResponse {
   invitedGuestId: number;
   modificationCounter: number;
   revision: any;
+  status?: string;//@mo need to store the status 
 }
 
 // Roles

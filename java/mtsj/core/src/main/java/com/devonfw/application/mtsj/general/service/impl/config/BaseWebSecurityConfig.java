@@ -96,11 +96,39 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     "/services/rest/bookingmanagement/v1/invitedguest/accept/**",
     "/services/rest/bookingmanagement/v1/invitedguest/decline/**",
     "/services/rest/ordermanagement/v1/order/cancelorder/**",
+    /*
+     * https://github.com/LillYttrium/sep-my-thai-star/commit/d5ef5244b2b5378157a8f5402727c3a7a5ba4205
+     * Adding h2-compatibility
+     */
     "/h2-console/***", "/h2-console/", "/h2-console",
+    /*
+     * https://github.com/LillYttrium/sep-my-thai-star/commit/8b5c8d117bf26f435da90eca5739a84806df1a35
+     * Fixed password issue, adding urls for external testing via postman
+     */
     "/services/rest/usermanagement/v1/user/",
     "/services/rest/usermanagement/v1/user/*",
-    "/services/rest/usermanagement/v1/user/**"};
-
+    "/services/rest/usermanagement/v1/user/**",
+    /*
+     * from capgimini
+     */
+    "/services/rest/bookingmanagement/v1/booking/",
+    "/services/rest/bookingmanagement/v1/booking/*",
+    "/services/rest/bookingmanagement/v1/booking/**",
+    /*
+     * for external testing via postman to updating payment status and booking status
+     * https://github.com/LillYttrium/sep-my-thai-star/commit/e2eb0e698515c84b9d7b86e69b6df5ba6239009c
+     */
+    "/services/rest/bookingmanagement/v1/bookingupdate/",
+    "/services/rest/bookingmanagement/v1/bookingupdate/*",
+    "/services/rest/bookingmanagement/v1/bookingupdate/**",
+    /*
+     * for external testing via postman to update order status
+     * https://github.com/LillYttrium/sep-my-thai-star/commit/d63ed9b2261ca1dd727d69318c2a8b49bb6090c3
+     */
+    "/services/rest/ordermanagement/v1/orderupdate/",
+    "/services/rest/ordermanagement/v1/orderupdate/*",
+    "/services/rest/ordermanagement/v1/orderupdate/**"};
+    
     http.userDetailsService(this.userDetailsService).csrf().disable().exceptionHandling().and().sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
         .antMatchers(unsecuredResources).permitAll().antMatchers(HttpMethod.POST, "/login").permitAll().anyRequest()

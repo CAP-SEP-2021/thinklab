@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Sort as MaterialSort} from '@angular/material/sort';
@@ -7,11 +7,12 @@ import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '../../core/config/config.service';
 import {
+  BookingInfo,
   FilterCockpit,
   Pageable,
   Sort,
 } from '../../shared/backend-models/interfaces';
-import { OrderListView } from '../../shared/view-models/interfaces';
+import { BookingView, OrderListView, ReservationView, SaveOrderResponse } from '../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../services/waiter-cockpit.service';
 import { OrderDialogComponent } from './order-dialog/order-dialog.component';
 
@@ -36,22 +37,34 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   orders: OrderListView[] = [];
   totalOrders: number;
 
-  columns: {name: String, label: String}[];
+  columns: any[];
+  tempData : SaveOrderResponse ; 
 
   displayedColumns: string[] = [
     'booking.bookingDate',
     'booking.email',
     'booking.bookingToken',
+    'booking.status'
   ];
+  status: string[] = [
+    'Bestellung Aufgenommen',
+    'Essen wird zubereitet',
+    'Essen wird ausgeliefert',
+    'Bezahlt'
+  ];
+  status2 :any []; 
 
+  
   pageSizes: number[];
 
   filters: FilterCockpit = {
     bookingDate: undefined,
     email: undefined,
     bookingToken: undefined,
+    status : undefined //@mo added to comlete the structure 
+   
   };
-
+  reslut :any ;
   constructor(
     private dialog: MatDialog,
     private translocoService: TranslocoService,
@@ -64,10 +77,35 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.applyFilters();
     this.translocoService.langChanges$.subscribe((event: any) => {
-      this.setTableHeaders(event);
-      moment.locale(this.translocoService.getActiveLang());
+    this.setTableHeaders(event);
+    moment.locale(this.translocoService.getActiveLang());
     });
   }
+  tabeldataInit (){
+    
+  }
+  change( option, event) :void
+  {
+
+  this.tempData.status = option ;
+  let temp = {order: { id:this.tempData.id   , "status": option }  };
+     this.waiterCockpitService.postOrderStauts(temp).subscribe((data: any) => {
+      this.applyFilters();
+    });
+     
+
+
+  
+}
+
+  onEdit(event :any , selection: OrderListView): void {//@mo change and delete it later 
+    this.setRowtempData(selection.order);
+  }
+  setRowtempData(order : SaveOrderResponse): void{
+    this.tempData=order;
+  }
+
+
 
   setTableHeaders(lang: string): void {
     this.translocoSubscription = this.translocoService
@@ -77,11 +115,19 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
           { name: 'booking.email', label: cockpitTable.emailH },
           { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
+          { name: 'booking.status', label: cockpitTable.statusH }
+        ];
+        this.status2 = [
+            cockpitTable.statusHtaken ,
+           cockpitTable.statusHprepared ,
+          cockpitTable.statusHdelivered ,
+           cockpitTable.statusHPaid
         ];
       });
   }
 
   applyFilters(): void {
+    console.log("First getOrders" );
     this.waiterCockpitService
       .getOrders(this.pageable, this.sorting, this.filters)
       .subscribe((data: any) => {
@@ -89,6 +135,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           this.orders = [];
         } else {
           this.orders = data.content;
+          console.log(this.orders);
         }
         this.totalOrders = data.totalElements;
       });
@@ -119,8 +166,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     }
     this.applyFilters();
   }
-
-  selected(selection: OrderListView): void {
+  selected(selection: OrderListView ): void {
     this.dialog.open(OrderDialogComponent, {
       width: '80%',
       data: selection,

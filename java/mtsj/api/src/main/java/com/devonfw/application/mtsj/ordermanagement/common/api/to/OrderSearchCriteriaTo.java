@@ -19,6 +19,8 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
   private Long hostId;
 
   private String email;
+  
+  private String status;
 
   private String bookingToken;
 
@@ -91,8 +93,18 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
     this.email = email;
   }
+  
+  
 
-  /**
+  	public String getStatus() {
+		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+/**
    * @return bookingToken
    */
   public String getBookingToken() {

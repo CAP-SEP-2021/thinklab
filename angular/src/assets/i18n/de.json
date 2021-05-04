@@ -201,7 +201,15 @@
       "bookingTokenH": "Referenznummer",
       "ownerH": "Eigentümer",
       "tableH": "Tisch",
+      "statusH" : "Status",
+      "statusHPaid" : "Bezahlt",
+      "statusHtaken" :"Bestellung Aufgenommen",
+      "statusHprepared": "Essen wird zubereitet",
+      "statusHdelivered":"Essen wird ausgeliefert",
       "creationDateH": "Erstelldatum"
     }
   }
+
+
+
 }

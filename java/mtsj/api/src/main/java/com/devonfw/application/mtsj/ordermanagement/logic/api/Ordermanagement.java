@@ -2,6 +2,8 @@ package com.devonfw.application.mtsj.ordermanagement.logic.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderCto;
@@ -116,5 +118,7 @@ public interface Ordermanagement {
   OrderLineEto saveOrderLine(OrderLineEto orderLine);
 
   Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo criteria);
+
+  OrderEto updateOrder(@Valid OrderCto order);
 
 }

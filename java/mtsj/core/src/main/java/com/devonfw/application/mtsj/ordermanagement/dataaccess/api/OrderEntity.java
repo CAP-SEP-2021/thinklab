@@ -27,6 +27,8 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
   private static final long serialVersionUID = 1L;
 
   private BookingEntity booking;
+  
+  private String status;
 
   private InvitedGuestEntity invitedGuest;
 
@@ -170,5 +172,17 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
       this.host = bookingEntity;
     }
   }
+
+	@Override
+	public void setStatus(String status) {
+		
+		this.status = status == null ? "In Bearbeitung" : status;
+	}
+	
+	@Override
+	public String getStatus() {
+
+		return this.status;
+	}
 
 }

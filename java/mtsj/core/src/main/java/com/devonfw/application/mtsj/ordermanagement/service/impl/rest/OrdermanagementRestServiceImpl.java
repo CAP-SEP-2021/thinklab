@@ -2,6 +2,7 @@ package com.devonfw.application.mtsj.ordermanagement.service.impl.rest;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
 
@@ -84,6 +85,12 @@ public class OrdermanagementRestServiceImpl implements OrdermanagementRestServic
   public Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo searchCriteriaTo){
 
     return this.ordermanagement.findOrderedDishes(searchCriteriaTo);
+  }
+  
+  @Override
+  public OrderEto updateOrder(@Valid OrderCto order) {
+  	// TODO Auto-generated method stub
+  	return this.ordermanagement.updateOrder(order);
   }
 
 }

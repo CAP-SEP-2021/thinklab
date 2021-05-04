@@ -9,12 +9,15 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +26,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.devonfw.application.mtsj.bookingmanagement.common.api.datatype.BookingType;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.exception.CancelInviteNotAllowedException;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingCto;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingEto;
@@ -103,6 +109,12 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     super();
   }
 
+  public boolean found(Long id) {
+	  BookingEntity entity = getBookingDao().find(id);
+	  System.out.println(entity.toString());
+	  return true;
+  }
+  
   @Override
   public BookingCto findBooking(Long id) {
 
@@ -185,7 +197,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     LOG.debug("The booking with id '{}' has been deleted.", bookingId);
     return true;
   }
-
+  
   @Override
   public BookingEto saveBooking(BookingCto booking) {
 
@@ -391,7 +403,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
 
     Objects.requireNonNull(bookingToken, "bookingToken");
     BookingCto bookingCto = findBookingByToken(bookingToken);
-
+    
     if (bookingCto != null) {
       if (!cancelInviteAllowed(bookingCto.getBooking())) {
         throw new CancelInviteNotAllowedException();

@@ -2,11 +2,18 @@ package com.devonfw.application.mtsj.bookingmanagement.dataaccess.api.repo;
 
 import static com.querydsl.core.alias.Alias.$;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.Instant;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.devonfw.application.mtsj.bookingmanagement.common.api.datatype.BookingType;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingSearchCriteriaTo;
@@ -21,6 +28,14 @@ import com.querydsl.jpa.impl.JPAQuery;
  */
 public interface BookingRepository extends DefaultRepository<BookingEntity> {
 
+//  @Transactional
+//  @Modifying
+//  @Query("UPDATE BookingEntity SET status = :status, bezahlt = :bezahlt" //
+//		      + " WHERE BOOKINGTOKEN = :token")
+//  void updateStatus(@Param("token") String token,
+//		  			@Param("status") String status,		  			
+//		  			@Param("bezahlt") boolean bezahlt);
+	
   /**
    * @param token
    * @return the {@link BookingEntity} objects that matched the search.
@@ -71,6 +86,10 @@ public interface BookingRepository extends DefaultRepository<BookingEntity> {
     if (canceled != null) {
       query.where(Alias.$(alias.getCanceled()).eq(canceled));
     }
+//    Boolean bezahlt = criteria.getBezahlung();
+//    if (bezahlt != null) {
+//      query.where(Alias.$(alias.getBezahlt()).eq(bezahlt));
+//    }
     BookingType bookingType = criteria.getBookingType();
     if (bookingType != null) {
       query.where(Alias.$(alias.getBookingType()).eq(bookingType));
