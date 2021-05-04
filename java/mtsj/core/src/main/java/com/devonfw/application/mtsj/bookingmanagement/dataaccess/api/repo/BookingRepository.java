@@ -35,13 +35,6 @@ public interface BookingRepository extends DefaultRepository<BookingEntity> {
 //  void updateStatus(@Param("token") String token,
 //		  			@Param("status") String status,		  			
 //		  			@Param("bezahlt") boolean bezahlt);
-
-  @Transactional
-  @Modifying
-  @Query("UPDATE BookingEntity SET status = :status" //
-		      + " WHERE BOOKINGTOKEN = :token")
-  void updateStatus(@Param("token") String token,
-		  			@Param("status") String status);	
 	
   /**
    * @param token
@@ -71,10 +64,6 @@ public interface BookingRepository extends DefaultRepository<BookingEntity> {
     String comment = criteria.getComment();
     if (comment != null && !comment.isEmpty()) {
       QueryUtil.get().whereString(query, $(alias.getComment()), comment, criteria.getCommentOption());
-    }
-    String status = criteria.getStatus();
-    if (status != null && !status.isEmpty()) {
-      QueryUtil.get().whereString(query, $(alias.getStatus()), status, criteria.getStatusOption());
     }
     Instant bookingDate = criteria.getBookingDate();
     if (bookingDate != null) {

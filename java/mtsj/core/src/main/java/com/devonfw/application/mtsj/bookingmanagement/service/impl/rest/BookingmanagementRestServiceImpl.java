@@ -117,9 +117,4 @@ public class BookingmanagementRestServiceImpl implements BookingmanagementRestSe
     this.bookingmanagement.cancelInvite(bookingToken);
   }
 
-@Override
-public BookingEto updateBooking(@Valid BookingCto booking) {
-	return this.bookingmanagement.updateBooking(booking);
-}
-
 }

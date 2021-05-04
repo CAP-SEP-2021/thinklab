@@ -197,17 +197,6 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     LOG.debug("The booking with id '{}' has been deleted.", bookingId);
     return true;
   }
-
-
-  
-  @Override
-  public BookingEto updateBooking(BookingCto booking) {
-	Objects.requireNonNull(booking, "booking");
-	BookingEntity bookingEntity = getBeanMapper().map(booking.getBooking(), BookingEntity.class);
-//	getBookingDao().updateStatus(bookingEntity.getBookingToken(), bookingEntity.getStatus(), bookingEntity.getBezahlt());
-	getBookingDao().updateStatus(bookingEntity.getBookingToken(), bookingEntity.getStatus());
-	return getBeanMapper().map(bookingEntity, BookingEto.class);	
-  }
   
   @Override
   public BookingEto saveBooking(BookingCto booking) {

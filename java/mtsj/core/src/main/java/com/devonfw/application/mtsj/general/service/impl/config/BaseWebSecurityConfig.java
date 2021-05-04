@@ -121,7 +121,10 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     "/services/rest/bookingmanagement/v1/bookingupdate/",
     "/services/rest/bookingmanagement/v1/bookingupdate/*",
     "/services/rest/bookingmanagement/v1/bookingupdate/**",
-    
+    /*
+     * for external testing via postman to update order status
+     * https://github.com/LillYttrium/sep-my-thai-star/commit/d63ed9b2261ca1dd727d69318c2a8b49bb6090c3
+     */
     "/services/rest/ordermanagement/v1/orderupdate/",
     "/services/rest/ordermanagement/v1/orderupdate/*",
     "/services/rest/ordermanagement/v1/orderupdate/**"};

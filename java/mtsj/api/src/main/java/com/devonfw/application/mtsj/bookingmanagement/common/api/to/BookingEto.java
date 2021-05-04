@@ -17,14 +17,7 @@ import com.devonfw.module.basic.common.api.to.AbstractEto;
 public class BookingEto extends AbstractEto implements Booking {
 	
   private static final long serialVersionUID = 1L;
-	
-  private ArrayList<String> available_status = new ArrayList<String>() {{
-	  add(new String("Bestellung aufgenommen"));
-	  add(new String("Essen wird zubereitet"));
-	  add(new String("Essen wird ausgeliefert"));
-	  add(new String("Bezahlt"));
-  }};
-
+  
   @NotNull
   private String name;
 
@@ -45,8 +38,6 @@ public class BookingEto extends AbstractEto implements Booking {
   private String email;
 
   private boolean canceled;
-  
-  private String status;
   
 //  private boolean bezahlt;
 
@@ -190,7 +181,6 @@ public class BookingEto extends AbstractEto implements Booking {
     result = prime * result + ((this.bookingType == null) ? 0 : this.bookingType.hashCode());
     result = prime * result + (this.canceled ? 1231 : 1237);
     result = prime * result + ((this.comment == null) ? 0 : this.comment.hashCode());
-    result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
 //    result = prime * result + (this.bezahlt ? 1231 : 1237);
     result = prime * result + ((this.creationDate == null) ? 0 : this.creationDate.hashCode());
     result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
@@ -237,11 +227,7 @@ public class BookingEto extends AbstractEto implements Booking {
     if (this.email == null) {
       if (other.email != null)
         return false;
-    } else if (!this.status.equals(other.status))
-        return false;
-      if (this.status == null) {
-        if (other.status != null)
-          return false;
+    
 //    } else if (this.bezahlt != other.bezahlt) {
 //          return false;
     } else if (!this.email.equals(other.email))
@@ -299,27 +285,6 @@ public class BookingEto extends AbstractEto implements Booking {
 
     this.userId = userId;
   }
-
-	@Override
-	public void setStatus(String status) {
-		
-		for(String av_status : available_status) {
-			
-			if(status.equals(av_status)) {
-				
-				this.status = av_status;
-				return;
-			}
-		}
-		
-		this.status = "Bestellung Aufgenommen";
-	}
-	
-	@Override
-	public String getStatus() {
-		return this.status;
-	}
-
 //	@Override
 //	public void setBezahlt(boolean bezahlt) {
 //		this.bezahlt = bezahlt;

@@ -156,6 +156,5 @@ public interface Bookingmanagement {
 
   String buildToken(String email, String type) throws NoSuchAlgorithmException;
 
-  BookingEto updateBooking(@Valid BookingCto booking);
 
 }

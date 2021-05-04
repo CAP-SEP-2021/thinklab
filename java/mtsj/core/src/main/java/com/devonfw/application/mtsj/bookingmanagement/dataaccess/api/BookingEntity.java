@@ -40,8 +40,6 @@ public class BookingEntity extends ApplicationPersistenceEntity implements Booki
 
   private boolean canceled;
   
-  private String status;
-  
 //  private boolean bezahlt;
 
   private BookingType bookingType;
@@ -397,14 +395,6 @@ public class BookingEntity extends ApplicationPersistenceEntity implements Booki
     }
   }
   
-  public String getStatus() {
-		return status;
-	}
-	
-	public void setStatus(String status) {
-		this.status = status == null ? "In Bearbeitung" : status;
-	}
-
 //	@Override
 //	public void setBezahlt(boolean bezahlt) {
 //		this.bezahlt = bezahlt;
