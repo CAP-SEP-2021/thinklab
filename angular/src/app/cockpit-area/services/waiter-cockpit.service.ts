@@ -26,8 +26,8 @@ export class WaiterCockpitService {
     'ordermanagement/v1/order/search';
   private readonly filterOrdersRestPath: string =
     'ordermanagement/v1/order/search';
-  private readonly bookingUpdateRestPath: string =
-    'bookingmanagement/v1/bookingupdate';
+  private readonly orderUpdateRestPath: string =
+    'ordermanagement/v1/orderupdate';
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
@@ -60,14 +60,14 @@ temp :any;
     );
   }
 
-  postBookingStauts(bookInfo: any): Observable<any> {
-    console.log("postBookingStauts lunched from the service.ts");
+  postOrderStauts(bookInfo: any): Observable<any> {
+   
       this.temp = this.restServiceRoot$.pipe(
         exhaustMap((restServiceRoot) =>
-          this.http.post(`${restServiceRoot}${this.bookingUpdateRestPath}`, bookInfo),
+          this.http.post(`${restServiceRoot}${this.orderUpdateRestPath}`, bookInfo),
         ),
       );
-      console.log("this is the response ",this.temp);
+     
       return this.temp;
     }
   

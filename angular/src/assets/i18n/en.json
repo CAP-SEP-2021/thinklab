@@ -196,6 +196,10 @@
       "bookingTokenH": "Reference Number",
       "statusH" : "Status",
       "ownerH": "Owner",
+      "statusHPaid" : "paid",
+      "statusHtaken" :"Order taken",
+      "statusHprepared": "Food is being prepared",
+      "statusHdelivered":"Food is delivered",
       "tableH": "Table",
       "creationDateH": "Creation date"
     }

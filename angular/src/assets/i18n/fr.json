@@ -198,6 +198,8 @@
       "bookingTokenH": "Numéro de référence",
       "ownerH": "Responsable",
       "tableH": "Tableau",
+      "statusH" : "Status",
+      "statusHBezahlt" : "france bezahlt",
       "creationDateH": "Date de création"
     }
   }

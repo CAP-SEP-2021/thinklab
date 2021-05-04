@@ -66,14 +66,23 @@
       -->
  
         <ng-container matColumnDef="booking.status" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header class="statusContainer"> {{columns[3].label}} </th>
-          <mat-cell *matCellDef="let element"  class="statusContainer" id="statusContainer" (click)="onEdit($event ,element)" >
-            <mat-select placeholder="{{element.booking.status}}"  class="statusContainer" id="statusContainer" class="statusOption" >
-              <mat-option value="Bestellung Aufgenommen"  class="statusContainer" id="statusContainer" (onSelectionChange)="change($event)" >Bestellung Aufgenommen</mat-option>
-              <mat-option value="Essen wird zubereitet"  class="statusContainer" id="statusContainer" (onSelectionChange)="change($event)" >Essen wird zubereitet</mat-option>
-              <mat-option value="Essen wird ausgeliefert"  class="statusContainer" id="statusContainer" (onSelectionChange)="change($event)" >Essen wird Ausgeliefert</mat-option>
-              <mat-option value="Bezahlt" class="statusContainer"  id="statusContainer" (onSelectionChange)="change($event)" > Bezahlt </mat-option>
-            </mat-select>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="statusHeader"> {{columns[3].label}} </th>
+          <mat-cell *matCellDef="let element"  class="statusCell" id="statusCell"  (click)="$event.stopPropagation();" appearance="fill">
+            
+         
+            
+             <mat-select [value]="option" class="statusSelect" placeholder="{{element.order.status}}" (click)="onEdit($event ,element)">
+                
+                <mat-option [value]="option"  *ngFor="let option of status" (click)="change(option,element)">{{ option }}</mat-option>
+              </mat-select> 
+
+         <!--    <mat-select   class="statusContainer" id="statusContainer" class="statusOption" (click)="onEdit($event ,element)">
+           <mat-option value="Bestellung Aufgenommen"  class="statusContainer" id="statusContainer" (click)="change(element)" >Bestellung Aufgenommen</mat-option>
+              <mat-option value="Essen wird zubereitet"  class="statusContainer" id="statusContainer" (change)="change($event)" >Essen wird zubereitet</mat-option>
+              <mat-option value="Essen wird ausgeliefert"  class="statusContainer" id="statusContainer" (change)="change($event )" >Essen wird Ausgeliefert</mat-option>
+              <mat-option value="Bezahlt" class="statusContainer"  id="statusContainer" (click)="change($event)" > Bezahlt </mat-option>
+      </mat-select>   -->
+            
           </mat-cell>
         </ng-container>
 
