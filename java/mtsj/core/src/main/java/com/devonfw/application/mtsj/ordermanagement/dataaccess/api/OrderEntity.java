@@ -29,6 +29,8 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
   private BookingEntity booking;
   
   private String status;
+  
+  private boolean canceled;
 
   private InvitedGuestEntity invitedGuest;
 
@@ -183,6 +185,16 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
 	public String getStatus() {
 
 		return this.status;
+	}
+
+	@Override
+	public boolean getCanceled() {
+		return this.canceled;
+	}
+
+	@Override
+	public void setCanceled(boolean canceled) {
+		this.canceled = canceled;
 	}
 
 }

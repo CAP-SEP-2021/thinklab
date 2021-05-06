@@ -47,7 +47,7 @@ public class OrdermanagementRestServiceImpl implements OrdermanagementRestServic
   @Override
   public void cancelOrder(long id) {
 
-    this.ordermanagement.deleteOrder(id);
+    this.ordermanagement.cancelOrder(id);
 
   }
 

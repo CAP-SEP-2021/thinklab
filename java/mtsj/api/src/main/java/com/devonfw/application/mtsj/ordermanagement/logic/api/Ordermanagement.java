@@ -75,6 +75,14 @@ public interface Ordermanagement {
    * @return boolean <code>true</code> if the order can be deleted, <code>false</code> otherwise
    */
   boolean deleteOrder(Long orderId);
+  
+  /**
+   * set the state canceled of a order from the database by its id 'orderId'.
+   *
+   * @param orderId Id of the order to change the state
+   * @return boolean <code>true</code> if the order can be deleted, <code>false</code> otherwise
+   */
+  boolean cancelOrder(Long orderId);
 
   /**
    * Saves a order and store it in the database.

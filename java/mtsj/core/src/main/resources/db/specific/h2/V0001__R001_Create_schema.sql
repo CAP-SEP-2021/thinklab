@@ -79,6 +79,7 @@ CREATE TABLE Orders (
   modificationCounter INTEGER NOT NULL,
   idBooking BIGINT NOT NULL,
   status VARCHAR (255),
+  canceled BOOLEAN,
   idInvitedGuest BIGINT,
   idHost BIGINT,
   CONSTRAINT PK_Order PRIMARY KEY(id),

@@ -1,12 +1,12 @@
-INSERT INTO Orders (id, modificationCounter, idBooking, status, idInvitedGuest, idHost) VALUES (0, 1, 0, 'Bestellung aufgenommen', null, 0);
-INSERT INTO Orders (id, modificationCounter, idBooking, status, idInvitedGuest, idHost) VALUES (1, 1, 3, 'Bestellung aufgenommen', 0, null);
-INSERT INTO Orders (id, modificationCounter, idBooking, status, idInvitedGuest, idHost) VALUES (2, 1, 3, 'Bestellung aufgenommen', 1, null);
-INSERT INTO Orders (id, modificationCounter, idBooking, status, idInvitedGuest, idHost) VALUES (3, 1, 3, 'Bestellung aufgenommen', 2, null);
-INSERT INTO Orders (id, modificationCounter, idBooking, status, idInvitedGuest, idHost) VALUES (4, 1, 3, 'Bestellung aufgenommen', 3, null);
-INSERT INTO Orders (id, modificationCounter, idBooking, status, idInvitedGuest, idHost) VALUES (5, 1, 3, 'Bestellung aufgenommen', 4, null);
+INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, idInvitedGuest, idHost) VALUES (0, 1, 0, 'Bestellung aufgenommen', false, null, 0);
+INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, idInvitedGuest, idHost) VALUES (1, 1, 3, 'Bestellung aufgenommen', false, 0, null);
+INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, idInvitedGuest, idHost) VALUES (2, 1, 3, 'Bestellung aufgenommen', false, 1, null);
+INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, idInvitedGuest, idHost) VALUES (3, 1, 3, 'Bestellung aufgenommen', false, 2, null);
+INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, idInvitedGuest, idHost) VALUES (4, 1, 3, 'Bestellung aufgenommen', false, 3, null);
+INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, idInvitedGuest, idHost) VALUES (5, 1, 3, 'Bestellung aufgenommen', false, 4, null);
 
-INSERT INTO Orders (id, modificationCounter, idBooking, status, idInvitedGuest, idHost) VALUES (6, 1, 4, 'Bestellung aufgenommen', 8, null);
-INSERT INTO Orders (id, modificationCounter, idBooking, status, idInvitedGuest, idHost) VALUES (7, 1, 4, 'Bestellung aufgenommen', 9, null);
+INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, idInvitedGuest, idHost) VALUES (6, 1, 4, 'Bestellung aufgenommen', false, 8, null);
+INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, idInvitedGuest, idHost) VALUES (7, 1, 4, 'Bestellung aufgenommen', false, 9, null);
 
 INSERT INTO OrderLine (id, modificationCounter, idDish, amount, comment, idOrder) VALUES (0, 1, 0, 2, 'please not too spicy', 0);
 INSERT INTO OrderLine (id, modificationCounter, idDish, amount, comment, idOrder) VALUES (1, 1, 4, 1, null, 0);

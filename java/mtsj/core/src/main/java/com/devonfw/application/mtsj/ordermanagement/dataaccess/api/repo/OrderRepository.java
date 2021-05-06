@@ -27,6 +27,13 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
 			+ " WHERE id = :id")
 	void updateStatus(@Param("id") Long id, @Param("status") String status);
 
+	// https://stackoverflow.com/questions/10317566/negate-unary-operator-in-hibernate-ql
+	@Transactional
+	@Modifying
+	@Query("UPDATE OrderEntity SET canceled = 1 - canceled" //
+			+ " WHERE id = :id")
+	void cancelOrder(@Param("id") Long id);
+	
   /**
    * @param idBooking
    * @return the list {@link OrderEntity} objects that matched the search.

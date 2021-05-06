@@ -214,6 +214,18 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
     return ctos;
   }
 
+	@Override
+	public boolean cancelOrder(Long orderId) {
+
+		try {
+			orderDao.cancelOrder(orderId);
+			return true;
+		} catch (Exception e) {
+			System.out.println("ORDER-ID for change cancel-state dont exists");
+			return false;
+		}
+	}
+  
   @Override
   public boolean deleteOrder(Long orderId) {
 
