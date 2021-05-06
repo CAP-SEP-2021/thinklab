@@ -21,6 +21,8 @@ public class OrderEto extends AbstractEto implements Order {
   private String status;
   
   private boolean canceled;
+  
+  private boolean archived;
 
   private ArrayList<String> available_status = new ArrayList<String>() {{
 	  add(new String("Bestellung aufgenommen"));
@@ -166,6 +168,16 @@ public class OrderEto extends AbstractEto implements Order {
 	@Override
 	public void setCanceled(boolean canceled) {
 		this.canceled = canceled;
+	}
+
+	@Override
+	public boolean getArchived() {
+		return this.archived;
+	}
+
+	@Override
+	public void setArchived(boolean archived) {
+		this.archived = archived;
 	}
 
 }

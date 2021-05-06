@@ -131,7 +131,15 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     /*
      * for external testing via postman for canceled states
      */
+    "/services/rest/ordermanagement/v1/order/cancelorder/*/",
+    "/services/rest/ordermanagement/v1/order/cancelorder/**/",
+    "/services/rest/ordermanagement/v1/order/cancelorder/**",
+    
     "/services/rest/ordermanagement/v1/order/*", "/services/rest/ordermanagement/v1/order/**",
+    "/services/rest/ordermanagement/v1/order/archived","/services/rest/ordermanagement/v1/order/archived/"
+    
+    
+    
     };
     
     http.userDetailsService(this.userDetailsService).csrf().disable().exceptionHandling().and().sessionManagement()

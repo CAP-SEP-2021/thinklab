@@ -36,6 +36,8 @@ public interface Ordermanagement {
    */
   Page<OrderCto> findOrdersByPost(OrderSearchCriteriaTo criteria);
 
+  Page<OrderCto> findArchivedOrders(OrderSearchCriteriaTo searchCriteriaTo);
+  
   /**
    * Returns a paginated list of Orders matching the search criteria.
    *
@@ -43,7 +45,7 @@ public interface Ordermanagement {
    * @return the {@link List} of matching {@link OrderCto}s.
    */
   Page<OrderCto> findOrderCtos(OrderSearchCriteriaTo criteria);
-
+  Page<OrderCto> findArchivedCtos(OrderSearchCriteriaTo searchCriteriaTo);
   /**
    * Returns the list of OrderCto
    *

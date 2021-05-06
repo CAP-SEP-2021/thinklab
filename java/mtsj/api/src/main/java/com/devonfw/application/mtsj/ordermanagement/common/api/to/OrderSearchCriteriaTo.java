@@ -22,6 +22,8 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 	private String email;
 
 	private String status;
+	
+	private boolean archived;
 
 	private boolean canceled;
 
@@ -32,6 +34,8 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 	private StringSearchConfigTo emailOption;
 
 	private StringSearchConfigTo bookingTokenOption;
+	
+	private StringSearchConfigTo archivedOption;
 
 	/**
 	 * The constructor.
@@ -103,6 +107,14 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 	public void setEmail(String email) {
 
 		this.email = email;
+	}
+	
+	public void setArchived(boolean archived) {
+		this.archived = archived;
+	}
+	
+	public boolean getArchived() {
+		return this.archived;
 	}
 
 	public String getStatus() {
@@ -177,4 +189,11 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 		this.bookingTokenOption = bookingTokenOption;
 	}
 
+	public StringSearchConfigTo getArchivedOption() {
+		return archivedOption;
+	}
+
+	public void setArchivedOption(StringSearchConfigTo archivedOption) {
+		this.archivedOption = archivedOption;
+	}	
 }

@@ -31,6 +31,8 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
   private String status;
   
   private boolean canceled;
+  
+  private boolean archived;
 
   private InvitedGuestEntity invitedGuest;
 
@@ -178,7 +180,7 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
 	@Override
 	public void setStatus(String status) {
 		
-		this.status = status == null ? "In Bearbeitung" : status;
+		this.status = status == null ? "Bestellung aufgenommen" : status;
 	}
 	
 	@Override
@@ -195,6 +197,16 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
 	@Override
 	public void setCanceled(boolean canceled) {
 		this.canceled = canceled;
+	}
+
+	@Override
+	public boolean getArchived() {
+		return this.archived;
+	}
+
+	@Override
+	public void setArchived(boolean archived) {
+		this.archived = archived;
 	}
 
 }
