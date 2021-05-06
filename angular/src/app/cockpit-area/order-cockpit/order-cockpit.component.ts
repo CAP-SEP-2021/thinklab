@@ -167,6 +167,8 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     this.applyFilters();
   }
   selected(selection: OrderListView ): void {
+    console.log("this is the selection  data ");
+    console.log(selection);
     this.dialog.open(OrderDialogComponent, {
       width: '80%',
       data: selection,

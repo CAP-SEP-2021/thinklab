@@ -28,6 +28,8 @@ export class WaiterCockpitService {
     'ordermanagement/v1/order/search';
   private readonly orderUpdateRestPath: string =
     'ordermanagement/v1/orderupdate';
+    private readonly orderCancelRestPath: string =
+    'ordermanagement/v1/order/cancelorder';
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
@@ -59,7 +61,18 @@ temp :any;
       ),
     );
   }
-
+  
+  getCancelOrder(id :number): Observable<any> {
+    var tempId= "/" +id.toString() + "/";
+    console.log(tempId);
+    this.temp = this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.get(`${restServiceRoot}${this.orderCancelRestPath}${tempId}`),
+      ),
+    );
+   
+    return this.temp;
+  }
   postOrderStauts(orderInfo: any): Observable<any> {
    
       this.temp = this.restServiceRoot$.pipe(
