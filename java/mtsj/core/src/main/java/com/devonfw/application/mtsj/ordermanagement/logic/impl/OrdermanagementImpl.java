@@ -3,6 +3,9 @@ package com.devonfw.application.mtsj.ordermanagement.logic.impl;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -191,7 +194,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		/*
 		 * Default-Init for main-page default is archived = False
 		 */
-		criteria.setArchived(false);
+		//criteria.setArchived(false);
 
 		List<OrderCto> ctos = new ArrayList<>();
 		Page<OrderCto> pagListTo = null;
@@ -199,6 +202,13 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		for (OrderEntity order : orders.getContent()) {
 			processOrders(ctos, order);
 		}
+		
+//		Collections.sort(ctos, new Comparator<OrderCto>() {
+//			@Override
+//			public int compare(OrderCto o1, OrderCto o2) {
+//				return o1.getBooking().getBookingDate().compareTo(o2.getBooking().getBookingDate());
+//			}
+//		});
 
 		if (ctos.size() > 0) {
 			Pageable pagResultTo = PageRequest.of(criteria.getPageable().getPageNumber(), ctos.size());
