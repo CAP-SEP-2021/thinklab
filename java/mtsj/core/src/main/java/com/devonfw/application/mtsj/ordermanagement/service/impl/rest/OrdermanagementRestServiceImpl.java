@@ -75,6 +75,12 @@ public class OrdermanagementRestServiceImpl implements OrdermanagementRestServic
 
 		return this.ordermanagement.saveOrderLine(orderline);
 	}
+	
+	@Override
+	public OrderLineEto updateOrderLine(OrderLineEto orderline) {
+
+		return this.ordermanagement.updateOrderLine(orderline);
+	}
 
 	@Override
 	public void deleteOrderLine(long id) {

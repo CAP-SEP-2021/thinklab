@@ -401,6 +401,22 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		return getBeanMapper().map(resultEntity, OrderLineEto.class);
 	}
 
+	@Override
+	public OrderLineEto updateOrderLine(OrderLineEto orderLine) {
+
+		// mapping of the new orderline
+		Objects.requireNonNull(orderLine, "orderLine");
+		OrderLineEntity orderLineEntity = getBeanMapper().map(orderLine, OrderLineEntity.class);
+		
+		// find and prepare the already existing orderline
+		OrderLineEntity toFind = orderLineDao.find(orderLineEntity.getId());
+		orderLineEntity.setModificationCounter(toFind.getModificationCounter());
+		
+		// update and return the new orderline
+		OrderLineEntity resultOrderLineEntity = getOrderLineDao().save(orderLineEntity);
+		return getBeanMapper().map(resultOrderLineEntity, OrderLineEto.class);
+	}
+	
 	/**
 	 * Returns the field 'orderLineDao'.
 	 *

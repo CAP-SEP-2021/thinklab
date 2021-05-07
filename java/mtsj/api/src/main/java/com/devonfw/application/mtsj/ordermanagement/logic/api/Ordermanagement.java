@@ -126,6 +126,8 @@ public interface Ordermanagement {
    * @return the new {@link OrderLineEto} that has been saved with ID and version.
    */
   OrderLineEto saveOrderLine(OrderLineEto orderLine);
+  
+  OrderLineEto updateOrderLine(OrderLineEto orderLine);
 
   Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo criteria);
 

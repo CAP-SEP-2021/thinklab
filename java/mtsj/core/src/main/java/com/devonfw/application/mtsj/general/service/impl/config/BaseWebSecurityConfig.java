@@ -136,8 +136,13 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     "/services/rest/ordermanagement/v1/order/cancelorder/**",
     
     "/services/rest/ordermanagement/v1/order/*", "/services/rest/ordermanagement/v1/order/**",
-    "/services/rest/ordermanagement/v1/order/archived","/services/rest/ordermanagement/v1/order/archived/"
-    
+    "/services/rest/ordermanagement/v1/order/archived","/services/rest/ordermanagement/v1/order/archived/",
+    /*
+     * for external testing with delete, add and update orderline via postman
+     */
+    "/services/rest/ordermanagement/v1/orderline/*", "/services/rest/ordermanagement/v1/order/**",
+    "/services/rest/ordermanagement/v1/orderline/", "/services/rest/ordermanagement/v1/orderline",
+    "/services/rest/ordermanagement/v1/orderlineupdate","/services/rest/ordermanagement/v1/orderlineupdate/"
     
     
     };
