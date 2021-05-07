@@ -303,7 +303,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 //	getBookingDao().updateStatus(bookingEntity.getBookingToken(), bookingEntity.getStatus(), bookingEntity.getBezahlt());
 		getOrderDao().updateStatus(orderEntity.getId(), orderEntity.getStatus());
 		
-		if(orderEntity.getStatus().equals("Bezahlt")) {
+		if(orderEntity.getStatus().equals("Paid")) {
 			getOrderDao().archiveOrder(orderEntity.getId());
 		}
 		

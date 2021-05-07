@@ -180,7 +180,7 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
 	@Override
 	public void setStatus(String status) {
 		
-		this.status = status == null ? "Bestellung aufgenommen" : status;
+		this.status = status == null ? "Order placed" : status;
 	}
 	
 	@Override

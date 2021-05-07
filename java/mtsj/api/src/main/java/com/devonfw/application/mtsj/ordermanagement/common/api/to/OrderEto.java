@@ -25,10 +25,10 @@ public class OrderEto extends AbstractEto implements Order {
   private boolean archived;
 
   private ArrayList<String> available_status = new ArrayList<String>() {{
-	  add(new String("Bestellung aufgenommen"));
-	  add(new String("Essen wird zubereitet"));
-	  add(new String("Essen wird ausgeliefert"));
-	  add(new String("Bezahlt"));
+	  add(new String("Order placed"));
+	  add(new String("Food is prepared"));
+	  add(new String("Food is delivered"));
+	  add(new String("Paid"));
   }};
   
   /**
@@ -216,7 +216,7 @@ public boolean equals(Object obj) {
 			}
 		}
 		
-		this.status = "Bestellung Aufgenommen";
+		this.status = "Order placed";
 	}
 	
 	@Override
