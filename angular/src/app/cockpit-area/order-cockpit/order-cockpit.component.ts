@@ -44,7 +44,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     'booking.bookingDate',
     'booking.email',
     'booking.bookingToken',
-    'order.status'
+    'status'
   ];
   status: string[] = [
     'Bestellung Aufgenommen',
@@ -115,7 +115,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
           { name: 'booking.email', label: cockpitTable.emailH },
           { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
-          { name: 'order.status', label: cockpitTable.statusH }
+          { name: 'status', label: cockpitTable.statusH }
         ];
         this.status2 = [
             cockpitTable.statusHtaken ,
