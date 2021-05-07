@@ -65,7 +65,7 @@
         </ng-container> 
       -->
  
-        <ng-container matColumnDef="booking.status" >
+        <ng-container matColumnDef="order.status" >
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="statusHeader"> {{columns[3].label}} </th>
           <mat-cell *matCellDef="let element"  class="statusCell" id="statusCell"  (click)="$event.stopPropagation();" appearance="fill">
             
@@ -98,4 +98,8 @@
     </div>
     <mat-paginator #pagingBar [length]="totalOrders" [pageSize]="pageSize" [pageSizeOptions]="pageSizes" [showFirstLastButtons]="true" (page)="page($event)">
     </mat-paginator>
+    <div class="left-btn">
+      <button mat-button  color="blue"><mat-icon></mat-icon>Bestellung bearbeiten</button>
+      <button mat-stroked-button color="warn" >Archiv anzeigen</button>
+    </div>
   </mat-card>
