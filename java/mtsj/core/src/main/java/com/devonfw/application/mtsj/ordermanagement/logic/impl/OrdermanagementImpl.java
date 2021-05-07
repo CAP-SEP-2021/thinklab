@@ -194,7 +194,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		/*
 		 * Default-Init for main-page default is archived = False
 		 */
-		//criteria.setArchived(false);
+		criteria.setArchived(false);
 
 		List<OrderCto> ctos = new ArrayList<>();
 		Page<OrderCto> pagListTo = null;
@@ -202,6 +202,17 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		for (OrderEntity order : orders.getContent()) {
 			processOrders(ctos, order);
 		}
+		
+//		if(criteria.getPageable().getSort().isEmpty()) {
+//			criteria.getPageable().getSort().descending();
+//
+//			Collections.sort(ctos, new Comparator<OrderCto>() {
+//				@Override
+//				public int compare(OrderCto o1, OrderCto o2) {
+//					return o1.getBooking().getBookingDate().compareTo(o2.getBooking().getBookingDate());
+//				}
+//			});
+//		}
 		
 //		Collections.sort(ctos, new Comparator<OrderCto>() {
 //			@Override
