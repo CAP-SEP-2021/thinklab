@@ -35,6 +35,12 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
 							+ " WHERE id = :id")
 	void cancelOrder(@Param("id") Long id);
 	
+	@Transactional
+	@Modifying
+	@Query("UPDATE OrderEntity SET archived = 1 - archived"
+							+ " WHERE id = :id")
+	void archiveOrder(@Param("id") Long id);
+	
   /**
    * @param idBooking
    * @return the list {@link OrderEntity} objects that matched the search.
