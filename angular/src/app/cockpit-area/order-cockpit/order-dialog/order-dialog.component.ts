@@ -36,6 +36,7 @@ export class OrderDialogComponent implements OnInit {
     'extras',
     'orderLine.amount',
     'dish.price',
+    "actions",
   ];
 
   pageSizes: number[];
@@ -53,6 +54,7 @@ export class OrderDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.data) ;
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
     });
@@ -60,10 +62,16 @@ export class OrderDialogComponent implements OnInit {
     this.totalPrice = this.waiterCockpitService.getTotalPrice(
       this.data.orderLines,
     );
+    console.log("befor filtered data ");
+    console.log(this.filteredData);
     this.datao = this.waiterCockpitService.orderComposer(this.data.orderLines);
     this.datat.push(this.data.booking);
     this.filter();
   }
+
+
+  
+
 
   setTableHeaders(lang: string): void {
     this.translocoService
@@ -82,6 +90,7 @@ export class OrderDialogComponent implements OnInit {
       .selectTranslateObject('cockpit.orders.dialogTable', {}, lang)
       .subscribe((cockpitDialogTable) => {
         this.columnso = [
+         
           { name: 'dish.name', label: cockpitDialogTable.dishH },
           { name: 'orderLine.comment', label: cockpitDialogTable.commentsH },
           { name: 'extras', label: cockpitDialogTable.extrasH },
@@ -91,7 +100,7 @@ export class OrderDialogComponent implements OnInit {
             label: cockpitDialogTable.priceH,
             numeric: true,
             format: (v: number) => v.toFixed(2),
-          },
+          }, { name: 'dish.cancel', label: cockpitDialogTable.cancelorder },
         ];
       });
   }
@@ -115,5 +124,12 @@ export class OrderDialogComponent implements OnInit {
     let newData: any[] = this.datao;
     newData = newData.slice(this.fromRow, this.currentPage * this.pageSize);
     setTimeout(() => (this.filteredData = newData));
+    console.log("filtered data ");
+    console.log(this.filteredData);
   }
+
+  logrow(element :any) :void{
+    console.log(element);
+  }
+  
 }

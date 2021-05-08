@@ -33,6 +33,8 @@
 </div>
 <div class="tableContainer">
   <table mat-table [dataSource]="filteredData">
+
+ 
     <!-- Dish Column -->
     <ng-container matColumnDef="dish.name">
       <th mat-header-cell *matHeaderCellDef> {{columnso[0].label}} </th>
@@ -51,13 +53,28 @@
     <!-- Quantity Column -->
     <ng-container matColumnDef="orderLine.amount">
       <th mat-header-cell *matHeaderCellDef class="amountHeader"> {{columnso[3].label}} </th>
-      <td mat-cell *matCellDef="let element" class="amountData"> {{element.orderLine.amount}} </td>
+      <td mat-cell *matCellDef="let element" class="amountData"> 
+        <input matInput 
+           type="number" 
+           value="{{element.orderLine.amount}}"
+           (click) = "logrow(element)"/>
+         </td>
     </ng-container>
     <!-- Price Column -->
     <ng-container matColumnDef="dish.price">
       <th mat-header-cell *matHeaderCellDef class="priceHeader"> {{columnso[4].label}} </th>
       <td mat-cell *matCellDef="let element" class="priceData"> {{element.dish.price | number:'1.2-2'}} </td>
     </ng-container>
+    <ng-container matColumnDef="actions" >
+      <th mat-header-cell  *matHeaderCellDef class="priceHeader" style="white-space: nowrap;" > Actions </th>
+      <td mat-cell *matCellDef="let row" class="priceData" >
+           <button mat-button >Edit</button>
+      </td>
+    </ng-container>
+   <!-- <ng-container matColumnDef="order.id">
+      <th mat-header-cell *matHeaderCellDef> {{columnso[5].label}} </th>
+      <td mat-cell *matCellDef="let element" class="dishNameData"> {{element.order.id}} </td>
+    </ng-container> -->
     <tr mat-header-row *matHeaderRowDef="displayedColumnsO"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumnsO;"></tr>
   </table>
@@ -73,7 +90,7 @@
 
 <div class="left-btn">
   <button mat-button  color="blue"><mat-icon></mat-icon>Bestellung bearbeiten</button>
-  <button mat-stroked-button color="warn" (click)="sendGetCancelOrder()">Bestellung stornieren</button>
+  <button mat-stroked-button  color="warn" (click)="sendGetCancelOrder()">Bestellung stornieren</button>
 </div>
 <div class="right-btn">
   <button mat-button mat-dialog-close   color="accent">{{'buttons.close' | transloco | uppercase}}</button>

@@ -47,10 +47,10 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     'status'
   ];
   status: string[] = [
-    'Bestellung Aufgenommen',
-    'Essen wird zubereitet',
-    'Essen wird ausgeliefert',
-    'Bezahlt'
+    'Order placed',
+    'Food is prepared',
+    'Food is delivered',
+    'Paid'
   ];
   status2 :any []; 
 
@@ -127,6 +127,10 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   }
 
   applyFilters(): void {
+    if (this.sorting.length === 0){ // setting two defualt search crietria first the status of the order second the date 
+      this.sorting.push( {property: "status", direction: "desc"} ) ;  
+      this.sorting.push( {property: "booking.bookingDate", direction: "desc"} ) ;  
+    }
     console.log("First getOrders" );
     this.waiterCockpitService
       .getOrders(this.pageable, this.sorting, this.filters)
