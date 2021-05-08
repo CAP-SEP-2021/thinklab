@@ -91,6 +91,7 @@
     "book": "Book table",
     "orders": "Orders",
     "reservations": "Reservations",
+    "archiv": "Archiv",
     "userActions": {
       "user": "User",
       "pairing": "Set two-factor authentication",

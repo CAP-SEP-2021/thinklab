@@ -30,6 +30,8 @@ export class WaiterCockpitService {
     'ordermanagement/v1/orderupdate';
     private readonly orderCancelRestPath: string =
     'ordermanagement/v1/order/cancelorder';
+    private readonly orderArchivRestPath: string =
+    'ordermanagement/v1/order/archived';
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
@@ -40,6 +42,27 @@ temp :any;
     private config: ConfigService,
   ) {}
 
+  getArchivedOrders(
+    pageable: Pageable,
+    sorting: Sort[],
+    filters: FilterCockpit,
+  ): Observable<OrderResponse[]> {
+    let path: string;
+    filters.pageable = pageable;
+    filters.pageable.sort = sorting;
+    if (filters.email || filters.bookingToken) {
+      path = this.filterOrdersRestPath;
+    } else {
+      delete filters.email;
+      delete filters.bookingToken;
+      path = this.getOrdersRestPath;
+    }
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderArchivRestPath}`, filters),
+      ),
+    );
+  }
   getOrders(
     pageable: Pageable,
     sorting: Sort[],
