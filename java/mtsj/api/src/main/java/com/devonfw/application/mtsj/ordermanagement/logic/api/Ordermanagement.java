@@ -127,7 +127,7 @@ public interface Ordermanagement {
    */
   OrderLineEto saveOrderLine(OrderLineEto orderLine);
   
-  OrderLineEto updateOrderLine(OrderLineEto orderLine);
+  OrderLineEto updateOrderLine(OrderLineCto orderLine);
 
   Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo criteria);
 

@@ -300,7 +300,6 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		Objects.requireNonNull(order, "order");
 
 		OrderEntity orderEntity = getBeanMapper().map(order.getOrder(), OrderEntity.class);
-//	getBookingDao().updateStatus(bookingEntity.getBookingToken(), bookingEntity.getStatus(), bookingEntity.getBezahlt());
 		getOrderDao().updateStatus(orderEntity.getId(), orderEntity.getStatus());
 		
 		if(orderEntity.getStatus().equals("Paid")) {
@@ -310,6 +309,26 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		return getBeanMapper().map(orderEntity, OrderEto.class);
 	}
 
+	@Override
+	public OrderLineEto updateOrderLine(OrderLineCto orderLine) {		
+		Objects.requireNonNull(orderLine, "orderLine");
+		
+		// mapping
+		OrderLineEntity orderLineEntity = getBeanMapper().map(orderLine.getOrderLine(), OrderLineEntity.class);
+
+		// mapping new extras if exists, delete existing extraingreds
+		// do not touch auto_increment https://stackoverflow.com/questions/2214141/auto-increment-after-delete-in-mysql
+		orderLineEntity.setExtras(getBeanMapper().mapList(orderLine.getExtras(), IngredientEntity.class));
+		
+		// find existing orderline and set		
+		OrderLineEntity toFind = orderLineDao.find(orderLine.getOrderLine().getId());
+		orderLineEntity.setModificationCounter(toFind.getModificationCounter());
+		
+		// update and return new orderline
+		OrderLineEntity resultOrderLineEntity = getOrderLineDao().save(orderLineEntity);
+		return getBeanMapper().map(resultOrderLineEntity, OrderLineEto.class);
+	}
+	
 	@Override
 	public OrderEto saveOrder(OrderCto order) {
 
@@ -399,22 +418,6 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		LOG.debug("OrderLine with id '{}' has been created.", resultEntity.getId());
 
 		return getBeanMapper().map(resultEntity, OrderLineEto.class);
-	}
-
-	@Override
-	public OrderLineEto updateOrderLine(OrderLineEto orderLine) {
-
-		// mapping of the new orderline
-		Objects.requireNonNull(orderLine, "orderLine");
-		OrderLineEntity orderLineEntity = getBeanMapper().map(orderLine, OrderLineEntity.class);
-		
-		// find and prepare the already existing orderline
-		OrderLineEntity toFind = orderLineDao.find(orderLineEntity.getId());
-		orderLineEntity.setModificationCounter(toFind.getModificationCounter());
-		
-		// update and return the new orderline
-		OrderLineEntity resultOrderLineEntity = getOrderLineDao().save(orderLineEntity);
-		return getBeanMapper().map(resultOrderLineEntity, OrderLineEto.class);
 	}
 	
 	/**

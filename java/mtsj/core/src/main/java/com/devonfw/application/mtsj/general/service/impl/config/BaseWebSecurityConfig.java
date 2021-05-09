@@ -142,7 +142,8 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
      */
     "/services/rest/ordermanagement/v1/orderline/*", "/services/rest/ordermanagement/v1/order/**",
     "/services/rest/ordermanagement/v1/orderline/", "/services/rest/ordermanagement/v1/orderline",
-    "/services/rest/ordermanagement/v1/orderlineupdate","/services/rest/ordermanagement/v1/orderlineupdate/"
+    
+    "/services/rest/ordermanagement/v1/orderline/update","/services/rest/ordermanagement/v1/orderline/update/"
     
     
     };
