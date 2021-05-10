@@ -53,6 +53,8 @@ public interface Usermanagement {
    * @return the new {@link UserEto} that has been saved with ID and version.
    */
   UserEto saveUser(UserEto user);
+  
+  boolean updateUserIfExist(UserEto user);
 
   /**
    * Pick the boolean and persist it for the user.

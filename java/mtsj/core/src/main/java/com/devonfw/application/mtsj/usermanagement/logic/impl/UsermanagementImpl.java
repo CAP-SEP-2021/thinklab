@@ -7,6 +7,7 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 
 import org.jboss.aerogear.security.otp.api.Base32;
+import org.omg.CORBA.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -102,14 +103,27 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
   @Override
   public UserEto saveUser(UserEto user) {
-
     Objects.requireNonNull(user, "user");
+    
+    // maping
     UserEntity userEntity = getBeanMapper().map(user, UserEntity.class);
-
-    // initialize, validate userEntity here if necessary
+    
+    // validate user if already exists    
+    if(updateUserIfExist(user)) {
+    	userEntity.setId(user.getId());
+    	userEntity.setModificationCounter(findUser(user.getId()).getModificationCounter());
+    }
+    
+    // save entity
     UserEntity resultEntity = getUserDao().save(userEntity);
+    
     LOG.debug("User with id '{}' has been created.", resultEntity.getId());
+        
     return getBeanMapper().map(resultEntity, UserEto.class);
+  }
+  
+  public boolean updateUserIfExist(UserEto user) {  	  
+	  return user.getId() == null ? false : true;
   }
 
   @Override
