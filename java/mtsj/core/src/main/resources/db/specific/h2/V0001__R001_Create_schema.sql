@@ -169,7 +169,7 @@ CREATE TABLE OrderLine (
 -- *** OrderDishExtraIngredient ***
 CREATE TABLE OrderDishExtraIngredient (
   id BIGINT NOT NULL AUTO_INCREMENT,
-  modificationCounter INTEGER,
+  modificationCounter INTEGER DEFAULT(1),
   idOrderLine BIGINT NOT NULL,
   idIngredient BIGINT NOT NULL,
   CONSTRAINT PK_OrderDishExtraIngredient PRIMARY KEY(id),
