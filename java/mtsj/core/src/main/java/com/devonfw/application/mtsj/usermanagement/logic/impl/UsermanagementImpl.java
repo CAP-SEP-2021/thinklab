@@ -4,10 +4,10 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityExistsException;
 import javax.transaction.Transactional;
 
 import org.jboss.aerogear.security.otp.api.Base32;
-import org.omg.CORBA.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -27,6 +27,8 @@ import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserRoleEntity
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.UserRepository;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.UserRoleRepository;
 import com.devonfw.application.mtsj.usermanagement.logic.api.Usermanagement;
+
+import scala.collection.concurrent.Debug;
 
 /**
  * Implementation of component interface of usermanagement
@@ -102,7 +104,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
   }
 
   @Override
-  public UserEto saveUser(UserEto user) {
+  public UserEto saveUser(UserEto user) throws EntityExistsException {
     Objects.requireNonNull(user, "user");
     
     // maping
@@ -112,6 +114,11 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
     if(updateUserIfExist(user)) {
     	userEntity.setId(user.getId());
     	userEntity.setModificationCounter(findUser(user.getId()).getModificationCounter());
+    } else {
+    	// validate email if already exists
+    	if(userDao.findByEmail(userEntity.getEmail())!=null) {
+    		throw new EntityExistsException("Email already exists - cant use email trice.");
+    	}
     }
     
     // save entity

@@ -1,5 +1,7 @@
 package com.devonfw.application.mtsj.usermanagement.logic.api;
 
+import javax.persistence.EntityExistsException;
+
 import org.springframework.data.domain.Page;
 
 import com.devonfw.application.mtsj.general.common.api.UserProfile;
@@ -8,6 +10,8 @@ import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleSearchCriteriaTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserSearchCriteriaTo;
+
+
 
 /**
  * Interface for Usermanagement component.
@@ -47,12 +51,14 @@ public interface Usermanagement {
   boolean deleteUser(Long userId);
 
   /**
+ * @throws EmailAlreadyExistsException 
    * Saves a user and store it in the database.
    *
    * @param user the {@link UserEto} to create.
    * @return the new {@link UserEto} that has been saved with ID and version.
+ * @throws  
    */
-  UserEto saveUser(UserEto user);
+  UserEto saveUser(UserEto user) throws EntityExistsException;
   
   boolean updateUserIfExist(UserEto user);
 

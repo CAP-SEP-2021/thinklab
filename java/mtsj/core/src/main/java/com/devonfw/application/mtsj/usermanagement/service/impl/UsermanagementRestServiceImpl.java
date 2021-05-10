@@ -2,6 +2,7 @@ package com.devonfw.application.mtsj.usermanagement.service.impl;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityExistsException;
 
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
@@ -35,7 +36,7 @@ public class UsermanagementRestServiceImpl implements UsermanagementRestService 
   }
 
   @Override
-  public UserEto saveUser(UserEto user) {
+  public UserEto saveUser(UserEto user) throws EntityExistsException{
 
     return this.usermanagement.saveUser(user);
   }
