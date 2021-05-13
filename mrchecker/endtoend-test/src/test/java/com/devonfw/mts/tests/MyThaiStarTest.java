@@ -32,37 +32,50 @@ public class MyThaiStarTest extends BaseTest {
 
   /**
    * {@inheritDoc}
-   * */
+   */
   @Override
   public void setUp() {
+
     this.myThaiStarHome.load();
     logOut();
   }
 
   /**
    * {@inheritDoc}
-   * */
+   */
   @Override
   public void tearDown() {
+
   }
 
   /**
-   * Test login and logout.
+   * Test login.
    *
    * @param user. An instance of the class User.
-   * */
+   */
   @Test
   @FileParameters(value = "src/test/resources/datadriven/test_users.csv", mapper = UserMapper.class)
   public void Test_loginAndLogOut(User user) {
+
     login(user);
+  }
+
+  /**
+   * Test logout.
+   *
+   */
+  @Test
+  public void Test_logOut() {
+
     logOut();
   }
 
   /**
    * Test login with wrong password.
-   * */
+   */
   @Test
   public void Test_loginFake() {
+
     User userfake = new User("userFake", "passwordfake");
     ThaiLoginPage loginPage = this.myThaiStarHome.clickLogInButton();
     loginPage.enterCredentials(userfake.getUsername(), userfake.getPassword());
@@ -74,10 +87,11 @@ public class MyThaiStarTest extends BaseTest {
    * Book a table with an user.
    *
    * @param user.
-   * */
+   */
   @Test
   @FileParameters(value = "src/test/resources/datadriven/test_users.csv", mapper = UserMapper.class)
   public void Test_bookTable(User user) {
+
     // Generate data for reservation
     String fakeEmail = Utils.getRandomEmail(user.getUsername());
     String date = Utils.getTomorrowDate();
@@ -95,9 +109,10 @@ public class MyThaiStarTest extends BaseTest {
 
   /**
    * Order a menu
-   * */
+   */
   @Test
   public void Test_orderMenu() {
+
     String bookingId = "CB_20170510_123502655Z";
     ThaiMenuPage menuPage = this.myThaiStarHome.clickMenuButton();
     ThaiSummaryPage summaryPage = menuPage.clickFirstMenu();
@@ -106,6 +121,7 @@ public class MyThaiStarTest extends BaseTest {
 
   /** Login with and user in "My thai star" */
   private void login(User user) {
+
     ThaiLoginPage loginPage = this.myThaiStarHome.clickLogInButton();
     loginPage.enterCredentials(user.getUsername(), user.getPassword());
     Assert.assertTrue("User " + user.getUsername() + " not logged",
@@ -114,22 +130,26 @@ public class MyThaiStarTest extends BaseTest {
 
   /** Logout from the "My thai star" application */
   private void logOut() {
-    if (this.myThaiStarHome.isUserLogged()) {
+
+    boolean UserLogged = this.myThaiStarHome.isUserLogged();
+    if (UserLogged) {
       this.myThaiStarHome.clickLogOutButton();
     }
-    Assert.assertFalse("Some user logged", this.myThaiStarHome.isUserLogged());
+    Assert.assertFalse("Some user logged", UserLogged);
   }
 
   /** Book a table given a reservation */
   private void bookTable(Reservation reservation) {
+
     ThaiBookPage myBookPage = this.myThaiStarHome.clickBookTable();
     ThaiConfirmBookPage myComfirmPage = myBookPage.enterBookingData(reservation);
     myComfirmPage.confirmBookingData();
     myBookPage.checkConfirmationDialog();
   }
 
-  /** Verify that the booking was successfully completed*/
+  /** Verify that the booking was successfully completed */
   private void verifyBooking(Reservation reservation) {
+
     ThaiWaiterPage myWaiterPage = new ThaiWaiterPage();
     ThaiReservationsPage myReservationsPage = myWaiterPage.switchToReservations();
     HashMap<String, List<Reservation>> reservations = myReservationsPage.searchDatesByEmail(reservation.getEmail());

@@ -35,9 +35,10 @@ public class ThaiHomePage extends BasePage {
 
   /**
    * {@inheritDoc}
-   * */
+   */
   @Override
   public boolean isLoaded() {
+
     if (getDriver().getTitle().equals(pageTitle())) {
       return true;
     }
@@ -46,17 +47,19 @@ public class ThaiHomePage extends BasePage {
 
   /**
    * {@inheritDoc}
-   * */
+   */
   @Override
   public void load() {
+
     getDriver().get(mythaistarUrl);
   }
 
   /**
    * {@inheritDoc}
-   * */
+   */
   @Override
   public String pageTitle() {
+
     return "My Thai Star";
   }
 
@@ -66,6 +69,7 @@ public class ThaiHomePage extends BasePage {
    * @return ThaiLoginPage an object that represents the login page
    */
   public ThaiLoginPage clickLogInButton() {
+
     WebElement loginButton = getDriver().findElementDynamic(loginButtonSearch);
     loginButton.click();
 
@@ -76,6 +80,7 @@ public class ThaiHomePage extends BasePage {
    * Seek for the login button and logs out
    */
   public void clickLogOutButton() {
+
     WebElement logoutButton = getDriver().findElementDynamic(logoutButtonSearch);
     logoutButton.click();
 
@@ -90,6 +95,7 @@ public class ThaiHomePage extends BasePage {
    * @return ThaiMenuPage an object that represents the reservations page
    */
   public ThaiMenuPage clickMenuButton() {
+
     WebElement menuTab = getDriver().findElementDynamic(menuTabSearch);
     menuTab.click();
 
@@ -103,6 +109,7 @@ public class ThaiHomePage extends BasePage {
    * @return boolean true if the user is logged else false
    */
   public boolean isUserLogged(String username) {
+
     try {
       List<WebElement> accessButton = getDriver().findElementDynamics(labelLoginSearch);
       if (accessButton.size() > 0 && accessButton.get(0).getText().equals(username)) {
@@ -115,13 +122,15 @@ public class ThaiHomePage extends BasePage {
   }
 
   /**
-  * Checks whether an user is logged or not
-  *
-  * @return boolean true if any user is logged else false
-  */
+   * Checks whether an user is logged or not
+   *
+   * @return boolean true if any user is logged else false
+   */
   public boolean isUserLogged() {
+
     try {
-      List<WebElement> accessButton = getDriver().findElementDynamics(labelLoginSearch, 3);
+      List<WebElement> accessButton = getDriver().findElementDynamics(labelLoginSearch, 6);
+      // List<WebElement> accessButton = getDriver().findElementDynamics(labelLoginSearch, 3);
       if (accessButton.size() > 0 && accessButton.get(0).getText().length() > 0) {
         return true;
       }
@@ -131,13 +140,13 @@ public class ThaiHomePage extends BasePage {
     return false;
   }
 
-
   /**
    * Click on the button used to book tables
    *
    * @return A Page that represents the Booking UI
-   * */
+   */
   public ThaiBookPage clickBookTable() {
+
     WebElement bookTableButton = getDriver().findElementDynamic(bookTableButtonSearch);
     bookTableButton.click();
 
