@@ -1,6 +1,7 @@
 package com.devonfw.application.mtsj.usermanagement.logic.api;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.data.domain.Page;
 
@@ -122,5 +123,7 @@ public interface Usermanagement {
    * @return The {@link UserProfile} with the given <code>login</code> or {@code null} if no such object exists.
    */
   UserProfile findUserProfileByLogin(String login);
+
+  UserEto updateUser(UserEto user) throws EntityNotFoundException;
 
 }

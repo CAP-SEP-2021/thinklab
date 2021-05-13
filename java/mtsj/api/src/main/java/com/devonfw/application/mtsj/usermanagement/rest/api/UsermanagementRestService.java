@@ -1,6 +1,8 @@
 package com.devonfw.application.mtsj.usermanagement.rest.api;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -57,6 +59,10 @@ public interface UsermanagementRestService {
   @POST
   @Path("/user/")
   public UserEto saveUser(UserEto user) throws EntityExistsException;
+  
+  @POST
+  @Path("/user/update/")
+  public UserEto updateUser(UserEto user) throws EntityNotFoundException;
 
   /**
    * Delegates to {@link Usermanagement#getUserStatus}.

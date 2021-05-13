@@ -2,9 +2,11 @@ package com.devonfw.application.mtsj.usermanagement.logic.impl;
 
 import java.util.Objects;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.jboss.aerogear.security.otp.api.Base32;
@@ -16,6 +18,7 @@ import com.devonfw.application.mtsj.general.common.api.UserProfile;
 import com.devonfw.application.mtsj.general.common.api.datatype.Role;
 import com.devonfw.application.mtsj.general.common.api.to.UserDetailsClientTo;
 import com.devonfw.application.mtsj.general.common.base.QrCodeService;
+import com.devonfw.application.mtsj.general.common.impl.security.ApplicationAccessControlConfig;
 import com.devonfw.application.mtsj.general.logic.base.AbstractComponentFacade;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
@@ -110,22 +113,42 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
     // maping
     UserEntity userEntity = getBeanMapper().map(user, UserEntity.class);
     
+	// validate email if already exists
+	if (userDao.findByEmail(userEntity.getEmail()) != null) {
+		throw new EntityExistsException("Email already exists - cant use email twice.");
+	}
+    
+    // save entity
+    UserEntity resultEntity = getUserDao().save(userEntity);
+    
+    LOG.debug("User with id '{}' has been created.", resultEntity.getId());    
+    return getBeanMapper().map(resultEntity, UserEto.class);
+  }
+  
+  @Override
+  @RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
+  public UserEto updateUser(UserEto user) throws EntityNotFoundException {
+    Objects.requireNonNull(user, "user");
+    
+    // maping
+    UserEntity userEntity = getBeanMapper().map(user, UserEntity.class);
+    
     // validate user if already exists    
     if(updateUserIfExist(user)) {
     	userEntity.setId(user.getId());
     	userEntity.setModificationCounter(findUser(user.getId()).getModificationCounter());
+    	LOG.debug("User with id '{}' has been created.", userEntity.getId());
     } else {
-    	// validate email if already exists
-    	if(userDao.findByEmail(userEntity.getEmail())!=null) {
-    		throw new EntityExistsException("Email already exists - cant use email trice.");
-    	}
+    	// updating user not possible, ID not found
+    	LOG.debug("User with id '{}' has not been found. You want to update a user as admin that dont exists\" +\r\n" + 
+    			"    			\" in database. Please Check if id exists", userEntity.getId());
+    	throw new EntityNotFoundException("User with given ID dont exists for updating");
     }
     
     // save entity
     UserEntity resultEntity = getUserDao().save(userEntity);
     
-    LOG.debug("User with id '{}' has been created.", resultEntity.getId());
-        
+    LOG.debug("User with id '{}' has been updated.", resultEntity.getId());        
     return getBeanMapper().map(resultEntity, UserEto.class);
   }
   

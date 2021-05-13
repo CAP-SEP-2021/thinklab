@@ -3,6 +3,7 @@ package com.devonfw.application.mtsj.usermanagement.service.impl;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
@@ -39,6 +40,12 @@ public class UsermanagementRestServiceImpl implements UsermanagementRestService 
   public UserEto saveUser(UserEto user) throws EntityExistsException{
 
     return this.usermanagement.saveUser(user);
+  }
+  
+  @Override
+  public UserEto updateUser(UserEto user) throws EntityNotFoundException{
+
+    return this.usermanagement.updateUser(user);
   }
 
   @Override
