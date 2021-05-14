@@ -14,6 +14,7 @@ import java.util.Set;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -202,24 +203,6 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		for (OrderEntity order : orders.getContent()) {
 			processOrders(ctos, order);
 		}
-		
-//		if(criteria.getPageable().getSort().isEmpty()) {
-//			criteria.getPageable().getSort().descending();
-//
-//			Collections.sort(ctos, new Comparator<OrderCto>() {
-//				@Override
-//				public int compare(OrderCto o1, OrderCto o2) {
-//					return o1.getBooking().getBookingDate().compareTo(o2.getBooking().getBookingDate());
-//				}
-//			});
-//		}
-		
-//		Collections.sort(ctos, new Comparator<OrderCto>() {
-//			@Override
-//			public int compare(OrderCto o1, OrderCto o2) {
-//				return o1.getBooking().getBookingDate().compareTo(o2.getBooking().getBookingDate());
-//			}
-//		});
 
 		if (ctos.size() > 0) {
 			Pageable pagResultTo = PageRequest.of(criteria.getPageable().getPageNumber(), ctos.size());
@@ -265,18 +248,6 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 	}
 
 	@Override
-	public boolean cancelOrder(Long orderId) {
-
-		try {
-			orderDao.cancelOrder(orderId);
-			return true;
-		} catch (Exception e) {
-			System.out.println("ORDER-ID for change cancel-state dont exists");
-			return false;
-		}
-	}
-
-	@Override
 	public boolean deleteOrder(Long orderId) {
 
 		OrderEntity order = getOrderDao().find(orderId);
@@ -295,22 +266,52 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		return true;
 	}
 
+	boolean orderExists(OrderCto order) {
+		return orderDao.findById(order.getOrder().getId()) == null ? false : true;
+	}
+	
+	@Override
+	public boolean cancelOrder(Long orderId) {
+				
+		try {
+			OrderEntity updatingEntity = getOrderDao().find(orderId);
+			updatingEntity.setCanceled(!updatingEntity.getCanceled());
+			
+			if(updatingEntity.getArchived()) {
+				updatingEntity.setArchived(!updatingEntity.getArchived());
+				updatingEntity.setCanceled(false);
+			} else {
+				updatingEntity.setArchived(true);
+			}
+			
+			getOrderDao().save(updatingEntity);
+			return true;
+			
+		} catch (EntityNotFoundException e) {
+			LOG.debug("Order with id '{}' for set canceling not found in db.", orderId);
+			throw new EntityNotFoundException("Order for change cancel-state not found");
+		}
+	}
+	
 	@Override
 	public OrderEto statusUpdate(OrderCto order) {
 		Objects.requireNonNull(order, "order");
-
-		OrderEntity orderEntity = getBeanMapper().map(order.getOrder(), OrderEntity.class);
-		getOrderDao().updateStatus(orderEntity.getId(), orderEntity.getStatus());
 		
-		OrderEntity foundedEntity = getOrderDao().find(orderEntity.getId());
-		
-		if(orderEntity.getStatus().equals("Paid") && foundedEntity.getArchived() == false) {			
-			getOrderDao().archiveOrder(orderEntity.getId());
-			foundedEntity.setArchived(true);
+		if(orderExists(order)) {
+			OrderEntity updatingEntity = getOrderDao().find(order.getOrder().getId());
+			updatingEntity.setId(order.getOrder().getId());
+			updatingEntity.setStatus(order.getOrder().getStatus());
+			boolean currentArchivedStatus = updatingEntity.getArchived();
+			
+			updatingEntity.setArchived(
+					order.getOrder().getStatus().equals("Paid") && currentArchivedStatus==false ? true : currentArchivedStatus);
+			
+			OrderEntity resultEntity = getOrderDao().save(updatingEntity);
+			return getBeanMapper().map(resultEntity, OrderEto.class);
+		} else {
+			LOG.debug("Order with id '{}' for set new status not found in db.", order.getOrder().getId());
+			throw new EntityNotFoundException("Order for updating not found");
 		}
-		
-		orderEntity.setArchived(foundedEntity.getArchived());		
-		return getBeanMapper().map(orderEntity, OrderEto.class);
 	}
 
 	@Override
