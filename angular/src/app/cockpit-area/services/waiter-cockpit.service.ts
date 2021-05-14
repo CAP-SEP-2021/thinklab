@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
+  Filter,
   FilterCockpit,
   Pageable,
   Sort,
@@ -8,10 +9,11 @@ import {
 import { cloneDeep, map, template } from 'lodash';
 import { BookingInfo } from 'app/shared/backend-models/interfaces';
 import { Observable } from 'rxjs';
-import { exhaustMap } from 'rxjs/operators';
+import { debounceTime, exhaustMap, publishReplay, share } from 'rxjs/operators';
 import { ConfigService } from '../../core/config/config.service';
 import {
   BookingResponse,
+  DishView,
   OrderResponse,
   OrderView,
   OrderViewResult,
@@ -27,11 +29,14 @@ export class WaiterCockpitService {
   private readonly filterOrdersRestPath: string =
     'ordermanagement/v1/order/search';
   private readonly orderUpdateRestPath: string =
-    'ordermanagement/v1/orderupdate';
+    'ordermanagement/v1/order/status/update'; 
     private readonly orderCancelRestPath: string =
     'ordermanagement/v1/order/cancelorder';
     private readonly orderArchivRestPath: string =
     'ordermanagement/v1/order/archived';
+    private readonly filtersDishRestPath: string = 
+    'dishmanagement/v1/dish/search';
+
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
@@ -41,6 +46,21 @@ temp :any;
     private priceCalculator: PriceCalculatorService,
     private config: ConfigService,
   ) {}
+
+  
+  getDishes(
+    filters: any,
+  ): Observable<{ pageable: Pageable; content: DishView[] }> {
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post<{ pageable: Pageable; content: DishView[] }>(
+          `${restServiceRoot}${this.filtersDishRestPath}`,
+          filters,
+        ),
+      ),
+    );
+  }
+
 
   getArchivedOrders(
     pageable: Pageable,
@@ -58,9 +78,10 @@ temp :any;
       path = this.getOrdersRestPath;
     }
     return this.restServiceRoot$.pipe(
+      //debounceTime(500),.pipe(share())
       exhaustMap((restServiceRoot) =>
         this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderArchivRestPath}`, filters),
-      ),
+      ) ,  
     );
   }
   getOrders(
@@ -79,6 +100,7 @@ temp :any;
       path = this.getOrdersRestPath;
     }
     return this.restServiceRoot$.pipe(
+ 
       exhaustMap((restServiceRoot) =>
         this.http.post<OrderResponse[]>(`${restServiceRoot}${path}`, filters),
       ),
@@ -88,7 +110,7 @@ temp :any;
   getCancelOrder(id :number): Observable<any> {
     var tempId= "/" +id.toString() + "/";
     console.log(tempId);
-    this.temp = this.restServiceRoot$.pipe(
+    this.temp = this.restServiceRoot$.pipe( //@mo muust be changed 
       exhaustMap((restServiceRoot) =>
         this.http.get(`${restServiceRoot}${this.orderCancelRestPath}${tempId}`),
       ),
@@ -98,7 +120,7 @@ temp :any;
   }
   postOrderStauts(orderInfo: any): Observable<any> {
    
-      this.temp = this.restServiceRoot$.pipe(
+      this.temp = this.restServiceRoot$.pipe( //@mo muust be changed 
         exhaustMap((restServiceRoot) =>
           this.http.post(`${restServiceRoot}${this.orderUpdateRestPath}`, orderInfo),
         ),

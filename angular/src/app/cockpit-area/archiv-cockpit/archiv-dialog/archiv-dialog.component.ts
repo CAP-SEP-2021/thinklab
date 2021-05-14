@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { ConfigService } from '../../../core/config/config.service';
@@ -39,7 +39,7 @@ export class ArchivDialogComponent implements OnInit {
     'dish.price',
   
   ];
-
+ 
   pageSizes: number[];
   filteredData: OrderView[] = this.datao;
   totalPrice: number;
@@ -71,7 +71,6 @@ export class ArchivDialogComponent implements OnInit {
   }
 
 
-  
 
 
   setTableHeaders(lang: string): void {
@@ -114,6 +113,7 @@ export class ArchivDialogComponent implements OnInit {
   }
   sendGetCancelOrder(){
     console.log("ts started ");
+   
     console.log(this.data.order.id);
     this.waiterCockpitService.getCancelOrder(this.data.order.id).subscribe((data: any) => {
      console.log("this is the response data ");
