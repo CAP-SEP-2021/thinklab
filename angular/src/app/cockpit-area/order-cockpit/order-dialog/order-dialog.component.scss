@@ -2,6 +2,18 @@
   word-break: break-word;
 }
 
+.btn-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+.left-btn { display: flex;
+  flex: 1;
+  justify-content: flex-start; }
+.right-btn { display: flex;
+  flex: 1;
+  justify-content: flex-end; }
+
+
 .tableContainer {
   width: 100%;
   overflow: auto;

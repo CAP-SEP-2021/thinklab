@@ -1,3 +1,4 @@
+<p>archiv-dialog works!</p>
 <h3 mat-dialog-title>{{'cockpit.orders.dialogTitle' | transloco}} : {{data.booking.bookingToken}} </h3>
 <mat-divider></mat-divider>
 <div class="tableContainer">
@@ -53,24 +54,16 @@
     <!-- Quantity Column -->
     <ng-container matColumnDef="orderLine.amount">
       <th mat-header-cell *matHeaderCellDef class="amountHeader"> {{columnso[3].label}} </th>
-      <td mat-cell *matCellDef="let element" class="amountData"> 
-        <input matInput 
-           type="number" 
-           value="{{element.orderLine.amount}}"
-           (click) = "logrow(element)"/>
-         </td>
+      <td mat-cell *matCellDef="let element" class="amountData"> {{element.orderLine.amount}} </td>
+      
+       
     </ng-container>
     <!-- Price Column -->
     <ng-container matColumnDef="dish.price">
       <th mat-header-cell *matHeaderCellDef class="priceHeader"> {{columnso[4].label}} </th>
       <td mat-cell *matCellDef="let element" class="priceData"> {{element.dish.price | number:'1.2-2'}} </td>
     </ng-container>
-    <ng-container matColumnDef="actions" >
-      <th mat-header-cell  *matHeaderCellDef class="priceHeader" style="white-space: nowrap;" > Actions </th>
-      <td mat-cell *matCellDef="let row" class="priceData" >
-           <button mat-button >Edit</button>
-      </td>
-    </ng-container>
+    
    <!-- <ng-container matColumnDef="order.id">
       <th mat-header-cell *matHeaderCellDef> {{columnso[5].label}} </th>
       <td mat-cell *matCellDef="let element" class="dishNameData"> {{element.order.id}} </td>

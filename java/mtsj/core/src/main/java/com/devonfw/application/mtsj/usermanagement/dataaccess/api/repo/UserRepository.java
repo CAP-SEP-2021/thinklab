@@ -20,6 +20,10 @@ import java.util.List;
  */
 public interface UserRepository extends DefaultRepository<UserEntity> {
 
+	@Query("SELECT user FROM UserEntity user" //
+	          + " WHERE user.email = :email")
+	Object findByEmail(@Param("email") String email);
+	
   /**
    * @param criteria the {@link UserSearchCriteriaTo} with the criteria to search.
    * @return the {@link Page} of the {@link UserEntity} objects that matched the search.

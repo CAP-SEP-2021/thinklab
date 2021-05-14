@@ -125,6 +125,7 @@ export class ReservationCockpitComponent implements OnInit, OnDestroy {
       width: '80%',
       data: selection,
     });
+ 
   }
 
   ngOnDestroy(): void {

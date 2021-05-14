@@ -6,12 +6,13 @@ import { BookingView, OrderListView, OrderView } from '../../../shared/view-mode
 import { WaiterCockpitService } from '../../services/waiter-cockpit.service';
 import { TranslocoService } from '@ngneat/transloco';
 
+
 @Component({
-  selector: 'app-cockpit-order-dialog',
-  templateUrl: './order-dialog.component.html',
-  styleUrls: ['./order-dialog.component.scss'],
+  selector: 'app-archiv-dialog',
+  templateUrl: './archiv-dialog.component.html',
+  styleUrls: ['./archiv-dialog.component.scss']
 })
-export class OrderDialogComponent implements OnInit {
+export class ArchivDialogComponent implements OnInit {
   private fromRow = 0;
   private currentPage = 1;
 
@@ -36,7 +37,7 @@ export class OrderDialogComponent implements OnInit {
     'extras',
     'orderLine.amount',
     'dish.price',
-    "actions",
+  
   ];
 
   pageSizes: number[];
@@ -100,7 +101,7 @@ export class OrderDialogComponent implements OnInit {
             label: cockpitDialogTable.priceH,
             numeric: true,
             format: (v: number) => v.toFixed(2),
-          }, { name: 'dish.cancel', label: cockpitDialogTable.cancelorder },
+          }, 
         ];
       });
   }

@@ -146,6 +146,7 @@ export interface SaveOrderResponse {
   modificationCounter: number;
   revision: any;
   status?: string;//@mo need to store the status 
+  canceled? : boolean; //mo need to store the cancel status
 }
 
 // Roles

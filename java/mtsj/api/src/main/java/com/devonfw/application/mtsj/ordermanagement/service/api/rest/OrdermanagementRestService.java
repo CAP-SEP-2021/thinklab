@@ -80,6 +80,16 @@ public interface OrdermanagementRestService {
   public Page<OrderCto> findOrdersByPost(OrderSearchCriteriaTo searchCriteriaTo);
 
   /**
+   * Delegates to {@link Ordermanagement#findOrderCtos}.
+   *
+   * @param searchCriteriaTo the pagination and search criteria to be used for finding orders.
+   * @return the {@link Page list} of matching {@link OrderCto}s.
+   */
+  @Path("/order/archived")
+  @POST
+  public Page<OrderCto> findArchivedOrders(OrderSearchCriteriaTo searchCriteriaTo);
+  
+  /**
    * Delegates to {@link Ordermanagement#findOrderLine}.
    *
    * @param id the ID of the {@link OrderLineEto}
@@ -99,6 +109,15 @@ public interface OrdermanagementRestService {
   @Path("/orderline/")
   public OrderLineEto saveOrderLine(OrderLineEto orderline);
 
+  /*
+  @POST
+  @Path("/orderlineupdate/")
+  public OrderLineEto updateOrderLine(OrderLineEto orderline);
+  */
+  
+  @POST
+  @Path("/orderline/update/")
+  public OrderLineEto updateOrderLine(OrderLineCto orderline);
   /**
    * Delegates to {@link Ordermanagement#deleteOrderLine}.
    *

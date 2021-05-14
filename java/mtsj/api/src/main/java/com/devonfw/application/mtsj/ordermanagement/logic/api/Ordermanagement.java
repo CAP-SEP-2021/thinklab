@@ -36,6 +36,8 @@ public interface Ordermanagement {
    */
   Page<OrderCto> findOrdersByPost(OrderSearchCriteriaTo criteria);
 
+  Page<OrderCto> findArchivedOrders(OrderSearchCriteriaTo searchCriteriaTo);
+  
   /**
    * Returns a paginated list of Orders matching the search criteria.
    *
@@ -43,7 +45,7 @@ public interface Ordermanagement {
    * @return the {@link List} of matching {@link OrderCto}s.
    */
   Page<OrderCto> findOrderCtos(OrderSearchCriteriaTo criteria);
-
+  Page<OrderCto> findArchivedCtos(OrderSearchCriteriaTo searchCriteriaTo);
   /**
    * Returns the list of OrderCto
    *
@@ -75,6 +77,14 @@ public interface Ordermanagement {
    * @return boolean <code>true</code> if the order can be deleted, <code>false</code> otherwise
    */
   boolean deleteOrder(Long orderId);
+  
+  /**
+   * set the state canceled of a order from the database by its id 'orderId'.
+   *
+   * @param orderId Id of the order to change the state
+   * @return boolean <code>true</code> if the order can be deleted, <code>false</code> otherwise
+   */
+  boolean cancelOrder(Long orderId);
 
   /**
    * Saves a order and store it in the database.
@@ -116,6 +126,8 @@ public interface Ordermanagement {
    * @return the new {@link OrderLineEto} that has been saved with ID and version.
    */
   OrderLineEto saveOrderLine(OrderLineEto orderLine);
+  
+  OrderLineEto updateOrderLine(OrderLineCto orderLine);
 
   Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo criteria);
 

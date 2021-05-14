@@ -14,14 +14,15 @@ import {
 } from '../../shared/backend-models/interfaces';
 import { BookingView, OrderListView, ReservationView, SaveOrderResponse } from '../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../services/waiter-cockpit.service';
-import { OrderDialogComponent } from './order-dialog/order-dialog.component';
+import { ArchivDialogComponent } from './archiv-dialog/archiv-dialog.component';
+
 
 @Component({
-  selector: 'app-cockpit-order-cockpit',
-  templateUrl: './order-cockpit.component.html',
-  styleUrls: ['./order-cockpit.component.scss'],
+  selector: 'app-archiv-cockpit',
+  templateUrl: './archiv-cockpit.component.html',
+  styleUrls: ['./archiv-cockpit.component.scss']
 })
-export class OrderCockpitComponent implements OnInit, OnDestroy {
+export class ArchivCockpitComponent implements OnInit  , OnDestroy {
   private translocoSubscription = Subscription.EMPTY;
   private pageable: Pageable = {
     pageSize: 8,
@@ -133,7 +134,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     }
     console.log("First getOrders" );
     this.waiterCockpitService
-      .getOrders(this.pageable, this.sorting, this.filters)
+      .getArchivedOrders(this.pageable, this.sorting, this.filters)
       .subscribe((data: any) => {
         if (!data) {
           this.orders = [];
@@ -173,7 +174,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   selected(selection: OrderListView ): void {
     console.log("this is the selection  data ");
     console.log(selection);
-    this.dialog.open(OrderDialogComponent, {
+    this.dialog.open(ArchivDialogComponent, {
       width: '80%',
       data: selection,
     });

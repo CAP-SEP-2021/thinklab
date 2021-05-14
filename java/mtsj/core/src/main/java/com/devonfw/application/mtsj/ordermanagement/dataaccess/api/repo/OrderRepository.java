@@ -27,6 +27,20 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
 			+ " WHERE id = :id")
 	void updateStatus(@Param("id") Long id, @Param("status") String status);
 
+	// https://stackoverflow.com/questions/10317566/negate-unary-operator-in-hibernate-ql
+	@Transactional
+	@Modifying
+	@Query("UPDATE OrderEntity SET canceled = 1 - canceled,"
+							+ "archived = 1 - archived" //
+							+ " WHERE id = :id")
+	void cancelOrder(@Param("id") Long id);
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE OrderEntity SET archived = 1 - archived"
+							+ " WHERE id = :id")
+	void archiveOrder(@Param("id") Long id);
+	
   /**
    * @param idBooking
    * @return the list {@link OrderEntity} objects that matched the search.
@@ -80,6 +94,10 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     if ((bookingToken != null) && alias.getBooking() != null) {
       query.where(Alias.$(alias.getBooking().getBookingToken()).toLowerCase().eq(bookingToken.toLowerCase()));
     }
+    
+    boolean archived = criteria.getArchived();
+    query.where(Alias.$(alias.getArchived()).eq(archived));
+    
     return QueryUtil.get().findPaginated(criteria.getPageable(), query, true);
   }
 

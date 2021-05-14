@@ -18,79 +18,91 @@ import com.devonfw.application.mtsj.ordermanagement.logic.api.Ordermanagement;
 import com.devonfw.application.mtsj.ordermanagement.service.api.rest.OrdermanagementRestService;
 
 /**
- * The service implementation for REST calls in order to execute the logic of component {@link Ordermanagement}.
+ * The service implementation for REST calls in order to execute the logic of
+ * component {@link Ordermanagement}.
  */
 @Named("OrdermanagementRestService")
 public class OrdermanagementRestServiceImpl implements OrdermanagementRestService {
 
-  @Inject
-  private Ordermanagement ordermanagement;
+	@Inject
+	private Ordermanagement ordermanagement;
 
-  @Override
-  public OrderCto getOrder(long id) {
+	@Override
+	public OrderCto getOrder(long id) {
 
-    return this.ordermanagement.findOrder(id);
-  }
+		return this.ordermanagement.findOrder(id);
+	}
 
-  @Override
-  public OrderEto saveOrder(OrderCto order) {
+	@Override
+	public OrderEto saveOrder(OrderCto order) {
 
-    return this.ordermanagement.saveOrder(order);
-  }
+		return this.ordermanagement.saveOrder(order);
+	}
 
-  @Override
-  public boolean deleteOrder(long id) {
+	@Override
+	public boolean deleteOrder(long id) {
 
-    return this.ordermanagement.deleteOrder(id);
-  }
+		return this.ordermanagement.deleteOrder(id);
+	}
 
-  @Override
-  public void cancelOrder(long id) {
+	@Override
+	public void cancelOrder(long id) {
 
-    this.ordermanagement.deleteOrder(id);
+		this.ordermanagement.cancelOrder(id);
 
-  }
+	}
 
-  @Override
-  public Page<OrderCto> findOrdersByPost(OrderSearchCriteriaTo searchCriteriaTo) {
+	@Override
+	public Page<OrderCto> findOrdersByPost(OrderSearchCriteriaTo searchCriteriaTo) {
 
-    return this.ordermanagement.findOrdersByPost(searchCriteriaTo);
-  }
+		return this.ordermanagement.findOrdersByPost(searchCriteriaTo);
+	}
 
-  @Override
-  public OrderLineEto getOrderLine(long id) {
+	@Override
+	public Page<OrderCto> findArchivedOrders(OrderSearchCriteriaTo searchCriteriaTo) {
 
-    return this.ordermanagement.findOrderLine(id);
-  }
+		return this.ordermanagement.findArchivedOrders(searchCriteriaTo);
+	}
 
-  @Override
-  public OrderLineEto saveOrderLine(OrderLineEto orderline) {
+	@Override
+	public OrderLineEto getOrderLine(long id) {
 
-    return this.ordermanagement.saveOrderLine(orderline);
-  }
+		return this.ordermanagement.findOrderLine(id);
+	}
 
-  @Override
-  public void deleteOrderLine(long id) {
+	@Override
+	public OrderLineEto saveOrderLine(OrderLineEto orderline) {
 
-    this.ordermanagement.deleteOrderLine(id);
-  }
+		return this.ordermanagement.saveOrderLine(orderline);
+	}
+	
+	@Override
+	public OrderLineEto updateOrderLine(OrderLineCto orderline) {
 
-  @Override
-  public Page<OrderLineCto> findOrderLinesByPost(OrderLineSearchCriteriaTo searchCriteriaTo) {
+		return this.ordermanagement.updateOrderLine(orderline);
+	}
 
-    return this.ordermanagement.findOrderLineCtos(searchCriteriaTo);
-  }
+	@Override
+	public void deleteOrderLine(long id) {
 
-  @Override
-  public Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo searchCriteriaTo){
+		this.ordermanagement.deleteOrderLine(id);
+	}
 
-    return this.ordermanagement.findOrderedDishes(searchCriteriaTo);
-  }
-  
-  @Override
-  public OrderEto updateOrder(@Valid OrderCto order) {
-  	// TODO Auto-generated method stub
-  	return this.ordermanagement.updateOrder(order);
-  }
+	@Override
+	public Page<OrderLineCto> findOrderLinesByPost(OrderLineSearchCriteriaTo searchCriteriaTo) {
+
+		return this.ordermanagement.findOrderLineCtos(searchCriteriaTo);
+	}
+
+	@Override
+	public Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo searchCriteriaTo) {
+
+		return this.ordermanagement.findOrderedDishes(searchCriteriaTo);
+	}
+
+	@Override
+	public OrderEto updateOrder(@Valid OrderCto order) {
+		return this.ordermanagement.updateOrder(order);
+	}
 
 }
