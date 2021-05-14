@@ -302,8 +302,19 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		OrderEntity orderEntity = getBeanMapper().map(order.getOrder(), OrderEntity.class);
 		getOrderDao().updateStatus(orderEntity.getId(), orderEntity.getStatus());
 		
-		if(orderEntity.getStatus().equals("Paid") && orderEntity.getArchived() == false) {
-			getOrderDao().archiveOrder(orderEntity.getId());			
+
+
+		//OrderEto oE = 
+				
+				//orderDao.findById(orderEntity.getId());
+		
+		
+				//orderDao.findById(order.getOrder().getId());
+		
+				//orderDao.findById(orderEntity.getId());
+		
+		if(orderEntity.getStatus().equals("Paid") && getOrderDao().find(orderEntity.getId()).getArchived() == false) {			
+			getOrderDao().archiveOrder(orderEntity.getId());
 		}
 		
 		return getBeanMapper().map(orderEntity, OrderEto.class);
