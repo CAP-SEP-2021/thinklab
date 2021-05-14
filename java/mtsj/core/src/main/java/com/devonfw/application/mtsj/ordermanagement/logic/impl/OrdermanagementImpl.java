@@ -296,14 +296,14 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 	}
 
 	@Override
-	public OrderEto updateOrder(OrderCto order) {
+	public OrderEto statusUpdate(OrderCto order) {
 		Objects.requireNonNull(order, "order");
 
 		OrderEntity orderEntity = getBeanMapper().map(order.getOrder(), OrderEntity.class);
 		getOrderDao().updateStatus(orderEntity.getId(), orderEntity.getStatus());
 		
-		if(orderEntity.getStatus().equals("Paid")) {
-			getOrderDao().archiveOrder(orderEntity.getId());
+		if(orderEntity.getStatus().equals("Paid") && !orderEntity.getArchived()) {
+			getOrderDao().archiveOrder(orderEntity.getId());			
 		}
 		
 		return getBeanMapper().map(orderEntity, OrderEto.class);
