@@ -302,7 +302,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		OrderEntity orderEntity = getBeanMapper().map(order.getOrder(), OrderEntity.class);
 		getOrderDao().updateStatus(orderEntity.getId(), orderEntity.getStatus());
 		
-		if(orderEntity.getStatus().equals("Paid") && !orderEntity.getArchived()) {
+		if(orderEntity.getStatus().equals("Paid") && orderEntity.getArchived() == false) {
 			getOrderDao().archiveOrder(orderEntity.getId());			
 		}
 		
