@@ -45,7 +45,10 @@ export interface BookingView {
   creationDate?: string;
   status ?:string;//@mo need to store the status delete it later 
 }
-
+export interface TextLabel {
+  name: string;
+  label: any;
+}
 export interface FriendsInvite {
   email: string;
   accepted: boolean;
@@ -65,6 +68,7 @@ export interface OrderView {
     price: number;
   };
   orderLine: {
+    id? :number ; //@mo needed to sreach and update 
     amount: number;
     comment: string;
   };
@@ -145,7 +149,7 @@ export interface SaveOrderResponse {
   invitedGuestId: number;
   modificationCounter: number;
   revision: any;
-  status?: string;//@mo need to store the status 
+  status?: string;//@mo need to store the status delete late wit rosi
   canceled? : boolean; //mo need to store the cancel status
 }
 

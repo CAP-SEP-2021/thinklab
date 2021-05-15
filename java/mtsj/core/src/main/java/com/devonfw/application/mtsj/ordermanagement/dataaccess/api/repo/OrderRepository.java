@@ -19,27 +19,6 @@ import com.querydsl.jpa.impl.JPAQuery;
  * {@link DefaultRepository} for {@link OrderEntity}.
  */
 public interface OrderRepository extends DefaultRepository<OrderEntity> {
-
-	
-	@Transactional
-	@Modifying
-	@Query("UPDATE OrderEntity SET status = :status" //
-			+ " WHERE id = :id")
-	void updateStatus(@Param("id") Long id, @Param("status") String status);
-
-	// https://stackoverflow.com/questions/10317566/negate-unary-operator-in-hibernate-ql
-	@Transactional
-	@Modifying
-	@Query("UPDATE OrderEntity SET canceled = 1 - canceled,"
-							+ "archived = 1 - archived" //
-							+ " WHERE id = :id")
-	void cancelOrder(@Param("id") Long id);
-	
-	@Transactional
-	@Modifying
-	@Query("UPDATE OrderEntity SET archived = 1 - archived"
-							+ " WHERE id = :id")
-	void archiveOrder(@Param("id") Long id);
 	
   /**
    * @param idBooking

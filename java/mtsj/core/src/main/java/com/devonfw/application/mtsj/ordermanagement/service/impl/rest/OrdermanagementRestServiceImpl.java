@@ -101,8 +101,8 @@ public class OrdermanagementRestServiceImpl implements OrdermanagementRestServic
 	}
 
 	@Override
-	public OrderEto updateOrder(@Valid OrderCto order) {
-		return this.ordermanagement.updateOrder(order);
+	public OrderEto statusUpdate(@Valid OrderCto order) {
+		return this.ordermanagement.statusUpdate(order);
 	}
 
 }
