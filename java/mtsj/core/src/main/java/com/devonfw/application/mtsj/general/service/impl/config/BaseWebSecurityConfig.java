@@ -108,6 +108,8 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     "/services/rest/usermanagement/v1/user/",
     "/services/rest/usermanagement/v1/user/*",
     "/services/rest/usermanagement/v1/user/**",
+    
+    "/services/rest/usermanagement/v1/user/search",
     /*
      * from capgimini
      */

@@ -126,27 +126,28 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
   }
   
   @Override
-  @RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
+  //@RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
   public UserEto updateUser(UserEto user) throws EntityNotFoundException {
-    Objects.requireNonNull(user, "user");
-    
-    // maping
-    UserEntity userEntity = getBeanMapper().map(user, UserEntity.class);
-    
-    // validate user if already exists    
-    if(updateUserIfExist(user)) {
-    	userEntity.setId(user.getId());
-    	userEntity.setModificationCounter(findUser(user.getId()).getModificationCounter());
-    	LOG.debug("User with id '{}' has been created.", userEntity.getId());
-    } else {
-    	// updating user not possible, ID not found
-    	LOG.debug("User with id '{}' has not been found. You want to update a user as admin that dont exists\" +\r\n" + 
-    			"    			\" in database. Please Check if id exists", userEntity.getId());
-    	throw new EntityNotFoundException("User with given ID dont exists for updating");
-    }
+	    Objects.requireNonNull(user, "user");
+	    
+	    UserEntity userEntity = getBeanMapper().map(user, UserEntity.class);
+	    
+	    if(updateUserIfExist(user)) {
+	    	userEntity.setModificationCounter(findUser(user.getId()).getModificationCounter());
+	    	userEntity.setPassword(
+	    			user.getPassword()==null ? userDao.getHashedPasswordById(user.getId()) : user.getPassword()
+	    			);
+		} else {
+			// updating user not possible, ID not found
+			LOG.debug(
+					"User with id '{}' has not been found. You want to update a user as admin that dont exists\" +\r\n"
+							+ "    			\" in database. Please Check if id exists",
+					userEntity.getId());
+			throw new EntityNotFoundException("User with given ID dont exists for updating");
+		}
     
     // save entity
-    UserEntity resultEntity = getUserDao().save(userEntity);
+	UserEntity resultEntity = getUserDao().save(userEntity);
     
     LOG.debug("User with id '{}' has been updated.", resultEntity.getId());        
     return getBeanMapper().map(resultEntity, UserEto.class);

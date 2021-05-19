@@ -24,6 +24,10 @@ public interface UserRepository extends DefaultRepository<UserEntity> {
 	          + " WHERE user.email = :email")
 	Object findByEmail(@Param("email") String email);
 	
+	@Query("SELECT password FROM UserEntity user" //
+	          + " WHERE user.id = :id")
+	String getHashedPasswordById(@Param("id") Long id);
+	
   /**
    * @param criteria the {@link UserSearchCriteriaTo} with the criteria to search.
    * @return the {@link Page} of the {@link UserEntity} objects that matched the search.
