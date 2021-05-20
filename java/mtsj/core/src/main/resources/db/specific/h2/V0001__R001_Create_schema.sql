@@ -42,6 +42,7 @@ CREATE TABLE ResetToken (
   modificationCounter INTEGER NOT NULL,
   idUser BIGINT NOT NULL,  
   token VARCHAR (255) NULL,
+  creationDate TIMESTAMP,
   CONSTRAINT PK_ResetToken PRIMARY KEY(id),
   CONSTRAINT FK_ResetToken_user FOREIGN KEY(idUser) REFERENCES User(id) NOCHECK
 );

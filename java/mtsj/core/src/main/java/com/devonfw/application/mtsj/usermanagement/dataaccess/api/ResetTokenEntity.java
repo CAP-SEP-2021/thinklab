@@ -1,5 +1,7 @@
 package com.devonfw.application.mtsj.usermanagement.dataaccess.api;
 
+import java.time.Instant;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -19,6 +21,8 @@ public class ResetTokenEntity extends ApplicationPersistenceEntity implements Re
 	private UserEntity user;
 	
 	private String token;
+	
+	private Instant creationDate;
   	
 	public void setUser(UserEntity user) {
 		this.user = user;
@@ -38,6 +42,24 @@ public class ResetTokenEntity extends ApplicationPersistenceEntity implements Re
 	@Override
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	/**
+	 * @return creationDate
+	 */
+	@Override
+	public Instant getCreationDate() {
+
+		return this.creationDate;
+	}
+
+	/**
+	 * @param creationDate new value of {@link #getcreationDate}.
+	 */
+	@Override
+	public void setCreationDate(Instant creationDate) {
+
+		this.creationDate = creationDate;
 	}
 	
 

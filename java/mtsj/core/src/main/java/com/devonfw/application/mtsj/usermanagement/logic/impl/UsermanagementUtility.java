@@ -19,9 +19,8 @@ import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserEntity;
 @Transactional
 public class UsermanagementUtility implements UsermanagementUtil {
 
-//	@Value("${client.port}")
-//	private static int clientPort;
-
+	private final static int durationTimeToExpire = 120; // minutes
+	
 	@Inject
 	private Mail mailService;
 
@@ -93,5 +92,9 @@ public class UsermanagementUtility implements UsermanagementUtil {
 			return "http://localhost:8081";
 		}
 		return clientUrl;
+	}
+	
+	public static int getTimeToExpired() {
+		return durationTimeToExpire;
 	}
 }

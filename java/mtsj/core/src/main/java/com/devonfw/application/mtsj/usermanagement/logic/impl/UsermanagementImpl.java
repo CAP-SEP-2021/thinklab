@@ -1,5 +1,7 @@
 package com.devonfw.application.mtsj.usermanagement.logic.impl;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -45,194 +47,195 @@ import scala.collection.concurrent.Debug;
 @Transactional
 public class UsermanagementImpl extends AbstractComponentFacade implements Usermanagement {
 
-  private static final Logger LOG = LoggerFactory.getLogger(UsermanagementImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UsermanagementImpl.class);
 
-  @Inject
-  private UserRepository userDao;
+	@Inject
+	private UserRepository userDao;
 
-  @Inject
-  private ResetTokenRepository resetTokenDao;
-  
-  @Inject
-  private UserRoleRepository userRoleDao;
-  
+	@Inject
+	private ResetTokenRepository resetTokenDao;
+
+	@Inject
+	private UserRoleRepository userRoleDao;
+
 	@Inject
 	private Mail mailService;
-	
+
 	@Inject
 	private UsermanagementUtility utils;
-  
-  /**
-   * The constructor.
-   */
-  public UsermanagementImpl() {
 
-    super();
-  }
+	/**
+	 * The constructor.
+	 */
+	public UsermanagementImpl() {
 
-  @Override
-  public UserEto findUser(Long id) {
-
-    LOG.debug("Get User with id {} from database.", id);
-    return getBeanMapper().map(getUserDao().find(id), UserEto.class);
-  }
-
-  @Override
-  public UserQrCodeTo generateUserQrCode(String username) {
-
-    LOG.debug("Get User with username {} from database.", username);
-    UserEntity user = getBeanMapper().map(getUserDao().findByUsername(username), UserEntity.class);
-    initializeSecret(user);
-    if (user != null && user.getTwoFactorStatus()) {
-      return QrCodeService.generateQrCode(user);
-    } else {
-      return null;
-    }
-  }
-
-  @Override
-  public UserEto getUserStatus(String username) {
-
-    LOG.debug("Get User with username {} from database.", username);
-    return getBeanMapper().map(getUserDao().findByUsername(username), UserEto.class);
-  }
-
-  @Override
-  public UserEto findUserbyName(String userName) {
-
-    UserEntity entity = this.userDao.findByUsername(userName);
-    return getBeanMapper().map(entity, UserEto.class);
-  }
-
-  @Override
-  public Page<UserEto> findUserEtos(UserSearchCriteriaTo criteria) {
-
-    Page<UserEntity> users = getUserDao().findUsers(criteria);
-    return mapPaginatedEntityList(users, UserEto.class);
-  }
-
-  @Override
-  public boolean deleteUser(Long userId) {
-
-    UserEntity user = getUserDao().find(userId);
-    getUserDao().delete(user);
-    LOG.debug("The user with id '{}' has been deleted.", userId);
-    return true;
-  }
+		super();
+	}
 
 	@Override
-	//@RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
+	public UserEto findUser(Long id) {
+
+		LOG.debug("Get User with id {} from database.", id);
+		return getBeanMapper().map(getUserDao().find(id), UserEto.class);
+	}
+
+	@Override
+	public UserQrCodeTo generateUserQrCode(String username) {
+
+		LOG.debug("Get User with username {} from database.", username);
+		UserEntity user = getBeanMapper().map(getUserDao().findByUsername(username), UserEntity.class);
+		initializeSecret(user);
+		if (user != null && user.getTwoFactorStatus()) {
+			return QrCodeService.generateQrCode(user);
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public UserEto getUserStatus(String username) {
+
+		LOG.debug("Get User with username {} from database.", username);
+		return getBeanMapper().map(getUserDao().findByUsername(username), UserEto.class);
+	}
+
+	@Override
+	public UserEto findUserbyName(String userName) {
+
+		UserEntity entity = this.userDao.findByUsername(userName);
+		return getBeanMapper().map(entity, UserEto.class);
+	}
+
+	@Override
+	public Page<UserEto> findUserEtos(UserSearchCriteriaTo criteria) {
+
+		Page<UserEntity> users = getUserDao().findUsers(criteria);
+		return mapPaginatedEntityList(users, UserEto.class);
+	}
+
+	@Override
+	public boolean deleteUser(Long userId) {
+
+		UserEntity user = getUserDao().find(userId);
+		getUserDao().delete(user);
+		LOG.debug("The user with id '{}' has been deleted.", userId);
+		return true;
+	}
+
+	@Override
+	// @RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
 	public String changeForgetPassword(ResetTokenEto request) {
-		
+
 		// grab the requested token
 		ResetTokenEntity tokenEntity = resetTokenDao.findByToken(request.getToken());
-		
+
 		// check if given token exists
-		if(tokenEntity!=null) {
+		if (tokenEntity != null) {
+
+			// check timestamps
+			if(ChronoUnit.MINUTES.between(tokenEntity.getCreationDate(), Instant.now()) > utils.getTimeToExpired()) {
+				resetTokenDao.delete(tokenEntity);
+				return "Your Token expired. Please request a new Token";
+			}
+			
+			System.out.println("####### TIME: " + ChronoUnit.MINUTES.between(tokenEntity.getCreationDate(), Instant.now()));
 			
 			// get user from db and setup
-			UserEntity userEntity = getUserDao().find(tokenEntity.getUser().getId());			
+			UserEntity userEntity = getUserDao().find(tokenEntity.getUser().getId());
 			userEntity.setModificationCounter(userEntity.getModificationCounter());
-			
+
 			// set new password
 			userEntity.setPassword(request.getPassword());
-			
+
 			// save updated user
 			UserEntity resultEntity = getUserDao().save(userEntity);
-			
+
 			// delete token from db
 			resetTokenDao.delete(tokenEntity);
-			
-			// send mail to inform user			
+
+			// send mail to inform user
 			utils.send_reset_confirmation(resultEntity);
-			//UsermanagementUtility.send_reset_confirmation(resultEntity);
-			
+			// UsermanagementUtility.send_reset_confirmation(resultEntity);
+
 			return "Your Password changed";
-			
+
 		} else {
 			return "Given Token not bound to any Account";
 		}
 	}
-  
-  
-  
+
 	@Override
-	//@RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
+	// @RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
 	public String resetPassword(UserEto user) {
 
-		UserEntity requester = getUserDao().findUserByEmail(user.getEmail());		
-		
+		UserEntity requester = getUserDao().findUserByEmail(user.getEmail());
+
 		// check if email exists
 		if (requester != null) {
 
 			// get resetTokenEntity if exists
 			ResetTokenEntity checkedTokenEntity = resetTokenDao.findByUserId(requester.getId());
-			
+
 			// remove already existing token, grab modification-counter
-			if(checkedTokenEntity!=null) {
+			if (checkedTokenEntity != null) {
 				resetTokenDao.delete(checkedTokenEntity);
-				checkedTokenEntity.setModificationCounter(checkedTokenEntity.getModificationCounter());				
+				checkedTokenEntity.setModificationCounter(checkedTokenEntity.getModificationCounter());
 			}
-			
+
 			// check new token
 			checkedTokenEntity = new ResetTokenEntity();
 			checkedTokenEntity.setUser(requester);
-			
+			checkedTokenEntity.setCreationDate(Instant.now());
+
 			// create an token
 			checkedTokenEntity.setToken(utils.generate_token());
-			
+
 			// save the new token
 			resetTokenDao.save(checkedTokenEntity);
-			
+
 			// inform the user
 			utils.send_reset_mail(requester, checkedTokenEntity);
-			//UsermanagementUtility.send_reset_mail(requester, checkedTokenEntity);
-			
+			// UsermanagementUtility.send_reset_mail(requester, checkedTokenEntity);
+
 			return "Email sent.";
-			
+
 		} else {
-			
+
 			return "Email adress not found.";
 		}
-		
+
 	}
-  
-  
-  
-  
-  
-  
-  @Override
-  public UserEto saveUser(UserEto user) throws EntityExistsException {
-    Objects.requireNonNull(user, "user");
-    
-    // maping
-    UserEntity userEntity = getBeanMapper().map(user, UserEntity.class);
-    
-	// validate email if already exists
-	if (userDao.findByEmail(userEntity.getEmail()) != null) {
-		throw new EntityExistsException("Email already exists - cant use email twice.");
+
+	@Override
+	public UserEto saveUser(UserEto user) throws EntityExistsException {
+		Objects.requireNonNull(user, "user");
+
+		// maping
+		UserEntity userEntity = getBeanMapper().map(user, UserEntity.class);
+
+		// validate email if already exists
+		if (userDao.findByEmail(userEntity.getEmail()) != null) {
+			throw new EntityExistsException("Email already exists - cant use email twice.");
+		}
+
+		// save entity
+		UserEntity resultEntity = getUserDao().save(userEntity);
+
+		LOG.debug("User with id '{}' has been created.", resultEntity.getId());
+		return getBeanMapper().map(resultEntity, UserEto.class);
 	}
-    
-    // save entity
-    UserEntity resultEntity = getUserDao().save(userEntity);
-    
-    LOG.debug("User with id '{}' has been created.", resultEntity.getId());    
-    return getBeanMapper().map(resultEntity, UserEto.class);
-  }
-  
-  @Override
-  //@RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
-  public UserEto updateUser(UserEto user) throws EntityNotFoundException {
-	    Objects.requireNonNull(user, "user");
-	    
-	    UserEntity userEntity = getBeanMapper().map(user, UserEntity.class);
-	    
-	    if(updateUserIfExist(user)) {
-	    	userEntity.setModificationCounter(findUser(user.getId()).getModificationCounter());
-	    	userEntity.setPassword(
-	    			user.getPassword()==null ? userDao.getHashedPasswordById(user.getId()) : user.getPassword()
-	    			);
+
+	@Override
+	// @RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
+	public UserEto updateUser(UserEto user) throws EntityNotFoundException {
+		Objects.requireNonNull(user, "user");
+
+		UserEntity userEntity = getBeanMapper().map(user, UserEntity.class);
+
+		if (updateUserIfExist(user)) {
+			userEntity.setModificationCounter(findUser(user.getId()).getModificationCounter());
+			userEntity.setPassword(
+					user.getPassword() == null ? userDao.getHashedPasswordById(user.getId()) : user.getPassword());
 		} else {
 			// updating user not possible, ID not found
 			LOG.debug(
@@ -241,109 +244,109 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 					userEntity.getId());
 			throw new EntityNotFoundException("User with given ID dont exists for updating");
 		}
-    
-    // save entity
-	UserEntity resultEntity = getUserDao().save(userEntity);
-    
-    LOG.debug("User with id '{}' has been updated.", resultEntity.getId());        
-    return getBeanMapper().map(resultEntity, UserEto.class);
-  }
-  
-  public boolean updateUserIfExist(UserEto user) {  	  
-	  return user.getId() == null ? false : true;
-  }
 
-  @Override
-  public UserEto saveUserTwoFactor(UserEto user) {
+		// save entity
+		UserEntity resultEntity = getUserDao().save(userEntity);
 
-    Objects.requireNonNull(user, "user");
-    UserEntity userEntity = getBeanMapper().map(getUserDao().findByUsername(user.getUsername()), UserEntity.class);
+		LOG.debug("User with id '{}' has been updated.", resultEntity.getId());
+		return getBeanMapper().map(resultEntity, UserEto.class);
+	}
 
-    // initialize, validate userEntity here if necessary
-    userEntity.setTwoFactorStatus(user.getTwoFactorStatus());
-    UserEntity resultEntity = getUserDao().save(userEntity);
-    LOG.debug("User with id '{}' has been modified.", resultEntity.getId());
-    return getBeanMapper().map(resultEntity, UserEto.class);
-  }
+	public boolean updateUserIfExist(UserEto user) {
+		return user.getId() == null ? false : true;
+	}
 
-  /**
-   * Returns the field 'userDao'.
-   *
-   * @return the {@link UserRepository} instance.
-   */
-  public UserRepository getUserDao() {
+	@Override
+	public UserEto saveUserTwoFactor(UserEto user) {
 
-    return this.userDao;
-  }
+		Objects.requireNonNull(user, "user");
+		UserEntity userEntity = getBeanMapper().map(getUserDao().findByUsername(user.getUsername()), UserEntity.class);
 
-  @Override
-  public UserRoleEto findUserRole(Long id) {
+		// initialize, validate userEntity here if necessary
+		userEntity.setTwoFactorStatus(user.getTwoFactorStatus());
+		UserEntity resultEntity = getUserDao().save(userEntity);
+		LOG.debug("User with id '{}' has been modified.", resultEntity.getId());
+		return getBeanMapper().map(resultEntity, UserEto.class);
+	}
 
-    LOG.debug("Get UserRole with id {} from database.", id);
-    return getBeanMapper().map(getUserRoleDao().find(id), UserRoleEto.class);
-  }
+	/**
+	 * Returns the field 'userDao'.
+	 *
+	 * @return the {@link UserRepository} instance.
+	 */
+	public UserRepository getUserDao() {
 
-  @Override
-  public Page<UserRoleEto> findUserRoleEtos(UserRoleSearchCriteriaTo criteria) {
+		return this.userDao;
+	}
 
-    Page<UserRoleEntity> userroles = getUserRoleDao().findUserRoles(criteria);
-    return mapPaginatedEntityList(userroles, UserRoleEto.class);
-  }
+	@Override
+	public UserRoleEto findUserRole(Long id) {
 
-  @Override
-  public boolean deleteUserRole(Long userRoleId) {
+		LOG.debug("Get UserRole with id {} from database.", id);
+		return getBeanMapper().map(getUserRoleDao().find(id), UserRoleEto.class);
+	}
 
-    UserRoleEntity userRole = getUserRoleDao().find(userRoleId);
-    getUserRoleDao().delete(userRole);
-    LOG.debug("The userRole with id '{}' has been deleted.", userRoleId);
-    return true;
-  }
+	@Override
+	public Page<UserRoleEto> findUserRoleEtos(UserRoleSearchCriteriaTo criteria) {
 
-  @Override
-  public UserRoleEto saveUserRole(UserRoleEto userRole) {
+		Page<UserRoleEntity> userroles = getUserRoleDao().findUserRoles(criteria);
+		return mapPaginatedEntityList(userroles, UserRoleEto.class);
+	}
 
-    Objects.requireNonNull(userRole, "userRole");
-    UserRoleEntity userRoleEntity = getBeanMapper().map(userRole, UserRoleEntity.class);
+	@Override
+	public boolean deleteUserRole(Long userRoleId) {
 
-    // initialize, validate userRoleEntity here if necessary
-    UserRoleEntity resultEntity = getUserRoleDao().save(userRoleEntity);
-    LOG.debug("UserRole with id '{}' has been created.", resultEntity.getId());
+		UserRoleEntity userRole = getUserRoleDao().find(userRoleId);
+		getUserRoleDao().delete(userRole);
+		LOG.debug("The userRole with id '{}' has been deleted.", userRoleId);
+		return true;
+	}
 
-    return getBeanMapper().map(resultEntity, UserRoleEto.class);
-  }
+	@Override
+	public UserRoleEto saveUserRole(UserRoleEto userRole) {
 
-  /**
-   * Assigns a randomly generated secret for an specific user
-   *
-   * @param user
-   */
-  private void initializeSecret(UserEntity user) {
+		Objects.requireNonNull(userRole, "userRole");
+		UserRoleEntity userRoleEntity = getBeanMapper().map(userRole, UserRoleEntity.class);
 
-    if (user.getSecret() == null) {
-      user.setSecret(Base32.random());
-      UserEntity resultEntity = getUserDao().save(user);
-      LOG.debug("User with id '{}' has been modified.", resultEntity.getId());
-    }
-  }
+		// initialize, validate userRoleEntity here if necessary
+		UserRoleEntity resultEntity = getUserRoleDao().save(userRoleEntity);
+		LOG.debug("UserRole with id '{}' has been created.", resultEntity.getId());
 
-  /**
-   * Returns the field 'userRoleDao'.
-   *
-   * @return the {@link UserRoleRepository} instance.
-   */
-  public UserRoleRepository getUserRoleDao() {
+		return getBeanMapper().map(resultEntity, UserRoleEto.class);
+	}
 
-    return this.userRoleDao;
-  }
+	/**
+	 * Assigns a randomly generated secret for an specific user
+	 *
+	 * @param user
+	 */
+	private void initializeSecret(UserEntity user) {
 
-  @Override
-  public UserProfile findUserProfileByLogin(String login) {
+		if (user.getSecret() == null) {
+			user.setSecret(Base32.random());
+			UserEntity resultEntity = getUserDao().save(user);
+			LOG.debug("User with id '{}' has been modified.", resultEntity.getId());
+		}
+	}
 
-    UserEto userEto = findUserbyName(login);
-    UserDetailsClientTo profile = new UserDetailsClientTo();
-    profile.setId(userEto.getId());
-    profile.setRole(Role.getRoleById(userEto.getUserRoleId()));
-    return profile;
-  }
+	/**
+	 * Returns the field 'userRoleDao'.
+	 *
+	 * @return the {@link UserRoleRepository} instance.
+	 */
+	public UserRoleRepository getUserRoleDao() {
+
+		return this.userRoleDao;
+	}
+
+	@Override
+	public UserProfile findUserProfileByLogin(String login) {
+
+		UserEto userEto = findUserbyName(login);
+		UserDetailsClientTo profile = new UserDetailsClientTo();
+		profile.setId(userEto.getId());
+		profile.setRole(Role.getRoleById(userEto.getUserRoleId()));
+		return profile;
+	}
 
 }
