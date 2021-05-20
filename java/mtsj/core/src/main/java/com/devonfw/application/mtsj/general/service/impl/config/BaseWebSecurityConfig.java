@@ -147,9 +147,10 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     
     "/services/rest/ordermanagement/v1/orderline/update","/services/rest/ordermanagement/v1/orderline/update/",
     
-    "/services/rest/usermanagement/v1/user/update/","/services/rest/usermanagement/v1/user/update/"
+    "/services/rest/usermanagement/v1/user/update/",
     
-    
+    "/services/rest/usermanagement/v1/user/reset/password/request/",
+    "/services/rest/usermanagement/v1/user/reset/password/new/"
     };
     
     http.userDetailsService(this.userDetailsService).csrf().disable().exceptionHandling().and().sessionManagement()

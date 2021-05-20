@@ -6,6 +6,7 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 
 import com.devonfw.application.mtsj.general.common.api.UserProfile;
+import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetTokenEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
@@ -125,5 +126,9 @@ public interface Usermanagement {
   UserProfile findUserProfileByLogin(String login);
 
   UserEto updateUser(UserEto user) throws EntityNotFoundException;
+
+  String resetPassword(UserEto user);
+
+	String changeForgetPassword(ResetTokenEto request);
 
 }

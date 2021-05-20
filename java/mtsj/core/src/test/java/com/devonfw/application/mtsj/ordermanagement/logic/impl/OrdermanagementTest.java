@@ -1,5 +1,7 @@
 package com.devonfw.application.mtsj.ordermanagement.logic.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,7 @@ import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderCto;
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderEto;
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderLineCto;
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderLineEto;
+import com.devonfw.application.mtsj.ordermanagement.dataaccess.api.OrderEntity;
 import com.devonfw.application.mtsj.ordermanagement.logic.api.Ordermanagement;
 
 /**
@@ -168,4 +171,63 @@ public class OrdermanagementTest extends ApplicationComponentTest {
       assertThat(e.getClass()).isEqualTo(ni.getClass());
     }
   }
+  
+	/**
+	 * Tests that an default waiter-status is on default
+	 */
+	@Test
+	public void getOrderWithDefaultStatus() {
+		OrderCto statusEntity = orderManagement.findOrder(0L);
+		assertEquals("Order placed", statusEntity.getOrder().getStatus());
+	}
+	
+	/**
+	 * Tests wrong default status that is detected
+	 */
+	@Test
+	public void getOrderWithDefaultStatusOnWrongSave() {
+
+		// get
+		OrderCto orderCto = orderManagement.findOrder(0L);
+		
+		// unpack
+		OrderEto toSaveEntity = orderCto.getOrder();
+		
+		// modify
+		toSaveEntity.setModificationCounter(orderCto.getOrder().getModificationCounter());
+		toSaveEntity.setStatus("WRONG STATUS");
+		
+		// pack
+		orderCto.setOrder(toSaveEntity);
+		
+		
+//		OrderCto orderCto = orderManagement.findOrder(0L);
+//		OrderEto toSaveEntity = orderCto.getOrder();
+//		toSaveEntity.setModificationCounter(orderCto.getOrder().getModificationCounter());
+//		toSaveEntity.setStatus("WRONG STATUS");
+//		orderCto.setOrder(toSaveEntity);
+		
+		// save
+		assertEquals("Order placed", orderManagement.findOrder(0L).getOrder().getStatus());
+	}
+	
+	
+	/**
+	 * Tests changed new waiter-status is successful
+	 */
+	@Test
+	public void changeOrderStatus() {
+
+		// get
+		OrderCto orderCto = orderManagement.findOrder(0L);
+		orderCto.getOrder().setStatus("Food is prepared");
+		orderCto.getOrder().setModificationCounter(orderCto.getOrder().getModificationCounter());
+		
+		orderManagement.saveOrder(orderCto);
+		
+		// Check
+		assertEquals("Food is prepared", orderManagement.findOrder(0L).getOrder().getStatus());
+	}
+	
+		
 }

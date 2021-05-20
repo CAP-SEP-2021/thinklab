@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.data.domain.Page;
 
+import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetTokenEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
@@ -59,6 +60,14 @@ public interface UsermanagementRestService {
   @POST
   @Path("/user/")
   public UserEto saveUser(UserEto user) throws EntityExistsException;
+
+  @POST
+  @Path("/user/reset/password/request/")
+  public String resetPassword(UserEto user) throws EntityNotFoundException;
+
+  @POST
+  @Path("/user/reset/password/new/")
+  public String changeForgetPassword(ResetTokenEto request);
   
   @POST
   @Path("/user/update/")

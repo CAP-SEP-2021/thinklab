@@ -1,6 +1,7 @@
 package com.devonfw.application.mtsj.usermanagement.logic.impl;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -20,13 +21,17 @@ import com.devonfw.application.mtsj.general.common.api.to.UserDetailsClientTo;
 import com.devonfw.application.mtsj.general.common.base.QrCodeService;
 import com.devonfw.application.mtsj.general.common.impl.security.ApplicationAccessControlConfig;
 import com.devonfw.application.mtsj.general.logic.base.AbstractComponentFacade;
+import com.devonfw.application.mtsj.mailservice.logic.api.Mail;
+import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetTokenEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleSearchCriteriaTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserSearchCriteriaTo;
+import com.devonfw.application.mtsj.usermanagement.dataaccess.api.ResetTokenEntity;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserEntity;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserRoleEntity;
+import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.ResetTokenRepository;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.UserRepository;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.UserRoleRepository;
 import com.devonfw.application.mtsj.usermanagement.logic.api.Usermanagement;
@@ -46,8 +51,14 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
   private UserRepository userDao;
 
   @Inject
+  private ResetTokenRepository resetTokenDao;
+  
+  @Inject
   private UserRoleRepository userRoleDao;
-
+  
+	@Inject
+	private Mail mailService;
+  
   /**
    * The constructor.
    */
@@ -106,6 +117,87 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
     return true;
   }
 
+	@Override
+	//@RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
+	public String changeForgetPassword(ResetTokenEto request) {
+		
+		// grab the requested token
+		ResetTokenEntity tokenEntity = resetTokenDao.findByToken(request.getToken());
+		
+		// check if given token exists
+		if(tokenEntity!=null) {
+			
+			// get user from db and setup
+			UserEntity userEntity = getUserDao().find(tokenEntity.getUser().getId());			
+			userEntity.setModificationCounter(userEntity.getModificationCounter());
+			
+			// set new password
+			userEntity.setPassword(request.getPassword());
+			
+			// save updated user
+			UserEntity resultEntity = getUserDao().save(userEntity);
+			
+			// delete token from db
+			resetTokenDao.delete(tokenEntity);
+			
+			// send mail to inform user			
+			UsermanagementUtility.send_reset_confirmation(resultEntity);
+			//UsermanagementUtility.send_reset_confirmation(resultEntity);
+			
+			return "Your Password changed";
+			
+		} else {
+			return "Given Token not bound to any Account";
+		}
+	}
+  
+  
+  
+	@Override
+	//@RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
+	public String resetPassword(UserEto user) {
+
+		UserEntity requester = getUserDao().findUserByEmail(user.getEmail());		
+		
+		// check if email exists
+		if (requester != null) {
+
+			// get resetTokenEntity if exists
+			ResetTokenEntity checkedTokenEntity = resetTokenDao.findByUserId(requester.getId());
+			
+			// remove already existing token, grab modification-counter
+			if(checkedTokenEntity!=null) {
+				resetTokenDao.delete(checkedTokenEntity);
+				checkedTokenEntity.setModificationCounter(checkedTokenEntity.getModificationCounter());				
+			}
+			
+			// check new token
+			checkedTokenEntity = new ResetTokenEntity();
+			checkedTokenEntity.setUser(requester);
+			
+			// create an token
+			checkedTokenEntity.setToken(UsermanagementUtility.generate_token());
+			
+			// save the new token
+			resetTokenDao.save(checkedTokenEntity);
+			
+			// inform the user
+			UsermanagementUtility.send_reset_mail(requester, checkedTokenEntity);
+			
+			return "Email sent.";
+			
+		} else {
+			
+			return "Email adress not found.";
+		}
+		
+	}
+  
+  
+  
+  
+  
+  
   @Override
   public UserEto saveUser(UserEto user) throws EntityExistsException {
     Objects.requireNonNull(user, "user");

@@ -5,6 +5,7 @@ import javax.inject.Named;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
+import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetTokenEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
@@ -95,5 +96,15 @@ public class UsermanagementRestServiceImpl implements UsermanagementRestService 
 
     return this.usermanagement.findUserRoleEtos(searchCriteriaTo);
   }
+
+	@Override
+	public String resetPassword(UserEto user) throws EntityNotFoundException {
+		return this.usermanagement.resetPassword(user);
+	}
+
+	@Override
+	public String changeForgetPassword(ResetTokenEto request) {
+		return this.usermanagement.changeForgetPassword(request);
+	}
 
 }
