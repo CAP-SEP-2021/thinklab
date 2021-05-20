@@ -17,23 +17,25 @@ import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserEntity;
 
 @Named
 @Transactional
-public class UsermanagementUtility {
+public class UsermanagementUtility implements UsermanagementUtil {
 
 //	@Value("${client.port}")
 //	private static int clientPort;
 
 	@Inject
-	private static Mail mailService;
+	private Mail mailService;
 
 	public UsermanagementUtility() {
 		super();
 	}
 	
-	static public String generate_token() {
+	@Override
+	public String generate_token() {
 		return RandomStringUtils.random(8, "0123456789abcdef");
 	}
 
-	public static void send_reset_mail(UserEntity destination, ResetTokenEntity tokenEntity) {
+	@Override
+	public void send_reset_mail(UserEntity destination, ResetTokenEntity tokenEntity) {
 		try {
 			StringBuilder hostMailContent = new StringBuilder();
 
@@ -51,15 +53,16 @@ public class UsermanagementUtility {
 			System.out.println("\n Email : " + destination.getEmail());
 			System.out.println(hostMailContent.toString());
 			
-			// Sending Email
-			//mailService.sendMail(destination.getEmail(), "Password Reset-Request", hostMailContent.toString());			
+			// Sending Email			
+			this.mailService.sendMail(destination.getEmail(), "Password Reset-Request", hostMailContent.toString());			
 			
 		} catch (Exception e) {
 			System.out.println("Mail not sent - Error in UsermanagementUtility.class. {}" + e.getMessage());
 		}
 	}
 
-	public static void send_reset_confirmation(UserEntity destination) {
+	@Override
+	public void send_reset_confirmation(UserEntity destination) {
 		try {
 			StringBuilder hostMailContent = new StringBuilder();
 
@@ -74,7 +77,7 @@ public class UsermanagementUtility {
 			System.out.println(hostMailContent.toString());
 
 			// Sending Email
-			//mailService.sendMail(destination.getEmail(), "Password Reset successful", hostMailContent.toString());
+			this.mailService.sendMail(destination.getEmail(), "Password Reset successful", hostMailContent.toString());
 
 		} catch (Exception e) {
 			System.out.println("Mail not sent - Error in UsermanagementUtility.class. {}" + e.getMessage());

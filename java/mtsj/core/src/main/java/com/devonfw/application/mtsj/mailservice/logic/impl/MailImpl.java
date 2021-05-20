@@ -28,7 +28,7 @@ public class MailImpl implements Mail {
   public MailSender mailSender;
 
   @Async
-  public boolean sendMail(String to, String subject, String text) {
+  public Boolean sendMail(String to, String subject, String text) {
 
     SimpleMailMessage message = new SimpleMailMessage();
     message.setTo(to);

@@ -58,6 +58,9 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
   
 	@Inject
 	private Mail mailService;
+	
+	@Inject
+	private UsermanagementUtility utils;
   
   /**
    * The constructor.
@@ -141,7 +144,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			resetTokenDao.delete(tokenEntity);
 			
 			// send mail to inform user			
-			UsermanagementUtility.send_reset_confirmation(resultEntity);
+			utils.send_reset_confirmation(resultEntity);
 			//UsermanagementUtility.send_reset_confirmation(resultEntity);
 			
 			return "Your Password changed";
@@ -176,13 +179,14 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			checkedTokenEntity.setUser(requester);
 			
 			// create an token
-			checkedTokenEntity.setToken(UsermanagementUtility.generate_token());
+			checkedTokenEntity.setToken(utils.generate_token());
 			
 			// save the new token
 			resetTokenDao.save(checkedTokenEntity);
 			
 			// inform the user
-			UsermanagementUtility.send_reset_mail(requester, checkedTokenEntity);
+			utils.send_reset_mail(requester, checkedTokenEntity);
+			//UsermanagementUtility.send_reset_mail(requester, checkedTokenEntity);
 			
 			return "Email sent.";
 			
