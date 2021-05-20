@@ -69,6 +69,11 @@ public interface UsermanagementRestService {
   @Path("/user/reset/password/new/")
   public String changeForgetPassword(ResetTokenEto request);
   
+  @GET
+  @Path("/user/reset/password/validate/{token}")
+  public String validateToken(@PathParam("token") String token);
+  
+  
   @POST
   @Path("/user/update/")
   public UserEto updateUser(UserEto user) throws EntityNotFoundException;

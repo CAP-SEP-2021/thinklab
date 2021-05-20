@@ -107,4 +107,9 @@ public class UsermanagementRestServiceImpl implements UsermanagementRestService 
 		return this.usermanagement.changeForgetPassword(request);
 	}
 
+	@Override
+	public String validateToken(String token) {
+		return this.usermanagement.validateToken(token);
+	}
+
 }

@@ -122,6 +122,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 		return true;
 	}
 
+	// POST with token AND password, validating process, using ResetTokenEto
 	@Override
 	// @RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
 	public String changeForgetPassword(ResetTokenEto request) {
@@ -138,8 +139,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 				return "Your Token expired. Please request a new Token";
 			}
 			
-			System.out.println("####### TIME: " + ChronoUnit.MINUTES.between(tokenEntity.getCreationDate(), Instant.now()));
-			
 			// get user from db and setup
 			UserEntity userEntity = getUserDao().find(tokenEntity.getUser().getId());
 			userEntity.setModificationCounter(userEntity.getModificationCounter());
@@ -155,7 +154,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
 			// send mail to inform user
 			utils.send_reset_confirmation(resultEntity);
-			// UsermanagementUtility.send_reset_confirmation(resultEntity);
 
 			return "Your Password changed";
 
@@ -163,7 +161,31 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			return "Given Token not bound to any Account";
 		}
 	}
+	
+	// Alternative: GET with token only for validating, return success or failure
+	@Override
+	public String validateToken(String token) {
 
+		// grab the requested token
+		ResetTokenEntity tokenEntity = resetTokenDao.findByToken(token);
+		
+		if(tokenEntity != null) {
+			
+			// check timestamps
+			if(ChronoUnit.MINUTES.between(tokenEntity.getCreationDate(), Instant.now()) > utils.getTimeToExpired()) {
+				resetTokenDao.delete(tokenEntity);
+				return "Your Token expired. Please request a new Token";
+			}
+			return "success";
+			
+		} else {
+			return "failure";
+		}
+	}
+	
+	
+
+	// create token, send email
 	@Override
 	// @RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
 	public String resetPassword(UserEto user) {
@@ -205,7 +227,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 		}
 
 	}
-
+	
 	@Override
 	public UserEto saveUser(UserEto user) throws EntityExistsException {
 		Objects.requireNonNull(user, "user");
