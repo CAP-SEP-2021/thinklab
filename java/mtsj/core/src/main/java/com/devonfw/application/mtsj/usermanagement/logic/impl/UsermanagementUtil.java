@@ -10,4 +10,6 @@ public interface UsermanagementUtil {
 	public void send_reset_mail(UserEntity destination, ResetTokenEntity tokenEntity);
 	
 	public void send_reset_confirmation(UserEntity destination);
+	
+	public void send_resettoken_mail(UserEntity destination, ResetTokenEntity tokenEntity);
 }

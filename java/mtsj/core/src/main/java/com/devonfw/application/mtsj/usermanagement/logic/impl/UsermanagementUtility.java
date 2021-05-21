@@ -34,6 +34,33 @@ public class UsermanagementUtility implements UsermanagementUtil {
 	}
 
 	@Override
+	public void send_resettoken_mail(UserEntity destination, ResetTokenEntity tokenEntity) {
+		try {
+			StringBuilder hostMailContent = new StringBuilder();
+
+			hostMailContent.append("MY THAI STAR").append("\n");
+			hostMailContent.append("Hi ").append(destination.getUsername()).append("\n");
+			hostMailContent.append("You have requested a password reset.").append("\n");
+
+			//hostMailContent.append("Please use following code to reset your password:").append("\n");
+			//hostMailContent.append(tokenEntity.getToken()).append("\n");
+
+			hostMailContent.append("To change your password, please use the following link:").append("\n");
+			String resetLink = "http://localhost:4200/restaurant/reset/password/validate/" + tokenEntity.getToken();
+			hostMailContent.append(resetLink).append("\n");
+
+			System.out.println("\n Email : " + destination.getEmail());
+			System.out.println(hostMailContent.toString());
+			
+			// Sending Email			
+			this.mailService.sendMail(destination.getEmail(), "Password Reset-Request", hostMailContent.toString());			
+			
+		} catch (Exception e) {
+			System.out.println("Mail not sent - Error in UsermanagementUtility.class. {}" + e.getMessage());
+		}
+	}
+	
+	@Override
 	public void send_reset_mail(UserEntity destination, ResetTokenEntity tokenEntity) {
 		try {
 			StringBuilder hostMailContent = new StringBuilder();

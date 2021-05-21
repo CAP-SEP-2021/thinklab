@@ -174,7 +174,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			// check timestamps
 			if(ChronoUnit.MINUTES.between(tokenEntity.getCreationDate(), Instant.now()) > utils.getTimeToExpired()) {
 				resetTokenDao.delete(tokenEntity);
-				return "Your Token expired. Please request a new Token";
+				return "failure";
 			}
 			return "success";
 			
@@ -216,8 +216,8 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			resetTokenDao.save(checkedTokenEntity);
 
 			// inform the user
-			utils.send_reset_mail(requester, checkedTokenEntity);
-			// UsermanagementUtility.send_reset_mail(requester, checkedTokenEntity);
+//			utils.send_reset_mail(requester, checkedTokenEntity);
+			utils.send_resettoken_mail(requester, checkedTokenEntity);
 
 			return "Email sent.";
 
