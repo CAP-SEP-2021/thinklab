@@ -207,6 +207,11 @@ public boolean equals(Object obj) {
 	@Override
 	public void setStatus(String status) {
 		
+		if(status==null) {
+			this.status = "Order placed";
+			return;
+		}
+		
 		for(String av_status : available_status) {
 			
 			if(status.equals(av_status)) {

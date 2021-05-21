@@ -25,6 +25,7 @@ import com.devonfw.application.mtsj.general.common.impl.security.ApplicationAcce
 import com.devonfw.application.mtsj.general.logic.base.AbstractComponentFacade;
 import com.devonfw.application.mtsj.mailservice.logic.api.Mail;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetTokenEto;
+import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetTokenMessageEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
@@ -125,18 +126,22 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 	// POST with token AND password, validating process, using ResetTokenEto
 	@Override
 	// @RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
-	public String changeForgetPassword(ResetTokenEto request) {
+	public ResetTokenMessageEto changeForgetPassword(ResetTokenEto request) {
 
 		// grab the requested token
-		ResetTokenEntity tokenEntity = resetTokenDao.findByToken(request.getToken());
+		ResetTokenEntity tokenEntity = resetTokenDao.findByToken(request.getToken());		
 
 		// check if given token exists
 		if (tokenEntity != null) {
 
+			// grab Requester
+			UserEntity user = getUserDao().find(tokenEntity.getUser().getId());
+			
 			// check timestamps
 			if(ChronoUnit.MINUTES.between(tokenEntity.getCreationDate(), Instant.now()) > utils.getTimeToExpired()) {
 				resetTokenDao.delete(tokenEntity);
-				return "Your Token expired. Please request a new Token";
+				return notifyUser(user.getUsername(), "Your Token expired. Please request a new Token");
+				//return "Your Token expired. Please request a new Token";
 			}
 			
 			// get user from db and setup
@@ -155,10 +160,11 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			// send mail to inform user
 			utils.send_reset_confirmation(resultEntity);
 
-			return "Your Password changed";
+			return notifyUser(user.getUsername(), "Your Password changed.");
 
 		} else {
-			return "Given Token not bound to any Account";
+			return notifyUser(null, "Given Token not bound to any Account");
+			//return "Given Token not bound to any Account";
 		}
 	}
 	
@@ -183,13 +189,18 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 		}
 	}
 	
-	
+	private ResetTokenMessageEto notifyUser(String name, String text) {
+		ResetTokenMessageEto message = new ResetTokenMessageEto();
+		message.setUserName(name);
+		message.setMessage(text);
+		return message;
+	}
 
 	// create token, send email
 	@Override
 	// @RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
-	public String resetPassword(UserEto user) {
-
+	public ResetTokenMessageEto resetPassword(UserEto user) {
+		
 		UserEntity requester = getUserDao().findUserByEmail(user.getEmail());
 
 		// check if email exists
@@ -216,14 +227,19 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			resetTokenDao.save(checkedTokenEntity);
 
 			// inform the user
-//			utils.send_reset_mail(requester, checkedTokenEntity);
-			utils.send_resettoken_mail(requester, checkedTokenEntity);
-
-			return "Email sent.";
+			utils.send_reset_mail(requester, checkedTokenEntity);
+//			ResetTokenMessageEto message = new ResetTokenMessageEto();
+//			message.setUserName(requester.getUsername());
+//			message.setMessage("Email sent.");
+			
+			return notifyUser(requester.getUsername(), "Email sent.");
 
 		} else {
 
-			return "Email adress not found.";
+//			ResetTokenMessageEto message = new ResetTokenMessageEto();
+//			message.setMessage("Email adress not found.");
+			
+			return notifyUser(null, "Email adress not found.");
 		}
 
 	}
