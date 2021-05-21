@@ -1,9 +1,9 @@
-package com.devonfw.application.mtsj.usermanagement.logic.impl;
+package com.devonfw.application.mtsj.usermanagement.logic.impl.helperinterfaces;
 
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.ResetTokenEntity;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserEntity;
 
-public interface UsermanagementUtil {
+public interface UsermanagementUtility {
 	
 	abstract public String generate_token();
 

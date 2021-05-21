@@ -14,17 +14,18 @@ import com.devonfw.application.mtsj.general.logic.base.AbstractComponentFacade;
 import com.devonfw.application.mtsj.mailservice.logic.api.Mail;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.ResetTokenEntity;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserEntity;
+import com.devonfw.application.mtsj.usermanagement.logic.impl.helperinterfaces.UsermanagementUtility;
 
 @Named
 @Transactional
-public class UsermanagementUtility implements UsermanagementUtil {
+public class UsermanagementUtilityImpl implements UsermanagementUtility {
 
 	private final static int durationTimeToExpire = 120; // minutes
 	
 	@Inject
 	private Mail mailService;
 
-	public UsermanagementUtility() {
+	public UsermanagementUtilityImpl() {
 		super();
 	}
 	

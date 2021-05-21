@@ -62,7 +62,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 	private Mail mailService;
 
 	@Inject
-	private UsermanagementUtility utils;
+	private UsermanagementUtilityImpl utils;
 
 	/**
 	 * The constructor.
