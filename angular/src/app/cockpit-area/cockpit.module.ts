@@ -19,6 +19,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslocoRootModule } from '../transloco-root.module';
 import { ArchivCockpitComponent } from './archiv-cockpit/archiv-cockpit.component';
 import { ArchivDialogComponent } from './archiv-cockpit/archiv-dialog/archiv-dialog.component';
+import { UsermanagementCockpitComponent } from './usermanagement-cockpit/usermanagement-cockpit.component';
+import { NewUserDialogComponent } from './usermanagement-cockpit/new-user-dialog/new-user-dialog.component';
+import { UserDetailsDialogComponent } from './usermanagement-cockpit/user-details-dialog/user-details-dialog.component';
 
 @NgModule({
   imports: [
@@ -44,6 +47,9 @@ import { ArchivDialogComponent } from './archiv-cockpit/archiv-dialog/archiv-dia
     ClusteringCockpitComponent,
     ArchivCockpitComponent,
     ArchivDialogComponent,
+    UsermanagementCockpitComponent,
+    NewUserDialogComponent,
+    UserDetailsDialogComponent,
   ],
   exports: [
     ReservationCockpitComponent,

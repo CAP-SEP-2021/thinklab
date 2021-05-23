@@ -204,6 +204,12 @@
       "statusHdelivered":"Food is delivered",
       "tableH": "Table",
       "creationDateH": "Creation date"
+    } ,
+     "userTabel" :{
+      "id" : "ID" ,
+      "username" : "Username" ,
+      "email" : "E-mail" ,
+      "role" : "Role" 
     }
   }
 }

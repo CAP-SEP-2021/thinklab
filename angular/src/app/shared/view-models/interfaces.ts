@@ -1,4 +1,4 @@
-import { Pageable } from '../backend-models/interfaces';
+import { Pageable, UserInfo } from '../backend-models/interfaces';
 
 // DISHES
 export interface DishView {
@@ -110,7 +110,11 @@ export interface OrderResponse {
   pageable: Pageable;
   content: OrderListView;
 }
-
+// Interface to recieve responeses from the server using httpclient for get users
+export interface UserListResponse { 
+  pageable: Pageable;
+  content: UserInfo[];
+}
 // Interface to recieve responeses from the server using httpclient for get OrderDishResponse
 export interface OrderDishResponse {
   pageable: Pageable;

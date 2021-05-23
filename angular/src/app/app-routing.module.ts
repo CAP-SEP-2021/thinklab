@@ -7,6 +7,7 @@ import { ReservationCockpitComponent } from './cockpit-area/reservation-cockpit/
 import { AuthGuardService } from './core/authentication/auth-guard.service';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { NotSupportedComponent } from './core/not-supported/not-supported.component';
+import { UsermanagementCockpitComponent } from './cockpit-area/usermanagement-cockpit/usermanagement-cockpit.component';
 import { EmailConfirmationsComponent } from './email-confirmations/container/email-confirmations/email-confirmations.component';
 import { HomeComponent } from './home/container/home/home.component';
 import { MenuComponent } from './menu/container/menu.component';
@@ -33,6 +34,10 @@ const appRoutes: Routes = [
   {
     path: 'prediction',
     component: NotSupportedComponent,
+    canActivate: [AuthGuardService],
+  },{
+    path: 'usermanagement',
+    component: UsermanagementCockpitComponent,
     canActivate: [AuthGuardService],
   },
   {

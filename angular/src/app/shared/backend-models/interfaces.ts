@@ -70,7 +70,7 @@ export class FriendsInvite {
 
 export class OrderInfo {
     orderLine: OrderLineInfo;
-    extras: {id : number}[];//@ mo scary
+    extras: {id : number}[];
 }
 
 export class OrderLineInfo {
@@ -110,4 +110,17 @@ export class LoginInfo {
 export class Role {
     name: string;
     permission: number;
+}
+//users 
+export class UserInfo {
+   
+    id :number;
+    username: string;
+    password: string;
+    email: string;
+    userRoleId: number;
+    twoFactorStatus: Boolean;
+}
+export class UserListCriteria {
+    pageable: Pageable;
 }

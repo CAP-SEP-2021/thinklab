@@ -183,8 +183,9 @@ export class AuthEffects {
           } else if (role === 'WAITER') {
             return this.router.navigate(['orders']);
           } else if (role === 'MANAGER') {
-            return this.router.navigate(['prediction']);
-          }
+            return this.router.navigate(['orders']);
+          }else if (role === 'ADMIN') { //@mo added to navigate to automaticllay usermangement component 
+            return this.router.navigate(['usermanagement']);}
         }),
       ),
     { dispatch: false },

@@ -1,0 +1,133 @@
+<p>Creat a new user</p>
+<!--
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label" for="username">
+        Username
+      </label>
+      <div class="col-sm-10">
+          <input id="username" type="text" formControlName="username">
+      </div>
+      
+    </div>
+  
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label" for="email">
+        Email
+      </label>
+      <div class="col-sm-10">
+<input id="email" type="text" formControlName="email">
+      </div> 
+     
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label" for="password">
+        password
+      </label>
+      <div class="col-sm-10">
+<input id="password" type="text" formControlName="password">
+      </div> 
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label" for="repeatedPassword">
+        Repeat Password
+      </label>
+      <div class="col-sm-10">
+<input id="repeatedPassword" type="text" formControlName="repeatedPassword">
+      </div> 
+    </div>
+    
+  
+
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label" for="Role">
+       Role
+      </label>
+      <div class="col-sm-10">
+      <mat-select  [(value)]="selectedRole" class="statusSelect" formControlName="userRoleId">
+
+      <mat-option [Value]="option"  *ngFor="let option of userRoles2" (click)="sendStatus(option )">
+        {{ option.roleTyp }}</mat-option>
+    </mat-select>
+      </div> 
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-sm-10">
+
+    <button mdbBtn color="primary"   type="submit">Great User</button>
+</div>
+</div>
+</form>-->
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+  <div class="form-group row"> 
+<mat-form-field class="item" appearance="fill">
+  <mat-label class="col-sm-2 col-form-label">Username</mat-label>
+  <input  matInput formControlName="username">
+  <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">
+    <div *ngIf="username.errors.required">
+     please insert a Username
+    </div>
+  </mat-error>
+</mat-form-field>
+</div>
+
+<div class="form-group row">
+<mat-form-field  class="item" appearance="fill">
+  <mat-label class="col-sm-2 col-form-label">E-mail</mat-label>
+  <input matInput formControlName="email">
+  <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+    <div *ngIf="email.errors.required">
+     please insert the Email adress
+    </div>
+    <div *ngIf="email.errors.pattern">
+      Email is not valid
+    </div>
+  </mat-error>
+</mat-form-field>
+</div>
+
+<div class="form-group row">
+<mat-form-field class="item" appearance="fill">
+  <mat-label class="col-sm-2 col-form-label">password</mat-label>
+  <input type="password" matInput formControlName="password" >
+  <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+    <div *ngIf="password.errors.required">
+     please insert a password
+    </div>
+  </mat-error>
+</mat-form-field>
+</div>
+<!--
+<div class="form-group row">
+<mat-form-field appearance="fill">
+  <mat-label class="col-sm-2 col-form-label">Repeat password</mat-label>
+  <input matInput formControlName="repeatedPassword">
+</mat-form-field>
+</div>
+-->
+<div class="form-group row">
+<mat-form-field class="item" appearance="fill">
+  <mat-label class="col-sm-2 col-form-label">User Role</mat-label>
+  <mat-select [(value)]="selected" formControlName="userRoleId">
+    <mat-option value="0">User</mat-option>
+    <mat-option value="1">Waiter</mat-option>
+    <mat-option value="2">Manager</mat-option>
+    <mat-option value="3">Admin</mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
+<div class="btn-toolbar">
+
+  <div class="right-btn">
+   <button   mat-raised-button mat-dialog-close  type="submit" [disabled]="!checkoutForm.valid">Create User</button>
+<button mat-button  mat-dialog-close color="primary"  color="accent" >Close</button>
+  </div>
+  
+    
+  </div>
+
+
+</form>
