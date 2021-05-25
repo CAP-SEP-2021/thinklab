@@ -12,7 +12,10 @@
     "clearFilters": "Изчисти филтри",
     "applyFilters": "Приложи филтри",
     "removeComment": "Изтрий коментар",
-    "addComment": "Добави коментар"
+    "addComment": "Добави коментар",
+    "cancelOrder" : "Анулиране на поръчка",
+    "reactivateOrder" : "Реактивирайте поръчката",
+    "addUser" : "Добавете потребители"
   },
   "table": {
     "rowsPage": "Редове на страница",
@@ -90,6 +93,8 @@
     "book": "Запази маса",
     "orders": "Поръчки",
     "reservations": "Резервации",
+    "archiv" : "архив",
+    "users" : "Списък с потребители",
     "userActions": {
       "user": "Потребител",
       "pairing": "Задайте двуфакторно удостоверяване",
@@ -195,7 +200,12 @@
       "bookingTokenH": "Номер на резервация",
       "ownerH": "Създател",
       "tableH": "Маса",
-      "creationDateH": "Дата на създаване"
+      "creationDateH": "Дата на създаване",
+      "statusH" : "статус",
+      "statusHPaid" : "платен",
+      "statusHtaken" :"Поръчката взета",
+      "statusHprepared": "Приготвя се храна",
+      "statusHdelivered":"Доставя се храна"
     }
   }
 }

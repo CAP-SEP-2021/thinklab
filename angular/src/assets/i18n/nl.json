@@ -12,7 +12,10 @@
     "clearFilters": "Verwijder filters",
     "applyFilters": "Voeg filters toe",
     "removeComment": "Verwijder commentaar",
-    "addComment": "Voeg commentaar toe"
+    "addComment": "Voeg commentaar toe",
+    "cancelOrder" : "Annuleer bestelling",
+    "reactivateOrder" : "Heractiveer bestelling",
+    "addUser" : "Voeg gebruikers toe"
   },
   "table": {
     "rowsPage": "Rijen per pagina",
@@ -92,6 +95,8 @@
     "book": "Boek tafel",
     "orders": "Bestellingen",
     "reservations": "Reserveringen",
+    "archiv" : "Archief",
+    "users" : "Gebruikers lijst",
     "userActions": {
       "user": "Gebruiker",
       "pairing": "Definieer een two-factor authenticatie",
@@ -197,7 +202,12 @@
       "bookingTokenH": "Boekingsnummer",
       "ownerH": "Eigenaar",
       "tableH": "Tafel",
-      "creationDateH": "Aanmaakdatum"
+      "creationDateH": "Aanmaakdatum",
+      "statusH" : "Toestand",
+      "statusHPaid" : "Betaald",
+      "statusHtaken" :"Bestelling genomen",
+      "statusHprepared": "Er wordt eten bereid",
+      "statusHdelivered":"Er wordt eten bezorgd"
     }
   }
 }

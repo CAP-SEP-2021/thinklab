@@ -13,7 +13,10 @@
     "clearFilters": "Clear Filters",
     "applyFilters": "Apply Filters",
     "removeComment": "Remove Comment",
-    "addComment": "Add comment"
+    "addComment": "Add comment",
+    "cancelOrder" : "Cancel order",
+    "reactivateOrder" : "Reactivate order",
+    "addUser" : "Add User"
   },
   "table": {
     "rowsPage": "Rows per page",
@@ -91,7 +94,8 @@
     "book": "Book table",
     "orders": "Orders",
     "reservations": "Reservations",
-    "archiv": "Archiv",
+    "archiv": "Archive",
+    "users" : "Users",
     "userActions": {
       "user": "User",
       "pairing": "Set two-factor authentication",
@@ -198,7 +202,7 @@
       "bookingTokenH": "Reference Number",
       "statusH" : "Status",
       "ownerH": "Owner",
-      "statusHPaid" : "paid",
+      "statusHPaid" : "Paid",
       "statusHtaken" :"Order taken",
       "statusHprepared": "Food is being prepared",
       "statusHdelivered":"Food is delivered",

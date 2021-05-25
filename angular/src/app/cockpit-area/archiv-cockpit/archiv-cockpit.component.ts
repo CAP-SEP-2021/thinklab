@@ -64,9 +64,7 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
     'Food is delivered',
     'Paid',
   ];
-  //status2: any[];
-  //myvar: Subscription;
-
+  
   pageSizes: number[];
 
   filters: FilterCockpit = {
@@ -113,12 +111,12 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
           { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
           { name: 'status', label: cockpitTable.statusH },
         ];
-    /*    this.status2 = [
+          this.status = [
           cockpitTable.statusHtaken,
           cockpitTable.statusHprepared,
           cockpitTable.statusHdelivered,
           cockpitTable.statusHPaid,
-        ];*/
+        ];
       });
   }
 

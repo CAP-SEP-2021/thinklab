@@ -12,7 +12,10 @@
         "clearFilters": "Очистить фильтры",
         "applyFilters": "Применить фильтры",
         "removeComment": "Удалить комментарий",
-        "addComment": "Добавить комментарий"
+        "addComment": "Добавить комментарий",
+        "cancelOrder" : "отменить заказ",
+        "reactivateOrder" : "Активировать заказ",
+        "addUser" : "Добавить пользователей"
     },
     "table": {
         "rowsPage": "Строк на страницу",
@@ -85,6 +88,8 @@
         "book": "Заказать стол",
         "orders": "Заказы",
         "reservations": "Бронирование",
+        "archiv" : "архив",
+        "users" : "Список пользователей",
         "userActions": {
             "user": "Пользовател",
             "pairing": "Установить двухфакторную аутентификацию",
@@ -187,7 +192,12 @@
             "bookingTokenH": "Номер ссылки",
             "ownerH": "Владелец",
             "tableH": "Стол",
-            "creationDateH": "Число создания"
+            "creationDateH": "Число создания",
+            "statusH" : "ста́тус",
+            "statusHPaid" : "Оплаченный",
+            "statusHtaken" :"Заказ принят",
+            "statusHprepared": "Еда готовится",
+            "statusHdelivered":"Еда доставляется"
         }
     }
 }

@@ -12,7 +12,10 @@
     "clearFilters": "Netejar filtres",
     "applyFilters": "Aplicar filtres",
     "removeComment": "Eliminar comentari",
-    "addComment": "Afegir comentari"
+    "addComment": "Afegir comentari",
+    "cancelOrder" : "cancel lar la comanda",
+    "reactivateOrder" : "Activa la comanda",
+    "addUser" : "Afegiu usuaris"
   },
   "table": {
     "rowsPage": "Files per pàgina",
@@ -93,6 +96,8 @@
     "book": "Reservar taula",
     "orders": "Comandes",
     "reservations": "Reserves",
+    "archiv" : "Arxiu",
+    "users" : "Llista d'usuaris",
     "userActions": {
       "user": "Usuari",
       "logout": "Tancar sessió",
@@ -197,7 +202,12 @@
       "bookingTokenH": "Nombre de referència",
       "ownerH": "Responsable",
       "tableH": "Taula",
-      "creationDateH": "Data de creació"
+      "creationDateH": "Data de creació",
+      "statusH" : "Estat",
+      "statusHPaid" : "Pagat",
+      "statusHtaken" :"Comanda acceptada",
+      "statusHprepared": "S’està preparant menjar",
+      "statusHdelivered":"Es lliura menjar"
     }
   }
 }

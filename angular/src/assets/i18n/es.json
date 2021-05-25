@@ -12,7 +12,10 @@
     "clearFilters": "Limpiar filtros",
     "applyFilters": "Aplicar filtros",
     "removeComment": "Eliminar comentario",
-    "addComment": "Añadir comentario"
+    "addComment": "Añadir comentario",
+    "cancelOrder" : "Cancelar orden",
+    "reactivateOrder" : "Reactivar orden",
+    "addUser" : "Agregar usuarios"
   },
   "table": {
     "rowsPage": "Filas por página",
@@ -85,6 +88,8 @@
     "book": "Reservar mesa",
     "orders": "Pedidos",
     "reservations": "Reservas",
+    "archiv" : "Archivo",
+    "users" : "Lista de usuarios",
     "userActions": {
       "user": "Usuario",
       "pairing": "Configurar una autenticación de dos factores",
@@ -187,7 +192,12 @@
       "bookingTokenH": "Número de referencia",
       "ownerH": "Responsable",
       "tableH": "Mesa",
-      "creationDateH": "Fecha de creación"
+      "creationDateH": "Fecha de creación",
+      "statusH" : "Estado",
+      "statusHPaid" : "Pagado",
+      "statusHtaken" :"Orden tomada",
+      "statusHprepared": "Se está preparando la comida",
+      "statusHdelivered":"Se entrega comida"
     }
   }
 }

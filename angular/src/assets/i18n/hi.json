@@ -12,7 +12,10 @@
     "clearFilters": "फ़िल्टर साफ़ करें",
     "applyFilters": "फ़िल्टर लागू करें",
     "removeComment": "टिप्पणी निकालें",
-    "addComment": "टिप्पणी जोड़ें"
+    "addComment": "टिप्पणी जोड़ें",
+    "cancelOrder" : "आदेश रद्द",
+    "reactivateOrder" : "आदेश पुनः सक्रिय करें",
+    "addUser" : "उपयोगकर्ताओं को जोड़ें"
   },
   "table": {
     "rowsPage": "प्रति पंक्ति पंक्तियाँ",
@@ -92,6 +95,8 @@
     "book": "टेबल बुक करें",
     "orders": "आदेश",
     "reservations": "आरक्षण",
+    "archiv" : "पुरालेख",
+    "users" : "उपयोगकर्ताओं की सूची",
     "userActions": {
       "user": "User",
       "pairing": "एक दो-कारक प्रमाणीकरण को परिभाषित करें",
@@ -196,7 +201,12 @@
       "bookingTokenH": "संदर्भ संख्या",
       "ownerH": "मालिक",
       "tableH": "मेज",
-      "creationDateH": "रचना तिथि"
+      "creationDateH": "रचना तिथि",
+      "statusH" : "स्थिति",
+      "statusHPaid" : "भुगतान किया",
+      "statusHtaken" :"आदेश लिया गया",
+      "statusHprepared": "खाना बन रहा है",
+      "statusHdelivered":"खाना पहुंचाया जाता है"
     }
   }
 }

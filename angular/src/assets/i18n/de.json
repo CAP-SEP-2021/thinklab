@@ -13,7 +13,11 @@
     "clearFilters": "Filter zurücksetzen",
     "applyFilters": "Filter anwenden",
     "removeComment": "Kommentar entfernen",
-    "addComment": "Kommentar hinzufügen"
+    "addComment": "Kommentar hinzufügen",
+    "cancelOrder" : "Bestellung stornieren",
+    "reactivateOrder" : "Bestellung reaktivieren",
+    "addUser" : "Benutzer hinzufügen"
+    
   },
   "table": {
     "rowsPage": "Zeilen pro Seite",
@@ -96,6 +100,8 @@
     "book": "Tisch buchen",
     "orders": "Bestellungen",
     "reservations": "Reservierungen",
+    "archiv": "Archiv",
+    "users" : "Benutzerliste",
     "userActions": {
       "user": "Benutzer",
       "pairing": "Zwei-Faktor-Authentifizierung einstellen",
