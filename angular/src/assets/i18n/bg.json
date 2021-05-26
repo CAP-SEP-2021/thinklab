@@ -95,6 +95,8 @@
     "reservations": "Резервации",
     "archiv" : "архив",
     "users" : "Списък с потребители",
+    "prediction" : "прогнозиране",
+    "clustering" : "клъстериране",
     "userActions": {
       "user": "Потребител",
       "pairing": "Задайте двуфакторно удостоверяване",
@@ -206,6 +208,20 @@
       "statusHtaken" :"Поръчката взета",
       "statusHprepared": "Приготвя се храна",
       "statusHdelivered":"Доставя се храна"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Създайте нов потребител",
+    "userRole" : "Потребителска роля",
+    "roleCustomer" : "клиент",
+    "roleWaiter" : "Сервитьор",
+    "roleManager" : "Мениджър",
+    "roleAdmin" : "Администратор",
+    "formErrors" : {
+    "addUserNameRequired" : "Задължително поле. Моля, въведете потребителско име",
+    "addUserEmailRequired" : "Задължително поле. Моля, въведете имейл",
+    "addUserEmailPattern" : "Моля, въведете валиден имейл адрес, напр. Б. email@email.com",
+    "addUserPasswordRequired" : "Задължително поле. моля въведете парола"
     }
   }
 }

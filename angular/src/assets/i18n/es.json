@@ -90,6 +90,8 @@
     "reservations": "Reservas",
     "archiv" : "Archivo",
     "users" : "Lista de usuarios",
+    "prediction" : "Predicción",
+    "clustering" : "Agrupamiento",
     "userActions": {
       "user": "Usuario",
       "pairing": "Configurar una autenticación de dos factores",
@@ -198,6 +200,20 @@
       "statusHtaken" :"Orden tomada",
       "statusHprepared": "Se está preparando la comida",
       "statusHdelivered":"Se entrega comida"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Crea un nuevo usuario",
+    "userRole" : "Rol del usuario",
+    "roleCustomer" : "Cliente",
+    "roleWaiter" : "Mesero",
+    "roleManager" : "Gerente",
+    "roleAdmin" : "Administración",
+    "formErrors" : {
+    "addUserNameRequired" : "Campo requerido. por favor, ingrese un nombre de usuario",
+    "addUserEmailRequired" : "Campo requerido. Por favor ingrese un correo electrónico",
+    "addUserEmailPattern" : "Introduzca una dirección de correo electrónico válida, p. Ej. B. email@email.com",
+    "addUserPasswordRequired" : "Campo requerido. porfavor ingrese una contraseña"
     }
   }
 }

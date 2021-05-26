@@ -98,6 +98,8 @@
     "reservations": "Réservations",
     "archiv" : "Archiver",
     "users" : "Liste des utilisateurs",
+    "prediction" : "Prédiction",
+    "clustering" : "Regroupement",
     "userActions": {
       "user": "Utilisateur",
       "pairing": "Définir une authentification à deux facteurs",
@@ -209,6 +211,20 @@
       "statusHtaken" :"Commande prise",
       "statusHprepared": "La nourriture est en cours de préparation",
       "statusHdelivered":"La nourriture est livrée"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Créer un nouvel utilisateur",
+    "userRole" : "Rôle d'utilisateur",
+    "roleCustomer" : "Client",
+    "roleWaiter" : "Serveur",
+    "roleManager" : "Directeur",
+    "roleAdmin" : "Administrateur",
+    "formErrors" : {
+    "addUserNameRequired" : "Champs requis. Merci d'entrer un nom d'utilisateur",
+    "addUserEmailRequired" : "Champs requis. Veuillez saisir un e-mail",
+    "addUserEmailPattern" : "Saisissez une adresse e-mail valide, par exemple email@email.com",
+    "addUserPasswordRequired" : "Champs requis. Veuillez entrer un mot de passe"
     }
   }
 }

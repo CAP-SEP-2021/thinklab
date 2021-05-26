@@ -1,4 +1,4 @@
-<p>Creat a new user</p>
+<p>{{'userManagement.createUser' | transloco}}</p>
 <!--
 <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
 
@@ -68,7 +68,7 @@
   <input  matInput formControlName="username">
   <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">
     <div *ngIf="username.errors.required">
-     please insert a Username
+      {{'userManagement.formErrors.addUserNameRequired' | transloco}}
     </div>
   </mat-error>
 </mat-form-field>
@@ -80,10 +80,10 @@
   <input matInput formControlName="email">
   <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
     <div *ngIf="email.errors.required">
-     please insert the Email adress
+      {{'userManagement.formErrors.addUserEmailRequired' | transloco}}
     </div>
     <div *ngIf="email.errors.pattern">
-      Email is not valid
+      {{'userManagement.formErrors.addUserEmailPattern' | transloco}}
     </div>
   </mat-error>
 </mat-form-field>
@@ -95,7 +95,7 @@
   <input type="password" matInput formControlName="password" >
   <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
     <div *ngIf="password.errors.required">
-     please insert a password
+      {{'userManagement.formErrors.addUserPasswordRequired' | transloco}}
     </div>
   </mat-error>
 </mat-form-field>
@@ -110,20 +110,20 @@
 -->
 <div class="form-group row">
 <mat-form-field class="item" appearance="fill">
-  <mat-label class="col-sm-2 col-form-label">User Role</mat-label>
+  <mat-label class="col-sm-2 col-form-label">{{'userManagement.userRole' | transloco}}</mat-label>
   <mat-select  formControlName="userRoleId">
-    <mat-option value="0">User</mat-option>
-    <mat-option value="1">Waiter</mat-option>
-    <mat-option value="2">Manager</mat-option>
-    <mat-option value="3">Admin</mat-option>
+    <mat-option value="0">{{'userManagement.roleCustomer' | transloco}}</mat-option>
+    <mat-option value="1">{{'userManagement.roleWaiter' | transloco}}</mat-option>
+    <mat-option value="2">{{'userManagement.roleManager' | transloco}}</mat-option>
+    <mat-option value="3">{{'userManagement.roleAdmin' | transloco}}</mat-option>
   </mat-select>
 </mat-form-field>
 </div>
 <div class="btn-toolbar">
 
   <div class="right-btn">
-   <button   mat-raised-button mat-dialog-close  type="submit" [disabled]="!checkoutForm.valid">Create User</button>
-<button mat-button  mat-dialog-close color="primary"  color="accent" >Close</button>
+   <button   mat-raised-button mat-dialog-close  type="submit" [disabled]="!checkoutForm.valid">{{'buttons.addUser' | transloco}}</button>
+<button mat-button  mat-dialog-close color="primary"  color="accent" >{{'buttons.close' | transloco}}</button>
   </div>
   
     

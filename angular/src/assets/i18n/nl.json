@@ -97,6 +97,8 @@
     "reservations": "Reserveringen",
     "archiv" : "Archief",
     "users" : "Gebruikers lijst",
+    "prediction" : "Voorspelling",
+    "clustering" : "Clustering",
     "userActions": {
       "user": "Gebruiker",
       "pairing": "Definieer een two-factor authenticatie",
@@ -208,6 +210,20 @@
       "statusHtaken" :"Bestelling genomen",
       "statusHprepared": "Er wordt eten bereid",
       "statusHdelivered":"Er wordt eten bezorgd"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Maak een nieuwe gebruiker aan",
+    "userRole" : "Gebruikersrol",
+    "roleCustomer" : "Klant",
+    "roleWaiter" : "Ober",
+    "roleManager" : "Manager",
+    "roleAdmin" : "Beheerder",
+    "formErrors" : {
+    "addUserNameRequired" : "Verplicht veld. Voer een gebruikersnaam in",
+    "addUserEmailRequired" : "Verplicht veld. Voer een e-mailadres in",
+    "addUserEmailPattern" : "Voer een geldig e-mailadres in, bijv. Email@email.com",
+    "addUserPasswordRequired" : "Verplicht veld. voer een wachtwoord in alstublieft"
     }
   }
 }

@@ -90,6 +90,8 @@
         "reservations": "Бронирование",
         "archiv" : "архив",
         "users" : "Список пользователей",
+        "prediction" : "прогноз",
+        "clustering" : "кластеризация",
         "userActions": {
             "user": "Пользовател",
             "pairing": "Установить двухфакторную аутентификацию",
@@ -199,5 +201,19 @@
             "statusHprepared": "Еда готовится",
             "statusHdelivered":"Еда доставляется"
         }
-    }
+    },
+    "userManagement": {
+        "createUser" : "Создать нового пользователя",
+        "userRole" : "Роль пользователя",
+        "roleCustomer" : "клиент",
+        "roleWaiter" : "Официант",
+        "roleManager" : "Менеджер",
+        "roleAdmin" : "Админ",
+        "formErrors" : {
+        "addUserNameRequired" : "Обязательное поле. Пожалуйста введите имя пользователя",
+        "addUserEmailRequired" : "Обязательное поле. Пожалуйста, введите адрес электронной почты",
+        "addUserEmailPattern" : "Введите действующий адрес электронной почты, например, email@email.com",
+        "addUserPasswordRequired" : "Обязательное поле. Пожалуйста, введите пароль"
+        }
+      }
 }

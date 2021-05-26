@@ -96,6 +96,8 @@
     "reservations": "Reservations",
     "archiv": "Archive",
     "users" : "Users",
+    "prediction" : "Prediction",
+    "clustering" : "Clustering",
     "userActions": {
       "user": "User",
       "pairing": "Set two-factor authentication",
@@ -214,6 +216,20 @@
       "username" : "Username" ,
       "email" : "E-mail" ,
       "role" : "Role" 
+    }
+  },
+  "userManagement": {
+    "createUser" : "Create a new User",
+    "userRole" : "User role",
+    "roleCustomer" : "Customer",
+    "roleWaiter" : "Waiter",
+    "roleManager" : "Manager",
+    "roleAdmin" : "Admin",
+    "formErrors" : {
+    "addUserNameRequired" : "Required. Please enter a username",
+    "addUserEmailRequired" : "Required. Please enter an email",
+    "addUserEmailPattern" : "Enter a valid email address e.g. email@email.com",
+    "addUserPasswordRequired" : "Required. Please enter a password"
     }
   }
 }

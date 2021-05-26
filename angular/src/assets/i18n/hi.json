@@ -97,6 +97,8 @@
     "reservations": "आरक्षण",
     "archiv" : "पुरालेख",
     "users" : "उपयोगकर्ताओं की सूची",
+    "prediction" : "पूर्वानुमान",
+    "clustering" : "क्लस्टरिंग",
     "userActions": {
       "user": "User",
       "pairing": "एक दो-कारक प्रमाणीकरण को परिभाषित करें",
@@ -207,6 +209,20 @@
       "statusHtaken" :"आदेश लिया गया",
       "statusHprepared": "खाना बन रहा है",
       "statusHdelivered":"खाना पहुंचाया जाता है"
+    }
+  },
+  "userManagement": {
+    "createUser" : "एक नया उपयोगकर्ता बनाएं",
+    "userRole" : "उपयोगकर्ता भूमिका",
+    "roleCustomer" : "ग्राहक",
+    "roleWaiter" : "वेटर",
+    "roleManager" : "मैनेजर",
+    "roleAdmin" : "व्यवस्थापक",
+    "formErrors" : {
+    "addUserNameRequired" : "आवश्यक क्षेत्र। कृपया उपयोगकर्तानाम डालें",
+    "addUserEmailRequired" : "आवश्यक क्षेत्र। कृपया एक ईमेल दर्ज करें",
+    "addUserEmailPattern" : "एक मान्य ईमेल पता दर्ज करें जैसे ईमेल@email.com",
+    "addUserPasswordRequired" : "आवश्यक क्षेत्र। कृपया पासवर्ड दर्ज करें"
     }
   }
 }

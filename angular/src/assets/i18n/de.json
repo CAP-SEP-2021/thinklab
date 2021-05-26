@@ -102,6 +102,8 @@
     "reservations": "Reservierungen",
     "archiv": "Archiv",
     "users" : "Benutzerliste",
+    "prediction" : "Prognose",
+    "clustering" : "Clustering",
     "userActions": {
       "user": "Benutzer",
       "pairing": "Zwei-Faktor-Authentifizierung einstellen",
@@ -214,8 +216,19 @@
       "statusHdelivered":"Essen wird ausgeliefert",
       "creationDateH": "Erstelldatum"
     }
+  },
+  "userManagement": {
+    "createUser" : "Erstelle einen neuen Benutzer",
+    "userRole" : "Benutzerrolle",
+    "roleCustomer" : "Kunde",
+    "roleWaiter" : "Kellner",
+    "roleManager" : "Manager",
+    "roleAdmin" : "Admin",
+    "formErrors" : {
+    "addUserNameRequired" : "Pflichtfeld. Bitte gib einen Benutzernamen ein",
+    "addUserEmailRequired" : "Pflichtfeld. Bitte gib eine Email ein",
+    "addUserEmailPattern" : "Gib eine gültige Emailadresse ein z.B. email@email.com",
+    "addUserPasswordRequired" : "Pflichtfeld. Bitte gib ein Passwort ein"
+    }
   }
-
-
-
 }

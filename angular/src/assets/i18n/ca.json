@@ -98,10 +98,13 @@
     "reservations": "Reserves",
     "archiv" : "Arxiu",
     "users" : "Llista d'usuaris",
+    "prediction" : "Predicció",
+    "clustering" : "Agrupació",
     "userActions": {
       "user": "Usuari",
       "logout": "Tancar sessió",
       "changePassword": "Canviar contrasenya",
+      "pairing" : "Definiu l'autenticació de dos factors",
       "twitterAccount": "Compte de Twitter",
       "signOut": "Tancar sessió",
       "orders": "Comandes"
@@ -208,6 +211,20 @@
       "statusHtaken" :"Comanda acceptada",
       "statusHprepared": "S’està preparant menjar",
       "statusHdelivered":"Es lliura menjar"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Crea un usuari nou",
+    "userRole" : "Rol d'usuari",
+    "roleCustomer" : "Client",
+    "roleWaiter" : "Cambrer",
+    "roleManager" : "Gerent",
+    "roleAdmin" : "Administrador",
+    "formErrors" : {
+    "addUserNameRequired" : "Camp necessari. Introduïu un nom d'usuari",
+    "addUserEmailRequired" : "Camp necessari. Introduïu un correu electrònic",
+    "addUserEmailPattern" : "Introduïu una adreça electrònica vàlida, per exemple, email@email.com",
+    "addUserPasswordRequired" : "Camp necessari. Introduïu una contrasenya"
     }
   }
 }

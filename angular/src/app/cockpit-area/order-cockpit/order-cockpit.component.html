@@ -73,7 +73,7 @@
 
 
 
-            <mat-select [value]="option" class="statusSelect" placeholder="{{element.order.status}}">
+            <mat-select [value]="option" class="statusSelect" placeholder="{{'cockpit.table.statusHtaken' | transloco}}">
 
               <mat-option [value]="option" *ngFor="let option of status" (click)="sendStatus(option ,element)">
                 {{ option }}</mat-option>

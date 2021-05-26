@@ -96,6 +96,8 @@
     "reservations": "Rezerwacje",
     "archiv" : "Archiwum",
     "users" : "Lista użytkowników",
+    "prediction" : "Prognoza",
+    "clustering" : "Grupowanie",
     "userActions": {
       "user": "Uzytkownik",
       "pairing": "Ustaw uwierzytelnianie dwuskładnikowe",
@@ -207,6 +209,20 @@
       "statusHtaken" :"Zamówienie przyjęte",
       "statusHprepared": "Przygotowywane jest jedzenie",
       "statusHdelivered":"Dostarczono jedzenie"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Utwórz nowego użytkownika",
+    "userRole" : "Rola użytkownika",
+    "roleCustomer" : "Klient",
+    "roleWaiter" : "Kelner",
+    "roleManager" : "Menedżer",
+    "roleAdmin" : "Administrator",
+    "formErrors" : {
+    "addUserNameRequired" : "Pole wymagane. Proszę, wpisz nazwę użytkownika",
+    "addUserEmailRequired" : "Pole wymagane. Proszę wpisać email",
+    "addUserEmailPattern" : "Wpisz prawidłowy adres e-mail, np. Email@email.com",
+    "addUserPasswordRequired" : "Pole wymagane. proszę wprowadzić hasło"
     }
   }
 }
