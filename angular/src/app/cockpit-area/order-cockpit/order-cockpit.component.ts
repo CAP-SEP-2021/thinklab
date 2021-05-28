@@ -64,6 +64,8 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     'Food is delivered',
     'Paid',
   ];
+
+  status2 :any[];
   
 
   pageSizes: number[];
@@ -112,7 +114,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
           { name: 'status', label: cockpitTable.statusH },
         ];
-         this.status = [
+         this.status2 = [
             cockpitTable.statusHtaken ,
             cockpitTable.statusHprepared ,
             cockpitTable.statusHdelivered ,
