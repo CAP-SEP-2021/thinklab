@@ -222,6 +222,11 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
       InvitedGuestEntity resultInvitedGuest = getInvitedGuestDao().save(invitedGuest);
       LOG.info("OrderLine with id '{}' has been created.", resultInvitedGuest.getId());
     }
+    // for (InvitedGuestEntity invitedGuest : resultEntity.getInvitedGuests()) {
+    // invitedGuest.setBookingId(resultEntity.getId());
+    // InvitedGuestEntity resultInvitedGuest = getInvitedGuestDao().save(invitedGuest);
+    // LOG.info("OrderLine with id '{}' has been created.", resultInvitedGuest.getId());
+    // }
     LOG.debug("Booking with id '{}' has been created.", resultEntity.getId());
 
     sendConfirmationEmails(resultEntity);
@@ -267,6 +272,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     return getBeanMapper().map(getInvitedGuestDao().find(id), InvitedGuestEto.class);
   }
 
+  @Override
   public List<InvitedGuestEto> findInvitedGuestByBooking(Long bookingId) {
 
     List<InvitedGuestEntity> invitedGuestList = getInvitedGuestDao().findInvitedGuestByBooking(bookingId);
@@ -357,6 +363,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     return getBeanMapper().map(resultEntity, TableEto.class);
   }
 
+  @Override
   public InvitedGuestEto acceptInvite(String guestToken) {
 
     Objects.requireNonNull(guestToken);

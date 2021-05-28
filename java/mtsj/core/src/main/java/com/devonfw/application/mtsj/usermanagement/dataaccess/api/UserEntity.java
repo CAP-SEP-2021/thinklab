@@ -1,5 +1,6 @@
 package com.devonfw.application.mtsj.usermanagement.dataaccess.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import com.devonfw.application.mtsj.bookingmanagement.dataaccess.api.BookingEnti
 import com.devonfw.application.mtsj.dishmanagement.dataaccess.api.DishEntity;
 import com.devonfw.application.mtsj.general.dataaccess.api.ApplicationPersistenceEntity;
 import com.devonfw.application.mtsj.usermanagement.common.api.User;
+import com.devonfw.module.basic.common.api.reference.IdRef;
 
 @Entity
 @Table(name = "User")
@@ -33,9 +35,9 @@ public class UserEntity extends ApplicationPersistenceEntity implements User {
 
   private UserRoleEntity userRole;
 
-  private List<BookingEntity> bookings;
+  private List<IdRef<BookingEntity>> bookingIds; // TODO umbennenen in bookingIds
 
-  private List<DishEntity> favourites;
+  private List<IdRef<DishEntity>> favouriteIds; // TODO umbennenen in favouriteIds
 
   private static final long serialVersionUID = 1L;
 
@@ -60,6 +62,7 @@ public class UserEntity extends ApplicationPersistenceEntity implements User {
   /**
    * @return password
    */
+  @Override
   public String getPassword() {
 
     return this.password;
@@ -68,6 +71,7 @@ public class UserEntity extends ApplicationPersistenceEntity implements User {
   /**
    * @param password new value of {@link #getPassword()}.
    */
+  @Override
   public void setPassword(String password) {
 
     this.password = password;
@@ -150,9 +154,9 @@ public class UserEntity extends ApplicationPersistenceEntity implements User {
   @ManyToMany
   @JoinTable(name = "UserFavourite", joinColumns = {
   @javax.persistence.JoinColumn(name = "idUser") }, inverseJoinColumns = @javax.persistence.JoinColumn(name = "idDish"))
-  public List<DishEntity> getFavourites() {
+  public List<IdRef<DishEntity>> getFavourites() {
 
-    return this.favourites;
+    return this.favouriteIds;
   }
 
   /**
@@ -160,16 +164,19 @@ public class UserEntity extends ApplicationPersistenceEntity implements User {
    */
   public void setFavourites(List<DishEntity> favourites) {
 
-    this.favourites = favourites;
+    this.favouriteIds = new ArrayList<>();
+    for (DishEntity fav : favourites) {
+      this.favouriteIds.add(IdRef.of(fav));
+    }
   }
 
   /**
    * @return bookings
    */
   @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-  public List<BookingEntity> getBookings() {
+  public List<IdRef<BookingEntity>> getBookings() {
 
-    return this.bookings;
+    return this.bookingIds;
   }
 
   /**
@@ -177,7 +184,10 @@ public class UserEntity extends ApplicationPersistenceEntity implements User {
    */
   public void setBookings(List<BookingEntity> bookings) {
 
-    this.bookings = bookings;
+    this.bookingIds = new ArrayList<>();
+    for (BookingEntity booking : bookings) {
+      this.bookingIds.add(IdRef.of(booking));
+    }
   }
 
   @Override
