@@ -49,6 +49,7 @@ CREATE TABLE Booking (
   expirationDate TIMESTAMP,
   creationDate TIMESTAMP,
   canceled BOOLEAN NOT NULL DEFAULT ((0)) ,
+--  bezahlt BOOLEAN NOT NULL DEFAULT ((0)),
   bookingType INTEGER,
   idTable BIGINT,
   idOrder BIGINT,
@@ -77,6 +78,9 @@ CREATE TABLE Orders (
   id BIGINT NOT NULL AUTO_INCREMENT,
   modificationCounter INTEGER NOT NULL,
   idBooking BIGINT NOT NULL,
+  status VARCHAR (255),
+  canceled BOOLEAN,
+  archived BOOLEAN,
   idInvitedGuest BIGINT,
   idHost BIGINT,
   CONSTRAINT PK_Order PRIMARY KEY(id),
@@ -165,7 +169,7 @@ CREATE TABLE OrderLine (
 -- *** OrderDishExtraIngredient ***
 CREATE TABLE OrderDishExtraIngredient (
   id BIGINT NOT NULL AUTO_INCREMENT,
-  modificationCounter INTEGER,
+  modificationCounter INTEGER DEFAULT(1),
   idOrderLine BIGINT NOT NULL,
   idIngredient BIGINT NOT NULL,
   CONSTRAINT PK_OrderDishExtraIngredient PRIMARY KEY(id),

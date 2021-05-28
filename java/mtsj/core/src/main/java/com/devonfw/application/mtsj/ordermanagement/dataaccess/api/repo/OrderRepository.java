@@ -3,8 +3,10 @@ package com.devonfw.application.mtsj.ordermanagement.dataaccess.api.repo;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderSearchCriteriaTo;
 import com.devonfw.application.mtsj.ordermanagement.dataaccess.api.OrderEntity;
@@ -17,7 +19,7 @@ import com.querydsl.jpa.impl.JPAQuery;
  * {@link DefaultRepository} for {@link OrderEntity}.
  */
 public interface OrderRepository extends DefaultRepository<OrderEntity> {
-
+	
   /**
    * @param idBooking
    * @return the list {@link OrderEntity} objects that matched the search.
@@ -71,6 +73,10 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     if ((bookingToken != null) && alias.getBooking() != null) {
       query.where(Alias.$(alias.getBooking().getBookingToken()).toLowerCase().eq(bookingToken.toLowerCase()));
     }
+    
+    boolean archived = criteria.getArchived();
+    query.where(Alias.$(alias.getArchived()).eq(archived));
+    
     return QueryUtil.get().findPaginated(criteria.getPageable(), query, true);
   }
 

@@ -1,25 +1,24 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { ConfigService } from '../../../core/config/config.service';
-import { BookingView, DishView, OrderListView, OrderView } from '../../../shared/view-models/interfaces';
+import { BookingView, OrderListView, OrderView } from '../../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../../services/waiter-cockpit.service';
 import { TranslocoService } from '@ngneat/transloco';
-import { Observable } from 'rxjs';
+
 
 @Component({
-  selector: 'app-cockpit-order-dialog',
-  templateUrl: './order-dialog.component.html',
-  styleUrls: ['./order-dialog.component.scss'],
+  selector: 'app-archiv-dialog',
+  templateUrl: './archiv-dialog.component.html',
+  styleUrls: ['./archiv-dialog.component.scss']
 })
-export class OrderDialogComponent implements OnInit {
+export class ArchivDialogComponent implements OnInit {
   private fromRow = 0;
   private currentPage = 1;
 
   pageSize = 4;
-  dishes: any ; 
+
   data: OrderListView;
-  tempData: OrderListView;
   datat: BookingView[] = [];
   columnst: any[];
   displayedColumnsT: string[] = [
@@ -38,9 +37,9 @@ export class OrderDialogComponent implements OnInit {
     'extras',
     'orderLine.amount',
     'dish.price',
- 
+  
   ];
-
+ 
   pageSizes: number[];
   filteredData: OrderView[] = this.datao;
   totalPrice: number;
@@ -51,26 +50,11 @@ export class OrderDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) dialogData: any,
     private configService: ConfigService,
   ) {
-    
-  
     this.data = dialogData;
     this.pageSizes = this.configService.getValues().pageSizesDialog;
   }
 
   ngOnInit(): void {
-    var tempbody  = {"categories":[],     ///@mo change later
-    "searchBy":"",
-    "pageable":{
-        "pageSize":8,
-        "pageNumber":0,
-        "sort":[{"property":"price","direction":"DESC"}] 
-        },
-    "maxPrice":null,"minLikes":null
-    };
-    this.dishes = this.waiterCockpitService.getDishes(tempbody);
-    console.log("dishes");
-    console.log(this.dishes);
-
     console.log(this.data) ;
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
@@ -87,7 +71,6 @@ export class OrderDialogComponent implements OnInit {
   }
 
 
-  
 
 
   setTableHeaders(lang: string): void {
@@ -130,6 +113,7 @@ export class OrderDialogComponent implements OnInit {
   }
   sendGetCancelOrder(){
     console.log("ts started ");
+   
     console.log(this.data.order.id);
     this.waiterCockpitService.getCancelOrder(this.data.order.id).subscribe((data: any) => {
      console.log("this is the response data ");
@@ -144,36 +128,9 @@ export class OrderDialogComponent implements OnInit {
     console.log("filtered data ");
     console.log(this.filteredData);
   }
-/*
-  logrow(element :OrderView , event : any ) :void{
-    this.tempData = this.data;
-    console.log("for each loop");
-    this.tempData.orderLines.forEach (function (value) {
-     if (value.orderLine.id == element.orderLine.id){
-        value.orderLine.amount = event.target.value;
-      }
-      console.log(value.orderLine.id);
-      console.log(value.orderLine);
-    }); 
-    console.log("event data ");
-    console.log(event.target.value);
-    console.log(element);
-    console.log("temp data ");
-    console.log(this.tempData);
-  }
 
-  deleterow(element :OrderView) :void{
-    this.tempData = this.data;
-    console.log("for each loop");
-    this.tempData.orderLines.forEach (function (value) { 
-     if (value.orderLine.id == element.orderLine.id){ // @mo need to be fixed  
-       delete value.orderLine ;
-      }
-      
-    }); 
-   
+  logrow(element :any) :void{
     console.log(element);
-    console.log("temp data ");
-    console.log(this.tempData);
-  }*/
+  }
+  
 }

@@ -3,6 +3,8 @@ package com.devonfw.application.mtsj.bookingmanagement.logic.api;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingCto;
@@ -153,5 +155,6 @@ public interface Bookingmanagement {
   InvitedGuestEto declineInvite(String guestToken);
 
   String buildToken(String email, String type) throws NoSuchAlgorithmException;
+
 
 }

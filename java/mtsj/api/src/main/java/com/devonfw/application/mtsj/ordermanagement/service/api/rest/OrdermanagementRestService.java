@@ -1,5 +1,6 @@
 package com.devonfw.application.mtsj.ordermanagement.service.api.rest;
 
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -11,6 +12,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.data.domain.Page;
 
+import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingCto;
+import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingEto;
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderCto;
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderEto;
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderLineCto;
@@ -49,6 +52,10 @@ public interface OrdermanagementRestService {
   @Path("/order/")
   public OrderEto saveOrder(OrderCto order);
 
+  @POST
+  @Path("/order/status/update/")
+  public OrderEto statusUpdate(@Valid OrderCto order);
+  
   /**
    * Delegates to {@link Ordermanagement#deleteOrder}.
    *
@@ -73,6 +80,16 @@ public interface OrdermanagementRestService {
   public Page<OrderCto> findOrdersByPost(OrderSearchCriteriaTo searchCriteriaTo);
 
   /**
+   * Delegates to {@link Ordermanagement#findOrderCtos}.
+   *
+   * @param searchCriteriaTo the pagination and search criteria to be used for finding orders.
+   * @return the {@link Page list} of matching {@link OrderCto}s.
+   */
+  @Path("/order/archived")
+  @POST
+  public Page<OrderCto> findArchivedOrders(OrderSearchCriteriaTo searchCriteriaTo);
+  
+  /**
    * Delegates to {@link Ordermanagement#findOrderLine}.
    *
    * @param id the ID of the {@link OrderLineEto}
@@ -92,6 +109,15 @@ public interface OrdermanagementRestService {
   @Path("/orderline/")
   public OrderLineEto saveOrderLine(OrderLineEto orderline);
 
+  /*
+  @POST
+  @Path("/orderlineupdate/")
+  public OrderLineEto updateOrderLine(OrderLineEto orderline);
+  */
+  
+  @POST
+  @Path("/orderline/update/")
+  public OrderLineEto updateOrderLine(OrderLineCto orderline);
   /**
    * Delegates to {@link Ordermanagement#deleteOrderLine}.
    *

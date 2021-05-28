@@ -11,7 +11,7 @@ import { Sort as MaterialSort } from '@angular/material/sort';
 import { TranslocoService } from '@ngneat/transloco';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
-import { elementAt, share } from 'rxjs/operators';
+import { debounceTime, share, timeout } from 'rxjs/operators';
 import { ConfigService } from '../../core/config/config.service';
 import {
   BookingInfo,
@@ -24,17 +24,16 @@ import {
   OrderListView,
   ReservationView,
   SaveOrderResponse,
-  TextLabel,
 } from '../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../services/waiter-cockpit.service';
-import { OrderDialogComponent } from './order-dialog/order-dialog.component';
+import { ArchivDialogComponent } from './archiv-dialog/archiv-dialog.component';
 
 @Component({
-  selector: 'app-cockpit-order-cockpit',
-  templateUrl: './order-cockpit.component.html',
-  styleUrls: ['./order-cockpit.component.scss'],
+  selector: 'app-archiv-cockpit',
+  templateUrl: './archiv-cockpit.component.html',
+  styleUrls: ['./archiv-cockpit.component.scss'],
 })
-export class OrderCockpitComponent implements OnInit, OnDestroy {
+export class ArchivCockpitComponent implements OnInit, OnDestroy {
   private translocoSubscription = Subscription.EMPTY;
   private pageable: Pageable = {
     pageSize: 8,
@@ -50,7 +49,8 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   orders: OrderListView[] = [];
   totalOrders: number;
 
-  columns: TextLabel[];
+  columns: any[];
+  tempData: SaveOrderResponse;
 
   displayedColumns: string[] = [
     'booking.bookingDate',
@@ -64,7 +64,8 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     'Food is delivered',
     'Paid',
   ];
-  //status2 :any []; // @mo use later for lang change
+  //status2: any[];
+  //myvar: Subscription;
 
   pageSizes: number[];
 
@@ -96,11 +97,11 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     element.order.status = option;
     let temp = { order: { id: element.order.id, status: option } }; // @mo change later
     this.waiterCockpitService.postOrderStauts(temp).subscribe((data: any) => {
-      // @mo musst be changed
       this.applyFilters();
     });
   }
 
+ 
 
   setTableHeaders(lang: string): void {
     this.translocoSubscription = this.translocoService
@@ -112,31 +113,30 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
           { name: 'status', label: cockpitTable.statusH },
         ];
-        /* this.status2 = [
-             cockpitTable.statusHtaken ,
-            cockpitTable.statusHprepared ,
-           cockpitTable.statusHdelivered ,
-            cockpitTable.statusHPaid
-         ];*/
+    /*    this.status2 = [
+          cockpitTable.statusHtaken,
+          cockpitTable.statusHprepared,
+          cockpitTable.statusHdelivered,
+          cockpitTable.statusHPaid,
+        ];*/
       });
   }
 
   applyFilters(): void {
     if (this.sorting.length === 0) {
-      // setting two default search crietria first the status of the order second is the date
+      // setting two defualt search crietria first the status of the order second the date
       this.sorting.push({ property: 'status', direction: 'desc' });
       this.sorting.push({ property: 'booking.bookingDate', direction: 'desc' });
     }
-   
+ 
     this.waiterCockpitService
-      .getOrders(this.pageable, this.sorting, this.filters)
+      .getArchivedOrders(this.pageable, this.sorting, this.filters)
       .subscribe((data: any) => {
         if (!data) {
           this.orders = [];
         } else {
           this.orders = data.content;
-      /*    console.log('all data ');
-          console.log(this.orders);*/
+          //console.log(this.orders);
         }
         this.totalOrders = data.totalElements;
       });
@@ -167,16 +167,18 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     }
     this.applyFilters();
   }
+
   selected(selection: OrderListView): void {
-    let dialogRef = this.dialog.open(OrderDialogComponent, {
+
+    var dialgoref = this.dialog.open(ArchivDialogComponent, {
       width: '80%',
       data: selection,
     });
-    //refreshing the list after closing the dialog
-    dialogRef.afterClosed().subscribe(() => this.applyFilters());
+    dialgoref.afterClosed().subscribe(() => this.applyFilters());
   }
 
   ngOnDestroy(): void {
     this.translocoSubscription.unsubscribe();
+   
   }
 }

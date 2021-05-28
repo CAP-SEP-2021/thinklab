@@ -1,16 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
+  Filter,
   FilterCockpit,
   Pageable,
   Sort,
 } from 'app/shared/backend-models/interfaces';
-import { cloneDeep, map } from 'lodash';
+import { cloneDeep, map, template } from 'lodash';
+import { BookingInfo } from 'app/shared/backend-models/interfaces';
 import { Observable } from 'rxjs';
-import { exhaustMap } from 'rxjs/operators';
+import { debounceTime, exhaustMap, publishReplay, share } from 'rxjs/operators';
 import { ConfigService } from '../../core/config/config.service';
 import {
   BookingResponse,
+  DishView,
   OrderResponse,
   OrderView,
   OrderViewResult,
@@ -25,17 +28,62 @@ export class WaiterCockpitService {
     'ordermanagement/v1/order/search';
   private readonly filterOrdersRestPath: string =
     'ordermanagement/v1/order/search';
+  private readonly orderUpdateRestPath: string =
+    'ordermanagement/v1/order/status/update'; 
+    private readonly orderCancelRestPath: string =
+    'ordermanagement/v1/order/cancelorder';
+    private readonly orderArchivRestPath: string =
+    'ordermanagement/v1/order/archived';
+    private readonly filtersDishRestPath: string = 
+    'dishmanagement/v1/dish/search';
 
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
-
+temp :any;
   constructor(
     private http: HttpClient,
     private priceCalculator: PriceCalculatorService,
     private config: ConfigService,
   ) {}
 
+  
+  getDishes(
+    filters: any,
+  ): Observable<{ pageable: Pageable; content: DishView[] }> {
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post<{ pageable: Pageable; content: DishView[] }>(
+          `${restServiceRoot}${this.filtersDishRestPath}`,
+          filters,
+        ),
+      ),
+    );
+  }
+
+
+  getArchivedOrders(
+    pageable: Pageable,
+    sorting: Sort[],
+    filters: FilterCockpit,
+  ): Observable<OrderResponse[]> {
+    let path: string;
+    filters.pageable = pageable;
+    filters.pageable.sort = sorting;
+    if (filters.email || filters.bookingToken) {
+      path = this.filterOrdersRestPath;
+    } else {
+      delete filters.email;
+      delete filters.bookingToken;
+      path = this.getOrdersRestPath;
+    }
+    return this.restServiceRoot$.pipe(
+      //debounceTime(500),.pipe(share())
+      exhaustMap((restServiceRoot) =>
+        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderArchivRestPath}`, filters),
+      ) ,  
+    );
+  }
   getOrders(
     pageable: Pageable,
     sorting: Sort[],
@@ -52,11 +100,36 @@ export class WaiterCockpitService {
       path = this.getOrdersRestPath;
     }
     return this.restServiceRoot$.pipe(
+ 
       exhaustMap((restServiceRoot) =>
         this.http.post<OrderResponse[]>(`${restServiceRoot}${path}`, filters),
       ),
     );
   }
+  
+  getCancelOrder(id :number): Observable<any> {
+    var tempId= "/" +id.toString() + "/";
+    console.log(tempId);
+    this.temp = this.restServiceRoot$.pipe( //@mo muust be changed 
+      exhaustMap((restServiceRoot) =>
+        this.http.get(`${restServiceRoot}${this.orderCancelRestPath}${tempId}`),
+      ),
+    );
+   
+    return this.temp;
+  }
+  postOrderStauts(orderInfo: any): Observable<any> {
+   
+      this.temp = this.restServiceRoot$.pipe( //@mo muust be changed 
+        exhaustMap((restServiceRoot) =>
+          this.http.post(`${restServiceRoot}${this.orderUpdateRestPath}`, orderInfo),
+        ),
+      );
+     
+      return this.temp;
+    }
+  
+
 
   getReservations(
     pageable: Pageable,

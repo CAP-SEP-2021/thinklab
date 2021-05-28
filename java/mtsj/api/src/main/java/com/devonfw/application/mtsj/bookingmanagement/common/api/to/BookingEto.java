@@ -1,6 +1,7 @@
 package com.devonfw.application.mtsj.bookingmanagement.common.api.to;
 
 import java.time.Instant;
+import java.util.ArrayList;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -14,9 +15,9 @@ import com.devonfw.module.basic.common.api.to.AbstractEto;
  * Entity transport object of Booking
  */
 public class BookingEto extends AbstractEto implements Booking {
-
+	
   private static final long serialVersionUID = 1L;
-
+  
   @NotNull
   private String name;
 
@@ -37,6 +38,8 @@ public class BookingEto extends AbstractEto implements Booking {
   private String email;
 
   private boolean canceled;
+  
+//  private boolean bezahlt;
 
   private BookingType bookingType;
 
@@ -178,6 +181,7 @@ public class BookingEto extends AbstractEto implements Booking {
     result = prime * result + ((this.bookingType == null) ? 0 : this.bookingType.hashCode());
     result = prime * result + (this.canceled ? 1231 : 1237);
     result = prime * result + ((this.comment == null) ? 0 : this.comment.hashCode());
+//    result = prime * result + (this.bezahlt ? 1231 : 1237);
     result = prime * result + ((this.creationDate == null) ? 0 : this.creationDate.hashCode());
     result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
     result = prime * result + ((this.expirationDate == null) ? 0 : this.expirationDate.hashCode());
@@ -223,6 +227,9 @@ public class BookingEto extends AbstractEto implements Booking {
     if (this.email == null) {
       if (other.email != null)
         return false;
+    
+//    } else if (this.bezahlt != other.bezahlt) {
+//          return false;
     } else if (!this.email.equals(other.email))
       return false;
     if (this.expirationDate == null) {
@@ -278,5 +285,14 @@ public class BookingEto extends AbstractEto implements Booking {
 
     this.userId = userId;
   }
+//	@Override
+//	public void setBezahlt(boolean bezahlt) {
+//		this.bezahlt = bezahlt;
+//	}
+//
+//	@Override
+//	public boolean getBezahlt() {
+//		return this.bezahlt;
+//	}
 
 }

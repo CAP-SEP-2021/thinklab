@@ -10,12 +10,13 @@ export class Filter {
     categories: { id: string }[];
 }
 
-export class FilterCockpit {
+export class FilterCockpit {//@mo we need ti add status filter 
     pageable?: Pageable;
     // sort?: Sorting[];
     bookingDate: string;
     email: string;
     bookingToken: number;
+    status : string;//@mo added to comlete the structure  
 }
 
 export class FilterOrdersCockpit {
@@ -59,6 +60,7 @@ export class ReservationInfo {
     email: string;
     bookingType: number;
     assistants?: number;
+    status?:String;
 }
 
 export class FriendsInvite {

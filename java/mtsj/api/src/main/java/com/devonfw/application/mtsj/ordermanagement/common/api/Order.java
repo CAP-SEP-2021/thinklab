@@ -15,5 +15,17 @@ public interface Order extends ApplicationEntity {
   public Long getHostId();
 
   public void setHostId(Long hostId);
+  
+  public void setStatus(String status);
+  
+  public String getStatus();
+  
+  public boolean getCanceled();
+  
+  public void setCanceled(boolean canceled);
+  
+  public boolean getArchived();
+  
+  public void setArchived(boolean archived);
 
 }
