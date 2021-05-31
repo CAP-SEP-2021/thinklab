@@ -131,8 +131,8 @@ public interface Ordermanagement {
 
   Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo criteria);
 
-  OrderEto statusUpdate(@Valid OrderCto order);
+  OrderEto updateWaiterStatus(@Valid OrderCto order);
 
-  OrderEto paymentUpdate(@Valid OrderCto order);
+  OrderEto updatePaymentStatus(@Valid OrderCto order);
 
 }

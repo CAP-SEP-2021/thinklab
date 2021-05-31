@@ -267,7 +267,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		return true;
 	}
 
-	boolean orderExists(OrderCto order) {
+	boolean doOrderExists(OrderCto order) {
 		return orderDao.findById(order.getOrder().getId()) == null ? false : true;
 	}
 	
@@ -295,10 +295,10 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 	}
 	
 	@Override
-	public OrderEto paymentUpdate(@Valid OrderCto order) {
+	public OrderEto updatePaymentStatus(@Valid OrderCto order) {
 		Objects.requireNonNull(order, "order");
 		
-		if(orderExists(order)) {
+		if(doOrderExists(order)) {
 			OrderEntity updatingEntity = getOrderDao().find(order.getOrder().getId());
 			updatingEntity.setId(order.getOrder().getId());
 			updatingEntity.setPaid(order.getOrder().getPaid());
@@ -315,18 +315,13 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 	}
 	
 	@Override
-	public OrderEto statusUpdate(OrderCto order) {
+	public OrderEto updateWaiterStatus(OrderCto order) {
 		Objects.requireNonNull(order, "order");
 		
-		if(orderExists(order)) {
+		if(doOrderExists(order)) {
 			OrderEntity updatingEntity = getOrderDao().find(order.getOrder().getId());
 			updatingEntity.setId(order.getOrder().getId());
 			updatingEntity.setStatus(order.getOrder().getStatus());
-			
-//			boolean currentArchivedStatus = updatingEntity.getArchived();
-			
-//			updatingEntity.setArchived(
-//					order.getOrder().getStatus().equals("Paid") && currentArchivedStatus==false ? true : currentArchivedStatus);
 			
 			OrderEntity resultEntity = getOrderDao().save(updatingEntity);
 			return getBeanMapper().map(resultEntity, OrderEto.class);

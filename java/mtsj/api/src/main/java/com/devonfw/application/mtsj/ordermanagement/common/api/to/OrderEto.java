@@ -140,8 +140,9 @@ public boolean equals(Object obj) {
 	@Override
 	public void setStatus(int status) {
 
-		boolean isPresent = IntStream.of(this.possiblyStatuses).anyMatch(n -> n == status);		
-		this.status = (isPresent ? status : 0);
+		this.status = (
+				IntStream.of(this.possiblyStatuses).anyMatch(n -> n == status) ? 
+						status : 0);
 	}
 	
 	@Override
