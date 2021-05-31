@@ -58,12 +58,8 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
     'booking.bookingToken',
     'status',
   ];
-  status: string[] = [
-    'Order placed',
-    'Food is prepared',
-    'Food is delivered',
-    'Paid',
-  ];
+  status: string[];
+
 
   status2 :any[];
   
@@ -94,8 +90,9 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
   }
 
   sendStatus(option, element: OrderListView): void {
-    element.order.status = option;
-    let temp = { order: { id: element.order.id, status: option } }; // @mo change later
+    let newStatus = this.status.indexOf(option).toString();
+    element.order.status = newStatus;
+    let temp = { order: { id: element.order.id, status: newStatus } }; // @mo change later
     this.waiterCockpitService.postOrderStauts(temp).subscribe((data: any) => {
       this.applyFilters();
     });
@@ -113,7 +110,7 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
           { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
           { name: 'status', label: cockpitTable.statusH },
         ];
-          this.status2 = [
+          this.status = [
           cockpitTable.statusHtaken,
           cockpitTable.statusHprepared,
           cockpitTable.statusHdelivered,
