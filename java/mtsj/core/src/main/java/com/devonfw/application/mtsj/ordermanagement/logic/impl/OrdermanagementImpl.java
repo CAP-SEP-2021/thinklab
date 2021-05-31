@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -294,6 +295,26 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 	}
 	
 	@Override
+	public OrderEto paymentUpdate(@Valid OrderCto order) {
+		Objects.requireNonNull(order, "order");
+		
+		if(orderExists(order)) {
+			OrderEntity updatingEntity = getOrderDao().find(order.getOrder().getId());
+			updatingEntity.setId(order.getOrder().getId());
+			updatingEntity.setPaid(order.getOrder().getPaid());
+			
+			if(!updatingEntity.getCanceled())
+				updatingEntity.setArchived(updatingEntity.getPaid()==true ? true : false);
+			
+			OrderEntity resultEntity = getOrderDao().save(updatingEntity);
+			return getBeanMapper().map(resultEntity, OrderEto.class);
+		} else {
+			LOG.debug("Order with id '{}' for set new status not found in db.", order.getOrder().getId());
+			throw new EntityNotFoundException("Order for updating not found");
+		}
+	}
+	
+	@Override
 	public OrderEto statusUpdate(OrderCto order) {
 		Objects.requireNonNull(order, "order");
 		
@@ -301,10 +322,11 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 			OrderEntity updatingEntity = getOrderDao().find(order.getOrder().getId());
 			updatingEntity.setId(order.getOrder().getId());
 			updatingEntity.setStatus(order.getOrder().getStatus());
-			boolean currentArchivedStatus = updatingEntity.getArchived();
 			
-			updatingEntity.setArchived(
-					order.getOrder().getStatus().equals("Paid") && currentArchivedStatus==false ? true : currentArchivedStatus);
+//			boolean currentArchivedStatus = updatingEntity.getArchived();
+			
+//			updatingEntity.setArchived(
+//					order.getOrder().getStatus().equals("Paid") && currentArchivedStatus==false ? true : currentArchivedStatus);
 			
 			OrderEntity resultEntity = getOrderDao().save(updatingEntity);
 			return getBeanMapper().map(resultEntity, OrderEto.class);

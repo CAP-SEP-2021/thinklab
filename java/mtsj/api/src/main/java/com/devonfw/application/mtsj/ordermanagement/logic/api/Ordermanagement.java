@@ -133,4 +133,6 @@ public interface Ordermanagement {
 
   OrderEto statusUpdate(@Valid OrderCto order);
 
+  OrderEto paymentUpdate(@Valid OrderCto order);
+
 }

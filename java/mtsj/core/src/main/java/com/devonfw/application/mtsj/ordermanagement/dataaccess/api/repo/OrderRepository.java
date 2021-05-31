@@ -77,6 +77,9 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     boolean archived = criteria.getArchived();
     query.where(Alias.$(alias.getArchived()).eq(archived));
     
+    boolean paid = criteria.getPaid();
+    query.where(Alias.$(alias.getPaid()).eq(paid));
+    
     return QueryUtil.get().findPaginated(criteria.getPageable(), query, true);
   }
 

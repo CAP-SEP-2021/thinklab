@@ -55,7 +55,10 @@ public interface OrdermanagementRestService {
   @POST
   @Path("/order/status/update/")
   public OrderEto statusUpdate(@Valid OrderCto order);
-  
+
+  @POST
+  @Path("/order/payment/update/")
+  public OrderEto paymentUpdate(@Valid OrderCto order);
   /**
    * Delegates to {@link Ordermanagement#deleteOrder}.
    *

@@ -130,6 +130,10 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     "/services/rest/ordermanagement/v1/order/status/update/",
     "/services/rest/ordermanagement/v1/order/status/update/*",
     "/services/rest/ordermanagement/v1/order/status/update/**",
+    
+    "/services/rest/ordermanagement/v1/order/payment/update/",
+    "/services/rest/ordermanagement/v1/order/payment/update/*",
+    "/services/rest/ordermanagement/v1/order/payment/update/**",
     /*
      * for external testing via postman for canceled states
      */

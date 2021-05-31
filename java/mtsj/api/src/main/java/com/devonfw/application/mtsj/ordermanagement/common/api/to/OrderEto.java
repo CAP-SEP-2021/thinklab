@@ -1,6 +1,7 @@
 package com.devonfw.application.mtsj.ordermanagement.common.api.to;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import com.devonfw.application.mtsj.ordermanagement.common.api.Order;
 import com.devonfw.module.basic.common.api.to.AbstractEto;
@@ -18,19 +19,16 @@ public class OrderEto extends AbstractEto implements Order {
 
   private String bookingToken;
   
-  private String status;
+  private int status;
+  
+  private boolean paid;
   
   private boolean canceled;
   
   private boolean archived;
 
-  private ArrayList<String> available_status = new ArrayList<String>() {{
-	  add(new String("Order placed"));
-	  add(new String("Food is prepared"));
-	  add(new String("Food is delivered"));
-	  add(new String("Paid"));
-  }};
-  
+  private int[] possiblyStatuses = {0, 1, 2};
+
   /**
    * @return bookingToken
    */
@@ -73,76 +71,18 @@ public class OrderEto extends AbstractEto implements Order {
     this.invitedGuestId = invitedGuestId;
   }
 
-  
-  
-//  @Override
-//  public int hashCode() {
-//
-//    final int prime = 31;
-//    int result = super.hashCode();
-//
-//    result = prime * result + ((this.bookingId == null) ? 0 : this.bookingId.hashCode());
-//    result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
-//    result = prime * result + ((this.invitedGuestId == null) ? 0 : this.invitedGuestId.hashCode());
-//
-//    return result;
-//  }
-//
-//  @Override
-//  public boolean equals(Object obj) {
-//
-//    if (this == obj) {
-//      return true;
-//    }
-//    if (obj == null) {
-//      return false;
-//    }
-//    // class check will be done by super type EntityTo!
-//    if (!super.equals(obj)) {
-//      return false;
-//    }
-//    OrderEto other = (OrderEto) obj;
-//
-//    if (this.bookingId == null) {
-//      if (other.bookingId != null) {
-//        return false;
-//      }
-//    } else if (!this.bookingId.equals(other.bookingId)) {
-//      return false;
-//    }
-//    
-//    if (!this.status.equals(other.status))
-//        return false;
-//      if (this.status == null) {
-//        if (other.status != null)
-//          return false;
-//      }
-//    
-//
-//
-//    if (this.invitedGuestId == null) {
-//      if (other.invitedGuestId != null) {
-//        return false;
-//      }
-//    } else if (!this.invitedGuestId.equals(other.invitedGuestId)) {
-//      return false;
-//    }
-//
-//    return true;
-//  }
-
   @Override
 public int hashCode() {
 	final int prime = 31;
 	int result = 1;
 	result = prime * result + (archived ? 1231 : 1237);
-	result = prime * result + ((available_status == null) ? 0 : available_status.hashCode());
+//	result = prime * result + ((available_status == null) ? 0 : available_status.hashCode()); // TODO
 	result = prime * result + ((bookingId == null) ? 0 : bookingId.hashCode());
 	result = prime * result + ((bookingToken == null) ? 0 : bookingToken.hashCode());
 	result = prime * result + (canceled ? 1231 : 1237);
 	result = prime * result + ((hostId == null) ? 0 : hostId.hashCode());
 	result = prime * result + ((invitedGuestId == null) ? 0 : invitedGuestId.hashCode());
-	result = prime * result + ((status == null) ? 0 : status.hashCode());
+//	result = prime * result + ((status == null) ? 0 : status.hashCode());	// TODO
 	return result;
 }
 
@@ -156,11 +96,6 @@ public boolean equals(Object obj) {
 		return false;
 	OrderEto other = (OrderEto) obj;
 	if (archived != other.archived)
-		return false;
-	if (available_status == null) {
-		if (other.available_status != null)
-			return false;
-	} else if (!available_status.equals(other.available_status))
 		return false;
 	if (bookingId == null) {
 		if (other.bookingId != null)
@@ -184,11 +119,9 @@ public boolean equals(Object obj) {
 			return false;
 	} else if (!invitedGuestId.equals(other.invitedGuestId))
 		return false;
-	if (status == null) {
-		if (other.status != null)
-			return false;
-	} else if (!status.equals(other.status))
+	if (status != other.status) {
 		return false;
+	}		
 	return true;
 }
 
@@ -205,27 +138,14 @@ public boolean equals(Object obj) {
   }
 
 	@Override
-	public void setStatus(String status) {
-		
-		if(status==null) {
-			this.status = "Order placed";
-			return;
-		}
-		
-		for(String av_status : available_status) {
-			
-			if(status.equals(av_status)) {
-				
-				this.status = av_status;
-				return;
-			}
-		}
-		
-		this.status = "Order placed";
+	public void setStatus(int status) {
+
+		boolean isPresent = IntStream.of(this.possiblyStatuses).anyMatch(n -> n == status);		
+		this.status = (isPresent ? status : 0);
 	}
 	
 	@Override
-	public String getStatus() {
+	public int getStatus() {
 	
 		return this.status;
 	}
@@ -248,6 +168,16 @@ public boolean equals(Object obj) {
 	@Override
 	public void setArchived(boolean archived) {
 		this.archived = archived;
+	}
+
+	@Override
+	public boolean getPaid() {
+		return this.paid;
+	}
+
+	@Override
+	public void setPaid(boolean paid) {
+		this.paid = paid;
 	}
 
 }
