@@ -16,9 +16,9 @@ public interface Order extends ApplicationEntity {
 
   public void setHostId(Long hostId);
   
-  public void setStatus(String status);
+  public void setStatus(int status);
   
-  public String getStatus();
+  public int getStatus();
   
   public boolean getCanceled();
   
@@ -27,5 +27,9 @@ public interface Order extends ApplicationEntity {
   public boolean getArchived();
   
   public void setArchived(boolean archived);
+  
+  public boolean getPaid();
+  
+  public void setPaid(boolean paid);
 
 }

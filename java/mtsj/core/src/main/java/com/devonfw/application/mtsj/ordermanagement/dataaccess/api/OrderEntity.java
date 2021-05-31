@@ -28,12 +28,14 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
 
   private BookingEntity booking;
   
-  private String status;
+  private int status;
   
   private boolean canceled;
   
   private boolean archived;
 
+  private boolean paid;
+  
   private InvitedGuestEntity invitedGuest;
 
   private BookingEntity host;
@@ -178,13 +180,13 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
   }
 
 	@Override
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		
-		this.status = status == null ? "Order placed" : status;
+		this.status = status;
 	}
 	
 	@Override
-	public String getStatus() {
+	public int getStatus() {
 
 		return this.status;
 	}
@@ -209,4 +211,13 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
 		this.archived = archived;
 	}
 
+	@Override
+	public boolean getPaid() {
+		return this.paid;
+	}
+
+	@Override
+	public void setPaid(boolean paid) {
+		this.paid = paid;
+	}
 }
