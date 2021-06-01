@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Instant;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.datatype.BookingType;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingSearchCriteriaTo;
 import com.devonfw.application.mtsj.bookingmanagement.dataaccess.api.BookingEntity;
+import com.devonfw.application.mtsj.ordermanagement.dataaccess.api.OrderLineEntity;
+import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserEntity;
 import com.devonfw.module.jpa.dataaccess.api.QueryUtil;
 import com.devonfw.module.jpa.dataaccess.api.data.DefaultRepository;
 import com.querydsl.core.alias.Alias;
@@ -28,13 +31,17 @@ import com.querydsl.jpa.impl.JPAQuery;
  */
 public interface BookingRepository extends DefaultRepository<BookingEntity> {
 
-//  @Transactional
-//  @Modifying
-//  @Query("UPDATE BookingEntity SET status = :status, bezahlt = :bezahlt" //
-//		      + " WHERE BOOKINGTOKEN = :token")
-//  void updateStatus(@Param("token") String token,
-//		  			@Param("status") String status,		  			
-//		  			@Param("bezahlt") boolean bezahlt);
+	/**
+	 * @param token
+	 * @return the {@link BookingEntity} objects that matched the search.
+	 */
+//	@Query("SELECT booking FROM BookingEntity booking" //
+//			+ " WHERE booking.user = :host")
+//	List<BookingEntity> findBookingByHostId(@Param("host") Long host);
+
+	@Query("SELECT booking FROM BookingEntity booking" //
+			+ " WHERE booking.user = :host")
+	List<BookingEntity> findBookingByHostId(@Param("host") UserEntity host);
 	
   /**
    * @param token

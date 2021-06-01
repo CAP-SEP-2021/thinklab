@@ -2,6 +2,7 @@ package com.devonfw.application.mtsj.usermanagement.logic.impl;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -17,6 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 
+import com.devonfw.application.mtsj.bookingmanagement.dataaccess.api.BookingEntity;
+import com.devonfw.application.mtsj.bookingmanagement.dataaccess.api.repo.BookingRepository;
+import com.devonfw.application.mtsj.bookingmanagement.logic.api.Bookingmanagement;
 import com.devonfw.application.mtsj.general.common.api.UserProfile;
 import com.devonfw.application.mtsj.general.common.api.datatype.Role;
 import com.devonfw.application.mtsj.general.common.api.to.UserDetailsClientTo;
@@ -24,6 +28,8 @@ import com.devonfw.application.mtsj.general.common.base.QrCodeService;
 import com.devonfw.application.mtsj.general.common.impl.security.ApplicationAccessControlConfig;
 import com.devonfw.application.mtsj.general.logic.base.AbstractComponentFacade;
 import com.devonfw.application.mtsj.mailservice.logic.api.Mail;
+import com.devonfw.application.mtsj.ordermanagement.dataaccess.api.OrderLineEntity;
+import com.devonfw.application.mtsj.usermanagement.common.api.UserRole;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetTokenEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetTokenMessageEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
@@ -61,6 +67,9 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
 	@Inject
 	private Mail mailService;
+	
+	@Inject
+	private BookingRepository bookingRepository;
 
 	@Inject
 	private UsermanagementUtilityImpl utils;
@@ -114,12 +123,45 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 		return mapPaginatedEntityList(users, UserEto.class);
 	}
 
+	/*
+	 * At this point, only the user is removed. Some laws require that user information 
+	 * be removed legitimately, but orders and the like are subject to country-specific 
+	 * legal retention periods, so in this case only the reference to the user is removed, 
+	 * but not the orders themselves.
+	 */
+	boolean preDeleteFromBooking(UserEntity user) {
+		
+		List<BookingEntity> listOfHosts = bookingRepository.findBookingByHostId(user);
+
+		for(BookingEntity host : listOfHosts) {
+			
+			host.setModificationCounter(host.getModificationCounter());
+			host.setUser(null);
+			host.setEmail(null);
+			host.setName(null);
+			bookingRepository.save(host);
+		}
+		
+		return true;
+	}
+	
 	@Override
 	public boolean deleteUser(Long userId) {
 
 		UserEntity user = getUserDao().find(userId);
+		
+		//preDeleteFromBooking(user);		
+		//preDeleteFromOrder(user);
+		
+		if(user.getUserRole().equals(Role.ADMIN.name())) {
+			throw new IllegalStateException("Admin cant be deleted.");
+		}
+		
+		// delete the user
 		getUserDao().delete(user);
+		
 		LOG.debug("The user with id '{}' has been deleted.", userId);
+		
 		return true;
 	}
 
