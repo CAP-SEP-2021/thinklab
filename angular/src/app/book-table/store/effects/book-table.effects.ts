@@ -8,6 +8,8 @@ import { Booking } from '../../models/booking.model';
 import { BookTableService } from '../../services/book-table.service';
 import * as bookTableActions from '../actions/book-table.actions';
 import { TranslocoService } from '@ngneat/transloco';
+import { MatDialog } from '@angular/material/dialog';
+import { BookingTokenDialogComponent } from 'app/book-table/components/booking-token-dialog/booking-token-dialog.component';
 
 @Injectable()
 export class BookTableEffects {
@@ -38,6 +40,8 @@ export class BookTableEffects {
     () =>
       this.actions$.pipe(
         ofType(bookTableActions.bookTableSuccess),
+        map((bookingResponse) =>(this.bookingTokenDialog
+          .open(BookingTokenDialogComponent, {data: bookingResponse.bookingResponse.bookingToken}))),
         tap(() => {
           this.snackBar.openSnack(
             this.translocoService.translate('bookTable.dialog.bookingSuccess'),
@@ -120,5 +124,6 @@ export class BookTableEffects {
     public translocoService: TranslocoService,
     private bookTableService: BookTableService,
     public snackBar: SnackBarService,
+    private bookingTokenDialog: MatDialog,
   ) {}
 }
