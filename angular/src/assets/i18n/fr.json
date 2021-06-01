@@ -15,7 +15,8 @@
     "addComment": "Ajouter un commentaire",
     "cancelOrder" : "Annuler la commande",
     "reactivateOrder" : "Réactiver la commande",
-    "addUser" : "Ajouter des utilisateurs"
+    "addUser" : "Ajouter des utilisateurs",
+    "copyBookingId": "Copier l'ID de réservation"
   },
   "table": {
     "rowsPage": "Lignes par page",
@@ -72,7 +73,9 @@
     "dialog": {
       "title": "Réservez une table",
       "bookingSuccess": "Table réservée avec succès",
-      "bookingError": "Erreur de réservation, réessayez plus tard"
+      "bookingError": "Erreur de réservation, réessayez plus tard",
+      "bookingId": "Identifiant de réservation",
+      "bookingIdTooltip": "Ajoutez l'ID de réservation au panier pour terminer une commande"
     },
     "formErrors": {
       "nameRequired":

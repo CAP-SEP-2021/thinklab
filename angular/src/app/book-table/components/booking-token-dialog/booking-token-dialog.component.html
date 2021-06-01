@@ -1,4 +1,20 @@
+<span mat-dialog-title>{{'bookTable.dialog.bookingSuccess' | transloco}}</span>
+
+
+
 <mat-dialog-content>
+    <span>{{'bookTable.dialog.bookingId' | transloco}}:</span>
+    <img src="../../../../assets/images/questionmark_icon.png" matTooltip="{{'bookTable.dialog.bookingIdTooltip' | transloco}}" matTooltipClass="ex">
     <div>{{bookingToken}}</div>
-    <button [cdkCopyToClipboard]="bookingToken">Copy to clipboard</button>
+    <button class="tokenDialogButton" [cdkCopyToClipboard]="bookingToken">{{'buttons.copyBookingId' | transloco}}</button>
 </mat-dialog-content>
+
+
+
+<mat-dialog-actions>
+    
+      <button class="tokenDialogButton" name="bookTableCancel" mat-button mat-dialog-close>
+        {{'buttons.close' | transloco}}
+      </button>
+      
+    </mat-dialog-actions>

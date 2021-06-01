@@ -15,7 +15,8 @@
     "addComment": "Dodaj komentarz",
     "cancelOrder" : "Anuluj zamówienie",
     "reactivateOrder" : "Ponownie aktywuj zamówienie",
-    "addUser" : "Dodaj użytkowników"
+    "addUser" : "Dodaj użytkowników",
+    "copyBookingId": "Skopiuj identyfikator rezerwacji"
   },
   "table": {
     "rowsPage": "Ilosc rzedów na stronie",
@@ -71,7 +72,9 @@
     "dialog": {
       "title": "Zarezerwuj stolik",
       "bookingSuccess": "Stolik zarezerwowany",
-      "bookingError": "Rezerwacja nieudana, spróbuj ponownie"
+      "bookingError": "Rezerwacja nieudana, spróbuj ponownie",
+      "bookingId": "Identyfikator rezerwacji",
+      "bookingIdTooltip": "Dodaj identyfikator rezerwacji do koszyka, aby sfinalizować zamówienie"
     },
     "formErrors": {
       "nameRequired":

@@ -16,7 +16,8 @@
     "addComment": "Add comment",
     "cancelOrder" : "Cancel order",
     "reactivateOrder" : "Reactivate order",
-    "addUser" : "Add User"
+    "addUser" : "Add User",
+    "copyBookingId": "Copy Booking-ID"
   },
   "table": {
     "rowsPage": "Rows per page",
@@ -73,7 +74,9 @@
     "dialog": {
       "title": "Book Table",
       "bookingSuccess": "Table succesfully booked",
-      "bookingError": "Error booking, please try again later"
+      "bookingError": "Error booking, please try again later",
+      "bookingId": "Booking-ID",
+      "bookingIdTooltip": "Add the booking ID to the shopping cart to complete an order"
     },
     "formErrors": {
       "nameRequired": "Required. Please insert a name to reserve the table",

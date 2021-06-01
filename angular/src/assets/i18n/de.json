@@ -16,7 +16,8 @@
     "addComment": "Kommentar hinzufügen",
     "cancelOrder" : "Bestellung stornieren",
     "reactivateOrder" : "Bestellung reaktivieren",
-    "addUser" : "Benutzer hinzufügen"
+    "addUser" : "Benutzer hinzufügen",
+    "copyBookingId": "Buchungs-ID kopieren"
     
   },
   "table": {
@@ -77,7 +78,10 @@
     "dialog": {
       "title": "Tisch buchen",
       "bookingSuccess": "Tisch erfolgreich gebucht",
-      "bookingError": "Buchungsfehler, bitter versuche es später erneut"
+      "bookingError": "Buchungsfehler, bitter versuche es später erneut",
+      "bookingId": "Buchungs-ID",
+      "bookingIdTooltip": "Füge die Buchungs-ID dem Warenkorb hinzu, um eine Bestellung abzuschließen"
+
     },
     "formErrors": {
       "nameRequired":

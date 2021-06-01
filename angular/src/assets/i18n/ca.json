@@ -15,7 +15,8 @@
     "addComment": "Afegir comentari",
     "cancelOrder" : "cancel lar la comanda",
     "reactivateOrder" : "Activa la comanda",
-    "addUser" : "Afegiu usuaris"
+    "addUser" : "Afegiu usuaris",
+    "copyBookingId": "Copia l’identificació de la reserva"
   },
   "table": {
     "rowsPage": "Files per pàgina",
@@ -72,7 +73,9 @@
     "dialog": {
       "title": "Reservar una taula",
       "bookingSuccess": "Taula reservada satisfactoriament",
-      "bookingError": "Error reservant, intenti-ho de nou més tard"
+      "bookingError": "Error reservant, intenti-ho de nou més tard",
+      "bookingId": "Identificador de reserva",
+      "bookingIdTooltip": "Afegiu l’identificador de reserva a la cistella de la compra per completar una comanda"
     },
     "formErrors": {
       "nameRequired":

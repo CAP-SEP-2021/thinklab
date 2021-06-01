@@ -1,0 +1,41 @@
+[mat-dialog-title] {
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+
+  mat-dialog-actions button {
+    text-transform: uppercase;
+    
+  }
+
+  
+
+  mat-dialog-actions {
+    justify-content: center;
+    margin-top: 50px;
+
+  }
+
+  .tokenDialogButton {
+    margin-top: 10px;
+    color : rgb(49, 46, 46);
+    background-color: rgba(223, 223, 223, 0.96);
+    font-size: 16px;
+  }
+
+  .tokenDialogButton:hover {
+    background-color: rgba(238, 238, 238, 0.96);
+  }
+
+  img {
+      width: 5%;
+      margin-right:0;
+    margin-left: auto;
+    display:block;
+  }
+
+
+  .ex {
+      font-size: 16px;
+  }

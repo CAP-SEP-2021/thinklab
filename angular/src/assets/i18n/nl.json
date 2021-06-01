@@ -15,7 +15,8 @@
     "addComment": "Voeg commentaar toe",
     "cancelOrder" : "Annuleer bestelling",
     "reactivateOrder" : "Heractiveer bestelling",
-    "addUser" : "Voeg gebruikers toe"
+    "addUser" : "Voeg gebruikers toe",
+    "copyBookingId": "Kopieer boekings-ID"
   },
   "table": {
     "rowsPage": "Rijen per pagina",
@@ -73,7 +74,9 @@
     "dialog": {
       "title": "Boek tafel",
       "bookingSuccess": "Tafel succesvol geboekt",
-      "bookingError": "Fout tijdens boeking, probeer het later nog een keer"
+      "bookingError": "Fout tijdens boeking, probeer het later nog een keer",
+      "bookingId": "Boekings-ID",
+      "bookingIdTooltip": "Voeg de boekings-ID toe aan het winkelwagentje om een ​​bestelling af te ronden"
     },
     "formErrors": {
       "nameRequired": "Verplicht. Voer een naam in om een tafel te reserveren",
