@@ -1,6 +1,7 @@
 package com.devonfw.application.mtsj.bookingmanagement.dataaccess.api;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -39,8 +40,6 @@ public class BookingEntity extends ApplicationPersistenceEntity implements Booki
   private String email;
 
   private boolean canceled;
-  
-//  private boolean bezahlt;
 
   private BookingType bookingType;
 
@@ -50,7 +49,7 @@ public class BookingEntity extends ApplicationPersistenceEntity implements Booki
 
   private UserEntity user;
 
-  private List<InvitedGuestEntity> invitedGuests;
+  private List<Long> invitedGuestIds; // REVIEW: changed name to ids
 
   private List<OrderEntity> orders;
 
@@ -210,21 +209,28 @@ public class BookingEntity extends ApplicationPersistenceEntity implements Booki
     this.table = table;
   }
 
+  // REVIEW: changed getter
   /**
-   * @return invitedGuests
+   * @return IdRef list of InvitedGuests
    */
-  @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
-  public List<InvitedGuestEntity> getInvitedGuests() {
 
-    return this.invitedGuests;
+  // @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY, targetEntity = IdRef.class)
+  public List<Long> getInvitedGuests() {
+
+    return this.invitedGuestIds;
   }
 
+  // REVIEW: changed setter
   /**
    * @param invitedGuests new value of {@link #getinvitedGuests}.
    */
   public void setInvitedGuests(List<InvitedGuestEntity> invitedGuests) {
 
-    this.invitedGuests = invitedGuests;
+    // this.invitedGuests = invitedGuests;
+    this.invitedGuestIds = new ArrayList<>();
+    for (InvitedGuestEntity guest : invitedGuests) {
+      this.invitedGuestIds.add(guest.getId());
+    }
   }
 
   /**
@@ -394,15 +400,5 @@ public class BookingEntity extends ApplicationPersistenceEntity implements Booki
       this.user = userEntity;
     }
   }
-  
-//	@Override
-//	public void setBezahlt(boolean bezahlt) {
-//		this.bezahlt = bezahlt;
-//	}
-//
-//	@Override
-//	public boolean getBezahlt() {
-//		return this.bezahlt;
-//	}
 
 }

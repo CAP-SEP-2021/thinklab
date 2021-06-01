@@ -9,15 +9,13 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +24,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.devonfw.application.mtsj.bookingmanagement.common.api.datatype.BookingType;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.exception.CancelInviteNotAllowedException;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingCto;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingEto;
@@ -54,6 +49,7 @@ import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderCto;
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderEto;
 import com.devonfw.application.mtsj.ordermanagement.logic.api.Ordermanagement;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
+import com.devonfw.module.basic.common.api.reference.IdRef;
 
 /**
  * Implementation of component interface of bookingmanagement
@@ -110,11 +106,12 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
   }
 
   public boolean found(Long id) {
-	  BookingEntity entity = getBookingDao().find(id);
-	  System.out.println(entity.toString());
-	  return true;
+
+    BookingEntity entity = getBookingDao().find(id);
+    System.out.println(entity.toString());
+    return true;
   }
-  
+
   @Override
   public BookingCto findBooking(Long id) {
 
@@ -124,7 +121,10 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     cto.setBooking(getBeanMapper().map(entity, BookingEto.class));
     cto.setTable(getBeanMapper().map(entity.getTable(), TableEto.class));
     cto.setOrder(getBeanMapper().map(entity.getOrder(), OrderEto.class));
-    cto.setInvitedGuests(getBeanMapper().mapList(entity.getInvitedGuests(), InvitedGuestEto.class));
+    cto.setInvitedGuests(
+        entity.getInvitedGuests().stream().map(IdRef::<InvitedGuestEto> of).collect(Collectors.toList()));
+    // getBeanMapper().mapList(entity.getInvitedGuests(),(IdRef<InvitedGuestEto>).class));
+
     cto.setOrders(getBeanMapper().mapList(entity.getOrders(), OrderEto.class));
     return cto;
   }
@@ -139,7 +139,8 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
       cto.setBooking(getBeanMapper().map(entity, BookingEto.class));
       cto.setTable(getBeanMapper().map(entity.getTable(), TableEto.class));
       cto.setOrder(getBeanMapper().map(entity.getOrder(), OrderEto.class));
-      cto.setInvitedGuests(getBeanMapper().mapList(entity.getInvitedGuests(), InvitedGuestEto.class));
+      cto.setInvitedGuests(
+          entity.getInvitedGuests().stream().map(IdRef::<InvitedGuestEto> of).collect(Collectors.toList()));
       cto.setOrders(getBeanMapper().mapList(entity.getOrders(), OrderEto.class));
     }
     return cto;
@@ -167,7 +168,8 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     for (BookingEntity entity : bookings.getContent()) {
       BookingCto cto = new BookingCto();
       cto.setBooking(getBeanMapper().map(entity, BookingEto.class));
-      cto.setInvitedGuests(getBeanMapper().mapList(entity.getInvitedGuests(), InvitedGuestEto.class));
+      cto.setInvitedGuests(
+          entity.getInvitedGuests().stream().map(IdRef::<InvitedGuestEto> of).collect(Collectors.toList()));
       cto.setOrder(getBeanMapper().map(entity.getOrder(), OrderEto.class));
       cto.setTable(getBeanMapper().map(entity.getTable(), TableEto.class));
       cto.setUser(getBeanMapper().map(entity.getUser(), UserEto.class));
@@ -197,7 +199,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     LOG.debug("The booking with id '{}' has been deleted.", bookingId);
     return true;
   }
-  
+
   @Override
   public BookingEto saveBooking(BookingCto booking) {
 
@@ -229,16 +231,21 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
 
     BookingEntity resultEntity = getBookingDao().save(bookingEntity);
     LOG.debug("Booking with id '{}' has been created.", resultEntity.getId());
-    for (InvitedGuestEntity invitedGuest : resultEntity.getInvitedGuests()) {
-      invitedGuest.setBookingId(resultEntity.getId());
-      InvitedGuestEntity resultInvitedGuest = getInvitedGuestDao().save(invitedGuest);
-      LOG.info("OrderLine with id '{}' has been created.", resultInvitedGuest.getId());
-    }
+    // ---------------------------------
     // for (InvitedGuestEntity invitedGuest : resultEntity.getInvitedGuests()) {
     // invitedGuest.setBookingId(resultEntity.getId());
     // InvitedGuestEntity resultInvitedGuest = getInvitedGuestDao().save(invitedGuest);
     // LOG.info("OrderLine with id '{}' has been created.", resultInvitedGuest.getId());
     // }
+    for (Long invitedGuestId : resultEntity.getInvitedGuests()) {
+      // REVIEW: fetch invitedGuest objects from db
+      InvitedGuestEntity invitedGuest = getInvitedGuestDao().find(invitedGuestId);
+      // ------------------------------------
+      invitedGuest.setBookingId(resultEntity.getId());
+      InvitedGuestEntity resultInvitedGuest = getInvitedGuestDao().save(invitedGuest);
+      LOG.info("OrderLine with id '{}' has been created.", resultInvitedGuest.getId());
+    }
+    // ---------------------------------
     LOG.debug("Booking with id '{}' has been created.", resultEntity.getId());
 
     sendConfirmationEmails(resultEntity);
@@ -410,7 +417,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
 
     Objects.requireNonNull(bookingToken, "bookingToken");
     BookingCto bookingCto = findBookingByToken(bookingToken);
-    
+
     if (bookingCto != null) {
       if (!cancelInviteAllowed(bookingCto.getBooking())) {
         throw new CancelInviteNotAllowedException();
@@ -431,7 +438,10 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
   private void sendConfirmationEmails(BookingEntity booking) {
 
     if (!booking.getInvitedGuests().isEmpty()) {
-      for (InvitedGuestEntity guest : booking.getInvitedGuests()) {
+      for (Long guestId : booking.getInvitedGuests()) {
+        // REVIEW: fetch invitedGuest objects from db
+        InvitedGuestEntity guest = getInvitedGuestDao().find(guestId);
+        // ------------------------------------
         sendInviteEmailToGuest(guest, booking);
       }
     }
@@ -476,7 +486,10 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
       hostMailContent.append("Booking Date: ").append(booking.getBookingDate()).append("\n");
       if (!booking.getInvitedGuests().isEmpty()) {
         hostMailContent.append("Guest list:").append("\n");
-        for (InvitedGuestEntity guest : booking.getInvitedGuests()) {
+        for (Long guestId : booking.getInvitedGuests()) {
+          // REVIEW: fetch invitedGuest objects from db
+          InvitedGuestEntity guest = getInvitedGuestDao().find(guestId);
+          // ------------------------------------
           hostMailContent.append("-").append(guest.getEmail()).append("\n");
         }
       }

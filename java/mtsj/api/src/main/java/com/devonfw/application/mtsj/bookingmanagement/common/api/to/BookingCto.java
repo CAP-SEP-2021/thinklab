@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
+import com.devonfw.module.basic.common.api.reference.IdRef;
 import com.devonfw.module.basic.common.api.to.AbstractCto;
 
 /**
@@ -20,7 +21,7 @@ public class BookingCto extends AbstractCto {
 
   private TableEto table;
 
-  private List<InvitedGuestEto> invitedGuests;
+  private List<IdRef<InvitedGuestEto>> invitedGuests;
 
   private OrderEto order;
 
@@ -48,12 +49,12 @@ public class BookingCto extends AbstractCto {
     this.table = table;
   }
 
-  public List<InvitedGuestEto> getInvitedGuests() {
+  public List<IdRef<InvitedGuestEto>> getInvitedGuests() {
 
     return this.invitedGuests;
   }
 
-  public void setInvitedGuests(List<InvitedGuestEto> invitedGuests) {
+  public void setInvitedGuests(List<IdRef<InvitedGuestEto>> invitedGuests) {
 
     this.invitedGuests = invitedGuests;
   }

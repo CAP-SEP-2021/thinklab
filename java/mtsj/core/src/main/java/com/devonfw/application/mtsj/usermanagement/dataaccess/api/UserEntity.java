@@ -1,6 +1,5 @@
 package com.devonfw.application.mtsj.usermanagement.dataaccess.api;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -17,7 +16,6 @@ import com.devonfw.application.mtsj.bookingmanagement.dataaccess.api.BookingEnti
 import com.devonfw.application.mtsj.dishmanagement.dataaccess.api.DishEntity;
 import com.devonfw.application.mtsj.general.dataaccess.api.ApplicationPersistenceEntity;
 import com.devonfw.application.mtsj.usermanagement.common.api.User;
-import com.devonfw.module.basic.common.api.reference.IdRef;
 
 @Entity
 @Table(name = "User")
@@ -35,9 +33,9 @@ public class UserEntity extends ApplicationPersistenceEntity implements User {
 
   private UserRoleEntity userRole;
 
-  private List<IdRef<BookingEntity>> bookingIds; // TODO umbennenen in bookingIds
+  private List<BookingEntity> bookings;
 
-  private List<IdRef<DishEntity>> favouriteIds; // TODO umbennenen in favouriteIds
+  private List<DishEntity> favourites;
 
   private static final long serialVersionUID = 1L;
 
@@ -154,9 +152,9 @@ public class UserEntity extends ApplicationPersistenceEntity implements User {
   @ManyToMany
   @JoinTable(name = "UserFavourite", joinColumns = {
   @javax.persistence.JoinColumn(name = "idUser") }, inverseJoinColumns = @javax.persistence.JoinColumn(name = "idDish"))
-  public List<IdRef<DishEntity>> getFavourites() {
+  public List<DishEntity> getFavourites() {
 
-    return this.favouriteIds;
+    return this.favourites;
   }
 
   /**
@@ -164,19 +162,16 @@ public class UserEntity extends ApplicationPersistenceEntity implements User {
    */
   public void setFavourites(List<DishEntity> favourites) {
 
-    this.favouriteIds = new ArrayList<>();
-    for (DishEntity fav : favourites) {
-      this.favouriteIds.add(IdRef.of(fav));
-    }
+    this.favourites = favourites;
   }
 
   /**
    * @return bookings
    */
   @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-  public List<IdRef<BookingEntity>> getBookings() {
+  public List<BookingEntity> getBookings() {
 
-    return this.bookingIds;
+    return this.bookings;
   }
 
   /**
@@ -184,10 +179,7 @@ public class UserEntity extends ApplicationPersistenceEntity implements User {
    */
   public void setBookings(List<BookingEntity> bookings) {
 
-    this.bookingIds = new ArrayList<>();
-    for (BookingEntity booking : bookings) {
-      this.bookingIds.add(IdRef.of(booking));
-    }
+    this.bookings = bookings;
   }
 
   @Override
