@@ -122,7 +122,7 @@ public class UsermanagementUtilityImpl implements UsermanagementUtility {
 		return clientUrl;
 	}
 	
-	public static int getTimeToExpired() {
+	public int getTimeToExpired() {
 		return durationTimeToExpire;
 	}
 }
