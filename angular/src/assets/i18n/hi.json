@@ -12,7 +12,11 @@
     "clearFilters": "फ़िल्टर साफ़ करें",
     "applyFilters": "फ़िल्टर लागू करें",
     "removeComment": "टिप्पणी निकालें",
-    "addComment": "टिप्पणी जोड़ें"
+    "addComment": "टिप्पणी जोड़ें",
+    "cancelOrder" : "आदेश रद्द",
+    "reactivateOrder" : "आदेश पुनः सक्रिय करें",
+    "addUser" : "उपयोगकर्ताओं को जोड़ें",
+    "copyBookingId": "बुकिंग आईडी कॉपी करें"
   },
   "table": {
     "rowsPage": "प्रति पंक्ति पंक्तियाँ",
@@ -69,7 +73,9 @@
     "dialog": {
       "title": "टेबल बुक करें",
       "bookingSuccess": "टेबल सफलतापूर्वक बुक की गई",
-      "bookingError": "बुकिंग की गई त्रुटि, कृपया बाद में फिर से प्रयास करें"
+      "bookingError": "बुकिंग की गई त्रुटि, कृपया बाद में फिर से प्रयास करें",
+      "bookingId": "बुकिंग आईडी",
+      "bookingIdTooltip": "ऑर्डर पूरा करने के लिए शॉपिंग कार्ट में बुकिंग आईडी जोड़ें"
     },
     "formErrors": {
       "nameRequired":
@@ -92,6 +98,10 @@
     "book": "टेबल बुक करें",
     "orders": "आदेश",
     "reservations": "आरक्षण",
+    "archiv" : "पुरालेख",
+    "users" : "उपयोगकर्ताओं की सूची",
+    "prediction" : "पूर्वानुमान",
+    "clustering" : "क्लस्टरिंग",
     "userActions": {
       "user": "User",
       "pairing": "एक दो-कारक प्रमाणीकरण को परिभाषित करें",
@@ -196,7 +206,32 @@
       "bookingTokenH": "संदर्भ संख्या",
       "ownerH": "मालिक",
       "tableH": "मेज",
-      "creationDateH": "रचना तिथि"
+      "creationDateH": "रचना तिथि",
+      "statusH" : "स्थिति",
+      "statusHPaid" : "भुगतान किया",
+      "statusHtaken" :"आदेश लिया गया",
+      "statusHprepared": "खाना बन रहा है",
+      "statusHdelivered":"खाना पहुंचाया जाता है"
+    },
+    "userTable": {
+      "userName" : "उपयोगकर्ता नाम",
+      "userRole" : "उपयोगकर्ता भूमिका",
+      "id" : "ईद",
+      "emailH": "ईमेल"
+    }
+  },
+  "userManagement": {
+    "createUser" : "एक नया उपयोगकर्ता बनाएं",
+    "userRole" : "उपयोगकर्ता भूमिका",
+    "roleCustomer" : "ग्राहक",
+    "roleWaiter" : "वेटर",
+    "roleManager" : "मैनेजर",
+    "roleAdmin" : "व्यवस्थापक",
+    "formErrors" : {
+    "addUserNameRequired" : "आवश्यक क्षेत्र। कृपया उपयोगकर्तानाम डालें",
+    "addUserEmailRequired" : "आवश्यक क्षेत्र। कृपया एक ईमेल दर्ज करें",
+    "addUserEmailPattern" : "एक मान्य ईमेल पता दर्ज करें जैसे ईमेल@email.com",
+    "addUserPasswordRequired" : "आवश्यक क्षेत्र। कृपया पासवर्ड दर्ज करें"
     }
   }
 }

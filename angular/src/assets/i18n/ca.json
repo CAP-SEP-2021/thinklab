@@ -12,7 +12,11 @@
     "clearFilters": "Netejar filtres",
     "applyFilters": "Aplicar filtres",
     "removeComment": "Eliminar comentari",
-    "addComment": "Afegir comentari"
+    "addComment": "Afegir comentari",
+    "cancelOrder" : "cancel lar la comanda",
+    "reactivateOrder" : "Activa la comanda",
+    "addUser" : "Afegiu usuaris",
+    "copyBookingId": "Copia l’identificació de la reserva"
   },
   "table": {
     "rowsPage": "Files per pàgina",
@@ -69,7 +73,9 @@
     "dialog": {
       "title": "Reservar una taula",
       "bookingSuccess": "Taula reservada satisfactoriament",
-      "bookingError": "Error reservant, intenti-ho de nou més tard"
+      "bookingError": "Error reservant, intenti-ho de nou més tard",
+      "bookingId": "Identificador de reserva",
+      "bookingIdTooltip": "Afegiu l’identificador de reserva a la cistella de la compra per completar una comanda"
     },
     "formErrors": {
       "nameRequired":
@@ -93,10 +99,15 @@
     "book": "Reservar taula",
     "orders": "Comandes",
     "reservations": "Reserves",
+    "archiv" : "Arxiu",
+    "users" : "Llista d'usuaris",
+    "prediction" : "Predicció",
+    "clustering" : "Agrupació",
     "userActions": {
       "user": "Usuari",
       "logout": "Tancar sessió",
       "changePassword": "Canviar contrasenya",
+      "pairing" : "Definiu l'autenticació de dos factors",
       "twitterAccount": "Compte de Twitter",
       "signOut": "Tancar sessió",
       "orders": "Comandes"
@@ -197,7 +208,32 @@
       "bookingTokenH": "Nombre de referència",
       "ownerH": "Responsable",
       "tableH": "Taula",
-      "creationDateH": "Data de creació"
+      "creationDateH": "Data de creació",
+      "statusH" : "Estat",
+      "statusHPaid" : "Pagat",
+      "statusHtaken" :"Comanda acceptada",
+      "statusHprepared": "S’està preparant menjar",
+      "statusHdelivered":"Es lliura menjar"
+    },
+    "userTable": {
+      "userName" : "Nom d'usuari",
+      "userRole" : "Rol d'usuari",
+      "id" : "Identificació",
+      "emailH": "Email"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Crea un usuari nou",
+    "userRole" : "Rol d'usuari",
+    "roleCustomer" : "Client",
+    "roleWaiter" : "Cambrer",
+    "roleManager" : "Gerent",
+    "roleAdmin" : "Administrador",
+    "formErrors" : {
+    "addUserNameRequired" : "Camp necessari. Introduïu un nom d'usuari",
+    "addUserEmailRequired" : "Camp necessari. Introduïu un correu electrònic",
+    "addUserEmailPattern" : "Introduïu una adreça electrònica vàlida, per exemple, email@email.com",
+    "addUserPasswordRequired" : "Camp necessari. Introduïu una contrasenya"
     }
   }
 }

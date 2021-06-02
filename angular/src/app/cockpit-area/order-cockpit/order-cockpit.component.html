@@ -68,17 +68,17 @@
 
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="statusHeader"> {{columns[3].label}} </th>
-          <mat-cell *matCellDef="let element" class="statusCell" id="statusCell" (click)="$event.stopPropagation();"
+          <td mat-cell *matCellDef="let element" class="statusCell" id="statusCell" (click)="$event.stopPropagation();"
             appearance="fill">
 
 
 
-            <mat-select [value]="option" class="statusSelect" placeholder="{{element.order.status}}">
+            <mat-select [value]="option" class="statusSelect" placeholder="{{status[element.order.status]}}">
 
               <mat-option [value]="option" *ngFor="let option of status" (click)="sendStatus(option ,element)">
                 {{ option }}</mat-option>
             </mat-select>
-          </mat-cell>
+          </td>
         </ng-container>
 
 

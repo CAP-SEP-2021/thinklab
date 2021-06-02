@@ -12,7 +12,11 @@
     "clearFilters": "Nettoyer les filtres",
     "applyFilters": "Appliquer les filtres",
     "removeComment": "Supprimer un commentaire",
-    "addComment": "Ajouter un commentaire"
+    "addComment": "Ajouter un commentaire",
+    "cancelOrder" : "Annuler la commande",
+    "reactivateOrder" : "Réactiver la commande",
+    "addUser" : "Ajouter des utilisateurs",
+    "copyBookingId": "Copier l'ID de réservation"
   },
   "table": {
     "rowsPage": "Lignes par page",
@@ -69,7 +73,9 @@
     "dialog": {
       "title": "Réservez une table",
       "bookingSuccess": "Table réservée avec succès",
-      "bookingError": "Erreur de réservation, réessayez plus tard"
+      "bookingError": "Erreur de réservation, réessayez plus tard",
+      "bookingId": "Identifiant de réservation",
+      "bookingIdTooltip": "Ajoutez l'ID de réservation au panier pour terminer une commande"
     },
     "formErrors": {
       "nameRequired":
@@ -93,6 +99,10 @@
     "book": "Réserver une table",
     "orders": "Ordres",
     "reservations": "Réservations",
+    "archiv" : "Archiver",
+    "users" : "Liste des utilisateurs",
+    "prediction" : "Prédiction",
+    "clustering" : "Regroupement",
     "userActions": {
       "user": "Utilisateur",
       "pairing": "Définir une authentification à deux facteurs",
@@ -198,9 +208,32 @@
       "bookingTokenH": "Numéro de référence",
       "ownerH": "Responsable",
       "tableH": "Tableau",
-      "statusH" : "Status",
-      "statusHBezahlt" : "france bezahlt",
-      "creationDateH": "Date de création"
+      "creationDateH": "Date de création",
+      "statusH" : "Statut",
+      "statusHPaid" : "Payé",
+      "statusHtaken" :"Commande prise",
+      "statusHprepared": "La nourriture est en cours de préparation",
+      "statusHdelivered":"La nourriture est livrée"
+    },
+    "userTable": {
+      "userName" : "Nom d'utilisateur",
+      "userRole" : "Rôle d'utilisateur",
+      "id" : "Identifiant",
+      "emailH": "Email"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Créer un nouvel utilisateur",
+    "userRole" : "Rôle d'utilisateur",
+    "roleCustomer" : "Client",
+    "roleWaiter" : "Serveur",
+    "roleManager" : "Directeur",
+    "roleAdmin" : "Administrateur",
+    "formErrors" : {
+    "addUserNameRequired" : "Champs requis. Merci d'entrer un nom d'utilisateur",
+    "addUserEmailRequired" : "Champs requis. Veuillez saisir un e-mail",
+    "addUserEmailPattern" : "Saisissez une adresse e-mail valide, par exemple email@email.com",
+    "addUserPasswordRequired" : "Champs requis. Veuillez entrer un mot de passe"
     }
   }
 }

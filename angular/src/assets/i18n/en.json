@@ -13,7 +13,11 @@
     "clearFilters": "Clear Filters",
     "applyFilters": "Apply Filters",
     "removeComment": "Remove Comment",
-    "addComment": "Add comment"
+    "addComment": "Add comment",
+    "cancelOrder" : "Cancel order",
+    "reactivateOrder" : "Reactivate order",
+    "addUser" : "Add User",
+    "copyBookingId": "Copy Booking-ID"
   },
   "table": {
     "rowsPage": "Rows per page",
@@ -70,7 +74,9 @@
     "dialog": {
       "title": "Book Table",
       "bookingSuccess": "Table succesfully booked",
-      "bookingError": "Error booking, please try again later"
+      "bookingError": "Error booking, please try again later",
+      "bookingId": "Booking-ID",
+      "bookingIdTooltip": "Add the booking ID to the shopping cart to complete an order"
     },
     "formErrors": {
       "nameRequired": "Required. Please insert a name to reserve the table",
@@ -91,7 +97,10 @@
     "book": "Book table",
     "orders": "Orders",
     "reservations": "Reservations",
-    "archiv": "Archiv",
+    "archiv": "Archive",
+    "users" : "Users",
+    "prediction" : "Prediction",
+    "clustering" : "Clustering",
     "userActions": {
       "user": "User",
       "pairing": "Set two-factor authentication",
@@ -198,7 +207,7 @@
       "bookingTokenH": "Reference Number",
       "statusH" : "Status",
       "ownerH": "Owner",
-      "statusHPaid" : "paid",
+      "statusHPaid" : "Paid",
       "statusHtaken" :"Order taken",
       "statusHprepared": "Food is being prepared",
       "statusHdelivered":"Food is delivered",
@@ -210,6 +219,26 @@
       "username" : "Username" ,
       "email" : "E-mail" ,
       "role" : "Role" 
+    },
+    "userTable": {
+      "userName" : "User name",
+      "userRole" : "User role",
+      "id" : "ID",
+      "emailH": "Email"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Create a new User",
+    "userRole" : "User role",
+    "roleCustomer" : "Customer",
+    "roleWaiter" : "Waiter",
+    "roleManager" : "Manager",
+    "roleAdmin" : "Admin",
+    "formErrors" : {
+    "addUserNameRequired" : "Required. Please enter a username",
+    "addUserEmailRequired" : "Required. Please enter an email",
+    "addUserEmailPattern" : "Enter a valid email address e.g. email@email.com",
+    "addUserPasswordRequired" : "Required. Please enter a password"
     }
   }
 }

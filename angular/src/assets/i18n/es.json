@@ -12,7 +12,11 @@
     "clearFilters": "Limpiar filtros",
     "applyFilters": "Aplicar filtros",
     "removeComment": "Eliminar comentario",
-    "addComment": "Añadir comentario"
+    "addComment": "Añadir comentario",
+    "cancelOrder" : "Cancelar orden",
+    "reactivateOrder" : "Reactivar orden",
+    "addUser" : "Agregar usuarios",
+    "copyBookingId": "Copiar ID de reserva"
   },
   "table": {
     "rowsPage": "Filas por página",
@@ -67,7 +71,9 @@
     "dialog": {
       "title": "Reservar una mesa",
       "bookingSuccess": "Mesa reservada satisfactoriamente",
-      "bookingError": "Error reservando, inténtelo de nuevo más tarde"
+      "bookingError": "Error reservando, inténtelo de nuevo más tarde",
+      "bookingId": "ID de reserva",
+      "bookingIdTooltip": "Agregue el ID de reserva al carrito de compras para completar un pedido"
     },
     "formErrors": {
       "nameRequired": "Requerido. Por favor inserte su nombre para reservar la mesa.",
@@ -85,6 +91,10 @@
     "book": "Reservar mesa",
     "orders": "Pedidos",
     "reservations": "Reservas",
+    "archiv" : "Archivo",
+    "users" : "Lista de usuarios",
+    "prediction" : "Predicción",
+    "clustering" : "Agrupamiento",
     "userActions": {
       "user": "Usuario",
       "pairing": "Configurar una autenticación de dos factores",
@@ -187,7 +197,32 @@
       "bookingTokenH": "Número de referencia",
       "ownerH": "Responsable",
       "tableH": "Mesa",
-      "creationDateH": "Fecha de creación"
+      "creationDateH": "Fecha de creación",
+      "statusH" : "Estado",
+      "statusHPaid" : "Pagado",
+      "statusHtaken" :"Orden tomada",
+      "statusHprepared": "Se está preparando la comida",
+      "statusHdelivered":"Se entrega comida"
+    },
+    "userTable": {
+      "userName" : "Nombre de usuario",
+      "userRole" : "Rol del usuario",
+      "id" : "Identificación",
+      "emailH": "Email"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Crea un nuevo usuario",
+    "userRole" : "Rol del usuario",
+    "roleCustomer" : "Cliente",
+    "roleWaiter" : "Mesero",
+    "roleManager" : "Gerente",
+    "roleAdmin" : "Administración",
+    "formErrors" : {
+    "addUserNameRequired" : "Campo requerido. por favor, ingrese un nombre de usuario",
+    "addUserEmailRequired" : "Campo requerido. Por favor ingrese un correo electrónico",
+    "addUserEmailPattern" : "Introduzca una dirección de correo electrónico válida, p. Ej. B. email@email.com",
+    "addUserPasswordRequired" : "Campo requerido. porfavor ingrese una contraseña"
     }
   }
 }

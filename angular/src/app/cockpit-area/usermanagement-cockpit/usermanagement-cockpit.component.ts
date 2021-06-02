@@ -107,13 +107,13 @@ export class UsermanagementCockpitComponent implements OnInit {
   
     setTableHeaders(lang: string): void {
       this.translocoSubscription = this.translocoService
-        .selectTranslateObject('cockpit.userTabel', {}, lang)
+        .selectTranslateObject('cockpit.userTable', {}, lang)
         .subscribe((cockpitUserTable) => {
           this.columns = [
             { name: 'id', label: cockpitUserTable.id },
-            { name: 'username', label: cockpitUserTable.username },
-            { name: 'email', label: cockpitUserTable.email },
-            { name: 'role', label: cockpitUserTable.role },
+            { name: 'username', label: cockpitUserTable.userName },
+            { name: 'email', label: cockpitUserTable.emailH },
+            { name: 'role', label: cockpitUserTable.userRole },
           
           ];
           /* this.status2 = [

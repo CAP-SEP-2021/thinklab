@@ -73,7 +73,7 @@
         routerLinkActive="navBottomBorder"
         [routerLinkActiveOptions]="{ exact: true }"
       >
-        USERS
+      {{ 'main.users' | transloco | uppercase }}
       </a>
     </nav>
   </div>
@@ -85,7 +85,7 @@
         routerLinkActive="navBottomBorder"
         [routerLinkActiveOptions]="{ exact: true }"
       >
-        PREDICTION
+      {{'main.prediction' | transloco}}
       </a>
     </nav>
   </div>
@@ -97,7 +97,7 @@
         routerLinkActive="navBottomBorder"
         [routerLinkActiveOptions]="{ exact: true }"
       >
-        CLUSTERING
+      {{'main.clustering' | transloco}}
       </a>
     </nav>
   </div>

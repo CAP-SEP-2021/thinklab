@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Booking } from 'app/book-table/models/booking.model';
+import { BookingTokenDialogComponent } from '../../components/booking-token-dialog/booking-token-dialog.component';
 import * as moment from 'moment';
 import * as fromApp from '../../../store/reducers';
 import * as bookTableActions from '../../store/actions/book-table.actions';
@@ -18,6 +19,7 @@ export class BookTableDialogComponent implements OnInit {
   constructor(
     private store: Store<fromApp.State>,
     private dialog: MatDialogRef<BookTableDialogComponent>,
+    private bookingTokenDialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) dialogData: any
   ) {
     this.data = {
@@ -39,4 +41,10 @@ export class BookTableDialogComponent implements OnInit {
     this.store.dispatch(bookTableActions.bookTable({booking: this.data}));
     this.dialog.close(true);
   }
+
+  showBookingTokenDialog(): void {
+    this.bookingTokenDialog
+      .open(BookingTokenDialogComponent)
+  }
+
 }

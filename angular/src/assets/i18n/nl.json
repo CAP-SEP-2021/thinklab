@@ -12,7 +12,11 @@
     "clearFilters": "Verwijder filters",
     "applyFilters": "Voeg filters toe",
     "removeComment": "Verwijder commentaar",
-    "addComment": "Voeg commentaar toe"
+    "addComment": "Voeg commentaar toe",
+    "cancelOrder" : "Annuleer bestelling",
+    "reactivateOrder" : "Heractiveer bestelling",
+    "addUser" : "Voeg gebruikers toe",
+    "copyBookingId": "Kopieer boekings-ID"
   },
   "table": {
     "rowsPage": "Rijen per pagina",
@@ -70,7 +74,9 @@
     "dialog": {
       "title": "Boek tafel",
       "bookingSuccess": "Tafel succesvol geboekt",
-      "bookingError": "Fout tijdens boeking, probeer het later nog een keer"
+      "bookingError": "Fout tijdens boeking, probeer het later nog een keer",
+      "bookingId": "Boekings-ID",
+      "bookingIdTooltip": "Voeg de boekings-ID toe aan het winkelwagentje om een ​​bestelling af te ronden"
     },
     "formErrors": {
       "nameRequired": "Verplicht. Voer een naam in om een tafel te reserveren",
@@ -92,6 +98,10 @@
     "book": "Boek tafel",
     "orders": "Bestellingen",
     "reservations": "Reserveringen",
+    "archiv" : "Archief",
+    "users" : "Gebruikers lijst",
+    "prediction" : "Voorspelling",
+    "clustering" : "Clustering",
     "userActions": {
       "user": "Gebruiker",
       "pairing": "Definieer een two-factor authenticatie",
@@ -197,7 +207,32 @@
       "bookingTokenH": "Boekingsnummer",
       "ownerH": "Eigenaar",
       "tableH": "Tafel",
-      "creationDateH": "Aanmaakdatum"
+      "creationDateH": "Aanmaakdatum",
+      "statusH" : "Toestand",
+      "statusHPaid" : "Betaald",
+      "statusHtaken" :"Bestelling genomen",
+      "statusHprepared": "Er wordt eten bereid",
+      "statusHdelivered":"Er wordt eten bezorgd"
+    },
+    "userTable": {
+      "userName" : "Gebruikersnaam",
+      "userRole" : "Gebruikersrol",
+      "id" : "ID kaart",
+      "emailH": "Email"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Maak een nieuwe gebruiker aan",
+    "userRole" : "Gebruikersrol",
+    "roleCustomer" : "Klant",
+    "roleWaiter" : "Ober",
+    "roleManager" : "Manager",
+    "roleAdmin" : "Beheerder",
+    "formErrors" : {
+    "addUserNameRequired" : "Verplicht veld. Voer een gebruikersnaam in",
+    "addUserEmailRequired" : "Verplicht veld. Voer een e-mailadres in",
+    "addUserEmailPattern" : "Voer een geldig e-mailadres in, bijv. Email@email.com",
+    "addUserPasswordRequired" : "Verplicht veld. voer een wachtwoord in alstublieft"
     }
   }
 }

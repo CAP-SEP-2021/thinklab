@@ -12,7 +12,11 @@
     "clearFilters": "Wyczysc filtry",
     "applyFilters": "Zastosuj filtry",
     "removeComment": "Usun komentarz",
-    "addComment": "Dodaj komentarz"
+    "addComment": "Dodaj komentarz",
+    "cancelOrder" : "Anuluj zamówienie",
+    "reactivateOrder" : "Ponownie aktywuj zamówienie",
+    "addUser" : "Dodaj użytkowników",
+    "copyBookingId": "Skopiuj identyfikator rezerwacji"
   },
   "table": {
     "rowsPage": "Ilosc rzedów na stronie",
@@ -68,7 +72,9 @@
     "dialog": {
       "title": "Zarezerwuj stolik",
       "bookingSuccess": "Stolik zarezerwowany",
-      "bookingError": "Rezerwacja nieudana, spróbuj ponownie"
+      "bookingError": "Rezerwacja nieudana, spróbuj ponownie",
+      "bookingId": "Identyfikator rezerwacji",
+      "bookingIdTooltip": "Dodaj identyfikator rezerwacji do koszyka, aby sfinalizować zamówienie"
     },
     "formErrors": {
       "nameRequired":
@@ -91,6 +97,10 @@
     "book": "Zarezerwuj stolik",
     "orders": "Zamówienia",
     "reservations": "Rezerwacje",
+    "archiv" : "Archiwum",
+    "users" : "Lista użytkowników",
+    "prediction" : "Prognoza",
+    "clustering" : "Grupowanie",
     "userActions": {
       "user": "Uzytkownik",
       "pairing": "Ustaw uwierzytelnianie dwuskładnikowe",
@@ -196,7 +206,32 @@
       "bookingTokenH": "Numer referencyjny",
       "ownerH": "Wlasciciel",
       "tableH": "Stolik",
-      "creationDateH": "Data utworzenia"
+      "creationDateH": "Data utworzenia",
+      "statusH" : "Status",
+      "statusHPaid" : "Płacone",
+      "statusHtaken" :"Zamówienie przyjęte",
+      "statusHprepared": "Przygotowywane jest jedzenie",
+      "statusHdelivered":"Dostarczono jedzenie"
+    },
+    "userTable": {
+      "userName" : "Nazwa Użytkownika",
+      "userRole" : "Rola użytkownika",
+      "id" : "ID",
+      "emailH": "Email"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Utwórz nowego użytkownika",
+    "userRole" : "Rola użytkownika",
+    "roleCustomer" : "Klient",
+    "roleWaiter" : "Kelner",
+    "roleManager" : "Menedżer",
+    "roleAdmin" : "Administrator",
+    "formErrors" : {
+    "addUserNameRequired" : "Pole wymagane. Proszę, wpisz nazwę użytkownika",
+    "addUserEmailRequired" : "Pole wymagane. Proszę wpisać email",
+    "addUserEmailPattern" : "Wpisz prawidłowy adres e-mail, np. Email@email.com",
+    "addUserPasswordRequired" : "Pole wymagane. proszę wprowadzić hasło"
     }
   }
 }
