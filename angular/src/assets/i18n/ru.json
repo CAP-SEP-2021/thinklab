@@ -203,7 +203,13 @@
             "statusHtaken" :"Заказ принят",
             "statusHprepared": "Еда готовится",
             "statusHdelivered":"Еда доставляется"
-        }
+        },
+        "userTable": {
+            "userName" : "Имя пользователя",
+            "userRole" : "Роль пользователя",
+            "id" : "Идентификатор",
+            "emailH": "Email"
+          }
     },
     "userManagement": {
         "createUser" : "Создать нового пользователя",

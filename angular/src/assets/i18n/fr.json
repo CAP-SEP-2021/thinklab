@@ -214,6 +214,12 @@
       "statusHtaken" :"Commande prise",
       "statusHprepared": "La nourriture est en cours de préparation",
       "statusHdelivered":"La nourriture est livrée"
+    },
+    "userTable": {
+      "userName" : "Nom d'utilisateur",
+      "userRole" : "Rôle d'utilisateur",
+      "id" : "Identifiant",
+      "emailH": "Email"
     }
   },
   "userManagement": {

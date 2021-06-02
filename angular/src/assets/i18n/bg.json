@@ -211,6 +211,12 @@
       "statusHtaken" :"Поръчката взета",
       "statusHprepared": "Приготвя се храна",
       "statusHdelivered":"Доставя се храна"
+    },
+    "userTable": {
+      "userName" : "Потребителско име",
+      "userRole" : "Потребителска роля",
+      "id" : "Идентификационен номер",
+      "emailH": "Email"
     }
   },
   "userManagement": {

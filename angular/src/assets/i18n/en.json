@@ -219,6 +219,12 @@
       "username" : "Username" ,
       "email" : "E-mail" ,
       "role" : "Role" 
+    },
+    "userTable": {
+      "userName" : "User name",
+      "userRole" : "User role",
+      "id" : "ID",
+      "emailH": "Email"
     }
   },
   "userManagement": {

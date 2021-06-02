@@ -213,6 +213,12 @@
       "statusHtaken" :"Bestelling genomen",
       "statusHprepared": "Er wordt eten bereid",
       "statusHdelivered":"Er wordt eten bezorgd"
+    },
+    "userTable": {
+      "userName" : "Gebruikersnaam",
+      "userRole" : "Gebruikersrol",
+      "id" : "ID kaart",
+      "emailH": "Email"
     }
   },
   "userManagement": {

@@ -203,6 +203,12 @@
       "statusHtaken" :"Orden tomada",
       "statusHprepared": "Se está preparando la comida",
       "statusHdelivered":"Se entrega comida"
+    },
+    "userTable": {
+      "userName" : "Nombre de usuario",
+      "userRole" : "Rol del usuario",
+      "id" : "Identificación",
+      "emailH": "Email"
     }
   },
   "userManagement": {

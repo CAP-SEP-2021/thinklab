@@ -212,6 +212,12 @@
       "statusHtaken" :"Zamówienie przyjęte",
       "statusHprepared": "Przygotowywane jest jedzenie",
       "statusHdelivered":"Dostarczono jedzenie"
+    },
+    "userTable": {
+      "userName" : "Nazwa Użytkownika",
+      "userRole" : "Rola użytkownika",
+      "id" : "ID",
+      "emailH": "Email"
     }
   },
   "userManagement": {

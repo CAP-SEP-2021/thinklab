@@ -219,6 +219,12 @@
       "statusHprepared": "Essen wird zubereitet",
       "statusHdelivered":"Essen wird ausgeliefert",
       "creationDateH": "Erstelldatum"
+    },
+    "userTable": {
+      "userName" : "Benutzername",
+      "userRole" : "Benutzerrolle",
+      "id" : "ID",
+      "emailH": "Email"
     }
   },
   "userManagement": {

@@ -212,6 +212,12 @@
       "statusHtaken" :"आदेश लिया गया",
       "statusHprepared": "खाना बन रहा है",
       "statusHdelivered":"खाना पहुंचाया जाता है"
+    },
+    "userTable": {
+      "userName" : "उपयोगकर्ता नाम",
+      "userRole" : "उपयोगकर्ता भूमिका",
+      "id" : "ईद",
+      "emailH": "ईमेल"
     }
   },
   "userManagement": {
