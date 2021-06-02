@@ -322,7 +322,8 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 	private boolean shouldBeArchived(OrderEntity order) {
 		
 		return order.getStatus()==3 && 
-				order.getPaid()==true;
+				order.getPaid()==true &&
+					order.getArchived()==false;
 	}
 	
 	@Override
