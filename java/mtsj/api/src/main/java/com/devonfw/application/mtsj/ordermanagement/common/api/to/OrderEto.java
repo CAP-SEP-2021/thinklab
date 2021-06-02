@@ -27,7 +27,7 @@ public class OrderEto extends AbstractEto implements Order {
   
   private boolean archived;
 
-  private int[] possiblyStatuses = {0, 1, 2};
+  private int[] possiblyStatuses = {0, 1, 2, 3};
 
   /**
    * @return bookingToken

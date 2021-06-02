@@ -2,8 +2,8 @@ INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, archiv
 INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, archived, paid, idInvitedGuest, idHost) VALUES (1, 1, 3, 0, false, false, false, 0, null);
 INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, archived, paid, idInvitedGuest, idHost) VALUES (2, 1, 3, 0, false, false, false, 1, null);
 INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, archived, paid, idInvitedGuest, idHost) VALUES (3, 1, 3, 0, false, false, false, 2, null);
-INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, archived, paid, idInvitedGuest, idHost) VALUES (4, 1, 3, 0, false, false, false, 3, null);
-INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, archived, paid, idInvitedGuest, idHost) VALUES (5, 1, 3, 0, false, false, false, 4, null);
+INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, archived, paid, idInvitedGuest, idHost) VALUES (4, 1, 3, 0, false, true, false, 3, null);
+INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, archived, paid, idInvitedGuest, idHost) VALUES (5, 1, 3, 0, false, true, false, 4, null);
 
 INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, archived, paid, idInvitedGuest, idHost) VALUES (6, 1, 4, 0, false, false, false, 8, null);
 INSERT INTO Orders (id, modificationCounter, idBooking, status, canceled, archived, paid, idInvitedGuest, idHost) VALUES (7, 1, 4, 0, false, false, false, 9, null);
