@@ -154,7 +154,8 @@ export interface SaveOrderResponse {
   modificationCounter: number;
   revision: any;
   status?: string;//@mo need to store the status delete late wit rosi
-  canceled? : boolean; //mo need to store the cancel status
+  canceled?: boolean; //mo need to store the cancel status
+  paid?: boolean;
 }
 
 // Roles

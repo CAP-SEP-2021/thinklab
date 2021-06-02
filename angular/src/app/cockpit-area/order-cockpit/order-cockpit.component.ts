@@ -54,8 +54,10 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = [
     'booking.bookingDate',
+    'booking.tableId',
     'booking.email',
     'booking.bookingToken',
+    'paymentStatus',
     'status',
   ];
   status: string[];
@@ -96,6 +98,15 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     });
   }
 
+  sendPaymentStatus(newPaymentStatus: boolean, element: OrderListView): void {
+    element.order.paid = newPaymentStatus;
+    let temp = { order: { id: element.order.id, paid: newPaymentStatus } }; // @mo change later
+    this.waiterCockpitService.postOrderPaymentStatus(temp).subscribe((data: any) => {
+      // @mo musst be changed
+      this.applyFilters();
+    });
+  }
+
 
   setTableHeaders(lang: string): void {
     this.translocoSubscription = this.translocoService
@@ -103,8 +114,10 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       .subscribe((cockpitTable) => {
         this.columns = [
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
+          { name: 'booking.tableId', label: cockpitTable.tableIdH },
           { name: 'booking.email', label: cockpitTable.emailH },
           { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
+          { name: 'paymentStatus', label: cockpitTable.paymentStatusH },
           { name: 'status', label: cockpitTable.statusH },
         ];
          this.status = [

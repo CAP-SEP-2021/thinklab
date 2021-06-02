@@ -28,10 +28,12 @@ export class WaiterCockpitService {
     'ordermanagement/v1/order/search';
   private readonly filterOrdersRestPath: string =
     'ordermanagement/v1/order/search';
-  private readonly orderUpdateRestPath: string =
+  private readonly orderStatusUpdateRestPath: string =
     'ordermanagement/v1/order/status/update'; 
     private readonly orderCancelRestPath: string =
     'ordermanagement/v1/order/cancelorder';
+    private readonly orderPaymentStatusUpdateRestPath: string =
+    'ordermanagement/v1/order/payment/update';
     private readonly orderArchivRestPath: string =
     'ordermanagement/v1/order/archived';
     private readonly filtersDishRestPath: string = 
@@ -122,13 +124,23 @@ temp :any;
    
       this.temp = this.restServiceRoot$.pipe( //@mo muust be changed 
         exhaustMap((restServiceRoot) =>
-          this.http.post(`${restServiceRoot}${this.orderUpdateRestPath}`, orderInfo),
+          this.http.post(`${restServiceRoot}${this.orderStatusUpdateRestPath}`, orderInfo),
         ),
       );
      
       return this.temp;
     }
   
+  postOrderPaymentStatus(orderInfo: any): Observable<any> {
+  
+    this.temp = this.restServiceRoot$.pipe( //@mo muust be changed 
+      exhaustMap((restServiceRoot) =>
+        this.http.post(`${restServiceRoot}${this.orderPaymentStatusUpdateRestPath}`, orderInfo),
+      ),
+    );
+    
+    return this.temp;
+  }
 
 
   getReservations(

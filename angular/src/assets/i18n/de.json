@@ -209,10 +209,12 @@
     },
     "table": {
       "reservationDateH": "Reservierungsdatum",
+      "tableIdH": "Tischnummer",
       "emailH": "Email",
       "bookingTokenH": "Referenznummer",
       "ownerH": "Eigentümer",
       "tableH": "Tisch",
+      "paymentStatusH": "Bezahlstatus",
       "statusH" : "Status",
       "statusHPaid" : "Bezahlt",
       "statusHtaken" :"Bestellung Aufgenommen",
