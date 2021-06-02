@@ -76,6 +76,8 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
 
   @Value("${mythaistar.hourslimitcancellation}")
   private int hoursLimit;
+  
+  private final static int MAX_INVITED_GUESTS = 8;
 
   /**
    * @see #getBookingDao()
@@ -198,6 +200,14 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     return true;
   }
   
+  private boolean isGuestAnonymous(Long id) {
+	  return id==null;
+  }
+  
+  private Long getAnonymousGuestId() {
+	  return 999L;
+  }
+  
   @Override
   public BookingEto saveBooking(BookingCto booking) {
 
@@ -214,7 +224,49 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
       }
       invite.setAccepted(false);
     }
-
+    
+    // check if booking made by anonymous guest or from registered user on webpage
+    if(isGuestAnonymous(bookingEntity.getId())) {
+    	bookingEntity.setUserId(getAnonymousGuestId());
+    }
+    
+    // check if comment type is set
+    if(bookingEntity.getComment()==null) {
+    	bookingEntity.setComment("Booking Type GSR");
+    }
+    
+    // check if more than 8 ppls
+    if(bookingEntity.getAssistants()>MAX_INVITED_GUESTS) {
+    	LOG.debug("Not possible to invite more then {} peoples", MAX_INVITED_GUESTS);
+    	throw new IllegalStateException("too much peoples was invited");
+    }
+    
+//    // assign a correct table once
+//    List<TableEntity> tableList = tableDao.findAllTables();
+//    for(TableEntity table : tableList){
+//    	if(table.getSeatsNumber()>=bookingEntity.getAssistants()) {
+//
+//    		List<BookingEntity> listOfAlreadyAssignedTablesPerSeats = bookingDao.findBookingByTable(table);    		
+//    		
+//    		for(BookingEntity assignedTable : listOfAlreadyAssignedTablesPerSeats) {    			
+//    			if(!assignedTable.getTable().equals(table)) {
+//
+//    				bookingEntity.setTableId(table.getId());
+//            		break;
+//    			}
+//    		}    		
+//    		if(listOfAlreadyAssignedTablesPerSeats.isEmpty()) {
+//        		bookingEntity.setTableId(table.getId());
+//        		break;    			
+//    		}    		
+//    	} 	
+//    }
+//    if(bookingEntity.getTable()==null) {
+//    	throw new IllegalStateException("No Table left for this booking");
+//    }
+    
+    
+    
     bookingEntity.setInvitedGuests(invited);
     try {
       bookingEntity.setBookingToken(buildToken(bookingEntity.getEmail(), "CB_"));
