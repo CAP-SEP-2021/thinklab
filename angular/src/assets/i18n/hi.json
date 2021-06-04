@@ -202,16 +202,20 @@
     },
     "table": {
       "reservationDateH": "आरक्षण की तिथि",
+      "tableIdH": "तालिका संख्या",
       "emailH": "ईमेल",
       "bookingTokenH": "संदर्भ संख्या",
       "ownerH": "मालिक",
       "tableH": "मेज",
+      "paymentStatusH": "भुगतान की स्थिति",
+      "paymentStatusPaid": "भुगतान किया",
+      "paymentStatusNotPaid": "नहीं चुकाया",
       "creationDateH": "रचना तिथि",
       "statusH" : "स्थिति",
-      "statusHPaid" : "भुगतान किया",
-      "statusHtaken" :"आदेश लिया गया",
-      "statusHprepared": "खाना बन रहा है",
-      "statusHdelivered":"खाना पहुंचाया जाता है"
+      "statusDelivered" : "खाना आ गया",
+      "statusTaken" :"आदेश लिया गया",
+      "statusPrepared": "खाना बन रहा है",
+      "statusInDelivery":"खाना पहुंचाया जाता है"
     },
     "userTable": {
       "userName" : "उपयोगकर्ता नाम",

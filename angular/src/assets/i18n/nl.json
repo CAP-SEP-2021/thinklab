@@ -203,16 +203,20 @@
     },
     "table": {
       "reservationDateH": "Reserveer datum",
+      "tableIdH": "Tabel nummer",
       "emailH": "Email",
       "bookingTokenH": "Boekingsnummer",
       "ownerH": "Eigenaar",
       "tableH": "Tafel",
+      "paymentStatusH": "Betalingsstatus",
+      "paymentStatusPaid": "Betaald",
+      "paymentStatusNotPaid": "Niet Betaald",
       "creationDateH": "Aanmaakdatum",
       "statusH" : "Toestand",
-      "statusHPaid" : "Betaald",
-      "statusHtaken" :"Bestelling genomen",
-      "statusHprepared": "Er wordt eten bereid",
-      "statusHdelivered":"Er wordt eten bezorgd"
+      "statusDelivered" : "Eten is gearriveerd",
+      "statusTaken" :"Bestelling genomen",
+      "statusPrepared": "Er wordt eten bereid",
+      "statusInDelivery":"Er wordt eten bezorgd"
     },
     "userTable": {
       "userName" : "Gebruikersnaam",

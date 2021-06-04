@@ -203,15 +203,19 @@
     },
     "table": {
       "reservationDateH": "Reservation Date",
+      "tableIdH": "Table number",
       "emailH": "Email",
       "bookingTokenH": "Reference Number",
       "statusH" : "Status",
       "ownerH": "Owner",
-      "statusHPaid" : "Paid",
-      "statusHtaken" :"Order taken",
-      "statusHprepared": "Food is being prepared",
-      "statusHdelivered":"Food is delivered",
+      "statusDelivered" : "Food has arrived",
+      "statusTaken" :"Order taken",
+      "statusPrepared": "Food is being prepared",
+      "statusInDelivery":"Food is being delivered",
       "tableH": "Table",
+      "paymentStatusH": "Payment status",
+      "paymentStatusPaid": "Paid",
+      "paymentStatusNotPaid": "Not Paid",
       "creationDateH": "Creation date"
     } ,
      "userTabel" :{

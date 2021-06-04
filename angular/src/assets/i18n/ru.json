@@ -193,16 +193,20 @@
         },
         "table": {
             "reservationDateH": "Число бронирования",
+            "tableIdH": "Номер стола",
             "emailH": "Эл. почта",
             "bookingTokenH": "Номер ссылки",
             "ownerH": "Владелец",
             "tableH": "Стол",
+            "paymentStatusH": "Статус платежа",
+            "paymentStatusPaid": "Оплаченный",
+            "paymentStatusNotPaid": "Не заплатил",
             "creationDateH": "Число создания",
             "statusH" : "ста́тус",
-            "statusHPaid" : "Оплаченный",
-            "statusHtaken" :"Заказ принят",
-            "statusHprepared": "Еда готовится",
-            "statusHdelivered":"Еда доставляется"
+            "statusDelivered" : "Еда прибыла",
+            "statusTaken" :"Заказ принят",
+            "statusPrepared": "Еда готовится",
+            "statusInDelivery":"Еда доставляется"
         },
         "userTable": {
             "userName" : "Имя пользователя",

@@ -204,16 +204,20 @@
     },
     "table": {
       "reservationDateH": "Date de réservation",
+      "tableIdH": "Numéro de tableau",
       "emailH": "Email",
       "bookingTokenH": "Numéro de référence",
       "ownerH": "Responsable",
       "tableH": "Tableau",
+      "paymentStatusH": "Statut de paiement",
+      "paymentStatusPaid": "Payé",
+      "paymentStatusNotPaid": "Impayé",
       "creationDateH": "Date de création",
       "statusH" : "Statut",
-      "statusHPaid" : "Payé",
-      "statusHtaken" :"Commande prise",
-      "statusHprepared": "La nourriture est en cours de préparation",
-      "statusHdelivered":"La nourriture est livrée"
+      "statusDelivered" : "La nourriture est arrivée",
+      "statusTaken" :"Commande prise",
+      "statusPrepared": "La nourriture est en cours de préparation",
+      "statusInDelivery":"La nourriture est livrée"
     },
     "userTable": {
       "userName" : "Nom d'utilisateur",

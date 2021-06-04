@@ -201,16 +201,20 @@
     },
     "table": {
       "reservationDateH": "Дата на резервация",
+      "tableIdH": "Номер на таблицата",
       "emailH": "Email",
       "bookingTokenH": "Номер на резервация",
       "ownerH": "Създател",
-      "tableH": "Маса",
+      "tableH": "маса",
+      "paymentStatusH": "Статус на плащането",
+      "paymentStatusPaid": "платени",
+      "paymentStatusNotPaid": "неплатен",
       "creationDateH": "Дата на създаване",
       "statusH" : "статус",
-      "statusHPaid" : "платен",
-      "statusHtaken" :"Поръчката взета",
-      "statusHprepared": "Приготвя се храна",
-      "statusHdelivered":"Доставя се храна"
+      "statusDelivered" : "Храната пристигна",
+      "statusTaken" :"Поръчката взета",
+      "statusPrepared": "Приготвя се храна",
+      "statusInDelivery":"Доставя се храна"
     },
     "userTable": {
       "userName" : "Потребителско име",

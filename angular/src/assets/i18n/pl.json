@@ -202,16 +202,20 @@
     },
     "table": {
       "reservationDateH": "Data rezerwacji",
+      "tableIdH": "Numer tabeli",
       "emailH": "Email",
       "bookingTokenH": "Numer referencyjny",
       "ownerH": "Wlasciciel",
       "tableH": "Stolik",
+      "paymentStatusH": "Status płatności",
+      "paymentStatusPaid": "Płatny",
+      "paymentStatusNotPaid": "Niezapłacone",
       "creationDateH": "Data utworzenia",
       "statusH" : "Status",
-      "statusHPaid" : "Płacone",
-      "statusHtaken" :"Zamówienie przyjęte",
-      "statusHprepared": "Przygotowywane jest jedzenie",
-      "statusHdelivered":"Dostarczono jedzenie"
+      "statusDelivered" : "Przyszło jedzenie",
+      "statusTaken" :"Zamówienie przyjęte",
+      "statusPrepared": "Przygotowywane jest jedzenie",
+      "statusInDelivery":"Dostarczono jedzenie"
     },
     "userTable": {
       "userName" : "Nazwa Użytkownika",

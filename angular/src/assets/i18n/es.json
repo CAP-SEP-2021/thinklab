@@ -193,16 +193,20 @@
     },
     "table": {
       "reservationDateH": "Fecha de reserva",
+      "tableIdH": "Numero de mesa",
       "emailH": "Email",
       "bookingTokenH": "Número de referencia",
       "ownerH": "Responsable",
       "tableH": "Mesa",
+      "paymentStatusH": "Estado de pago",
+      "paymentStatusPaid": "Pagado",
+      "paymentStatusNotPaid": "No Pagado",
       "creationDateH": "Fecha de creación",
       "statusH" : "Estado",
-      "statusHPaid" : "Pagado",
-      "statusHtaken" :"Orden tomada",
-      "statusHprepared": "Se está preparando la comida",
-      "statusHdelivered":"Se entrega comida"
+      "statusDelivered" : "Ha llegado la comida",
+      "statusTaken" :"Orden tomada",
+      "statusPrepared": "Se está preparando la comida",
+      "statusInDelivery":"Se entrega comida"
     },
     "userTable": {
       "userName" : "Nombre de usuario",

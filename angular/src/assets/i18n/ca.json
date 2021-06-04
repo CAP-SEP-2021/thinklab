@@ -204,16 +204,20 @@
     },
     "table": {
       "reservationDateH": "Data de reserva",
+      "tableIdH": "Número de taula",
       "emailH": "Email",
       "bookingTokenH": "Nombre de referència",
       "ownerH": "Responsable",
       "tableH": "Taula",
+      "paymentStatusH": "Estat de pagament",
+      "paymentStatusPaid": "Pagat",
+      "paymentStatusNotPaid": "No Pagat",
       "creationDateH": "Data de creació",
       "statusH" : "Estat",
-      "statusHPaid" : "Pagat",
-      "statusHtaken" :"Comanda acceptada",
-      "statusHprepared": "S’està preparant menjar",
-      "statusHdelivered":"Es lliura menjar"
+      "statusDelivered" : "El menjar ha arribat",
+      "statusTaken" :"Comanda acceptada",
+      "statusPrepared": "S’està preparant menjar",
+      "statusInDelivery":"Es lliura menjar"
     },
     "userTable": {
       "userName" : "Nom d'usuari",
