@@ -215,7 +215,7 @@
       "tableH": "Table",
       "paymentStatusH": "Payment status",
       "paymentStatusPaid": "Paid",
-      "paymentStatusNotPaid": "Not Paid",
+      "paymentStatusNotPaid": "Payment pending",
       "creationDateH": "Creation date"
     } ,
      "userTabel" :{

@@ -216,7 +216,7 @@
       "tableH": "Tisch",
       "paymentStatusH": "Bezahlstatus",
       "paymentStatusPaid": "Bezahlt",
-      "paymentStatusNotPaid": "Nicht Bezahlt",
+      "paymentStatusNotPaid": "Zahlung ausstehend",
       "statusH" : "Status",
       "statusDelivered" : "Essen ist angekommen",
       "statusTaken" :"Bestellung Aufgenommen",

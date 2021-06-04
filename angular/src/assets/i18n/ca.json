@@ -211,7 +211,7 @@
       "tableH": "Taula",
       "paymentStatusH": "Estat de pagament",
       "paymentStatusPaid": "Pagat",
-      "paymentStatusNotPaid": "No Pagat",
+      "paymentStatusNotPaid": "Pagament pendent",
       "creationDateH": "Data de creació",
       "statusH" : "Estat",
       "statusDelivered" : "El menjar ha arribat",

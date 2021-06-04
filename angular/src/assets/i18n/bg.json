@@ -208,7 +208,7 @@
       "tableH": "маса",
       "paymentStatusH": "Статус на плащането",
       "paymentStatusPaid": "платени",
-      "paymentStatusNotPaid": "неплатен",
+      "paymentStatusNotPaid": "Неплатено плащане",
       "creationDateH": "Дата на създаване",
       "statusH" : "статус",
       "statusDelivered" : "Храната пристигна",

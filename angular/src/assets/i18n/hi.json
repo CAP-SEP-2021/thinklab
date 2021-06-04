@@ -209,7 +209,7 @@
       "tableH": "मेज",
       "paymentStatusH": "भुगतान की स्थिति",
       "paymentStatusPaid": "भुगतान किया",
-      "paymentStatusNotPaid": "नहीं चुकाया",
+      "paymentStatusNotPaid": "भुगतान लंबित",
       "creationDateH": "रचना तिथि",
       "statusH" : "स्थिति",
       "statusDelivered" : "खाना आ गया",
