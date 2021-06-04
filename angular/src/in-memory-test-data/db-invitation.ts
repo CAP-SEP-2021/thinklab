@@ -1,9 +1,10 @@
 export const InvitationDialogComponentStub = {
   data: {
-    bookingDate: new Date(),
+    bookingDate: "new Date()",
     email: 'test@gmail.com',
     invitedGuests: ['test@gmail.com', 'test123@gmail.com'],
     name: 'test',
+    bookingType: 1,
   },
   invite: {
     modificationCounter: 0,
