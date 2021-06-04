@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.test.annotation.Rollback;
 
 import com.devonfw.application.mtsj.SpringBootApp;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingCto;
@@ -60,10 +61,10 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 	    bookingEto.setBookingDate(Instant.now()
 	    		.plus(5, ChronoUnit.HOURS)
 	    		.plus(10, ChronoUnit.MINUTES));
-	    bookingEto.setName("Lilly");
+	    bookingEto.setName("Lucy");
 	    bookingEto.setEmail("gemini@web.de");
 	    bookingEto.setAssistants(2);
-	    	    
+	    
 	    this.bookingCto = new BookingCto();
 	    this.bookingCto.setBooking(bookingEto);
 	    
@@ -77,6 +78,32 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 
 		BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);
 		assertThat(createdBooking).isNotNull();
+	}
+	
+	@Test
+	public void saveAnBookingWithToMuchGuests() {
+		
+		this.bookingCto.getBooking().setAssistants(9);		
+		
+		try {
+			this.bookingManagement.saveBooking(this.bookingCto);
+		} catch (Exception e) {
+			IllegalStateException ex = new IllegalStateException();
+		    assertThat(e.getClass()).isEqualTo(ex.getClass());
+		}
+	}
+	
+	@Test
+	public void saveAnBookingInvalidDatePast() {
+		
+		this.bookingCto.getBooking().setBookingDate(Instant.now().minus(10, ChronoUnit.HOURS));
+		
+		try {
+			this.bookingManagement.saveBooking(this.bookingCto);
+		} catch (Exception e) {
+			IllegalStateException ex = new IllegalStateException();
+		    assertThat(e.getClass()).isEqualTo(ex.getClass());
+		}
 	}
 
 }
