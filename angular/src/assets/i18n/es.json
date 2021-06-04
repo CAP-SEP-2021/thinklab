@@ -200,7 +200,7 @@
       "tableH": "Mesa",
       "paymentStatusH": "Estado de pago",
       "paymentStatusPaid": "Pagado",
-      "paymentStatusNotPaid": "No Pagado",
+      "paymentStatusNotPaid": "Pago pendiente",
       "creationDateH": "Fecha de creación",
       "statusH" : "Estado",
       "statusDelivered" : "Ha llegado la comida",

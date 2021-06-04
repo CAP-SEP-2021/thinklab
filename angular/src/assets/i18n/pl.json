@@ -209,7 +209,7 @@
       "tableH": "Stolik",
       "paymentStatusH": "Status płatności",
       "paymentStatusPaid": "Płatny",
-      "paymentStatusNotPaid": "Niezapłacone",
+      "paymentStatusNotPaid": "Płatność w toku",
       "creationDateH": "Data utworzenia",
       "statusH" : "Status",
       "statusDelivered" : "Przyszło jedzenie",

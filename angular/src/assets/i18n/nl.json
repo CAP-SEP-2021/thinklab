@@ -210,7 +210,7 @@
       "tableH": "Tafel",
       "paymentStatusH": "Betalingsstatus",
       "paymentStatusPaid": "Betaald",
-      "paymentStatusNotPaid": "Niet Betaald",
+      "paymentStatusNotPaid": "Betaling in behandeling",
       "creationDateH": "Aanmaakdatum",
       "statusH" : "Toestand",
       "statusDelivered" : "Eten is gearriveerd",

@@ -200,7 +200,7 @@
             "tableH": "Стол",
             "paymentStatusH": "Статус платежа",
             "paymentStatusPaid": "Оплаченный",
-            "paymentStatusNotPaid": "Не заплатил",
+            "paymentStatusNotPaid": "Ожидается платеж",
             "creationDateH": "Число создания",
             "statusH" : "ста́тус",
             "statusDelivered" : "Еда прибыла",

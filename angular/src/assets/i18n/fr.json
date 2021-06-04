@@ -211,7 +211,7 @@
       "tableH": "Tableau",
       "paymentStatusH": "Statut de paiement",
       "paymentStatusPaid": "Payé",
-      "paymentStatusNotPaid": "Impayé",
+      "paymentStatusNotPaid": "Paiement en attente",
       "creationDateH": "Date de création",
       "statusH" : "Statut",
       "statusDelivered" : "La nourriture est arrivée",
