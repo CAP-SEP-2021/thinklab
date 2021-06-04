@@ -76,6 +76,7 @@ export class UsermanagementCockpitComponent implements OnInit {
       bookingDate: undefined,
       email: undefined,
       bookingToken: undefined,
+      paymentStatus: undefined,
       status: undefined, //@mo added to comlete the structure
     };
     reslut: any;

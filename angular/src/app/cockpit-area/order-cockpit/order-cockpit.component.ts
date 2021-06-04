@@ -141,6 +141,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     if (this.sorting.length === 0) {
       // setting two default search crietria first the status of the order second is the date
       this.sorting.push({ property: 'status', direction: 'desc' });
+      this.sorting.push({ property: 'paid', direction: 'desc' });
       this.sorting.push({ property: 'booking.bookingDate', direction: 'desc' });
     }
    
