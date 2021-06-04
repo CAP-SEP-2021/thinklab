@@ -16,6 +16,7 @@ export class FilterCockpit {//@mo we need ti add status filter
     bookingDate: string;
     email: string;
     bookingToken: number;
+    paymentStatus: string;
     status : string;//@mo added to comlete the structure  
 }
 

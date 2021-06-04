@@ -54,9 +54,9 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = [
     'booking.bookingDate',
+    'booking.tableId',
     'booking.email',
     'booking.bookingToken',
-    'status',
   ];
   status: string[];
 
@@ -69,6 +69,7 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
     bookingDate: undefined,
     email: undefined,
     bookingToken: undefined,
+    paymentStatus: undefined,
     status: undefined, //@mo added to comlete the structure
   };
   reslut: any;
@@ -106,15 +107,15 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
       .subscribe((cockpitTable) => {
         this.columns = [
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
+          { name: 'booking.tableId', label: cockpitTable.tableIdH },
           { name: 'booking.email', label: cockpitTable.emailH },
           { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
-          { name: 'status', label: cockpitTable.statusH },
         ];
           this.status = [
-          cockpitTable.statusHtaken,
-          cockpitTable.statusHprepared,
-          cockpitTable.statusHdelivered,
-          cockpitTable.statusHPaid,
+          cockpitTable.statusTaken,
+          cockpitTable.statusPrepared,
+          cockpitTable.statusInDelivery,
+          cockpitTable.statusDelivered,
         ];
       });
   }

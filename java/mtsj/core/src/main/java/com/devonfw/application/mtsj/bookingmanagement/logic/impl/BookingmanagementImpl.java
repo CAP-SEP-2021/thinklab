@@ -9,15 +9,12 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +23,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.devonfw.application.mtsj.bookingmanagement.common.api.datatype.BookingType;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.exception.CancelInviteNotAllowedException;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingCto;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingEto;
@@ -76,7 +70,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
 
   @Value("${mythaistar.hourslimitcancellation}")
   private int hoursLimit;
-  
+
   private final static int MAX_INVITED_GUESTS = 8;
 
   /**
@@ -112,11 +106,12 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
   }
 
   public boolean found(Long id) {
-	  BookingEntity entity = getBookingDao().find(id);
-	  System.out.println(entity.toString());
-	  return true;
+
+    BookingEntity entity = getBookingDao().find(id);
+    System.out.println(entity.toString());
+    return true;
   }
-  
+
   @Override
   public BookingCto findBooking(Long id) {
 
@@ -199,15 +194,17 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     LOG.debug("The booking with id '{}' has been deleted.", bookingId);
     return true;
   }
-  
+
   private boolean isGuestAnonymous(Long id) {
-	  return id==null;
+
+    return id == null;
   }
-  
+
   private Long getAnonymousGuestId() {
-	  return 999L;
+
+    return 999L;
   }
-  
+
   @Override
   public BookingEto saveBooking(BookingCto booking) {
 
@@ -224,49 +221,47 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
       }
       invite.setAccepted(false);
     }
-    
+
     // check if booking made by anonymous guest or from registered user on webpage
-    if(isGuestAnonymous(bookingEntity.getId())) {
-    	bookingEntity.setUserId(getAnonymousGuestId());
+    if (isGuestAnonymous(bookingEntity.getId())) {
+      bookingEntity.setUserId(getAnonymousGuestId());
     }
-    
+
     // check if comment type is set
-    if(bookingEntity.getComment()==null) {
-    	bookingEntity.setComment("Booking Type GSR");
+    if (bookingEntity.getComment() == null) {
+      bookingEntity.setComment("Booking Type GSR");
     }
-    
+
     // check if more than 8 ppls
-    if(bookingEntity.getAssistants()>MAX_INVITED_GUESTS) {
-    	LOG.debug("Not possible to invite more then {} peoples", MAX_INVITED_GUESTS);
-    	throw new IllegalStateException("too much peoples was invited");
+    if (bookingEntity.getAssistants() > MAX_INVITED_GUESTS) {
+      LOG.debug("Not possible to invite more then {} peoples", MAX_INVITED_GUESTS);
+      throw new IllegalStateException("too many people were invited");
     }
-    
-//    // assign a correct table once
-//    List<TableEntity> tableList = tableDao.findAllTables();
-//    for(TableEntity table : tableList){
-//    	if(table.getSeatsNumber()>=bookingEntity.getAssistants()) {
-//
-//    		List<BookingEntity> listOfAlreadyAssignedTablesPerSeats = bookingDao.findBookingByTable(table);    		
-//    		
-//    		for(BookingEntity assignedTable : listOfAlreadyAssignedTablesPerSeats) {    			
-//    			if(!assignedTable.getTable().equals(table)) {
-//
-//    				bookingEntity.setTableId(table.getId());
-//            		break;
-//    			}
-//    		}    		
-//    		if(listOfAlreadyAssignedTablesPerSeats.isEmpty()) {
-//        		bookingEntity.setTableId(table.getId());
-//        		break;    			
-//    		}    		
-//    	} 	
-//    }
-//    if(bookingEntity.getTable()==null) {
-//    	throw new IllegalStateException("No Table left for this booking");
-//    }
-    
-    
-    
+
+    // assign a correct table once
+    List<TableEntity> tableList = this.tableDao.findAllTables();
+    for (TableEntity table : tableList) {
+      if (table.getSeatsNumber() >= bookingEntity.getAssistants()) {
+
+        List<BookingEntity> listOfAlreadyAssignedTablesPerSeats = this.bookingDao.findBookingByTable(table);
+
+        for (BookingEntity assignedTable : listOfAlreadyAssignedTablesPerSeats) {
+          if (!assignedTable.getTable().equals(table)) {
+
+            bookingEntity.setTableId(table.getId());
+            break;
+          }
+        }
+        if (listOfAlreadyAssignedTablesPerSeats.isEmpty()) {
+          bookingEntity.setTableId(table.getId());
+          break;
+        }
+      }
+    }
+    if (bookingEntity.getTable() == null) {
+      throw new IllegalStateException("No Table left for this booking");
+    }
+
     bookingEntity.setInvitedGuests(invited);
     try {
       bookingEntity.setBookingToken(buildToken(bookingEntity.getEmail(), "CB_"));
@@ -331,6 +326,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     return getBeanMapper().map(getInvitedGuestDao().find(id), InvitedGuestEto.class);
   }
 
+  @Override
   public List<InvitedGuestEto> findInvitedGuestByBooking(Long bookingId) {
 
     List<InvitedGuestEntity> invitedGuestList = getInvitedGuestDao().findInvitedGuestByBooking(bookingId);
@@ -421,6 +417,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     return getBeanMapper().map(resultEntity, TableEto.class);
   }
 
+  @Override
   public InvitedGuestEto acceptInvite(String guestToken) {
 
     Objects.requireNonNull(guestToken);
@@ -455,7 +452,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
 
     Objects.requireNonNull(bookingToken, "bookingToken");
     BookingCto bookingCto = findBookingByToken(bookingToken);
-    
+
     if (bookingCto != null) {
       if (!cancelInviteAllowed(bookingCto.getBooking())) {
         throw new CancelInviteNotAllowedException();

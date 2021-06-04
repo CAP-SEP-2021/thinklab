@@ -62,13 +62,17 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   ];
   status: string[];
 
+  paymentStatus: string[];
+
   pageSizes: number[];
 
   filters: FilterCockpit = {
     bookingDate: undefined,
     email: undefined,
     bookingToken: undefined,
+    paymentStatus: undefined,
     status: undefined, //@mo added to comlete the structure
+
   };
   reslut: any;
   constructor(
@@ -121,11 +125,15 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           { name: 'status', label: cockpitTable.statusH },
         ];
          this.status = [
-            cockpitTable.statusHtaken ,
-            cockpitTable.statusHprepared ,
-            cockpitTable.statusHdelivered ,
-            cockpitTable.statusHPaid
+            cockpitTable.statusTaken ,
+            cockpitTable.statusPrepared ,
+            cockpitTable.statusInDelivery ,
+            cockpitTable.statusDelivered
          ];
+         this.paymentStatus = [
+            cockpitTable.paymentStatusNotPaid,
+            cockpitTable.paymentStatusPaid
+         ]
       });
   }
 

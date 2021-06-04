@@ -215,11 +215,13 @@
       "ownerH": "Eigentümer",
       "tableH": "Tisch",
       "paymentStatusH": "Bezahlstatus",
+      "paymentStatusPaid": "Bezahlt",
+      "paymentStatusNotPaid": "Nicht Bezahlt",
       "statusH" : "Status",
-      "statusHPaid" : "Bezahlt",
-      "statusHtaken" :"Bestellung Aufgenommen",
-      "statusHprepared": "Essen wird zubereitet",
-      "statusHdelivered":"Essen wird ausgeliefert",
+      "statusDelivered" : "Essen ist angekommen",
+      "statusTaken" :"Bestellung Aufgenommen",
+      "statusPrepared": "Essen wird zubereitet",
+      "statusInDelivery":"Essen wird ausgeliefert",
       "creationDateH": "Erstelldatum"
     },
     "userTable": {
