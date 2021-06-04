@@ -200,7 +200,7 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 
 	@Test
 	@Rollback(true)
-	public void getOrders() {
+	public void getNonArchivedOrders() {
 
 		OrderSearchCriteriaTo to = new OrderSearchCriteriaTo();
 		to.setPageable(OrdermanagementTestUtility.getPageable());
@@ -232,12 +232,12 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 	@Rollback(true)
 	public void checkDefaultStatusOnCreate() {
 
-		OrderEntity updatingEntity = orderDao.find(0L);
+		OrderEntity entity = orderDao.find(0L);
 
 		OrderCto cto = new OrderCto();
-		OrderEto realScenarioTransfer = new OrderEto();
-		realScenarioTransfer.setId(updatingEntity.getId());
-		cto.setOrder(realScenarioTransfer);
+		OrderEto transferObject = new OrderEto();
+		transferObject.setId(entity.getId());
+		cto.setOrder(transferObject);
 		OrderEto result = orderManagement.updateWaiterStatus(cto);
 
 		assertEquals(0, result.getStatus());
@@ -248,15 +248,15 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 	 */
 	@Test
 	@Rollback(true)
-	public void checkDefaultStatusOnWrongSet() {
+	public void checkIfDefaultWaiterStatusOnInvalidStatus() {
 
 		OrderEntity updatingEntity = orderDao.find(0L);
 
 		OrderCto cto = new OrderCto();
-		OrderEto realScenarioTransfer = new OrderEto();
-		realScenarioTransfer.setId(updatingEntity.getId());
-		realScenarioTransfer.setStatus(4);
-		cto.setOrder(realScenarioTransfer);
+		OrderEto transferObject = new OrderEto();
+		transferObject.setId(updatingEntity.getId());
+		transferObject.setStatus(4);
+		cto.setOrder(transferObject);
 		OrderEto result = orderManagement.updateWaiterStatus(cto);
 
 		assertEquals(0, result.getStatus());
@@ -267,18 +267,17 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 	 */
 	@Test
 	@Rollback(true)
-	public void checkChangedStatus() {
+	public void checkChangedWaiterStatus() {
 
-		OrderEntity updatingEntity = orderDao.find(0L);
+		OrderEntity entity = orderDao.find(0L);
 
 		OrderCto cto = new OrderCto();
-		OrderEto realScenarioTransfer = new OrderEto();
-		realScenarioTransfer.setId(updatingEntity.getId());
+		OrderEto transferObject = new OrderEto();
+		transferObject.setId(entity.getId());
 
-		// modify
-		realScenarioTransfer.setStatus(1);
+		transferObject.setStatus(1);
 
-		cto.setOrder(realScenarioTransfer);
+		cto.setOrder(transferObject);
 		OrderEto result = orderManagement.updateWaiterStatus(cto);
 
 		assertEquals(1, result.getStatus());
@@ -290,50 +289,50 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 
 	@Test
 	@Rollback(true)
-	public void NotArchivedOnNewOrder() {
+	public void NotArchivedOnNewCreatedOrder() {
 		boolean b = orderDao.find(0L).getArchived();
 		assertEquals(false, b);
 	}
 
 	@Test
 	@Rollback(true)
-	public void NotCanceledOnNewOrder() {
+	public void NotCanceledOnNewCreatedOrder() {
 		boolean b = orderDao.find(0L).getCanceled();
 		assertEquals(false, b);
 	}
 
 	@Test
 	@Rollback(true)
-	public void CanceledOrderOnDefaultStatus() {
+	public void CancelOrderWithDefaultStatus() {
 
-		OrderEntity updatingEntity = orderDao.find(0L);
-		orderManagement.cancelOrder(updatingEntity.getId());
+		OrderEntity entity = orderDao.find(0L);
+		orderManagement.cancelOrder(entity.getId());
 
 		assertEquals(true, orderDao.find(0L).getCanceled());
 	}
 
 	@Test
 	@Rollback(true)
-	public void ArchivedOnCancel() {
+	public void ArchivedIfItsCanceled() {
 
-		OrderEntity updatingEntity = orderDao.find(0L);
-		orderManagement.cancelOrder(updatingEntity.getId());
+		OrderEntity entity = orderDao.find(0L);
+		orderManagement.cancelOrder(entity.getId());
 
 		assertEquals(true, orderDao.find(0L).getArchived());
 	}
 
 	@Test
 	@Rollback(true)
-	public void ArchivedOnPaid() {
+	public void ArchivedIfSetOnPaid() {
 
 		OrderCto cto = new OrderCto();
-		OrderEto realScenarioTransfer = new OrderEto();
+		OrderEto transferObject = new OrderEto();
 
-		realScenarioTransfer.setId(0L);
-		realScenarioTransfer.setPaid(true);
-		realScenarioTransfer.setStatus(3);
+		transferObject.setId(0L);
+		transferObject.setPaid(true);
+		transferObject.setStatus(3);
 
-		cto.setOrder(realScenarioTransfer);
+		cto.setOrder(transferObject);
 		
 		orderManagement.updateWaiterStatus(cto);
 		OrderEto result = orderManagement.updatePaymentStatus(cto);
@@ -344,11 +343,11 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 
 	@Test
 	@Rollback(true)
-	public void NotArchivedOnReactivated() {
+	public void NotArchivedAnymoreOnReactivated() {
 
-		OrderEntity updatingEntity = orderDao.find(0L);
-		orderManagement.cancelOrder(updatingEntity.getId());
-		orderManagement.cancelOrder(updatingEntity.getId());
+		OrderEntity entity = orderDao.find(0L);
+		orderManagement.cancelOrder(entity.getId());
+		orderManagement.cancelOrder(entity.getId());
 
 		assertEquals(false, orderDao.find(0L).getArchived());
 	}
@@ -357,17 +356,17 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 	public void ChangedStatusToDefaultOnReactivated() {
 
 		OrderCto cto = new OrderCto();
-		OrderEto realScenarioTransfer = new OrderEto();
+		OrderEto transferObject = new OrderEto();
 
-		realScenarioTransfer.setId(0L);
-		realScenarioTransfer.setPaid(true);
-		realScenarioTransfer.setStatus(3);
+		transferObject.setId(0L);
+		transferObject.setPaid(true);
+		transferObject.setStatus(3);
 
-		cto.setOrder(realScenarioTransfer);
+		cto.setOrder(transferObject);
 		
 		orderManagement.updateWaiterStatus(cto);
 		orderManagement.updatePaymentStatus(cto);		
-		orderManagement.cancelOrder(realScenarioTransfer.getId());
+		orderManagement.cancelOrder(transferObject.getId());
 		
 		assertEquals(0, orderDao.find(0L).getStatus());
 	}

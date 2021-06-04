@@ -274,16 +274,10 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
 			// inform the user
 			utils.send_reset_mail(requester, checkedTokenEntity);
-//			ResetTokenMessageEto message = new ResetTokenMessageEto();
-//			message.setUserName(requester.getUsername());
-//			message.setMessage("Email sent.");
-			
+
 			return notifyUser(requester.getUsername(), "Email sent.");
 
 		} else {
-
-//			ResetTokenMessageEto message = new ResetTokenMessageEto();
-//			message.setMessage("Email adress not found.");
 			
 			return notifyUser(null, "Email adress not found.");
 		}
@@ -302,6 +296,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			throw new EntityExistsException("Email already exists - cant use email twice.");
 		}
 
+		
 		// save entity
 		UserEntity resultEntity = getUserDao().save(userEntity);
 

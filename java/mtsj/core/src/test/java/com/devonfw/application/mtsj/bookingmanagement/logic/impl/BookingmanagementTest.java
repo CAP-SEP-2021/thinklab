@@ -4,10 +4,15 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import javax.inject.Inject;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,11 +48,6 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 	
 	BookingCto bookingCto;
 	
-	/*
-	 * {"booking":{"bookingDate":"2021-06-30T17:54:41.000Z",
-	 * "name":"Lucy2","email":"thinklab@gmx.net","assistants":2}}
-	 */
-	
 	  /**
 	   * Creation of needed objects
 	   */
@@ -61,7 +61,7 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 	    bookingEto.setBookingDate(Instant.now()
 	    		.plus(5, ChronoUnit.HOURS)
 	    		.plus(10, ChronoUnit.MINUTES));
-	    bookingEto.setName("Lucy");
+	    bookingEto.setName("Lilith");
 	    bookingEto.setEmail("gemini@web.de");
 	    bookingEto.setAssistants(2);
 	    
@@ -69,6 +69,13 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 	    this.bookingCto.setBooking(bookingEto);
 	    
 	  }
+	  
+		@AfterEach
+		public void after(TestInfo testInfo) {
+			if (testInfo.getTags().contains("Skip")) {
+				return;
+			}
+		}
 
 	/**
 	 * Tests if an order is created
@@ -83,7 +90,7 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 	@Test
 	public void saveAnBookingWithToMuchGuests() {
 		
-		this.bookingCto.getBooking().setAssistants(9);		
+		this.bookingCto.getBooking().setAssistants(9);	
 		
 		try {
 			this.bookingManagement.saveBooking(this.bookingCto);
@@ -94,12 +101,29 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 	}
 	
 	@Test
-	public void saveAnBookingInvalidDatePast() {
+	public void saveAnBookingWithInvalidDate() {
 		
 		this.bookingCto.getBooking().setBookingDate(Instant.now().minus(10, ChronoUnit.HOURS));
 		
 		try {
 			this.bookingManagement.saveBooking(this.bookingCto);
+		} catch (Exception e) {
+			IllegalStateException ex = new IllegalStateException();
+		    assertThat(e.getClass()).isEqualTo(ex.getClass());
+		}
+	}
+	
+	@Test
+	@Rollback(true)
+	//@Tag("DeleteTable")
+	public void saveToMuchBookingNoTableLeft() {
+		
+		this.bookingCto.getBooking().setAssistants(8);
+		
+		try {
+			IntStream.range(0, 99).forEachOrdered(n -> {
+				this.bookingManagement.saveBooking(this.bookingCto);
+			});			
 		} catch (Exception e) {
 			IllegalStateException ex = new IllegalStateException();
 		    assertThat(e.getClass()).isEqualTo(ex.getClass());

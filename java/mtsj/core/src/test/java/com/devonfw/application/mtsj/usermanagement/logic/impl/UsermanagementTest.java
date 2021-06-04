@@ -6,28 +6,38 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.inject.Inject;
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.Rollback;
 
 import com.devonfw.application.mtsj.SpringBootApp;
 import com.devonfw.application.mtsj.dishmanagement.logic.api.Dishmanagement;
 import com.devonfw.application.mtsj.general.common.ApplicationComponentTest;
+import com.devonfw.application.mtsj.ordermanagement.logic.impl.OrdermanagementTestUtility;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetTokenEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetTokenMessageEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserCto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
+import com.devonfw.application.mtsj.usermanagement.common.api.to.UserSearchCriteriaTo;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.ResetTokenEntity;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserEntity;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.ResetTokenRepository;
+import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.UserRepository;
 import com.devonfw.application.mtsj.usermanagement.logic.api.Usermanagement;
 import com.devonfw.application.mtsj.usermanagement.logic.impl.helperinterfaces.UsermanagementUtility;
 
@@ -40,7 +50,10 @@ public class UsermanagementTest extends ApplicationComponentTest {
 
 	@Inject
 	Usermanagement userManagement;
-	
+
+	@Inject
+	private UserRepository userDao;
+
 	@Inject
 	UsermanagementUtility userManagementUtility;
 
@@ -77,15 +90,65 @@ public class UsermanagementTest extends ApplicationComponentTest {
 			return;
 		}
 
+		if (testInfo.getTags().contains("DropTokenRepository")) {
+			resetTokenDao.deleteAll();
+		}
 		this.userManagement.deleteUser(this.userManagement.findUserbyName("Lucy").getId());
 	}
 
-	
-	/*
-	 *  EDITING USERDETAILS
-	 */
-	
-	
+	// ================================================================================
+	// {@link UsermanagementImpl} General User
+	// ================================================================================
+
+	@Test
+	@Rollback(true)
+	@Tag("Skip")
+	public void saveMultipleUsers() {
+
+		IntStream.range(0, 14).forEachOrdered(n -> {
+			UserEntity ue = new UserEntity();
+			ue.setUsername("username");
+			ue.setPassword(String.valueOf(n));
+			ue.setUserRoleId(0L);
+			this.userDao.save(ue);
+		});
+
+		assertEquals(14, this.userDao.findAll().stream().filter(u -> u.getUsername().equals("username"))
+				.collect(Collectors.toList()).size());
+	}
+
+//	@Test
+//	@Rollback(true)
+//	@Tag("Skip")
+//	public void saveUserWithNullPassword() {
+//		
+//		UserEto user = new UserEto();
+//		user.setUsername("Lilith");
+//		user.setPassword(null);
+//		user.setUserRoleId(0L);
+//		
+//		assertThrows(IllegalStateException.class, () 
+//				-> this.userManagement.saveUser(user), "");
+//	}
+
+	@Test
+	@Rollback(true)
+	@Tag("Skip")
+	public void saveUserWithNullUserRole() {
+
+		UserEto user = new UserEto();
+
+		user.setUsername("Lilith");
+		user.setPassword("123");
+		user.setUserRoleId(null);
+
+		assertThrows(DataIntegrityViolationException.class, () -> this.userManagement.saveUser(user), "");
+	}
+
+	// ================================================================================
+	// {@link UsermanagementImpl} Changing Userdetails Tests
+	// ================================================================================
+
 	/**
 	 * Tests if an order is created
 	 */
@@ -113,7 +176,6 @@ public class UsermanagementTest extends ApplicationComponentTest {
 
 		UserEto createdUser = this.userManagement.saveUser(this.userEto);
 		createdUser.setUserRoleId(1L);
-		;
 		UserEto result = this.userManagement.updateUser(createdUser);
 		assertEquals(1L, result.getUserRoleId());
 	}
@@ -143,20 +205,32 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		}
 	}
 
-	/*
-	 * RESET PASS
-	 */
-	
+	@Test
+	@Rollback(true)
+	public void updateNotExistingUser() {
+
+		UserEto createdUser = this.userManagement.saveUser(this.userEto);
+		createdUser.setId(9999L);
+		try {
+			this.userManagement.updateUser(this.userEto);
+		} catch (Exception e) {
+			EntityNotFoundException ex = new EntityNotFoundException();
+			assertThat(e.getClass()).isEqualTo(ex.getClass());
+		}
+	}
+
+	// ================================================================================
+	// {@link UsermanagementImpl} Passwordmanagement Tests
+	// ================================================================================
+
 	@Test
 	@Rollback(true)
 	public void resetPasswordProcess() {
 
-		// Request Reset-TOKEN
 		this.userManagement.saveUser(this.userEto);
 		ResetTokenMessageEto requestMessage = this.userManagement.resetPassword(this.userEto);
 		assertEquals("Email sent.", requestMessage.getMessage());
 
-		// SET NEW PW
 		ResetTokenEto request = new ResetTokenEto();
 		Long requesterId = this.userManagement.findUserbyName("Lucy").getId();
 		request.setId(requesterId);
@@ -168,31 +242,50 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		assertEquals("Your Password changed.", successMessage.getMessage());
 	}
 
-//	@Test
-//	@Rollback(true)
-//	public void resetPasswordProcessWithWrongToken() {
-//		
-//		// Request Reset-TOKEN
-//		this.userManagement.saveUser(this.userEto);
-//		ResetTokenMessageEto requestMessage = this.userManagement.resetPassword(this.userEto);
-//		assertEquals("Email sent.", requestMessage.getMessage());
-//		
-//		// SET NEW PW
-//		ResetTokenEto request = new ResetTokenEto();
-//		Long requesterId = this.userManagement.findUserbyName("Lucy").getId();
-//		request.setId(requesterId);
-//		ResetTokenEntity tokenEntity = resetTokenDao.findByUserId(requesterId);	
-//		request.setToken("WRONGTOKEN");
-//		request.setPassword("newPass");
-//		
-//		ResetTokenMessageEto successMessage = this.userManagement.changeForgetPassword(request);
-//		assertEquals("Given Token not bound to any Account", successMessage.getMessage());
-//		
-//		request.setToken(tokenEntity.getToken());
-//		
-//		this.userManagement.changeForgetPassword(request);
-//		assertEquals("Your Password changed.", successMessage.getMessage());
-//	}
+	@Test
+	@Rollback(true)
+	@Tag("DropTokenRepository")
+	public void resetPasswordWithInvalidTime() {
+
+		this.userManagement.saveUser(this.userEto);
+		ResetTokenMessageEto requestMessage = this.userManagement.resetPassword(this.userEto);
+		assertEquals("Email sent.", requestMessage.getMessage());
+
+		List<ResetTokenEntity> tokenList = resetTokenDao.findAll();
+		ResetTokenEntity tokenEntity = tokenList.get(0);
+
+		tokenEntity.setCreationDate(Instant.now().minus(50, ChronoUnit.HOURS));
+		resetTokenDao.save(tokenEntity);
+
+		ResetTokenEto request = new ResetTokenEto();
+		Long requesterId = this.userManagement.findUserbyName("Lucy").getId();
+		request.setId(requesterId);
+		ResetTokenEntity token = resetTokenDao.findByUserId(requesterId);
+		request.setToken(token.getToken());
+		request.setPassword("newPass");
+
+		ResetTokenMessageEto successMessage = this.userManagement.changeForgetPassword(request);
+		assertEquals("Your Token expired. Please request a new Token", successMessage.getMessage());
+	}
+
+	@Test
+	@Rollback(true)
+	@Tag("DropTokenRepository")
+	public void resetPasswordProcessWithWrongToken() {
+
+		this.userManagement.saveUser(this.userEto);
+		ResetTokenMessageEto requestMessage = this.userManagement.resetPassword(this.userEto);
+		assertEquals("Email sent.", requestMessage.getMessage());
+
+		ResetTokenEto request = new ResetTokenEto();
+		Long requesterId = this.userManagement.findUserbyName("Lucy").getId();
+		request.setId(requesterId);
+		request.setToken("WRONGTOKEN");
+		request.setPassword("newPass");
+
+		ResetTokenMessageEto successMessage = this.userManagement.changeForgetPassword(request);
+		assertEquals("Given Token not bound to any Account", successMessage.getMessage());
+	}
 
 	@Test
 	@Rollback(true)
@@ -212,26 +305,10 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		assertEquals("failure", proceedMessage);
 	}
 
-//	@Test
-//	@Rollback(true)
-//	@Tag("Skip")
-//	public void resetPasswordWithInvalidTime() {
-//
-//		ResetTokenEntity entity = new ResetTokenEntity();
-//
-//		entity.setCreationDate(Instant.now()
-//				.minus(40,ChronoUnit.MINUTES));
-//		entity.setToken("");
-//		
-//		boolean invalidTimeStamp = new UsermanagementImpl().checkTimeStampsForToken(entity);
-//		
-//		assertEquals(false, invalidTimeStamp);
-//	}
+	// ================================================================================
+	// {@link UsermanagementUtilityImpl} Email sending Tests
+	// ================================================================================
 
-	/*
-	 * Send Mail Test
-	 */
-	
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
@@ -241,10 +318,10 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		tokenEntity.setToken("JUNIT RESET TOKEN TEST ");
 		UserEntity user = new UserEntity();
 		user.setEmail("thdslKF442ob123dsadsaRSAK121@gmx.net");
-				
+
 		assertDoesNotThrow(() -> this.userManagementUtility.send_reset_mail(user, tokenEntity));
 	}
-	
+
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
@@ -254,7 +331,7 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		tokenEntity.setToken("JUNIT RESET TOKEN TEST ");
 		UserEntity user = new UserEntity();
 		user.setEmail("thdslKF442ob123dsadsaRSAK121@gmx.net");
-				
+
 		assertDoesNotThrow(() -> this.userManagementUtility.send_resettoken_mail(user, tokenEntity));
 	}
 
@@ -267,35 +344,37 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		tokenEntity.setToken("JUNIT RESET TOKEN TEST ");
 		UserEntity user = new UserEntity();
 		user.setEmail("thdslKF442ob123dsadsaRSAK121@gmx.net");
-				
+
 		assertDoesNotThrow(() -> this.userManagementUtility.send_reset_confirmation(user));
 	}
-	
-//	/*
-//	 * Admin-Management
-//	 */
+
+	// ================================================================================
+	// {@link UsermanagementImpl} Adminmanagement Tests
+	// ================================================================================
 
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
-	public void deleteUser() {				
+	public void deleteUser() {
 		assertDoesNotThrow(() -> this.userManagement.deleteUser(4L));
 	}
-	
+
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
-	public void deleteNonExistingUser() {				
-		EmptyResultDataAccessException thrown = 
-				assertThrows(EmptyResultDataAccessException.class, () -> this.userManagement.deleteUser(99L), "");
+	public void deleteNonExistingUser() {
+		assertThrows(EmptyResultDataAccessException.class, () -> this.userManagement.deleteUser(99L), "");
 	}
-	
+
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
-	public void deleteUserAdmin() {				
-		IllegalStateException thrown = 
-				assertThrows(IllegalStateException.class, () -> this.userManagement.deleteUser(3L), "");
+	public void deleteUserAdmin() {
+		assertThrows(IllegalStateException.class, () -> this.userManagement.deleteUser(3L), "");
 	}
-	
+
+	// ================================================================================
+	// {@link UsermanagementImpl} Others
+	// ================================================================================
+
 }
