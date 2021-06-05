@@ -235,10 +235,9 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 	public void checkDefaultStatusOnCreate() {
 
 		OrderEntity entity = orderDao.find(0L);
-
 		OrderCto cto = new OrderCto();
-		OrderEto transferObject = new OrderEto();
-		transferObject.setId(entity.getId());
+		OrderEto transferObject = new OrderEto.Create().Id(entity.getId()).build();
+		
 		cto.setOrder(transferObject);
 		OrderEto result = orderManagement.updateWaiterStatus(cto);
 
@@ -253,11 +252,11 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 	public void checkIfDefaultWaiterStatusOnInvalidStatus() {
 
 		OrderEntity updatingEntity = orderDao.find(0L);
+		
+		OrderEto transferObject = new OrderEto.Create()
+				.Id(updatingEntity.getId()).status(4).build();
 
 		OrderCto cto = new OrderCto();
-		OrderEto transferObject = new OrderEto();
-		transferObject.setId(updatingEntity.getId());
-		transferObject.setStatus(4);
 		cto.setOrder(transferObject);
 		OrderEto result = orderManagement.updateWaiterStatus(cto);
 
@@ -273,13 +272,18 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 
 		OrderEntity entity = orderDao.find(0L);
 
+		OrderEto transferObject = new OrderEto.Create()
+				.Id(entity.getId()).status(1).build();
 		OrderCto cto = new OrderCto();
-		OrderEto transferObject = new OrderEto();
-		transferObject.setId(entity.getId());
-
-		transferObject.setStatus(1);
-
 		cto.setOrder(transferObject);
+		
+//		OrderCto cto = new OrderCto.Pipe().putNewOrder(
+//				new OrderEto.Create()
+//				.Id(entity.getId())
+//				.status(1)
+//				.build()
+//		).build();
+
 		OrderEto result = orderManagement.updateWaiterStatus(cto);
 
 		assertEquals(1, result.getStatus());
@@ -328,11 +332,9 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 	public void ArchivedIfSetOnPaid() {
 
 		OrderCto cto = new OrderCto();
-		OrderEto transferObject = new OrderEto();
-
-		transferObject.setId(0L);
-		transferObject.setPaid(true);
-		transferObject.setStatus(3);
+		
+		OrderEto transferObject = new OrderEto.Create()
+				.Id(0L).paid(true).status(3).build();
 
 		cto.setOrder(transferObject);
 		
@@ -358,12 +360,10 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 	public void ChangedStatusToDefaultOnReactivated() {
 
 		OrderCto cto = new OrderCto();
-		OrderEto transferObject = new OrderEto();
 
-		transferObject.setId(0L);
-		transferObject.setPaid(true);
-		transferObject.setStatus(3);
-
+		OrderEto transferObject = new OrderEto.Create()
+				.Id(0L).paid(true).status(3).build();
+		
 		cto.setOrder(transferObject);
 		
 		orderManagement.updateWaiterStatus(cto);
@@ -372,5 +372,4 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 		
 		assertEquals(0, orderDao.find(0L).getStatus());
 	}
-
 }
