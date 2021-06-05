@@ -41,8 +41,10 @@ import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.UserRepos
 import com.devonfw.application.mtsj.usermanagement.logic.api.Usermanagement;
 import com.devonfw.application.mtsj.usermanagement.logic.impl.helperinterfaces.UsermanagementUtility;
 
+//<=== Ab hier
+
 /**
- * Tests for {@link Dishmanagement} component.
+ * Tests for {@link Usermanagement} component.
  *
  */
 @SpringBootTest(classes = SpringBootApp.class)

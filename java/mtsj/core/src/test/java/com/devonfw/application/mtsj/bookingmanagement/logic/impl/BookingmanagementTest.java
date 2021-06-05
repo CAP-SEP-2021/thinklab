@@ -36,8 +36,10 @@ import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderEto;
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderLineCto;
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderLineEto;
 
+// <=== Ab hier
+
 /**
- * Tests for {@link Dishmanagement} component.
+ * Tests for {@link Bookingmanagement} component.
  *
  */
 @SpringBootTest(classes = SpringBootApp.class)
@@ -47,10 +49,7 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 	Bookingmanagement bookingManagement;
 	
 	BookingCto bookingCto;
-	
-	  /**
-	   * Creation of needed objects
-	   */
+
 	  @Override
 	  public void doSetUp() {
 
@@ -77,9 +76,6 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 			}
 		}
 
-	/**
-	 * Tests if an order is created
-	 */
 	@Test
 	public void saveAnBooking() {
 
@@ -115,7 +111,6 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 	
 	@Test
 	@Rollback(true)
-	//@Tag("DeleteTable")
 	public void saveToMuchBookingNoTableLeft() {
 		
 		this.bookingCto.getBooking().setAssistants(8);

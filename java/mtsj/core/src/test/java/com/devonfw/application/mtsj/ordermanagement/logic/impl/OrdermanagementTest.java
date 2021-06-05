@@ -193,7 +193,9 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 			assertThat(e.getClass()).isEqualTo(ni.getClass());
 		}
 	}
-
+	
+	// <=== Ab hier
+	
 	// ================================================================================
 	// {@link OrdermanagementImpl} edited ordersearches
 	// ================================================================================
