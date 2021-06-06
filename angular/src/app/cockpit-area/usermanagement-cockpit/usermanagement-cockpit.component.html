@@ -1,7 +1,15 @@
 <mat-card>
     <div class="btn-toolbar">
         <div class="right-btn">
-          <button mat-stroked-button  (click)="addNewUser()" color="warn">{{'buttons.addUser' | transloco}}</button>
+
+
+          <button mat-button color="accent" (click)="addNewUser()" >
+            <mat-icon matSuffix>
+            <span class="material-icons-outlined">
+              person_add_alt
+              </span></mat-icon>
+              {{'buttons.addUser' | transloco}}</button>
+
         </div>
     </div>
 

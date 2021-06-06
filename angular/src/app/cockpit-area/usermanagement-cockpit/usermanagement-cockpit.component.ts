@@ -30,6 +30,7 @@ import {
 } from '../../shared/view-models/interfaces';
 import { UsermanagementCockpitService } from '../services/usermanagement-cockpit.service';
 import { NewUserDialogComponent } from './new-user-dialog/new-user-dialog.component';
+import { UserDetailsDialogComponent } from './user-details-dialog/user-details-dialog.component';
 
 @Component({
   selector: 'app-usermanagement-cockpit',
@@ -96,7 +97,18 @@ export class UsermanagementCockpitComponent implements OnInit {
         moment.locale(this.translocoService.getActiveLang());
       });
     }
-  
+
+    selected(selection: OrderListView): void {
+      let dialogRef = this.dialog.open(UserDetailsDialogComponent, {
+        height: '57%',
+        width:'35%',
+     
+       data : selection,
+      });
+   
+      //refreshing the list after closing the dialog
+      dialogRef.afterClosed().subscribe(() => setTimeout(() =>this.applyFilters() , 500)); //working 
+    }
   /*  sendStatus(option, element: OrderListView): void {
       element.order.status = option;
       let temp = { order: { id: element.order.id, status: option } }; // @mo change later
@@ -143,6 +155,7 @@ export class UsermanagementCockpitComponent implements OnInit {
           this.totalOrders = data.totalElements;
           
         });
+        
     }
   
     clearFilters(filters: any): void {
@@ -172,12 +185,13 @@ export class UsermanagementCockpitComponent implements OnInit {
     }
    addNewUser(): void {
       let dialogRef = this.dialog.open(NewUserDialogComponent, {
-        height: '50%',
-        width:'35%',
+
       //  data: selection,
       });
       //refreshing the list after closing the dialog
-      dialogRef.afterClosed().subscribe(() => this.applyFilters());
+      dialogRef.afterClosed().subscribe(() => setTimeout(() =>this.applyFilters() , 100)); //working 
+     // dialogRef.afterClosed().subscribe(() => this.applyFilters());
+     
     }
   
     ngOnDestroy(): void {

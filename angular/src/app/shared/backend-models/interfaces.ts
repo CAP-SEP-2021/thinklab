@@ -115,12 +115,12 @@ export class Role {
 //users 
 export class UserInfo {
    
-    id :number;
+    id? :number;
     username: string;
     password: string;
     email: string;
     userRoleId: number;
-    twoFactorStatus: Boolean;
+    twoFactorStatus?: Boolean;
 }
 export class UserListCriteria {
     pageable: Pageable;

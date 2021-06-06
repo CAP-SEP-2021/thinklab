@@ -25,3 +25,14 @@ button{
 .submitBtn{
     color: white;
 }
+.float-container {
+  border: 1px solid #fff;
+  padding: 1px;
+}
+
+.float-child {
+  width: fit-content;
+  float: left;
+  padding: 1px;
+  
+}  

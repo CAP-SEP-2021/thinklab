@@ -110,11 +110,10 @@ temp :any;
   }
   
   getCancelOrder(id :number): Observable<any> {
-    var tempId= "/" +id.toString() + "/";
-    console.log(tempId);
+    var pathID= "/" +id.toString() + "/";
     this.temp = this.restServiceRoot$.pipe( //@mo muust be changed 
       exhaustMap((restServiceRoot) =>
-        this.http.get(`${restServiceRoot}${this.orderCancelRestPath}${tempId}`),
+        this.http.get(`${restServiceRoot}${this.orderCancelRestPath}${pathID}`),
       ),
     );
    

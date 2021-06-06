@@ -22,7 +22,10 @@ import { ArchivDialogComponent } from './archiv-cockpit/archiv-dialog/archiv-dia
 import { UsermanagementCockpitComponent } from './usermanagement-cockpit/usermanagement-cockpit.component';
 import { NewUserDialogComponent } from './usermanagement-cockpit/new-user-dialog/new-user-dialog.component';
 import { UserDetailsDialogComponent } from './usermanagement-cockpit/user-details-dialog/user-details-dialog.component';
-
+import { reducers, effects } from './store';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -31,12 +34,15 @@ import { UserDetailsDialogComponent } from './usermanagement-cockpit/user-detail
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
+    StoreModule.forFeature('cockpitArea', reducers),
+    EffectsModule.forFeature(effects),
   ],
   providers: [
     WaiterCockpitService,
     WindowService,
     PredictionService,
     ClusteringService,
+    SnackBarService,
   ],
   declarations: [
     ReservationCockpitComponent,
