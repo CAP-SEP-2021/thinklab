@@ -37,10 +37,10 @@
             </mat-form-field>
           </p>
    
-          <p>
-            <mat-form-field appearance="outline" class="matfield">
+          <p class="ng-hide">
+            <mat-form-field appearance="outline" class="matfield" >
               <mat-label class="col-sm-2 col-form-label">User Role</mat-label>
-              <mat-select value="{{UserInfo.userRoleId}}" placeholder="{{UserInfo.userRoleId}}" formControlName="userRoleId">
+              <mat-select value="{{UserInfo.userRoleId}}" placeholder="{{UserInfo.userRoleId}}" formControlName="userRoleId" >
                 <mat-option value="0">User</mat-option>
                 <mat-option value="1">Waiter</mat-option>
                 <mat-option value="2">Manager</mat-option>

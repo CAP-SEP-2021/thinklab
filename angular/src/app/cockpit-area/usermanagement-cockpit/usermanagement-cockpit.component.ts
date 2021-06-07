@@ -197,5 +197,16 @@ export class UsermanagementCockpitComponent implements OnInit {
     ngOnDestroy(): void {
       this.translocoSubscription.unsubscribe();
     }
+    getUserRoleText(user : UserInfo){
+      if (user.userRoleId === 0 ){
+        return "User";
+      }else if (user.userRoleId === 1 ){
+        return "Waiter";
+      }else if (user.userRoleId === 2 ){
+        return "Manager";
+      }else if (user.userRoleId === 3 ){
+        return "Admin";
+      }
+    }
   }
   
