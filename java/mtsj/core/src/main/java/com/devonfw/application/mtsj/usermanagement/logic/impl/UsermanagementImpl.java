@@ -150,10 +150,10 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
 		UserEntity user = getUserDao().find(userId);
 		
-		//preDeleteFromBooking(user);		
+		//preDeleteFromBooking(user);
 		//preDeleteFromOrder(user);
 		
-		if(user.getUserRole().equals(Role.ADMIN.name())) {
+		if(user.getUserRoleId() == 3L) {
 			throw new IllegalStateException("Admin cant be deleted.");
 		}
 		
@@ -165,6 +165,10 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 		return true;
 	}
 
+	public boolean checkTimeStampsForToken(ResetTokenEntity tokenEntity) {
+		return ChronoUnit.MINUTES.between(tokenEntity.getCreationDate(), Instant.now()) > utils.getTimeToExpired();
+	}
+	
 	// POST with token AND password, validating process, using ResetTokenEto
 	@Override
 	// @RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
@@ -180,7 +184,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			UserEntity user = getUserDao().find(tokenEntity.getUser().getId());
 			
 			// check timestamps
-			if(ChronoUnit.MINUTES.between(tokenEntity.getCreationDate(), Instant.now()) > utils.getTimeToExpired()) {
+			if(checkTimeStampsForToken(tokenEntity)) {
 				resetTokenDao.delete(tokenEntity);
 				return notifyUser(user.getUsername(), "Your Token expired. Please request a new Token");
 				//return "Your Token expired. Please request a new Token";
@@ -220,7 +224,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 		if(tokenEntity != null) {
 			
 			// check timestamps
-			if(ChronoUnit.MINUTES.between(tokenEntity.getCreationDate(), Instant.now()) > utils.getTimeToExpired()) {
+			if(checkTimeStampsForToken(tokenEntity)) {
 				resetTokenDao.delete(tokenEntity);
 				return "failure";
 			}
@@ -270,16 +274,10 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
 			// inform the user
 			utils.send_reset_mail(requester, checkedTokenEntity);
-//			ResetTokenMessageEto message = new ResetTokenMessageEto();
-//			message.setUserName(requester.getUsername());
-//			message.setMessage("Email sent.");
-			
+
 			return notifyUser(requester.getUsername(), "Email sent.");
 
 		} else {
-
-//			ResetTokenMessageEto message = new ResetTokenMessageEto();
-//			message.setMessage("Email adress not found.");
 			
 			return notifyUser(null, "Email adress not found.");
 		}
@@ -298,6 +296,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			throw new EntityExistsException("Email already exists - cant use email twice.");
 		}
 
+		
 		// save entity
 		UserEntity resultEntity = getUserDao().save(userEntity);
 

@@ -39,8 +39,10 @@ export class UsermanagementCockpitService {
 
   private readonly createUserRestPath: string =
   'usermanagement/v1/user/';
-
-
+  private readonly deleteUserRestPath: string =
+  'usermanagement/v1/user/';
+  private readonly updateUserRestPath: string =
+  'usermanagement/v1/user/update/';
 /*
   private readonly getReservationsRestPath: string =
   'bookingmanagement/v1/booking/search';
@@ -91,6 +93,22 @@ postNewUser(userDetails :UserInfo){
   return this.restServiceRoot$.pipe(
     exhaustMap((restServiceRoot) =>
       this.http.post(`${restServiceRoot}${this.createUserRestPath}`, userDetails),
+    ),
+  );
+}
+deleteUser(id :number){
+  var pathID= id.toString() + "/";
+  return this.restServiceRoot$.pipe(
+    exhaustMap((restServiceRoot) =>
+      this.http.delete(`${restServiceRoot}${this.deleteUserRestPath}${pathID}`, ),
+    ),
+  );
+}
+updateUser(UserInfo :UserInfo){
+
+  return this.restServiceRoot$.pipe(
+    exhaustMap((restServiceRoot) =>
+      this.http.post(`${restServiceRoot}${this.updateUserRestPath}`, UserInfo),
     ),
   );
 }
