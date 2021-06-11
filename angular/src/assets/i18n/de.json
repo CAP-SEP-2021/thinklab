@@ -17,8 +17,11 @@
     "cancelOrder" : "Bestellung stornieren",
     "reactivateOrder" : "Bestellung reaktivieren",
     "addUser" : "Benutzer hinzufügen",
-    "copyBookingId": "Buchungs-ID kopieren"
-    
+    "copyBookingId": "Buchungs-ID kopieren",
+    "updateUserInformation": "Benutzerinformationen aktualisieren",
+    "deleteUser": "Benutzer löschen",
+    "updatePassword": "Passwort aktualisieren",
+    "sendResetLink": "Rücksetzlink senden"
   },
   "table": {
     "rowsPage": "Zeilen pro Seite",
@@ -238,11 +241,24 @@
     "roleWaiter" : "Kellner",
     "roleManager" : "Manager",
     "roleAdmin" : "Admin",
+    "managePassword": "Passwort verwalten",
     "formErrors" : {
-    "addUserNameRequired" : "Pflichtfeld. Bitte gib einen Benutzernamen ein",
-    "addUserEmailRequired" : "Pflichtfeld. Bitte gib eine Email ein",
-    "addUserEmailPattern" : "Gib eine gültige Emailadresse ein z.B. email@email.com",
-    "addUserPasswordRequired" : "Pflichtfeld. Bitte gib ein Passwort ein"
+    "addUserNameRequired" : "Pflichtfeld. Bitte gib einen Benutzernamen ein.",
+    "addUserEmailRequired" : "Pflichtfeld. Bitte gib eine Email ein.",
+    "addUserEmailPattern" : "Gib eine gültige Emailadresse ein z.B. email@email.com.",
+    "passwordRequiredPrompt" : "Pflichtfeld. Bitte gib ein Passwort ein.",
+    "passwordMatchPrompt": "Die Passwörter stimmen nicht überein."
+    },
+    "userInformation": {
+      "userInformation": "Benutzerinformationen",
+      "userName": "Nutzername",
+      "userEmail": "Email"
+    },
+    "userManagement":{
+      "usernameH": "Nutzername:",
+      "emailH": "Email:",
+      "password": "Passwort",
+      "repeatPassword": "Passwort wiederholen"
     }
   }
 }

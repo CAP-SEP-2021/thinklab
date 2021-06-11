@@ -57,6 +57,8 @@ export class UsermanagementCockpitComponent implements OnInit {
   
     columns: TextLabel[];
   
+    roles: string[];
+
     displayedColumns: string[] = [
       'id',
       'username',
@@ -136,6 +138,22 @@ export class UsermanagementCockpitComponent implements OnInit {
               cockpitTable.statusHPaid
            ];*/
         });
+        this.translocoSubscription = this.translocoService
+        .selectTranslateObject('userManagement', {}, lang)
+        .subscribe((userManagement) => {
+          this.roles = [
+            userManagement.roleCustomer,
+            userManagement.roleWaiter,
+            userManagement.roleManager,
+            userManagement.roleAdmin
+          ];
+          /* this.status2 = [
+               cockpitTable.statusHtaken ,
+              cockpitTable.statusHprepared ,
+             cockpitTable.statusHdelivered ,
+              cockpitTable.statusHPaid
+           ];*/
+        });
     }
   
     applyFilters(): void {
@@ -198,15 +216,7 @@ export class UsermanagementCockpitComponent implements OnInit {
       this.translocoSubscription.unsubscribe();
     }
     getUserRoleText(user : UserInfo){
-      if (user.userRoleId === 0 ){
-        return "User";
-      }else if (user.userRoleId === 1 ){
-        return "Waiter";
-      }else if (user.userRoleId === 2 ){
-        return "Manager";
-      }else if (user.userRoleId === 3 ){
-        return "Admin";
-      }
+      return this.roles[user.userRoleId];
     }
   }
   
