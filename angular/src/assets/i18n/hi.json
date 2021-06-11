@@ -16,7 +16,11 @@
     "cancelOrder" : "आदेश रद्द",
     "reactivateOrder" : "आदेश पुनः सक्रिय करें",
     "addUser" : "उपयोगकर्ताओं को जोड़ें",
-    "copyBookingId": "बुकिंग आईडी कॉपी करें"
+    "copyBookingId": "बुकिंग आईडी कॉपी करें",
+    "updateUserInformation": "उपयोगकर्ता जानकारी अपडेट करें",
+    "deleteUser": "उपभोक्ता मिटायें",
+    "updatePassword": "पासवर्ड अपडेट करें",
+    "sendResetLink": "रीसेट लिंक भेजें"
   },
   "table": {
     "rowsPage": "प्रति पंक्ति पंक्तियाँ",
@@ -231,11 +235,24 @@
     "roleWaiter" : "वेटर",
     "roleManager" : "मैनेजर",
     "roleAdmin" : "व्यवस्थापक",
+    "managePassword": "पासवर्ड प्रबंधित करें",
     "formErrors" : {
-    "addUserNameRequired" : "आवश्यक क्षेत्र। कृपया उपयोगकर्तानाम डालें",
-    "addUserEmailRequired" : "आवश्यक क्षेत्र। कृपया एक ईमेल दर्ज करें",
-    "addUserEmailPattern" : "एक मान्य ईमेल पता दर्ज करें जैसे ईमेल@email.com",
-    "addUserPasswordRequired" : "आवश्यक क्षेत्र। कृपया पासवर्ड दर्ज करें"
+      "addUserNameRequired" : "आवश्यक क्षेत्र। कृपया उपयोगकर्तानाम डालें।",
+      "addUserEmailRequired" : "आवश्यक क्षेत्र। कृपया एक ईमेल दर्ज करें।",
+      "addUserEmailPattern" : "एक मान्य ईमेल पता दर्ज करें जैसे ईमेल@email.com।",
+      "passwordRequiredPrompt" : "आवश्यक क्षेत्र। कृपया पासवर्ड दर्ज करें।",
+      "passwordMatchPrompt": "पासवर्ड्स मेल नहीं खा रहे।"
+    },
+    "userInformation": {
+      "userInformation": "यूजर जानकारी",
+      "userName": "उपयोगकर्ता नाम",
+      "userEmail": "उपयोगकर्ता ईमेल"
+    },
+    "userManagement":{
+      "usernameH": "उपयोगकर्ता नाम:",
+      "emailH": "ईमेल:",
+      "password": "पारण शब्द",
+      "repeatPassword": "पासवर्ड दोहराएं"
     }
   }
 }

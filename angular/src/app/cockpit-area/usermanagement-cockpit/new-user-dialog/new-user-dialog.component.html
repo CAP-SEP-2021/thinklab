@@ -108,7 +108,7 @@
           <input type="password" matInput formControlName="password" [type]="fieldTextType ? 'text' : 'password'">
           <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
             <div *ngIf="password.errors.required">
-              {{'userManagement.formErrors.addUserPasswordRequired' | transloco}}
+              {{'userManagement.formErrors.passwordRequiredPrompt' | transloco}}
             </div>
           </mat-error>
           <mat-icon matSuffix (click)="toggleFieldTextType()" ><span class="material-icons-outlined">
@@ -119,12 +119,12 @@
 
       <div class="form-group row">
         <mat-form-field class="item" appearance="outline">
-            <mat-label class="col-sm-2 col-form-label">Repeat Password</mat-label>
+            <mat-label class="col-sm-2 col-form-label">{{'userManagement.userManagement.repeatPassword' | transloco}}</mat-label>
             <input type="confirmedPassword" matInput formControlName="confirmedPassword" [type]="fieldTextType ? 'text' : 'password'">
             <mat-error *ngIf="f.confirmedPassword.touched && f.confirmedPassword.invalid"
                 class="alert alert-danger">
-                <div *ngIf="f.confirmedPassword.errors.required">Password is required.</div>
-                <div *ngIf="f.confirmedPassword.errors.confirmedValidator">Password must be match.</div>
+                <div *ngIf="f.confirmedPassword.errors.required">{{'userManagement.formErrors.passwordRequiredPrompt' | transloco}}</div>
+                <div *ngIf="f.confirmedPassword.errors.confirmedValidator">{{'userManagement.formErrors.passwordMatchPrompt' | transloco}}</div>
             </mat-error>
             <mat-icon matSuffix (click)="toggleFieldTextType()" ><span class="material-icons-outlined">
                 {{icon}}

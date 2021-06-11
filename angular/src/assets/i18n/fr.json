@@ -16,7 +16,11 @@
     "cancelOrder" : "Annuler la commande",
     "reactivateOrder" : "Réactiver la commande",
     "addUser" : "Ajouter des utilisateurs",
-    "copyBookingId": "Copier l'ID de réservation"
+    "copyBookingId": "Copier l'ID de réservation",
+    "updateUserInformation": "Mettre à jour les informations utilisateur",
+    "deleteUser": "Supprimer l'utilisateur",
+    "updatePassword": "Mettre à jour le mot de passe",
+    "sendResetLink": "Envoyer le lien de réinitialisation"
   },
   "table": {
     "rowsPage": "Lignes par page",
@@ -223,7 +227,7 @@
       "userName" : "Nom d'utilisateur",
       "userRole" : "Rôle d'utilisateur",
       "id" : "Identifiant",
-      "emailH": "Email"
+      "emailH": "E-mail"
     }
   },
   "userManagement": {
@@ -233,11 +237,24 @@
     "roleWaiter" : "Serveur",
     "roleManager" : "Directeur",
     "roleAdmin" : "Administrateur",
+    "managePassword": "Gérer le mot de passe",
     "formErrors" : {
-    "addUserNameRequired" : "Champs requis. Merci d'entrer un nom d'utilisateur",
-    "addUserEmailRequired" : "Champs requis. Veuillez saisir un e-mail",
-    "addUserEmailPattern" : "Saisissez une adresse e-mail valide, par exemple email@email.com",
-    "addUserPasswordRequired" : "Champs requis. Veuillez entrer un mot de passe"
+      "addUserNameRequired" : "Champs requis. Merci d'entrer un nom d'utilisateur.",
+      "addUserEmailRequired" : "Champs requis. Veuillez saisir un e-mail.",
+      "addUserEmailPattern" : "Saisissez une adresse e-mail valide, par exemple email@email.com.",
+      "passwordRequiredPrompt" : "Champs requis. Veuillez entrer un mot de passe.",
+      "passwordMatchPrompt": "Le mot de passe ne correspond pas."
+    },
+    "userInformation": {
+      "userInformation": "informations de l'utilisateur",
+      "userName": "Nom d'utilisateur",
+      "userEmail": "Courriel de l'utilisateur"
+    },
+    "userManagement":{
+      "usernameH": "Nom d'utilisateur:",
+      "emailH": "E-mail:",
+      "password": "Le mot de passe",
+      "repeatPassword": "Répéter le mot de passe"
     }
   }
 }

@@ -16,7 +16,11 @@
     "cancelOrder" : "cancel lar la comanda",
     "reactivateOrder" : "Activa la comanda",
     "addUser" : "Afegiu usuaris",
-    "copyBookingId": "Copia l’identificació de la reserva"
+    "copyBookingId": "Copia l’identificació de la reserva",
+    "updateUserInformation": "Actualitzeu la informació de l'usuari",
+    "deleteUser": "Suprimeix l'usuari",
+    "updatePassword": "Actualitzeu la contrasenya",
+    "sendResetLink": "Envia l'enllaç de restabliment"
   },
   "table": {
     "rowsPage": "Files per pàgina",
@@ -223,7 +227,7 @@
       "userName" : "Nom d'usuari",
       "userRole" : "Rol d'usuari",
       "id" : "Identificació",
-      "emailH": "Email"
+      "emailH": "Correu electrònic"
     }
   },
   "userManagement": {
@@ -233,11 +237,24 @@
     "roleWaiter" : "Cambrer",
     "roleManager" : "Gerent",
     "roleAdmin" : "Administrador",
+    "managePassword": "Gestiona la contrasenya",
     "formErrors" : {
-    "addUserNameRequired" : "Camp necessari. Introduïu un nom d'usuari",
-    "addUserEmailRequired" : "Camp necessari. Introduïu un correu electrònic",
-    "addUserEmailPattern" : "Introduïu una adreça electrònica vàlida, per exemple, email@email.com",
-    "addUserPasswordRequired" : "Camp necessari. Introduïu una contrasenya"
+      "addUserNameRequired" : "Camp necessari. Introduïu un nom d'usuari.",
+      "addUserEmailRequired" : "Camp necessari. Introduïu un correu electrònic.",
+      "addUserEmailPattern" : "Introduïu una adreça electrònica vàlida, per exemple, email@email.com.",
+      "passwordRequiredPrompt" : "Camp necessari. Introduïu una contrasenya.",
+      "passwordMatchPrompt": "Les contrasenyes no coincideixen."
+    },
+    "userInformation": {
+      "userInformation": "Informació de l'usuari",
+      "userName": "Nom d'usuari",
+      "userEmail": "Correu electrònic d’usuari"
+    },
+    "userManagement":{
+      "usernameH": "Nom d'usuari:",
+      "emailH": "Correu electrònic:",
+      "password": "contrasenya",
+      "repeatPassword": "Repeteix la contrassenya"
     }
   }
 }

@@ -16,7 +16,11 @@
     "cancelOrder" : "Annuleer bestelling",
     "reactivateOrder" : "Heractiveer bestelling",
     "addUser" : "Voeg gebruikers toe",
-    "copyBookingId": "Kopieer boekings-ID"
+    "copyBookingId": "Kopieer boekings-ID",
+    "updateUserInformation": "Gebruikersinformatie bijwerken",
+    "deleteUser": "Verwijder gebruiker",
+    "updatePassword": "Vernieuw wachtwoord",
+    "sendResetLink": "Stuur reset-link"
   },
   "table": {
     "rowsPage": "Rijen per pagina",
@@ -222,7 +226,7 @@
       "userName" : "Gebruikersnaam",
       "userRole" : "Gebruikersrol",
       "id" : "ID kaart",
-      "emailH": "Email"
+      "emailH": "E-mail"
     }
   },
   "userManagement": {
@@ -232,11 +236,24 @@
     "roleWaiter" : "Ober",
     "roleManager" : "Manager",
     "roleAdmin" : "Beheerder",
+    "managePassword": "Beheer wachtwoord",
     "formErrors" : {
-    "addUserNameRequired" : "Verplicht veld. Voer een gebruikersnaam in",
-    "addUserEmailRequired" : "Verplicht veld. Voer een e-mailadres in",
-    "addUserEmailPattern" : "Voer een geldig e-mailadres in, bijv. Email@email.com",
-    "addUserPasswordRequired" : "Verplicht veld. voer een wachtwoord in alstublieft"
+      "addUserNameRequired" : "Verplicht veld. Voer een gebruikersnaam in.",
+      "addUserEmailRequired" : "Verplicht veld. Voer een e-mail in.",
+      "addUserEmailPattern" : "Voer een geldig e-mailadres in, bijvoorbeeld email@email.com.",
+      "passwordRequiredPrompt" : "Verplicht veld. Voer een wachtwoord in alstublieft.",
+      "passwordMatchPrompt": "De wachtwoorden komen niet overeen."
+    },
+    "userInformation": {
+      "userInformation": "gebruikers informatie",
+      "userName": "Gebruikersnaam",
+      "userEmail": "E-mail gebruiker"
+    },
+    "userManagement":{
+      "usernameH": "Gebruikersnaam:",
+      "emailH": "E-mailadres:",
+      "password": "wachtwoord",
+      "repeatPassword": "herhaal wachtwoord"
     }
   }
 }

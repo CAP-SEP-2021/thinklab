@@ -16,7 +16,11 @@
     "cancelOrder" : "Анулиране на поръчка",
     "reactivateOrder" : "Реактивирайте поръчката",
     "addUser" : "Добавете потребители",
-    "copyBookingId": "Копирайте номера на резервацията"
+    "copyBookingId": "Копирайте номера на резервацията",
+    "updateUserInformation": "Актуализирайте информацията за потребителя",
+    "deleteUser": "Изтриване на потребител",
+    "updatePassword": "Актуализирайте паролата",
+    "sendResetLink": "Изпращане на връзката за нулиране"
   },
   "table": {
     "rowsPage": "Редове на страница",
@@ -220,7 +224,7 @@
       "userName" : "Потребителско име",
       "userRole" : "Потребителска роля",
       "id" : "Идентификационен номер",
-      "emailH": "Email"
+      "emailH": "електронна поща"
     }
   },
   "userManagement": {
@@ -230,11 +234,24 @@
     "roleWaiter" : "Сервитьор",
     "roleManager" : "Мениджър",
     "roleAdmin" : "Администратор",
+    "managePassword": "Управление на паролата",
     "formErrors" : {
-    "addUserNameRequired" : "Задължително поле. Моля, въведете потребителско име",
-    "addUserEmailRequired" : "Задължително поле. Моля, въведете имейл",
-    "addUserEmailPattern" : "Моля, въведете валиден имейл адрес, напр. Б. email@email.com",
-    "addUserPasswordRequired" : "Задължително поле. моля въведете парола"
+      "addUserNameRequired" : "Задължително поле. Моля, въведете потребителско име.",
+      "addUserEmailRequired" : "Задължително поле. Моля, въведете имейл.",
+      "addUserEmailPattern" : "Въведете валиден имейл адрес, например email@email.com.",
+      "passwordRequiredPrompt" : "Задължително поле. Моля, въведете парола.",
+      "passwordMatchPrompt": "Паролите не съвпадат."
+    },
+    "userInformation": {
+      "userInformation": "Информация за потребителя",
+      "userName": "Потребителско име",
+      "userEmail": "Имейл на потребителя"
+    },
+    "userManagement":{
+      "usernameH": "Потребителско име:",
+      "emailH": "Електронна поща:",
+      "password": "парола",
+      "repeatPassword": "Повтори паролата"
     }
   }
 }
