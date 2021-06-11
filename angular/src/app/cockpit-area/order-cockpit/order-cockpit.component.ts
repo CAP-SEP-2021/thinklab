@@ -103,6 +103,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   }
 
   sendPaymentStatus(newPaymentStatus: boolean, element: OrderListView): void {
+    element.order.paid = newPaymentStatus;
     let temp = { order: { id: element.order.id, paid: newPaymentStatus } }; // @mo change later
     this.waiterCockpitService.postOrderPaymentStatus(temp).subscribe((data: any) => {
       // @mo musst be changed
