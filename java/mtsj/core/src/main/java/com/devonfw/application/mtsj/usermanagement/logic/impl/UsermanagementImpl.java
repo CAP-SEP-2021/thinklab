@@ -137,8 +137,8 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			
 			host.setModificationCounter(host.getModificationCounter());
 			host.setUser(null);
-			host.setEmail(null);
-			host.setName(null);
+			host.setEmail("deleted");
+			host.setName("deleted");
 			bookingRepository.save(host);
 		}
 		
@@ -150,7 +150,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
 		UserEntity user = getUserDao().find(userId);
 		
-		//preDeleteFromBooking(user);
+		preDeleteFromBooking(user);
 		//preDeleteFromOrder(user);
 		
 		if(user.getUserRoleId() == 3L) {
