@@ -273,7 +273,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			resetTokenDao.save(checkedTokenEntity);
 
 			// inform the user
-			utils.send_reset_mail(requester, checkedTokenEntity);
+			utils.send_resettoken_mail(requester, checkedTokenEntity);
 
 			return notifyUser(requester.getUsername(), "Email sent.");
 

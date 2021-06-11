@@ -47,7 +47,7 @@ public class UsermanagementUtilityImpl implements UsermanagementUtility {
 			//hostMailContent.append(tokenEntity.getToken()).append("\n");
 
 			hostMailContent.append("To change your password, please use the following link:").append("\n");
-			String resetLink = "http://localhost:4200/restaurant/reset/password/validate/" + tokenEntity.getToken();
+			String resetLink = "http://localhost:4200/restaurant/reset/password/enternewpassword/" + tokenEntity.getToken();
 			hostMailContent.append(resetLink).append("\n");
 
 			System.out.println("\n Email : " + destination.getEmail());
