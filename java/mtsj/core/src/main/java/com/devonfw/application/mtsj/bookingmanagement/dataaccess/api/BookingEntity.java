@@ -40,7 +40,7 @@ public class BookingEntity extends ApplicationPersistenceEntity implements Booki
 
   private boolean canceled;
   
-//  private boolean bezahlt;
+  private boolean delivery;
 
   private BookingType bookingType;
 
@@ -54,8 +54,8 @@ public class BookingEntity extends ApplicationPersistenceEntity implements Booki
 
   private List<OrderEntity> orders;
 
-  @Min(value = 1, message = "Assistants must be greater than 0")
-  @Digits(integer = 2, fraction = 0)
+//  @Min(value = 1, message = "Assistants must be greater than 0")
+//  @Digits(integer = 2, fraction = 0)
   private Integer assistants;
 
   private static final long serialVersionUID = 1L;
@@ -395,14 +395,14 @@ public class BookingEntity extends ApplicationPersistenceEntity implements Booki
     }
   }
   
-//	@Override
-//	public void setBezahlt(boolean bezahlt) {
-//		this.bezahlt = bezahlt;
-//	}
-//
-//	@Override
-//	public boolean getBezahlt() {
-//		return this.bezahlt;
-//	}
+	@Override
+	public void setDelivery(boolean delivery) {
+		this.delivery = delivery;
+	}
+
+	@Override
+	public boolean getDelivery() {
+		return this.delivery;
+	}
 
 }

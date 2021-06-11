@@ -9,14 +9,21 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.QueryHint;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devonfw.application.mtsj.bookingmanagement.common.api.datatype.BookingType;
+import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingEto;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingSearchCriteriaTo;
 import com.devonfw.application.mtsj.bookingmanagement.dataaccess.api.BookingEntity;
 import com.devonfw.application.mtsj.bookingmanagement.dataaccess.api.TableEntity;
@@ -26,12 +33,29 @@ import com.devonfw.module.jpa.dataaccess.api.QueryUtil;
 import com.devonfw.module.jpa.dataaccess.api.data.DefaultRepository;
 import com.querydsl.core.alias.Alias;
 import com.querydsl.jpa.impl.JPAQuery;
+import com.sap.db.jdbc.Session;
 
 /**
  * {@link DefaultRepository} for {@link BookingEntity}.
  */
 public interface BookingRepository extends DefaultRepository<BookingEntity> {
 
+	@Query("SELECT booking FROM BookingEntity booking" //
+			+ " WHERE booking.bookingDate < :date" //
+			+ " AND booking.table = :table" //
+			+ " ORDER BY booking.bookingDate DESC")
+    Page<BookingEntity> findClosestBooking(Pageable pageable,
+			    		@Param("date") Instant date,
+						@Param("table") TableEntity table);
+	
+//	default BookingEto findClosestBookingByDate(Instant date, TableEntity table) {
+//		
+//		List<BookingEto> bookings = 	
+//		
+//		
+//		return null;
+//	}
+	
 	/**
 	 * @param token
 	 * @return the {@link BookingEntity} objects that matched the search.
@@ -60,7 +84,7 @@ public interface BookingRepository extends DefaultRepository<BookingEntity> {
 
     BookingEntity alias = newDslAlias();
     JPAQuery<BookingEntity> query = newDslQuery(alias);
-
+    
     String name = criteria.getName();
     if ((name != null) && !name.isEmpty()) {
       QueryUtil.get().whereString(query, $(alias.getName()), name, criteria.getNameOption());

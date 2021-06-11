@@ -4,31 +4,44 @@ import javax.persistence.Entity;
 
 import com.devonfw.application.mtsj.bookingmanagement.common.api.Table;
 import com.devonfw.application.mtsj.general.dataaccess.api.ApplicationPersistenceEntity;
+import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderEto;
+import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderEto.Create;
 
 @Entity
 @javax.persistence.Table(name = "\"Table\"")
 public class TableEntity extends ApplicationPersistenceEntity implements Table {
 
-  private int seatsNumber;
+	public static class Create {
+		private Long id;
+		public Create() {}
+		public Create Id(long val) { id = val; return this; }
+		public TableEntity build() {return new TableEntity(this);}
+	}
 
-  private static final long serialVersionUID = 1L;
+	public TableEntity() {}
 
-  /**
-   * @return seatsNumber
-   */
-  @Override
-  public int getSeatsNumber() {
+	public TableEntity(Create c) { this.setId(c.id); }
 
-    return this.seatsNumber;
-  }
+	private int seatsNumber;
 
-  /**
-   * @param seatsNumber new value of {@link #getseatsNumber}.
-   */
-  @Override
-  public void setSeatsNumber(int seatsNumber) {
+	private static final long serialVersionUID = 1L;
 
-    this.seatsNumber = seatsNumber;
-  }
+	/**
+	 * @return seatsNumber
+	 */
+	@Override
+	public int getSeatsNumber() {
+
+		return this.seatsNumber;
+	}
+
+	/**
+	 * @param seatsNumber new value of {@link #getseatsNumber}.
+	 */
+	@Override
+	public void setSeatsNumber(int seatsNumber) {
+
+		this.seatsNumber = seatsNumber;
+	}
 
 }

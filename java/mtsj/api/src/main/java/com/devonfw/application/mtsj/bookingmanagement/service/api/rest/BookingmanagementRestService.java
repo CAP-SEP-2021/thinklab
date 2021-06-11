@@ -19,6 +19,7 @@ import com.devonfw.application.mtsj.bookingmanagement.common.api.to.InvitedGuest
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.InvitedGuestSearchCriteriaTo;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.TableEto;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.TableSearchCriteriaTo;
+import com.devonfw.application.mtsj.bookingmanagement.common.api.to.findByCto;
 import com.devonfw.application.mtsj.bookingmanagement.logic.api.Bookingmanagement;
 
 /**
@@ -39,6 +40,10 @@ public interface BookingmanagementRestService {
   @Path("/booking/{id}/")
   public BookingCto getBooking(@PathParam("id") long id);
 
+  @POST
+  @Path("/booking/findBy/")
+  public BookingEto findBy(@Valid findByCto findBy);
+  
   /**
    * Delegates to {@link Bookingmanagement#saveBooking}.
    *
