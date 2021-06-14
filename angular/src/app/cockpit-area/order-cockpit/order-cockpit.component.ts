@@ -55,8 +55,8 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
     'booking.bookingDate',
     'booking.tableId',
-    'booking.email',
-    'booking.bookingToken',
+    'booking.name',
+   // 'booking.bookingToken', no need to display bookingToken on order-cockpit
     'paymentStatus',
     'status',
   ];
@@ -119,8 +119,8 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         this.columns = [
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
           { name: 'booking.tableId', label: cockpitTable.tableIdH },
-          { name: 'booking.email', label: cockpitTable.emailH },
-          { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
+          { name: 'booking.name', label: cockpitTable.ownerH },
+        //  { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH }, no need to display bookingToken on order-cockpit
           { name: 'paymentStatus', label: cockpitTable.paymentStatusH },
           { name: 'status', label: cockpitTable.statusH },
         ];

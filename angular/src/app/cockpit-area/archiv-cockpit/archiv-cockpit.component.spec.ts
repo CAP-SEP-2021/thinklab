@@ -150,11 +150,6 @@ describe('ArchivCockpitComponent', () => {
   });
 
 
-
-
-
-
-
 describe('TestingOrderCockpitComponentWithSortOrderData', () => {
   let component: ArchivCockpitComponent;
   let fixture: ComponentFixture<ArchivCockpitComponent>;
