@@ -35,7 +35,7 @@ export class ReservationCockpitComponent implements OnInit, OnDestroy {
   totalReservations: number;
 
   columns: {name: string, label:string}[];
-  displayedColumns: string[] = ['bookingDate', 'tableId', 'email', 'bookingToken'];
+  displayedColumns: string[] = ['bookingDate', 'tableId', 'name'];
 
   pageSizes: number[];
 
@@ -71,8 +71,7 @@ export class ReservationCockpitComponent implements OnInit, OnDestroy {
         this.columns = [
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
           { name: 'booking.tableId', label: cockpitTable.tableIdH },
-          { name: 'booking.email', label: cockpitTable.emailH },
-          { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
+          { name: 'booking.name', label: cockpitTable.ownerH },
         ];
       });
   }

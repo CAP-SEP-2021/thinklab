@@ -8,7 +8,7 @@ export const orderData: any = {
         invitedGuestId: null,
         bookingToken: null,
         hostId: 0,
-        status: 0,
+        status: "1",
         paid: false
       },
       booking: {

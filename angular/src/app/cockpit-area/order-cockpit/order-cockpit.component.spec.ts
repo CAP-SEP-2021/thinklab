@@ -25,7 +25,7 @@ import { By } from '@angular/platform-browser';
 import { click } from '../../shared/common/test-utils';
 import { ascSortOrder } from '../../../in-memory-test-data/db-order-asc-sort';
 import { orderData } from '../../../in-memory-test-data/db-order';
-import { orderDataChanged } from '../../../in-memory-test-data/db-order-statusChange';
+
 
 const mockDialog = {
   open: jasmine.createSpy('open').and.returnValue({
@@ -76,7 +76,7 @@ class TestBedSetUp {
   }
 }
 
-describe('OrderCockpitComponent', () => {
+fdescribe('OrderCockpitComponent', () => {
   let component: OrderCockpitComponent;
   let fixture: ComponentFixture<OrderCockpitComponent>;
   let store: Store<State>;
@@ -151,32 +151,10 @@ describe('OrderCockpitComponent', () => {
   }));
 
 
-/*
-  it('should change status on option-change', fakeAsync(() => {
-    //wenn man component inhalte aendert wird auch die orderdata datei veraendert, somit ueberprueft man bei expect lediglich die selbe datei..
-    // schauen ob man das beheben kann und dann schauen ob man die order status aenderung via dropdown machen kann. aufgrund von creatyspy
-    // werden durchaus methoden von der componente aufgerufen und die werte in die do-order.ts file geschrieben.
-    component.status = ["0","1","2","3"];
-
-    let select: HTMLSelectElement = fixture.debugElement.query(By.css('.statusSelect')).nativeElement;
-    console.log(select.options[2].value);
-    select.value = select.options[2].value;
-    select.dispatchEvent(new Event('change'));
-    fixture.detectChanges();
-
-
-    console.log(component.orders[0].order.status);
-    console.log(orderData.content[0]);
-    tick();
-    expect(component.orders).toEqual(orderData.content);
-    expect(component.totalOrders).toBe(8);
-  }));
-  */
-
-  it('should change payement-status from false to true on button-click', fakeAsync(() => {
+  it('should change payement-status from false to true and from true to false on checkbox-click', fakeAsync(() => {
     fixture.detectChanges();
     expect(component.orders[0].order.paid).toBe(false);
-    const payementButton = el.queryAll(By.css('.mat-stroked-button'));
+    const payementButton = el.queryAll(By.css('.mat-checkbox'));
     click(payementButton[0]);
     tick();
     expect(component.orders[0].order.paid).toBe(true);
@@ -186,19 +164,21 @@ describe('OrderCockpitComponent', () => {
   it('should call the method sendPaymentStatus on payment-button ', fakeAsync(() => {
     fixture.detectChanges();
     spyOn(component, 'sendPaymentStatus');
-    const payementButton = el.queryAll(By.css('.mat-stroked-button'));
+    const payementButton = el.queryAll(By.css('.mat-checkbox'));
     click(payementButton[0]);
     tick();
     expect(component.sendPaymentStatus).toHaveBeenCalled();
     }));
 
-  it('should button color on clicking the payment-button', fakeAsync(() => {
+    it('should change its status from Food is being prepared(1) to Order taken(0)', fakeAsync(() => {
       fixture.detectChanges();
-      const payementButton = el.queryAll(By.css('.mat-stroked-button'));
-      click(payementButton[1]);
-      fixture.detectChanges();
+      expect(component.orders[0].order.status).toBe("1");
+      const orderTakenButton = el.queryAll(By.css('.statusButtons'));
+      click(orderTakenButton[0]);
+      tick();
+      expect(component.orders[0].order.status).toBe("0");
+      //todo: when sendStatus() is being called, option value does not match the expected one.
       }));
-
   });
 
 
