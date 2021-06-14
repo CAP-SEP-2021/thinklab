@@ -76,7 +76,7 @@ class TestBedSetUp {
   }
 }
 
-fdescribe('OrderCockpitComponent', () => {
+describe('OrderCockpitComponent', () => {
   let component: OrderCockpitComponent;
   let fixture: ComponentFixture<OrderCockpitComponent>;
   let store: Store<State>;
