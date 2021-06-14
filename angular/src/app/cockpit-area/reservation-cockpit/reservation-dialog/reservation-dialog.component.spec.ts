@@ -12,6 +12,9 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { ConfigService } from '../../../core/config/config.service';
 import { config } from '../../../core/config/config';
 import { getTranslocoModule } from '../../../transloco-testing.module';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import * as fromRoot from '../../store/reducers';
 
 describe('ReservationDialogComponent', () => {
   let component: ReservationDialogComponent;
@@ -34,6 +37,13 @@ describe('ReservationDialogComponent', () => {
         getTranslocoModule(),
         CoreModule,
         HttpClientTestingModule,
+        EffectsModule.forRoot([]),
+        StoreModule.forRoot(fromRoot.reducers, {
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          },
+        })
       ],
     }).compileComponents();
   }));
@@ -48,4 +58,5 @@ describe('ReservationDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
 });
