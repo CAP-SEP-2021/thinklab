@@ -1,6 +1,7 @@
 package com.devonfw.application.mtsj.bookingmanagement.logic.impl;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.Instant;
@@ -171,6 +172,26 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 		findBy.setTableId(0L);
 		
 		assertThrows(EntityNotFoundException.class, () -> this.bookingManagement.findBy(findBy), "");
+		bookingDao.deleteById(createdBooking.getId());		
+	}
+	
+	@Test
+	@Rollback(true)
+	public void ALEXA_setDeliveryBooking() {
+
+		this.bookingCto.getBooking().setDelivery(true);
+		
+		BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);		
+		bookingDao.deleteById(createdBooking.getId());
+		
+		assertEquals(createdBooking.getDelivery(), true);
+	}
+	
+	@Test
+	@Rollback(true)
+	public void ALEXA_setNullAssistantIsValid() {
+		this.bookingCto.getBooking().setAssistants(null);		
+		BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);		
 		bookingDao.deleteById(createdBooking.getId());		
 	}
 
