@@ -72,7 +72,7 @@ public interface UsermanagementRestService {
   
   @GET
   @Path("/user/reset/password/validate/{token}")
-  public String validateToken(@PathParam("token") String token);
+  public void validateToken(@PathParam("token") String token);
   
   
   @POST

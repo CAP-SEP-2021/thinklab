@@ -132,6 +132,6 @@ public interface Usermanagement {
 
   ResetTokenMessageEto changeForgetPassword(ResetTokenEto request);
 
-	String validateToken(String token);
+	void validateToken(String token);
 
 }

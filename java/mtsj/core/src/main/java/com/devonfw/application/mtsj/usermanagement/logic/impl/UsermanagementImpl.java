@@ -216,7 +216,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 	
 	// Alternative: GET with token only for validating, return success or failure
 	@Override
-	public String validateToken(String token) {
+	public void validateToken(String token) {
 
 		// grab the requested token
 		ResetTokenEntity tokenEntity = resetTokenDao.findByToken(token);
@@ -226,12 +226,11 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			// check timestamps
 			if(checkTimeStampsForToken(tokenEntity)) {
 				resetTokenDao.delete(tokenEntity);
-				return "failure";
+				throw new EntityNotFoundException("Token invalid - not validated within time");
 			}
-			return "success";
 			
 		} else {
-			return "failure";
+			throw new EntityNotFoundException("Token invalid - does not exists");
 		}
 	}
 	

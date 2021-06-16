@@ -302,9 +302,7 @@ public class UsermanagementTest extends ApplicationComponentTest {
 	@Rollback(true)
 	@Tag("Skip")
 	public void resetPasswordWithNotExistingToken() {
-
-		String proceedMessage = this.userManagement.validateToken("not_existing_token");
-		assertEquals("failure", proceedMessage);
+		assertThrows(EntityNotFoundException.class, () -> this.userManagement.validateToken("not_existing_token"), "");
 	}
 
 	// ================================================================================

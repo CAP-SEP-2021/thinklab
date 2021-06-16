@@ -109,8 +109,8 @@ public class UsermanagementRestServiceImpl implements UsermanagementRestService 
 	}
 
 	@Override
-	public String validateToken(String token) {
-		return this.usermanagement.validateToken(token);
+	public void validateToken(String token) {
+		this.usermanagement.validateToken(token);
 	}
 
 }
