@@ -26,7 +26,8 @@ import { WebviewDirective } from './shared/directives/webview.directive';
 import { SidenavModule } from './sidenav/sidenav.module';
 import { CustomSerializer, effects, reducers } from './store';
 import { UserAreaModule } from './user-area/user-area.module';
-
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { AvatarModule } from 'ngx-avatar';
 @NgModule({
   imports: [
     BrowserModule,
@@ -56,7 +57,9 @@ import { UserAreaModule } from './user-area/user-area.module';
     EffectsModule.forRoot(effects),
     StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    HttpClientModule
+    HttpClientModule,
+    MDBBootstrapModule.forRoot(),
+    AvatarModule
   ],
   providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
   declarations: [AppComponent, WebviewDirective],

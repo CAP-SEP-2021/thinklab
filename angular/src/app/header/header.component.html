@@ -112,6 +112,8 @@
   </button>
   <div *ngIf="auth.logged$ | async" class="logged-in">
     <button name="account" mat-icon-button [matMenuTriggerFor]="toolbarMenu1">
+      <!-- <ngx-avatar name="account"  [matMenuTriggerFor]="toolbarMenu1" src ="https://images.vexels.com/media/users/3/145908/preview2/52eabf633ca6414e60a7677b0b917d92-maennlicher-avatar-hersteller.jpg"></ngx-avatar>
+ -->
       <mat-icon>account_circle</mat-icon>
     </button>
     <span data-name="userNameLogged" class="forDesktop">{{

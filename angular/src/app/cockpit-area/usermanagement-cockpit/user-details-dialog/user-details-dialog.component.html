@@ -58,13 +58,13 @@
                 <button mat-button type="submit" mat-dialog-close [disabled]="!checkoutForm2.valid"><mat-icon matSuffix>update</mat-icon>{{'buttons.updateUserInformation' | transloco}} 
                     
                 </button>
-                <button mat-stroked-button mat-dialog-close color="warn" (click)="deleteUser()"><mat-icon matSuffix>
+                <button mat-stroked-button type="button" color="warn" (click)="deleteUser()"><mat-icon matSuffix>
                     <span class="material-icons-outlined">
                         delete_forever
                         </span></mat-icon>{{'buttons.deleteUser' | transloco}}</button>
             </div>
             <div class="right-btn">
-                <button mat-button mat-dialog-close color="accent">{{'buttons.close' | transloco |
+                <button mat-button mat-dialog-close type="button"  color="accent">{{'buttons.close' | transloco |
                     uppercase}}</button>
             </div>
 
@@ -126,8 +126,11 @@
     </mat-tab>
 -->
 
+   
 
-    <mat-tab label="{{'userManagement.managePassword' | transloco}}" class="PasswordTab">
+ <!--  
+     <mat-tab label="{{'userManagement.managePassword' | transloco}}" class="PasswordTab">
+
        
         <div class="float-container">
 
@@ -136,9 +139,10 @@
         </div>
     
         <div class="float-child">
-        <!--    <h3> Username: <p>{{UserInfo.username}}</p> <br>  Email: <p>{{UserInfo.email}}</p> </h3>-->
+        
             <h3>{{'userManagement.userManagement.usernameH' | transloco}}<span>{{UserInfo.username}}</span></h3>
             <h3>{{'userManagement.userManagement.emailH' | transloco}}<span>{{UserInfo.email}}</span> </h3>
+
             <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
                 <div class="form-group row">
                     <mat-form-field class="matfield" appearance="outline">
@@ -171,14 +175,6 @@
     
     
     
-                        <!--  <mat-error *ngIf="confirmedPassword.touched && confirmedPassword.invalid">
-                            <div *ngIf="confirmedPassword.errors.required">
-                                please repeat password
-                            </div>
-                        </mat-error>
-                        <mat-error *ngIf="checkoutForm.hasError('notSame')">
-                            your new passwords are not match
-                        </mat-error>-->
                     </mat-form-field>
                 </div>
     
@@ -191,7 +187,7 @@
                                 </span></mat-icon>
                                 {{'buttons.updatePassword' | transloco}}                         
                         </button>
-                        <button mat-stroked-button mat-dialog-close color="warn" (click)="sendGetCancelOrder()">
+                        <button mat-stroked-button mat-dialog-close color="warn" (click)="resetUserPassword()">
                             <mat-icon matSuffix> email</mat-icon>
                             {{'buttons.sendResetLink' | transloco}}
                              </button>
@@ -216,5 +212,5 @@
         
 
     </mat-tab>
-
+-->
 </mat-tab-group>

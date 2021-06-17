@@ -222,11 +222,21 @@
       "paymentStatusNotPaid": "Payment pending",
       "creationDateH": "Creation date"
     } ,
+
+     "userTabel" :{
+      "id" : "ID" ,
+      "username" : "Username" ,
+      "email" : "E-mail" ,
+      "role" : "Role" ,
+      "Avatar" : "Avatar"
+    },
+
     "userTable": {
       "userName" : "Username",
       "userRole" : "User role",
       "id" : "ID",
-      "emailH": "Email"
+      "emailH": "Email",
+      "Avatar" : "Avatar"
     }
   },
   "userManagement": {

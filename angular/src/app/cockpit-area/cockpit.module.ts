@@ -7,7 +7,6 @@ import { WaiterCockpitService } from './services/waiter-cockpit.service';
 import { WindowService } from '../core/window/window.service';
 import { PredictionService } from './services/prediction.service';
 import { ClusteringService } from './services/clustering.service';
-
 import { ReservationCockpitComponent } from './reservation-cockpit/reservation-cockpit.component';
 import { OrderCockpitComponent } from './order-cockpit/order-cockpit.component';
 import { OrderDialogComponent } from './order-cockpit/order-dialog/order-dialog.component';
@@ -26,6 +25,10 @@ import { reducers, effects } from './store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
+import { ConfirmationDialogComponent } from './usermanagement-cockpit/user-details-dialog/confirmation-dialog/confirmation-dialog.component';
+import { UserPasswordDialogComponent } from './usermanagement-cockpit/user-password-dialog/user-password-dialog.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { AvatarModule } from 'ngx-avatar';
 @NgModule({
   imports: [
     CommonModule,
@@ -36,6 +39,8 @@ import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
     ReactiveFormsModule,
     StoreModule.forFeature('cockpitArea', reducers),
     EffectsModule.forFeature(effects),
+    MDBBootstrapModule.forRoot(),
+    AvatarModule
   ],
   providers: [
     WaiterCockpitService,
@@ -56,12 +61,15 @@ import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
     UsermanagementCockpitComponent,
     NewUserDialogComponent,
     UserDetailsDialogComponent,
+    ConfirmationDialogComponent,
+    UserPasswordDialogComponent,
   ],
   exports: [
     ReservationCockpitComponent,
     OrderCockpitComponent,
     PredictionCockpitComponent,
     ClusteringCockpitComponent,
+    ConfirmationDialogComponent,
   ],
   entryComponents: [
     ReservationDialogComponent,

@@ -74,8 +74,22 @@ const cockpitReducer = createReducer(
     ...state,
     pending: false,
     errorMessage: error.message,
-  }))
+  })),
+  on(cockpitActions.resetUserPassword, (state, {Email: String} ) => ({
+    ...state,
+    pending: true,
+    String,
+  })),
+  on(cockpitActions.resetUserPasswordSuccess, (state  ) => ({
+    ...state,
+    pending: false,
 
+  })),
+  on(cockpitActions.resetUserPasswordFail, (state, { error }) => ({
+    ...state,
+    pending: false,
+    errorMessage: error.message,
+  }))
 
 );
 

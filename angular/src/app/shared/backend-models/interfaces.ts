@@ -114,13 +114,14 @@ export class Role {
 }
 //users 
 export class UserInfo {
-   
+   icon?:String;
     id? :number;
     username: string;
     password: string;
     email: string;
     userRoleId: number;
     twoFactorStatus?: Boolean;
+    
 }
 export class UserListCriteria {
     pageable: Pageable;

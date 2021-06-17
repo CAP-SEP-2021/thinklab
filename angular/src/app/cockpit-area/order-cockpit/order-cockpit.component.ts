@@ -59,6 +59,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
    // 'booking.bookingToken', no need to display bookingToken on order-cockpit
     'paymentStatus',
     'status',
+    'status1',
   ];
   status: string[];
 
@@ -123,6 +124,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         //  { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH }, no need to display bookingToken on order-cockpit
           { name: 'paymentStatus', label: cockpitTable.paymentStatusH },
           { name: 'status', label: cockpitTable.statusH },
+          { name: 'status1', label: "sadsadsadsad"},
         ];
          this.status = [
             cockpitTable.statusTaken ,
@@ -152,8 +154,6 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           this.orders = [];
         } else {
           this.orders = data.content;
-      /*    console.log('all data ');
-          console.log(this.orders);*/
         }
         this.totalOrders = data.totalElements;
       });

@@ -1,12 +1,12 @@
 
 <div class="float-container">
 
-  <div class="float-child">
+  <div class="float-child-left">
     <img src="./assets/images/Hnet.com-image (13).png" alt="this is my pic">
   </div>
 
-  <div class="float-child">
-    <p>{{'userManagement.createUser' | transloco}}</p>
+  <div class="float-child-right">
+  
     <!--
 
 <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
@@ -72,9 +72,10 @@
 </form>-->
 
 
-    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-      <div class="form-group row" style="margin-top: 0px; padding-top: 0px;">
-        <mat-form-field class="item" appearance="outline">
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" >
+      <h5>{{'userManagement.createUser' | transloco}}</h5>
+      <div style="font-size: 20px" >
+        <mat-form-field  appearance="outline" style="width:280px !important">
           <mat-label class="col-sm-2 col-form-label">{{'formFields.username' | transloco}}</mat-label>
           <input matInput formControlName="username">
           <mat-icon matSuffix>person_outline</mat-icon>
@@ -86,8 +87,8 @@
         </mat-form-field>
       </div>
 
-      <div class="form-group row" style="margin-top: 0px; padding-top: 0px;">
-        <mat-form-field class="item" appearance="outline">
+      <div style="font-size: 20px">
+        <mat-form-field appearance="outline" style="width:280px !important">
           <mat-label class="col-sm-2 col-form-label" >{{'formFields.email' | transloco}}</mat-label>
           <input matInput formControlName="email">
           <mat-icon matSuffix> email</mat-icon>
@@ -102,45 +103,32 @@
         </mat-form-field>
       </div>
 
-      <div class="form-group row" style="margin-top: 0px; padding-top: 0px;">
-        <mat-form-field class="item" appearance="outline">
-          <mat-label class="col-sm-2 col-form-label">{{'formFields.password' | transloco}}</mat-label>
+      <div style="font-size: 20px">
+        <mat-form-field appearance="outline" style="width:280px !important">
+          <mat-label >{{'formFields.password' | transloco}}</mat-label>
           <input type="password" matInput formControlName="password" [type]="fieldTextType ? 'text' : 'password'">
-          <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
-            <div *ngIf="password.errors.required">
-              {{'userManagement.formErrors.passwordRequiredPrompt' | transloco}}
-            </div>
-          </mat-error>
           <mat-icon matSuffix (click)="toggleFieldTextType()" ><span class="material-icons-outlined">
             {{icon}}
             </span></mat-icon>
+            <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+              <div *ngIf="password.errors.required">
+                {{'userManagement.formErrors.passwordRequiredPrompt' | transloco}}
+              </div>
+            </mat-error>
         </mat-form-field>
       </div>
 
-      <div class="form-group row">
-        <mat-form-field class="item" appearance="outline">
-            <mat-label class="col-sm-2 col-form-label">{{'userManagement.userManagement.repeatPassword' | transloco}}</mat-label>
+      <div  style="font-size: 20px">
+        <mat-form-field appearance="outline" style="width:280px !important">
+            <mat-label >{{'userManagement.userManagement.repeatPassword' | transloco}}</mat-label>
             <input type="confirmedPassword" matInput formControlName="confirmedPassword" [type]="fieldTextType ? 'text' : 'password'">
-            <mat-error *ngIf="f.confirmedPassword.touched && f.confirmedPassword.invalid"
-                class="alert alert-danger">
-                <div *ngIf="f.confirmedPassword.errors.required">{{'userManagement.formErrors.passwordRequiredPrompt' | transloco}}</div>
-                <div *ngIf="f.confirmedPassword.errors.confirmedValidator">{{'userManagement.formErrors.passwordMatchPrompt' | transloco}}</div>
-            </mat-error>
             <mat-icon matSuffix (click)="toggleFieldTextType()" ><span class="material-icons-outlined">
                 {{icon}}
                 </span></mat-icon>
-            
-
-
-
-            <!--  <mat-error *ngIf="confirmedPassword.touched && confirmedPassword.invalid">
-                <div *ngIf="confirmedPassword.errors.required">
-                    please repeat password
-                </div>
+            <mat-error *ngIf="f.confirmedPassword.touched && f.confirmedPassword.invalid">
+                <div *ngIf="f.confirmedPassword.errors.required">{{'userManagement.formErrors.passwordRequiredPrompt' | transloco}}</div>
+                <div *ngIf="f.confirmedPassword.errors.confirmedValidator">{{'userManagement.formErrors.passwordMatchPrompt' | transloco}}</div>
             </mat-error>
-            <mat-error *ngIf="checkoutForm.hasError('notSame')">
-                your new passwords are not match
-            </mat-error>-->
         </mat-form-field>
 
     </div>
@@ -153,9 +141,9 @@
 </div>
 -->
 
-      <div class="form-group row">
-        <mat-form-field class="item" appearance="outline">
-          <mat-label class="col-sm-2 col-form-label">{{'userManagement.userRole' | transloco}}</mat-label>
+      <div style="font-size: 20px">
+        <mat-form-field  appearance="outline" style="width:280px !important">
+          <mat-label >{{'userManagement.userRole' | transloco}}</mat-label>
           <mat-select formControlName="userRoleId">
             <mat-option value="0">{{'userManagement.roleCustomer' | transloco}}</mat-option>
             <mat-option value="1">{{'userManagement.roleWaiter' | transloco}}</mat-option>

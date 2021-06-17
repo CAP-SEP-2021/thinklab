@@ -54,7 +54,8 @@ export class CockpitAreaEffects {
       ofType(cockpitActions.createUserSuccess),
       tap(() => {
         this.snackBar.openSnack(
-          this.translocoService.translate('bookTable.dialog.bookingSuccess'),
+         // this.translocoService.translate('bookTable.dialog.bookingSuccess'),
+         "User was successfully Created",
           4000,
           'green',
         );
@@ -70,7 +71,8 @@ createUserFail$ = createEffect(
       ofType(cockpitActions.createUserFail),
       tap(() => {
         this.snackBar.openSnack(
-          this.translocoService.translate('bookTable.dialog.bookingError'),
+          //this.translocoService.translate('bookTable.dialog.bookingError'),
+          "Error please try again later",
           4000,
           'red',
         );
@@ -100,7 +102,8 @@ this.actions$.pipe(
   ofType(cockpitActions.deleteUserSuccess),
   tap(() => {
     this.snackBar.openSnack(
-      this.translocoService.translate('bookTable.dialog.bookingSuccess'),
+     //this.translocoService.translate('bookTable.dialog.bookingSuccess'),
+     "User was successfully deleted",
       4000,
       'green',
     );
@@ -116,7 +119,8 @@ this.actions$.pipe(
   ofType(cockpitActions.deleteUserFail),
   tap(() => {
     this.snackBar.openSnack(
-      this.translocoService.translate('bookTable.dialog.bookingError'),
+      //this.translocoService.translate('bookTable.dialog.bookingError'),
+      "Error please try again later",
       4000,
       'red',
     );
@@ -145,7 +149,8 @@ this.actions$.pipe(
   ofType(cockpitActions.updateUserSuccess),
   tap(() => {
     this.snackBar.openSnack(
-      this.translocoService.translate('bookTable.dialog.bookingSuccess'),
+      //this.translocoService.translate('bookTable.dialog.bookingSuccess'),
+      "the update of User Details was successful",
       4000,
       'green',
     );
@@ -161,7 +166,8 @@ this.actions$.pipe(
   ofType(cockpitActions.updateUserFail),
   tap(() => {
     this.snackBar.openSnack(
-      this.translocoService.translate('bookTable.dialog.bookingError'),
+    //  this.translocoService.translate('bookTable.dialog.bookingError'),
+    "Error please try again later",
       4000,
       'red',
     );
@@ -169,6 +175,57 @@ this.actions$.pipe(
 ),
 { dispatch: false },
 );
+
+
+
+resetUserPassword$ = createEffect(() =>
+this.actions$.pipe(
+  ofType(cockpitActions.resetUserPassword),
+  map((UserInfo) => UserInfo),
+  switchMap((UserInfo: any) => {
+    return this.UsermanagementCockpitService.resetUserPassword( UserInfo.Email ).pipe(
+      map((res: any) =>
+        cockpitActions.resetUserPasswordSuccess(),
+),
+catchError((error) => of(cockpitActions.resetUserPasswordFail({ error }))),
+);
+}),
+),
+);
+
+resetUserPasswordSuccess$ = createEffect(
+() =>
+this.actions$.pipe(
+  ofType(cockpitActions.resetUserPasswordSuccess),
+  tap(() => {
+    this.snackBar.openSnack(
+      //this.translocoService.translate('bookTable.dialog.bookingSuccess'),
+      "the update of User Details was successful",
+      4000,
+      'green',
+    );
+    
+  }),
+),
+{ dispatch: false },
+);
+
+resetUserPasswordFail$ = createEffect(
+() =>
+this.actions$.pipe(
+  ofType(cockpitActions.resetUserPasswordFail),
+  tap(() => {
+    this.snackBar.openSnack(
+    //  this.translocoService.translate('bookTable.dialog.bookingError'),
+    "Error please try again later",
+      4000,
+      'red',
+    );
+  }),
+),
+{ dispatch: false },
+);
+
 
 constructor(
   private actions$: Actions,

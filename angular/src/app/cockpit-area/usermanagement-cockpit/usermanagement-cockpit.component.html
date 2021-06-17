@@ -2,8 +2,7 @@
     <div class="btn-toolbar">
         <div class="right-btn">
 
-
-          <button mat-button color="accent" (click)="addNewUser()" >
+           <button mat-button color="accent" (click)="handelNewUserDialog()" >
             <mat-icon matSuffix>
             <span class="material-icons-outlined">
               person_add_alt
@@ -18,10 +17,13 @@
          -->
 <div class="tableContainer">
     <table mat-table [dataSource]="users" matSort (matSortChange)="sort($event)">
-
+  
       <!-- Date Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[0].label}} </th>
+      <!--  <td mat-cell *matCellDef="let element"> 
+          <ngx-avatar size="38" src ="{{getUserAvatar(element)}}"></ngx-avatar>      
+        </td>-->
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container>
 
@@ -41,11 +43,31 @@
         <td mat-cell *matCellDef="let element" > {{getUserRoleText(element)}} </td>
       </ng-container>
 
+     
 
+      <ng-container matColumnDef="Avatar">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Password</th>
+        <td mat-cell *matCellDef="let element"  (click)="$event.stopPropagation();"> 
+          <div class="left-btn">
+          <!--   <button mdbBtn type="button" color="primary" rounded="true" outline="true" size="sm" mdbWavesEffect>manage user Information</button>Avatar list -->
+            <button mat-mini-fab color="primary" (click)="handelPasswordDialog(element)" aria-label="Example icon button with a menu icon">
+              <mat-icon><span class="material-icons-outlined">
+                vpn_key
+                </span></mat-icon></button>
+           
+        </div>
+        </td>
+      </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selected(row)"></tr>
+    
 
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"  class="table-row"
+       (click)="handelUserDetailsDialog(row)"></tr>
+<!--
+[ngClass]="{'highlight': selectedRowIndex == row.id}"
+
+-->
     </table>
   </div>
 
