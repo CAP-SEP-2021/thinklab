@@ -39,19 +39,34 @@ public class UsermanagementUtilityImpl implements UsermanagementUtility {
 		try {
 			StringBuilder hostMailContent = new StringBuilder();
 
-			hostMailContent.append("MY THAI STAR").append("\n");
-			hostMailContent.append("Hi ").append(destination.getUsername()).append("\n");
-			hostMailContent.append("You have requested a password reset.").append("\n");
-
-			//hostMailContent.append("Please use following code to reset your password:").append("\n");
-			//hostMailContent.append(tokenEntity.getToken()).append("\n");
-
-			hostMailContent.append("To change your password, please use the following link:").append("\n");
-			String resetLink = "http://localhost:4200/restaurant/reset/password/enternewpassword/" + tokenEntity.getToken();
-			hostMailContent.append(resetLink).append("\n");
-
-			System.out.println("\n Email : " + destination.getEmail());
-			System.out.println(hostMailContent.toString());
+			hostMailContent.append(
+					"<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" "
+					+ "src=\"http://localhost:8081/mythaistar/images/pw_image.PNG\" alt=\"\" width=\"453\" "
+					+ "height=\"160\" /></p>").append("\n");
+			hostMailContent.append("<h2 style=\"color: #935116; "
+					+ "text-align: center;\">Password reset was requested</h2>").append("\n");
+			hostMailContent.append("<p style=\"text-align: center;\">Hello"+destination.getUsername()+", "
+					+ "you requested a password reset. To reset your password, please click on "
+					+ "the following button</p>").append("\n");
+			hostMailContent.append("<p style=\"text-align: center; background-color: #935116;\">"
+					+ "<a href=\"http://localhost:4200/restaurant/reset/password/new/"
+					+ tokenEntity.getToken() +"\">"
+					+ "<button>Change your password</button></a></p>").append("\n");
+			hostMailContent.append("<p style=\"text-align: center;\">"
+					+ "Please change your password within 20 minutes. "
+					+ "If you don't change it within this time, "
+					+ "the link will become invalid.</p>").append("\n");
+			
+//			hostMailContent.append("MY THAI STAR").append("\n");
+//			hostMailContent.append("Hi ").append(destination.getUsername()).append("\n");
+//			hostMailContent.append("You have requested a password reset.").append("\n");
+//
+//			hostMailContent.append("To change your password, please use the following link:").append("\n");
+//			String resetLink = "http://localhost:4200/restaurant/reset/password/enternewpassword/" + tokenEntity.getToken();
+//			hostMailContent.append(resetLink).append("\n");
+//
+//			System.out.println("\n Email : " + destination.getEmail());
+//			System.out.println(hostMailContent.toString());
 			
 			// Sending Email			
 			this.mailService.sendMail(destination.getEmail(), "Password Reset-Request", hostMailContent.toString());			
