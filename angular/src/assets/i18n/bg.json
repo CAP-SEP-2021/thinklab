@@ -218,7 +218,9 @@
       "statusDelivered" : "Храната пристигна",
       "statusTaken" :"Поръчката взета",
       "statusPrepared": "Приготвя се храна",
-      "statusInDelivery":"Доставя се храна"
+      "statusInDelivery":"Доставя се храна",
+      "cancelH": "Отказ",
+      "reactivateH": "Повторно активиране"
     },
     "userTable": {
       "userName" : "Потребителско име",

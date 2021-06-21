@@ -221,7 +221,9 @@
       "statusDelivered" : "El menjar ha arribat",
       "statusTaken" :"Comanda acceptada",
       "statusPrepared": "S’està preparant menjar",
-      "statusInDelivery":"Es lliura menjar"
+      "statusInDelivery":"Es lliura menjar",
+      "cancelH": "Cancel · lar",
+      "reactivateH": "Torneu a activar"
     },
     "userTable": {
       "userName" : "Nom d'usuari",

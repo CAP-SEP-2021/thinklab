@@ -221,7 +221,9 @@
       "statusDelivered" : "La nourriture est arrivée",
       "statusTaken" :"Commande prise",
       "statusPrepared": "La nourriture est en cours de préparation",
-      "statusInDelivery":"La nourriture est livrée"
+      "statusInDelivery":"La nourriture est livrée",
+      "cancelH": "Annuler",
+      "reactivateH": "Réactiver"
     },
     "userTable": {
       "userName" : "Nom d'utilisateur",

@@ -56,7 +56,7 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
     'booking.bookingDate',
     'booking.tableId',
     'booking.name',
-    'status1',
+    'reactivate',
   ];
   status: string[];
 
@@ -109,7 +109,7 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
           { name: 'booking.tableId', label: cockpitTable.tableIdH },
           { name: 'booking.name', label: cockpitTable.ownerH },
-          { name: 'status1', label: "sadsadsadsad"},
+          { name: 'reactivate', label: cockpitTable.reactivateH},
         ];
           this.status = [
           cockpitTable.statusTaken,

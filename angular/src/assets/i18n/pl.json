@@ -219,7 +219,9 @@
       "statusDelivered" : "Przyszło jedzenie",
       "statusTaken" :"Zamówienie przyjęte",
       "statusPrepared": "Przygotowywane jest jedzenie",
-      "statusInDelivery":"Dostarczono jedzenie"
+      "statusInDelivery":"Dostarczono jedzenie",
+      "cancelH": "Anuluj",
+      "reactivateH": "Reaktywować"
     },
     "userTable": {
       "userName" : "Nazwa Użytkownika",

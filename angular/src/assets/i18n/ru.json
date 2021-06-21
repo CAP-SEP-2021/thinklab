@@ -210,7 +210,9 @@
             "statusDelivered" : "Еда прибыла",
             "statusTaken" :"Заказ принят",
             "statusPrepared": "Еда готовится",
-            "statusInDelivery":"Еда доставляется"
+            "statusInDelivery":"Еда доставляется",
+            "cancelH": "Отмена",
+            "reactivateH": "Реактивировать"
         },
         "userTable": {
             "userName" : "Имя пользователя",

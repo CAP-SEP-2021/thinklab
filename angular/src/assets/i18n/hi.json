@@ -219,7 +219,9 @@
       "statusDelivered" : "खाना आ गया",
       "statusTaken" :"आदेश लिया गया",
       "statusPrepared": "खाना बन रहा है",
-      "statusInDelivery":"खाना पहुंचाया जाता है"
+      "statusInDelivery":"खाना पहुंचाया जाता है",
+      "cancelH": "रद्द करना",
+      "reactivateH": "पुन: सक्रिय"
     },
     "userTable": {
       "userName" : "उपयोगकर्ता नाम",

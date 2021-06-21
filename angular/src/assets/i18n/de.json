@@ -225,7 +225,9 @@
       "statusTaken" :"Bestellung Aufgenommen",
       "statusPrepared": "Essen wird zubereitet",
       "statusInDelivery":"Essen wird ausgeliefert",
-      "creationDateH": "Erstelldatum"
+      "creationDateH": "Erstelldatum",
+      "cancelH": "Stornieren",
+      "reactivateH": "Reaktivieren"
     },
     "userTable": {
       "userName" : "Benutzername",

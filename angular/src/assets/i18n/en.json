@@ -220,7 +220,10 @@
       "paymentStatusH": "Payment status",
       "paymentStatusPaid": "Paid",
       "paymentStatusNotPaid": "Payment pending",
-      "creationDateH": "Creation date"
+      "creationDateH": "Creation date",
+      "cancelH": "Cancel",
+      "reactivateH": "Reactivate"
+
     } ,
 
      "userTabel" :{

@@ -59,7 +59,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
    // 'booking.bookingToken', no need to display bookingToken on order-cockpit
     'paymentStatus',
     'status',
-    'status1',
+    'cancel',
   ];
   status: string[];
 
@@ -134,7 +134,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         //  { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH }, no need to display bookingToken on order-cockpit
           { name: 'paymentStatus', label: cockpitTable.paymentStatusH },
           { name: 'status', label: cockpitTable.statusH },
-          { name: 'status1', label: "sadsadsadsad"},
+          { name: 'cancel', label: cockpitTable.cancelH},
         ];
          this.status = [
             cockpitTable.statusTaken ,
