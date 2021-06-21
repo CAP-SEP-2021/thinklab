@@ -56,6 +56,7 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
     'booking.bookingDate',
     'booking.tableId',
     'booking.name',
+    'status1',
   ];
   status: string[];
 
@@ -108,6 +109,7 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
           { name: 'booking.tableId', label: cockpitTable.tableIdH },
           { name: 'booking.name', label: cockpitTable.ownerH },
+          { name: 'status1', label: "sadsadsadsad"},
         ];
           this.status = [
           cockpitTable.statusTaken,
@@ -116,6 +118,12 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
           cockpitTable.statusDelivered,
         ];
       });
+  }
+
+  sendGetCancelOrder(element: OrderListView ): void{
+    this.waiterCockpitService.getCancelOrder(element.order.id).subscribe((data: any) => {
+      this.applyFilters();
+    });; 
   }
 
   applyFilters(): void {

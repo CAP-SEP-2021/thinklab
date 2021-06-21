@@ -94,13 +94,23 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   }
 
   sendStatus(option, element: OrderListView): void {
-    let newStatus = this.status.indexOf(option).toString();
+    let newStatus = option.toString();
     element.order.status = newStatus;
     let temp = { order: { id: element.order.id, status: newStatus } }; // @mo change later
     this.waiterCockpitService.postOrderStauts(temp).subscribe((data: any) => {
       // @mo musst be changed
       this.applyFilters();
     });
+  }
+
+  sendGetCancelOrder(element: OrderListView): void{
+    console.log("ts started ");
+    
+    this.waiterCockpitService.getCancelOrder(element.order.id).subscribe((data: any) => {
+     console.log("this is the response data ");
+     this.applyFilters();
+     
+    });; 
   }
 
   sendPaymentStatus(newPaymentStatus: boolean, element: OrderListView): void {
