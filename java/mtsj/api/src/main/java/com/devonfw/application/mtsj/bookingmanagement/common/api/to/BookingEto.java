@@ -1,7 +1,6 @@
 package com.devonfw.application.mtsj.bookingmanagement.common.api.to;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import javax.validation.constraints.Future;

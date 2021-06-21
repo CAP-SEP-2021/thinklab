@@ -163,13 +163,12 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 	public void ALEXA_findNoValidBookingByDate() {
 		
 		// save booking
-		System.out.println("### => " + this.bookingCto.getBooking().getBookingDate().toString());
 		BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);
 		
 		// create findby
 		findByCto findBy = new findByCto();		
 		findBy.setBookingDate(Instant.now()
-	    		.minus(3, ChronoUnit.HOURS));
+	    		.minus(10, ChronoUnit.MINUTES));
 		findBy.setTableId(0L);
 		
 		assertThrows(EntityNotFoundException.class, () -> this.bookingManagement.findBy(findBy), "");

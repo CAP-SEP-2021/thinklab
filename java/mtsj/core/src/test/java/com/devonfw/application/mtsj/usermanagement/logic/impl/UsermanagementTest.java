@@ -266,7 +266,8 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		request.setToken(token.getToken());
 		request.setPassword("newPass");
 
-		assertThrows(EntityNotFoundException.class, () -> this.userManagement.changeForgetPassword(request), "");
+		ResetTokenMessageEto successMessage = this.userManagement.changeForgetPassword(request);
+		assertEquals("Your Token expired. Please request a new Token", successMessage.getMessage());
 	}
 
 	@Test
@@ -284,7 +285,8 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		request.setToken("WRONGTOKEN");
 		request.setPassword("newPass");
 
-		assertThrows(EntityNotFoundException.class, () -> this.userManagement.changeForgetPassword(request), "");
+		ResetTokenMessageEto successMessage = this.userManagement.changeForgetPassword(request);
+		assertEquals("Given Token not bound to any Account", successMessage.getMessage());
 	}
 
 	@Test
