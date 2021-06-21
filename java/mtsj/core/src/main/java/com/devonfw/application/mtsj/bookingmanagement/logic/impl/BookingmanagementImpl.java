@@ -236,6 +236,8 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
   @Override
   public BookingEto saveBooking(BookingCto booking) {
 
+	  
+	  
     Objects.requireNonNull(booking, "booking");
     BookingEntity bookingEntity = getBeanMapper().map(booking.getBooking(), BookingEntity.class);
     bookingEntity.setCanceled(false);
