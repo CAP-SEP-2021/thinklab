@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -238,6 +239,10 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     Objects.requireNonNull(booking, "booking");
     BookingEntity bookingEntity = getBeanMapper().map(booking.getBooking(), BookingEntity.class);
     bookingEntity.setCanceled(false);
+    
+    bookingEntity.setBookingDate(
+    		bookingEntity.getBookingDate().minus(2, ChronoUnit.HOURS)
+    );
     
     if(bookingEntity.getAssistants()!=null) {
 	    List<InvitedGuestEntity> invited = getBeanMapper().mapList(booking.getInvitedGuests(), InvitedGuestEntity.class);
