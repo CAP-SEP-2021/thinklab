@@ -100,14 +100,10 @@
               <button mat-stroked-button class="statusButtons" [value]="option" *ngFor="let option of status" (click)="sendStatus(option ,element)">
                 {{ option }}</button>-->
                 <mat-button-toggle-group  name="fontStyle" aria-label="Font Style" value="true" >
-                <mat-button-toggle (click)="sendStatus(0 ,element)" id="noDeliveryButton" [hidden]="element.booking.tableId === 0 ? true :false" value="{{element.order.status === 0 ? true :false}}" class=" btn-dark btn-sm">{{'cockpit.table.statusTaken' | transloco}}</mat-button-toggle>
-                <mat-button-toggle (click)="sendStatus(0 ,element)"  checked="ja" [hidden]="element.booking.tableId === 0 ? false :true" value="{{element.order.status === 0 ? true :false}}" class=" btn-dark btn-sm">{{'cockpit.table.statusTaken' | transloco}}</mat-button-toggle>
-                
-                <mat-button-toggle (click)="sendStatus(1 ,element)" [hidden]="element.booking.tableId === 0 ? false :true" value="{{element.order.status === 1 ? true :false}}" class=" btn-dark btn-sm">{{'cockpit.table.statusPrepared' | transloco}}</mat-button-toggle>
-                <mat-button-toggle (click)="sendStatus(1 ,element)" id="noDeliveryButton" [hidden]="element.booking.tableId === 0 ? true :false"value="{{element.order.status === 1 ? true :false}}" class=" btn-dark btn-sm">{{'cockpit.table.statusPrepared' | transloco}}</mat-button-toggle>
-                <mat-button-toggle (click)="sendStatus(2 ,element)" [hidden]="element.booking.tableId === 0 ? false :true" value="{{element.order.status === 2 ? true :false}}" class=" btn-dark btn-sm">{{'cockpit.table.statusInDelivery' | transloco}}</mat-button-toggle>
-                <mat-button-toggle (click)="sendStatus(3 ,element)" [hidden]="element.booking.tableId === 0 ? false :true" value="{{element.order.status === 3 ? true :false}}" class=" btn-dark btn-sm">{{'cockpit.table.statusDelivered' | transloco}}</mat-button-toggle>
-                <mat-button-toggle (click)="sendStatus(3 ,element)" id="noDeliveryButton" [hidden]="element.booking.tableId === 0 ? true :false" value="{{element.order.status === 3 ? true :false}}" class=" btn-dark btn-sm">{{'cockpit.table.statusDelivered' | transloco}}</mat-button-toggle>
+                <mat-button-toggle (click)="sendStatus(0 ,element)" value="{{element.order.status === 0 ? true :false}}" class=" btn-dark btn-sm">{{'cockpit.table.statusTaken' | transloco}}</mat-button-toggle>
+                <mat-button-toggle (click)="sendStatus(1 ,element)" value="{{element.order.status === 1 ? true :false}}" class=" btn-dark btn-sm">{{'cockpit.table.statusPrepared' | transloco}}</mat-button-toggle>
+                <mat-button-toggle (click)="sendStatus(2 ,element)" value="{{element.order.status === 2 ? true :false}}" class=" btn-dark btn-sm">{{'cockpit.table.statusInDelivery' | transloco}}</mat-button-toggle>
+                <mat-button-toggle (click)="sendStatus(3 ,element)" value="{{element.order.status === 3 ? true :false}}" class=" btn-dark btn-sm">{{'cockpit.table.statusDelivered' | transloco}}</mat-button-toggle>
               </mat-button-toggle-group>
 
           </td>
