@@ -186,7 +186,8 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			// check timestamps
 			if(checkTimeStampsForToken(tokenEntity)) {
 				resetTokenDao.delete(tokenEntity);
-				return notifyUser(user.getUsername(), "Your Token expired. Please request a new Token");
+				throw new EntityNotFoundException("Given Token not bound to any Account");
+//				return notifyUser(user.getUsername(), "Your Token expired. Please request a new Token");
 				//return "Your Token expired. Please request a new Token";
 			}
 			
@@ -209,8 +210,8 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			return notifyUser(user.getUsername(), "Your Password changed.");
 
 		} else {
-			return notifyUser(null, "Given Token not bound to any Account");
-			//return "Given Token not bound to any Account";
+			throw new EntityNotFoundException("Given Token not bound to any Account");
+			//return notifyUser(null, "Given Token not bound to any Account");
 		}
 	}
 	
