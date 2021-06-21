@@ -223,64 +223,6 @@ export class AuthEffects {
   );
 
 
-/*
-  checkToken$ = createEffect(() =>
-
-    this.actions$.pipe(
-      ofType(authActions.checkToken),
-      map((TokenString) => TokenString.token),
-      switchMap((token: any) => {
-        console.log("after switch");
-
-        var tempToken = token;
-        console.log(tempToken);
-        return this.userService.checkToken(token).pipe(
-          map((res: any) =>
-          authActions.checkTokenSuccess(token),
-          ),
-          catchError((error) => of(authActions.checkTokenFail({ error }))),
-        );
-      }),
-    ),
-  );
-  /*
-navigate (tempToken : TokenString){
-  this.router.navigate(['restaurant']);
-  authActions.checkTokenSuccess(tempToken);
-}*/
- /* checkTokenSuccess$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(authActions.checkTokenSuccess),
-    map((token) => token.token),
-    exhaustMap((token: TokenString ) => {
-      console.log("succss");
-          this.snackBar.openSnack(
-            "token has been authorized ",
-            4000,
-            'green',
-          );
-          return this.router.navigate(['resetPassword'], { queryParams: {token: token}} );
-        }),
-        ),
-      { dispatch: false },
-    );
-
-  checkTokenFail$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(authActions.checkTokenFail),
-        tap(() => {
-          this.snackBar.openSnack(
-            "Error please try again later",
-            4000,
-            'red',
-          );
-           this.router.navigate(['restaurant']);
-        }),
-      ),
-    { dispatch: false },
-  );
-*/
 
 
 updatePassword$ = createEffect(() =>

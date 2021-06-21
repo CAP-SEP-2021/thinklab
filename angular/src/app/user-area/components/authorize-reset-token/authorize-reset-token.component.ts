@@ -21,11 +21,12 @@ export class AuthorizeResetTokenComponent implements OnInit {
   userResetPassword:UserPasswordToken;
   token : string;
   username:string;
-  constructor(private activatedRoute: ActivatedRoute ,
+  constructor(
+    private activatedRoute: ActivatedRoute ,
     private router: Router,
     private userAreaService :UserAreaService,
-
-    private store: Store<fromApp.State>,) { 
+    private store: Store<fromApp.State>,
+    ) { 
     this.activatedRoute.queryParams.subscribe(params => {
       this.token = params['token'];
       this.username = params['username'];

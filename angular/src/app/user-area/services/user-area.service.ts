@@ -163,12 +163,10 @@ export class UserAreaService {
     sending the new reseted password with the reset  token to the Backend 
   */  
   resetPassword(userToken : UserPasswordToken){
-    console.log("this ist the service ts ");
-    console.log(userToken);
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
         this.http.post(
-          `http://localhost:8081/mythaistar/services/rest/usermanagement/v1/user/reset/password/new/`,
+          `${restServiceRoot}${this.usermanagementRestPath}${this.resetPasswordPath}`,
           userToken,
         ),
       ),
@@ -178,11 +176,12 @@ export class UserAreaService {
    checking the reset Password Token in the Backend 
   */  
   checkToken(token : String){
-    console.log("this ist the service ts ");
-  token+="/"
+  //token+="/"
   console.log(`${this.usermanagementRestPath}${this.authorizeTokenPath}${token}`);
-      var sss =  "http://localhost:8081/mythaistar/services/rest/usermanagement/v1/user/reset/password/new/";
+      
       return   this.restServiceRoot$.pipe(
-        exhaustMap((restServiceRoot) => this.http.get( `${restServiceRoot}${this.usermanagementRestPath}${this.authorizeTokenPath}${token}` )));
+        exhaustMap((restServiceRoot) => 
+        this.http.get(
+          `${restServiceRoot}${this.usermanagementRestPath}${this.authorizeTokenPath}${token}` )));
 }
 }

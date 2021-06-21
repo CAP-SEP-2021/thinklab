@@ -36,19 +36,7 @@ export const verifyTwoFactor = createAction(
   '[Auth] VerifyTwoFactor',
   props<{ username: string; password: string }>(),
 );
-/*
-export const checkToken = createAction(
-  '[Auth] checkToken',
-  props<{ token: TokenString }>(),
-);
-export const checkTokenFail = createAction(
-  '[Auth] checkTokenFail',
-  props<{ error: Error }>(),
-);
-export const checkTokenSuccess = createAction(
-  '[Auth] checkTokenSuccess',
-  props<{ token: TokenString }>(),
-);*/
+
 
 export const updatePassword = createAction(
   '[updatePassword] updatePassword ',
@@ -76,9 +64,6 @@ const all = union({
   logout,
   logoutFail,
   verifyTwoFactor,
- /* checkToken,
-  checkTokenFail,
-  checkTokenSuccess*/
   updatePassword,
   updatePasswordSuccess,
   updatePasswordFail,

@@ -36,20 +36,6 @@ const authReducer = createReducer(
     ...state,
     error: 'Something went wrong !!!!.',
   })),
-  /*
-  on(authActions.checkToken, (state, TokenString ) => ({
-    ...state,
-   
-    TokenString,
-  })),
-  on(authActions.checkTokenSuccess, (state,  TokenString) => ({
-    ...state,
-    TokenString,
-  })),
-  on(authActions.checkTokenFail, (state, { error }) => ({
-    ...state,
-    errorMessage: error.message,
-  })),*/
   
   on(authActions.updatePassword, (state, UserPasswordToken ) => ({
     ...state,
