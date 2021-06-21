@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ConfigService } from '../../../../core/config/config.service';
+import { ConfigService } from '../../../core/config/config.service';
 import { TranslocoService } from '@ngneat/transloco';
 import { UserInfo } from 'app/shared/backend-models/interfaces';
 import { FormBuilder } from '@angular/forms';
-import { UsermanagementCockpitService } from '../../../services/usermanagement-cockpit.service';
-import * as fromApp from "../../../../store/reducers";
-import * as cockpitAreaActions from "../../../store/actions/cockpit-area.actions";
+import { UsermanagementCockpitService } from '../../services/usermanagement-cockpit.service';
+import * as fromApp from "../../../store/reducers";
+import * as cockpitAreaActions from "../../store/actions/cockpit-area.actions";
 import { Store } from '@ngrx/store';
 
 @Component({

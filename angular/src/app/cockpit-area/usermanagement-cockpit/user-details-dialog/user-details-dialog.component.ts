@@ -1,4 +1,3 @@
-
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfigService } from '../../../core/config/config.service';
@@ -11,39 +10,30 @@ import { UsermanagementCockpitService } from '../../services/usermanagement-cock
 import * as fromApp from '../../../store/reducers';
 import * as cockpitAreaActions from "../../store/actions/cockpit-area.actions";
 import { Store } from '@ngrx/store';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-
+import { AuthService } from 'app/core/authentication/auth.service';
+import { SnackBarService } from '../../../core/snack-bar/snack-bar.service';
 @Component({
   selector: 'app-user-details-dialog',
   templateUrl: './user-details-dialog.component.html',
   styleUrls: ['./user-details-dialog.component.scss']
 })
 export class UserDetailsDialogComponent implements OnInit {
-  //data :UserInfo[] = [];
-  panelOpenState;
-  checkoutForm: FormGroup = new FormGroup({});
-  checkoutForm2: FormGroup = new FormGroup({});
+
+
+  Form: FormGroup = new FormGroup({});
   REGEXP_EMAIL = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  UserInfo: UserInfo = {
+  userInfo: UserInfo = {
     id: 0,
     username: '',
     password: '',
     email: '',
     userRoleId: 0,
     twoFactorStatus: undefined,
-   
   };
+  currentUser;
   icon = 'visibility_off';
-  resetPasswordFormGroup;
   fieldTextType: boolean = false;
-  temp = '';
 
-  columnst: string[] = [
-    'id',
-    'username',
-    'email',
-    'userRoleId',
-  ];
 
   constructor(
     public dialogRef: MatDialogRef<UserDetailsDialogComponent>,
@@ -53,144 +43,66 @@ export class UserDetailsDialogComponent implements OnInit {
     private translocoService: TranslocoService,
     @Inject(MAT_DIALOG_DATA) dialogData: any,
     private configService: ConfigService,
+    private authService: AuthService,
     private fb: FormBuilder,
     private store: Store<fromApp.State>,
+    public snackBar: SnackBarService
   ) {
-
-
-    // this.data.push(dialogData);
     delete dialogData.modificationCounter;
     delete dialogData.twoFactorStatus;
-    this.UserInfo = dialogData;
-
-    console.log("this is the user info ");
-    console.log(this.UserInfo);
-    //first  tab form
-    this.checkoutForm2 = new FormGroup({
-      username: new FormControl(this.UserInfo.username, Validators.required),
-      email: new FormControl(this.UserInfo.email, [
+    this.userInfo = dialogData;
+    this.authService.getUser().subscribe((username) => {
+      this.currentUser = username;
+    });
+    this.Form = new FormGroup({
+      username: new FormControl(this.userInfo.username, Validators.required),
+      email: new FormControl(this.userInfo.email, [
         Validators.required,
         Validators.pattern(this.REGEXP_EMAIL),
       ]),
-      userRoleId: new FormControl(this.UserInfo.userRoleId, Validators.required),
-    });
-    //second tab form
-    this.checkoutForm = fb.group({
-      password: ['', [Validators.required, Validators.min(8)]],
-      confirmedPassword: ['', [Validators.required, Validators.min(8)]]
-    }, {
-      validator: this.ConfirmedValidator('password', 'confirmedPassword')
+      userRoleId: new FormControl(this.userInfo.userRoleId, Validators.required),
     });
   }
-
   ngOnInit(): void {
-    this.panelOpenState = false;
-
-    /* this.checkoutForm = new FormGroup({
-       password: new FormControl(this.UserInfo.password ,Validators.required), //@later review
-       confirmedPassword: new FormControl( [this.UserInfo.email, Validators.minLength(2),{ 
-         validator:  this.checkPasswords(this.checkoutForm)}]),
-     });*/
-
   }
-
-
-
-  ConfirmedValidator(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-      if (matchingControl.errors && !matchingControl.errors.confirmedValidator) {
-        return;
-      }
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ confirmedValidator: true });
-      } else {
-        matchingControl.setErrors(null);
-      }
-    }
-  }
-
-  get f() {
-    return this.checkoutForm.controls;
-  }
-
   /*
-    function passwordMatchValidator(g: FormGroup) {
-       return g.get('password').value === g.get('passwordConfirm').value
-          ? null : {'mismatch': true};
+    onSubmit(): void {
+      this.UserInfo.password = this.Form.get("password").value;
+      this.store.dispatch(cockpitAreaActions.updateUser({ UserInfo: this.UserInfo }));
     }*/
-  /* checkPasswords(group: FormGroup) {
-     const pass = group.controls.password.value;
-     const confirmPass = group.controls.confirmedPassword.value;
- 
-     return pass === confirmPass ? null : { notSame: true };
- }*/
+
   onSubmit(): void {
-    console.log("submited");
-    console.log('checkoutForm bevor editing ', this.checkoutForm.value);
-
-
-    this.UserInfo.password = this.checkoutForm.get("password").value;
-    console.log(this.UserInfo);
-    this.store.dispatch(cockpitAreaActions.updateUser({ UserInfo: this.UserInfo }));
-
-  }
-  onSubmit2(): void {
-    // Process checkout data here
-    console.log('checkoutForm second form ', this.checkoutForm2.value);
-    delete this.UserInfo.password;
-    this.UserInfo.username = this.checkoutForm2.get("username").value;
-    this.UserInfo.email = this.checkoutForm2.get("email").value;
-    this.UserInfo.userRoleId = this.checkoutForm2.get("userRoleId").value;
-    console.log('this is user info  ', this.UserInfo);
-    this.store.dispatch(cockpitAreaActions.updateUser({ UserInfo: this.UserInfo }));
-
-
-  }
-  get password(): AbstractControl {
-    return this.checkoutForm.get('password');
+    delete this.userInfo.password;
+    this.userInfo.username = this.Form.get("username").value;
+    this.userInfo.email = this.Form.get("email").value;
+    this.userInfo.userRoleId = this.Form.get("userRoleId").value;
+    this.store.dispatch(cockpitAreaActions.updateUser({ UserInfo: this.userInfo }));
   }
 
-  get confirmedPassword(): AbstractControl {
-    return this.checkoutForm.get('confirmedPassword');
-  }
-  //first form getters 
+
   get username(): AbstractControl {
-    return this.checkoutForm2.get('username');
+    return this.Form.get('username');
   }
   get email(): AbstractControl {
-    return this.checkoutForm2.get('email');
+    return this.Form.get('email');
   }
   get userRoleId(): AbstractControl {
-    return this.checkoutForm2.get('userRoleId');
+    return this.Form.get('userRoleId');
   }
 
 
-
-
- 
   deleteUser(): void {
-    /*
-this.UsermanagementCockpitService.deleteUser(this.data[0].id).subscribe((data: any) => {
-console.log(data);
-});
-
-    console.log();
-    this.store.dispatch(cockpitAreaActions.deleteUser({ UserInfo: this.UserInfo }));
-  }*/
-  //this.dialogRef.close("sad");
- /*let dialog = this.dialog.open(ConfirmationDialogComponent, {
-    data : this.UserInfo,
-   });*/
-  // window.alert("oppened");
-//this.closeDialog;  
-
-  this.dialogRef.close(this.UserInfo );
-
-
-}
-  closeDialog(){
+    if (this.userInfo.username != this.currentUser) {
+      this.dialogRef.close(this.userInfo);
+    } else {
+      this.snackBar.openSnack(
+        "Error you cannot delete your Account",
+        6000,
+        'red',
+      );
+    }
+  }
+  closeDialog() {
     this.dialogRef.close("sad");
   }
   toggleFieldTextType() {
@@ -198,12 +110,11 @@ console.log(data);
       this.icon = 'visibility';
     } else {
       this.icon = 'visibility_off';
-
     }
     this.fieldTextType = !this.fieldTextType;
   }
-  resetUserPassword(){
-    this.store.dispatch(cockpitAreaActions.resetUserPassword({ Email: this.UserInfo.email }));
+  resetUserPassword() {
+    this.store.dispatch(cockpitAreaActions.resetUserPassword({ Email: this.userInfo.email }));
   }
 
 }

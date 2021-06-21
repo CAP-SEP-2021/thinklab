@@ -11,7 +11,7 @@ import * as authActions from '../store/actions/auth.actions';
 import * as fromAuth from '../store/reducers/';
 import { SnackService } from './snack-bar.service';
 import { TranslocoService } from '@ngneat/transloco';
-import { UserResetPassword } from '../models/user';
+import { UserPasswordToken } from '../models/user';
 
 @Injectable()
 export class UserAreaService {
@@ -162,26 +162,27 @@ export class UserAreaService {
   /*
     sending the new reseted password with the reset  token to the Backend 
   */  
-  resetPassword(userToken : UserResetPassword){
+  resetPassword(userToken : UserPasswordToken){
+    console.log("this ist the service ts ");
+    console.log(userToken);
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
-        this.http.post<any>(
-          `${restServiceRoot}${this.usermanagementRestPath}${this.resetPasswordPath}`,
+        this.http.post(
+          `http://localhost:8081/mythaistar/services/rest/usermanagement/v1/user/reset/password/new/`,
           userToken,
         ),
       ),
     );
   }
   /*
-   authorizing the reset Password Token in the Backend to check if used of the timestampe is old
+   checking the reset Password Token in the Backend 
   */  
-  authorizeToken(token : String){
-    return this.restServiceRoot$.pipe(
-      exhaustMap((restServiceRoot) =>
-        this.http.get(
-          `${restServiceRoot}${this.usermanagementRestPath}${this.authorizeTokenPath}${token}`,
-        ),
-      ),
-    );
-  }
+  checkToken(token : String){
+    console.log("this ist the service ts ");
+  token+="/"
+  console.log(`${this.usermanagementRestPath}${this.authorizeTokenPath}${token}`);
+      var sss =  "http://localhost:8081/mythaistar/services/rest/usermanagement/v1/user/reset/password/new/";
+      return   this.restServiceRoot$.pipe(
+        exhaustMap((restServiceRoot) => this.http.get( `${restServiceRoot}${this.usermanagementRestPath}${this.authorizeTokenPath}${token}` )));
+}
 }

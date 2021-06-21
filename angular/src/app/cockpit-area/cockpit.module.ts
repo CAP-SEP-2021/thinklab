@@ -25,7 +25,7 @@ import { reducers, effects } from './store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
-import { ConfirmationDialogComponent } from './usermanagement-cockpit/user-details-dialog/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from './usermanagement-cockpit/confirmation-dialog/confirmation-dialog.component';
 import { UserPasswordDialogComponent } from './usermanagement-cockpit/user-password-dialog/user-password-dialog.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AvatarModule } from 'ngx-avatar';

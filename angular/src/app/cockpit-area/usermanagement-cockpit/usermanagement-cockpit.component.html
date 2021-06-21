@@ -18,29 +18,22 @@
 <div class="tableContainer">
     <table mat-table [dataSource]="users" matSort (matSortChange)="sort($event)">
   
-      <!-- Date Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[0].label}} </th>
-      <!--  <td mat-cell *matCellDef="let element"> 
-          <ngx-avatar size="38" src ="{{getUserAvatar(element)}}"></ngx-avatar>      
-        </td>-->
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
+    
 
       <!-- Email Column -->
       <ng-container matColumnDef="username">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[1].label}} </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[0].label}} </th>
         <td mat-cell *matCellDef="let element"> {{element.username}} </td>
       </ng-container>
 
       <!-- Ref No Column -->
       <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[2].label}} </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[1].label}} </th>
         <td mat-cell *matCellDef="let element"> {{element.email}} </td>
       </ng-container>
       <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[3].label}} </th>
-        <td mat-cell *matCellDef="let element" > {{getUserRoleText(element)}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[2].label}} </th>
+        <td mat-cell *matCellDef="let element" >{{getUserRoleText(element)}} </td>
       </ng-container>
 
      
@@ -53,7 +46,9 @@
             <button mat-mini-fab color="primary" (click)="handelPasswordDialog(element)" aria-label="Example icon button with a menu icon">
               <mat-icon><span class="material-icons-outlined">
                 vpn_key
-                </span></mat-icon></button>
+                </span>
+              </mat-icon>
+            </button>
            
         </div>
         </td>

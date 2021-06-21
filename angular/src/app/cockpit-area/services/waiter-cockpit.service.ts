@@ -171,4 +171,5 @@ temp :any;
   getTotalPrice(orderLines: OrderView[]): number {
     return this.priceCalculator.getTotalPrice(orderLines);
   }
+ 
 }

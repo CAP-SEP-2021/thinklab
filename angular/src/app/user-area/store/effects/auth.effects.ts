@@ -20,6 +20,7 @@ import { LoginDialogComponent } from '../../components/login-dialog/login-dialog
 import { UserAreaService } from '../../services/user-area.service';
 import * as authActions from '../actions/auth.actions';
 import { TranslocoService } from '@ngneat/transloco';
+import { TokenString } from 'app/user-area/models/user';
 
 @Injectable()
 export class AuthEffects {
@@ -184,7 +185,7 @@ export class AuthEffects {
             return this.router.navigate(['orders']);
           } else if (role === 'MANAGER') {
             return this.router.navigate(['orders']);
-          }else if (role === 'ADMIN') { //@mo added to navigate to automaticllay usermangement component 
+          }else if (role === 'ADMIN') { 
             return this.router.navigate(['usermanagement']);}
         }),
       ),
@@ -220,6 +221,120 @@ export class AuthEffects {
       ),
     { dispatch: false },
   );
+
+
+/*
+  checkToken$ = createEffect(() =>
+
+    this.actions$.pipe(
+      ofType(authActions.checkToken),
+      map((TokenString) => TokenString.token),
+      switchMap((token: any) => {
+        console.log("after switch");
+
+        var tempToken = token;
+        console.log(tempToken);
+        return this.userService.checkToken(token).pipe(
+          map((res: any) =>
+          authActions.checkTokenSuccess(token),
+          ),
+          catchError((error) => of(authActions.checkTokenFail({ error }))),
+        );
+      }),
+    ),
+  );
+  /*
+navigate (tempToken : TokenString){
+  this.router.navigate(['restaurant']);
+  authActions.checkTokenSuccess(tempToken);
+}*/
+ /* checkTokenSuccess$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(authActions.checkTokenSuccess),
+    map((token) => token.token),
+    exhaustMap((token: TokenString ) => {
+      console.log("succss");
+          this.snackBar.openSnack(
+            "token has been authorized ",
+            4000,
+            'green',
+          );
+          return this.router.navigate(['resetPassword'], { queryParams: {token: token}} );
+        }),
+        ),
+      { dispatch: false },
+    );
+
+  checkTokenFail$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(authActions.checkTokenFail),
+        tap(() => {
+          this.snackBar.openSnack(
+            "Error please try again later",
+            4000,
+            'red',
+          );
+           this.router.navigate(['restaurant']);
+        }),
+      ),
+    { dispatch: false },
+  );
+*/
+
+
+updatePassword$ = createEffect(() =>
+this.actions$.pipe(
+  ofType(authActions.updatePassword),
+  map((UserPasswordToken) => UserPasswordToken),
+  switchMap((UserPasswordToken: any) => {
+    return this.userService.resetPassword(UserPasswordToken.UserInfo).pipe(
+      map((res: any) =>
+      authActions.updatePasswordSuccess(),
+      ),
+      catchError((error) => of(authActions.updatePasswordFail({ error }))),
+    );
+  }),
+),
+);
+
+updatePasswordSuccess$ = createEffect(
+() =>
+  this.actions$.pipe(
+    ofType(authActions.updatePasswordSuccess),
+    tap(() => {
+      this.snackBar.openSnack(
+        "the update of User Details was successful",
+        7000,
+        'green',
+      );
+      this.router.navigateByUrl('/restaurant');
+    }),
+  ),
+{ dispatch: false },
+);
+
+updatePasswordFail$ = createEffect(
+() =>
+  this.actions$.pipe(
+    ofType(authActions.updatePasswordFail),
+    tap(() => {
+      this.snackBar.openSnack(
+        "Error please try again later",
+        7000,
+        'red',
+      );
+      this.router.navigateByUrl('/restaurant');
+    }),
+  ),
+{ dispatch: false },
+);
+
+
+
+
+
+
 
   constructor(
     private actions$: Actions,

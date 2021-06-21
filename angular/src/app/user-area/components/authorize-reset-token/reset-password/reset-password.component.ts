@@ -1,9 +1,11 @@
-
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-
-
+import { UserPasswordToken } from 'app/user-area/models/user';
+import {UserAreaService} from "../../../services/user-area.service";
+import * as fromApp from '../../../../store/reducers';
+import * as authActions from"../../../store/actions/auth.actions";
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -14,15 +16,22 @@ import { ActivatedRoute } from '@angular/router';
 export class ResetPasswordComponent implements OnInit {
   animationState = false;
   loading = false;
-  token: String;
-  username: String;
+  username: string;
+  token: string;
+  passwordToken:UserPasswordToken = {
+    password : '',
+    token : ''
+  };
   fieldTextType: boolean = false;
   icon = 'visibility_off';
   checkoutForm: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute) {
-
+  constructor(
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private userAreaService :UserAreaService,
+    private store: Store<fromApp.State>,
+    ) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.token = params['token'];
       this.username = params['username'];
@@ -34,7 +43,8 @@ export class ResetPasswordComponent implements OnInit {
       password: ['', [Validators.required, Validators.min(8)]],
       confirmedPassword: ['', [Validators.required, Validators.min(8)]]
     }, {
-      validator: this.ConfirmedValidator('password', 'confirmedPassword')
+      validator: this.ConfirmedValidator('password', 'confirmedPassword'), 
+
     });
   }
 
@@ -55,7 +65,7 @@ export class ResetPasswordComponent implements OnInit {
       }
     }
   }
-  get f() {
+  get getForm() {
     return this.checkoutForm.controls;
   }
   get password(): AbstractControl {
@@ -75,11 +85,17 @@ export class ResetPasswordComponent implements OnInit {
     this.fieldTextType = !this.fieldTextType;
   }
   onSubmit(): void {
-    console.log("submited");
-    if (this.loading) {
-      this.loading = false;
-      return;
-    }
+
     this.loading = true;
+    this.passwordToken.password = this.checkoutForm.get("password").value;
+    this.passwordToken.token = this.token;
+/*
+    this.userAreaService.resetPassword( {password : this.checkoutForm.get("password").value , token : this.token}).subscribe(
+      ()=>
+      console.log("sadasd")
+    ) ;   */
+    this.store.dispatch(authActions.updatePassword({UserInfo :{password : this.checkoutForm.get("password").value , token : this.token}}));
+    
+
   }
 }

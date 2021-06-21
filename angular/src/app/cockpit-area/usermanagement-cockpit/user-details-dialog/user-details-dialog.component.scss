@@ -1,13 +1,15 @@
 .btn-toolbar {
-    display: flex;
-    justify-content: space-between;
-  }
-  .left-btn { display: flex;
-    flex: 1;
-    justify-content: flex-start; }
-  .right-btn { display: flex;
-    flex: 1;
-    justify-content: flex-end; }
+  display: flex;
+  justify-content: space-between;
+}
+.left-btn { 
+  display: flex;
+  flex: 1;
+  justify-content: flex-start; 
+}
+.right-btn { display: flex;
+  flex: 1;
+  justify-content: flex-end; }
 
     .float-container {
       border: 3px solid #fff;
@@ -15,7 +17,7 @@
   }
   
   .float-child {
-      width: fit-content;
+  
       float: left;
       padding: 2px;
       

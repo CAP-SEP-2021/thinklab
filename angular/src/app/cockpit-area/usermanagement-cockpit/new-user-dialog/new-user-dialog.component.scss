@@ -1,5 +1,5 @@
 .btn-toolbar {
-    margin-top:18px;
+  margin-top: 18px;
   display: flex;
   justify-content: space-between;
 }
@@ -13,17 +13,16 @@
   flex: 1;
   justify-content: flex-end;
 }
-.item{
-    margin: auto;
-    width: 100%;
-    padding: 10px;
-  
+.item {
+  margin: auto;
+  width: 100%;
+  padding: 10px;
 }
-button{
-    font-size: 20px;
+button {
+  font-size: 20px;
 }
-.submitBtn{
-    color: white;
+.submitBtn {
+  color: white;
 }
 .float-container {
   border: 1px solid #fff;
@@ -31,14 +30,19 @@ button{
 }
 
 .float-child-right {
-  display:inline-flex;
+  display: inline-flex;
   float: right;
   padding: 1px;
-  
-}  
+}
 .float-child-left {
-  display:inline-flex;
+  display: inline-flex;
   float: left;
   padding: 1px;
   padding-top: 18%;
-}  
+}
+.matField {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}

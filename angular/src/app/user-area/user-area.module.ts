@@ -15,7 +15,7 @@ import { TwoFactorDialogComponent } from './components/two-factor-dialog/two-fac
 import { UserAreaService } from './services/user-area.service';
 import { effects, reducers } from './store';
 import { TranslocoModule } from '@ngneat/transloco';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ResetPasswordComponent } from './components/authorize-reset-token/reset-password/reset-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthorizeResetTokenComponent } from './components/authorize-reset-token/authorize-reset-token.component';
 

@@ -11,7 +11,7 @@ import { UsermanagementCockpitComponent } from './cockpit-area/usermanagement-co
 import { EmailConfirmationsComponent } from './email-confirmations/container/email-confirmations/email-confirmations.component';
 import { HomeComponent } from './home/container/home/home.component';
 import { MenuComponent } from './menu/container/menu.component';
-import { ResetPasswordComponent } from './user-area/components/reset-password/reset-password.component';
+import { ResetPasswordComponent } from './user-area/components/authorize-reset-token/reset-password/reset-password.component';
 import { AuthorizeResetTokenComponent } from './user-area/components/authorize-reset-token/authorize-reset-token.component';
 
 const appRoutes: Routes = [
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     component: OrderCockpitComponent,
     canActivate: [AuthGuardService],
   }, {
-    path: 'archiv', //@mo adding the route of the 
+    path: 'archiv', 
     component: ArchivCockpitComponent,
     canActivate: [AuthGuardService],
   },

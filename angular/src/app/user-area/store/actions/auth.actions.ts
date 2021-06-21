@@ -1,5 +1,5 @@
 import { props, createAction, union } from '@ngrx/store';
-import { TokenString, UserDataResponse } from '../../models/user';
+import { TokenString, UserDataResponse, UserPasswordToken } from '../../models/user';
 
 export const openDialog = createAction('[Auth] Open Dialog');
 
@@ -36,6 +36,34 @@ export const verifyTwoFactor = createAction(
   '[Auth] VerifyTwoFactor',
   props<{ username: string; password: string }>(),
 );
+/*
+export const checkToken = createAction(
+  '[Auth] checkToken',
+  props<{ token: TokenString }>(),
+);
+export const checkTokenFail = createAction(
+  '[Auth] checkTokenFail',
+  props<{ error: Error }>(),
+);
+export const checkTokenSuccess = createAction(
+  '[Auth] checkTokenSuccess',
+  props<{ token: TokenString }>(),
+);*/
+
+export const updatePassword = createAction(
+  '[updatePassword] updatePassword ',
+  props<{UserInfo :UserPasswordToken }>(),
+);
+
+export const updatePasswordSuccess = createAction(
+  '[updatePassword] updatePassword success',
+  
+);
+
+export const updatePasswordFail = createAction(
+  '[updatePassword] updatePassword Fail',
+  props<{ error: Error }>(),
+);
 
 // action types
 const all = union({
@@ -48,5 +76,11 @@ const all = union({
   logout,
   logoutFail,
   verifyTwoFactor,
+ /* checkToken,
+  checkTokenFail,
+  checkTokenSuccess*/
+  updatePassword,
+  updatePasswordSuccess,
+  updatePasswordFail,
 });
 export type AuthActions = typeof all;

@@ -36,6 +36,36 @@ const authReducer = createReducer(
     ...state,
     error: 'Something went wrong !!!!.',
   })),
+  /*
+  on(authActions.checkToken, (state, TokenString ) => ({
+    ...state,
+   
+    TokenString,
+  })),
+  on(authActions.checkTokenSuccess, (state,  TokenString) => ({
+    ...state,
+    TokenString,
+  })),
+  on(authActions.checkTokenFail, (state, { error }) => ({
+    ...state,
+    errorMessage: error.message,
+  })),*/
+  
+  on(authActions.updatePassword, (state, UserPasswordToken ) => ({
+    ...state,
+    pending: true,
+    UserPasswordToken,
+  })),
+  on(authActions.updatePasswordSuccess, (state  ) => ({
+    ...state,
+    pending: false,
+
+  })),
+  on(authActions.updatePasswordFail, (state, { error }) => ({
+    ...state,
+    pending: false,
+    errorMessage: error.message,
+  }))
 );
 
 export function reducer(
