@@ -242,9 +242,9 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     BookingEntity bookingEntity = getBeanMapper().map(booking.getBooking(), BookingEntity.class);
     bookingEntity.setCanceled(false);
     
-    bookingEntity.setBookingDate(
-    		bookingEntity.getBookingDate().minus(2, ChronoUnit.HOURS)
-    );
+//    bookingEntity.setBookingDate(
+//    		bookingEntity.getBookingDate().minus(2, ChronoUnit.HOURS)
+//    );
     
     if(bookingEntity.getAssistants()!=null) {
 	    List<InvitedGuestEntity> invited = getBeanMapper().mapList(booking.getInvitedGuests(), InvitedGuestEntity.class);

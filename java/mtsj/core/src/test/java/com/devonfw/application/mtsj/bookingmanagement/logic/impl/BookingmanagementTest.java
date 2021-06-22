@@ -168,8 +168,8 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 		// create findby
 		findByCto findBy = new findByCto();		
 		findBy.setBookingDate(Instant.now()
-	    		.minus(10, ChronoUnit.MINUTES)
-				.minus(3, ChronoUnit.HOURS));
+	    		.minus(10, ChronoUnit.MINUTES));
+//				.minus(3, ChronoUnit.HOURS));
 		findBy.setTableId(0L);
 		
 		assertThrows(EntityNotFoundException.class, () -> this.bookingManagement.findBy(findBy), "");
