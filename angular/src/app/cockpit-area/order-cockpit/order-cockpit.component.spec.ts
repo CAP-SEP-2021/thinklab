@@ -76,7 +76,7 @@ class TestBedSetUp {
   }
 }
 
-describe('OrderCockpitComponent', () => {
+fdescribe('OrderCockpitComponent', () => {
   let component: OrderCockpitComponent;
   let fixture: ComponentFixture<OrderCockpitComponent>;
   let store: Store<State>;
@@ -151,14 +151,14 @@ describe('OrderCockpitComponent', () => {
   }));
 
 
-  it('should change payement-status from false to true and from true to false on checkbox-click', fakeAsync(() => {
+  it('should change payement-status from false to true and from true to false on checkbox-click', () => {
     fixture.detectChanges();
     expect(component.orders[0].order.paid).toBe(false);
     const payementButton = el.queryAll(By.css('.mat-checkbox'));
     click(payementButton[0]);
-    tick();
+    
     expect(component.orders[0].order.paid).toBe(true);
-  }));
+  });
 
 
   it('should call the method sendPaymentStatus when clicking payment-checkbox ', fakeAsync(() => {
@@ -170,16 +170,21 @@ describe('OrderCockpitComponent', () => {
     expect(component.sendPaymentStatus).toHaveBeenCalled();
     }));
 
-    /* TODO: when waitercockpit is done
+    /*
   it('should call the method sendStatus when clicking a status-change-button ', fakeAsync(() => {
     fixture.detectChanges();
     spyOn(component, 'sendStatus');
-    const statusButton = el.queryAll(By.css('.TODO'));
-    click(statusButton[0]);
-    tick();
+    const statusButtona = el.queryAll(By.css('.mat-button-toggle'));
+    console.log(statusButtona.length);
+    console.log(component.orders[0].order.status);
+    click(statusButtona[8]);
+    component.sendStatus(0, component.orders[0]);
+    fixture.detectChanges();
     expect(component.sendStatus).toHaveBeenCalled();
+    expect(component.orders[0].order.status).toBe('0');
     }));
 
+    /*
   it('should change its status from Food is being prepared(1) to Order taken(0)', fakeAsync(() => {
       fixture.detectChanges();
       expect(component.orders[0].order.status).toBe("1");
@@ -199,8 +204,8 @@ describe('OrderCockpitComponent', () => {
       expect(component.sendgetCancelOrder).toHaveBeenCalled();
       }));
 
-
-      */
+*/
+      
   });
 
 

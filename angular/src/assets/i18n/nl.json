@@ -255,7 +255,13 @@
       "usernameH": "Gebruikersnaam:",
       "emailH": "E-mailadres:",
       "password": "wachtwoord",
-      "repeatPassword": "herhaal wachtwoord"
+      "repeatPassword": "herhaal wachtwoord",
+      "updatePassword": "Gebruikerswachtwoord bijwerken",
+      "resetLink": "Stuur reset-link",
+      "updateSuccess": "Update van gebruikersgegevens is gelukt",
+      "checkLink": "De link checken...",
+      "redirect": "je wordt snel doorgestuurd",
+      "wait": "Wacht alsjeblieft"
     }
   }
 }

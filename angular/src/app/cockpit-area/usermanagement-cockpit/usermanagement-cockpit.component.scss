@@ -9,6 +9,7 @@
     display: flex;
     flex: 1;
     justify-content: flex-start; 
+    padding-left: 36px;
    
 }
   .right-btn { display: flex;
@@ -16,6 +17,10 @@
     justify-content: flex-end; 
      margin-left: 50px;
     width: 150px;
+}
+
+.passwordButton {
+  padding-left: 200px;
 }
   
 

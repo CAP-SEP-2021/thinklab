@@ -246,7 +246,7 @@ updatePasswordSuccess$ = createEffect(
     ofType(authActions.updatePasswordSuccess),
     tap(() => {
       this.snackBar.openSnack(
-        "the update of User Details was successful",
+        this.translocoService.translate('userManagement.userManagement.updateSuccess'),
         7000,
         'green',
       );

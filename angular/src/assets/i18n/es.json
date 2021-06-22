@@ -245,7 +245,13 @@
       "usernameH": "Nombre de usuario:",
       "emailH": "Correo electrónico:",
       "password": "contraseña",
-      "repeatPassword": "repite la contraseña"
+      "repeatPassword": "repite la contraseña",
+      "updatePassword": "Actualizar contraseña de usuario",
+      "resetLink": "Enviar enlace de restablecimiento",
+      "updateSuccess": "La actualización de los datos del usuario se realizó correctamente",
+      "checkLink": "Comprobando el enlace ...",
+      "redirect": "pronto serás redirigido",
+      "wait": "Espere por favor"
     }
   }
 }

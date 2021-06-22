@@ -256,7 +256,13 @@
       "usernameH": "Nom d'utilisateur:",
       "emailH": "E-mail:",
       "password": "Le mot de passe",
-      "repeatPassword": "Répéter le mot de passe"
+      "repeatPassword": "Répéter le mot de passe",
+      "updatePassword": "Mettre à jour le mot de passe de l'utilisateur",
+      "resetLink": "Envoyer le lien de réinitialisation",
+      "updateSuccess": "La mise à jour des données utilisateur a réussi",
+      "checkLink": "Vérification du lien...",
+      "redirect": "vous serez bientôt redirigé",
+      "wait": "S'il vous plaît, attendez"
     }
   }
 }

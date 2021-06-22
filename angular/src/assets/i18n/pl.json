@@ -254,7 +254,13 @@
       "usernameH": "Nazwa Użytkownika:",
       "emailH": "E-mail:",
       "password": "hasło",
-      "repeatPassword": "Powtórz hasło"
+      "repeatPassword": "Powtórz hasło",
+      "updatePassword": "Zaktualizuj hasło użytkownika",
+      "resetLink": "Wyślij link do resetowania",
+      "updateSuccess": "Aktualizacja danych użytkownika powiodła się",
+      "checkLink": "Sprawdzam link...",
+      "redirect": "wkrótce zostaniesz przekierowany",
+      "wait": "Proszę czekać"
     }
   }
 }

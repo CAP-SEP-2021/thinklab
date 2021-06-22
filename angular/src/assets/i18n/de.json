@@ -260,7 +260,13 @@
       "usernameH": "Nutzername:",
       "emailH": "Email:",
       "password": "Passwort",
-      "repeatPassword": "Passwort wiederholen"
+      "repeatPassword": "Passwort wiederholen",
+      "updatePassword": "Nutzerpasswort aktualisieren",
+      "resetLink": "Rücksetzlink versenden",
+      "updateSuccess": "Aktualisierung der Nutzerdaten war erfolgreich",
+      "checkLink": "Link wird überprüft...",
+      "redirect": "Du wirst gleich weitergeleitet",
+      "wait": "Bitte warten Sie"
     }
   }
 }

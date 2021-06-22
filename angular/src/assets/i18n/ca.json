@@ -256,7 +256,13 @@
       "usernameH": "Nom d'usuari:",
       "emailH": "Correu electrònic:",
       "password": "contrasenya",
-      "repeatPassword": "Repeteix la contrassenya"
+      "repeatPassword": "Repeteix la contrassenya",
+      "updatePassword": "Actualitzeu la contrasenya d'usuari",
+      "resetLink": "Envia l'enllaç de restabliment",
+      "updateSuccess": "L'actualització de les dades de l'usuari s'ha realitzat correctament",
+      "checkLink": "S'està comprovant l'enllaç ...",
+      "redirect": "aviat se us redirigirà",
+      "wait": "Espereu, si us plau"
     }
   }
 }

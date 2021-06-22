@@ -66,8 +66,8 @@ describe('UserDetailsDialogComponent', () => {
 
   it('should create and check if user-details match the details from db',() => {
     fixture.detectChanges();
-    const username = component.checkoutForm2.controls.username;
-    const email = component.checkoutForm2.controls.email;
+    const username = component.Form.controls.username;
+    const email = component.Form.controls.email;
 
     expect(username.value).toBe('franka');
     expect(email.value).toBe('franky@hi.de');
@@ -83,9 +83,9 @@ describe('UserDetailsDialogComponent', () => {
 
   it('should change user-details when filling in new information and submitting',() => {
   fixture.detectChanges();
-  const username = component.checkoutForm2.controls.username;
-  const email = component.checkoutForm2.controls.email;
-  const role = component.checkoutForm2.controls.userRoleId;
+  const username = component.Form.controls.username;
+  const email = component.Form.controls.email;
+  const role = component.Form.controls.userRoleId;
 
   // old values
   expect(username.value).toBe('franka');
@@ -98,15 +98,15 @@ describe('UserDetailsDialogComponent', () => {
   role.setValue(2);
 
   // submit button
-  component.onSubmit2();
+  component.onSubmit();
 
   expect(username.value).toBe('horst');
   expect(email.value).toBe('horst@mail.de');
   expect(role.value).toBe(2);
 
-  expect(component.UserInfo.username).toBe('horst');
-  expect(component.UserInfo.email).toBe('horst@mail.de');
-  expect(component.UserInfo.userRoleId).toBe(2);
+  expect(component.userInfo.username).toBe('horst');
+  expect(component.userInfo.email).toBe('horst@mail.de');
+  expect(component.userInfo.userRoleId).toBe(2);
   });
 
   it('should close user-details when clicking the delete button',() => {

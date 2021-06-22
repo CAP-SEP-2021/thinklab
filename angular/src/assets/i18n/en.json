@@ -266,7 +266,13 @@
       "usernameH": "Username:",
       "emailH": "E-mail:",
       "password": "password",
-      "repeatPassword": "Repeat password"
+      "repeatPassword": "Repeat password",
+      "updatePassword": "Update user password",
+      "resetLink": "Send reset link",
+      "updateSuccess": "Update of user data was successful",
+      "checkLink": "Checking the link ...",
+      "redirect": "You will be redirected soon",
+      "wait": "Please wait"
     }
   }
 }

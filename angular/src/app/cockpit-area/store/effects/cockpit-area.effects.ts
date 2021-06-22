@@ -184,7 +184,7 @@ export class CockpitAreaEffects {
         ofType(cockpitActions.resetUserPasswordSuccess),
         tap(() => {
           this.snackBar.openSnack(
-            "the update of User Details was successful",
+            this.translocoService.translate('userManagement.userManagement.updateSuccess'),
             4000,
             'green',
           );
