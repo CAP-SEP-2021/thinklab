@@ -18,11 +18,16 @@ import * as fromRoot from '../../store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { JsonpClientBackend } from '@angular/common/http';
 import { click } from 'app/shared/common/test-utils';
+import { AuthService } from 'app/core/authentication/auth.service';
+import { of } from 'rxjs';
 
 const mockDialogRef = {
   close: jasmine.createSpy('close'),
 };
 
+const waiterCockpitServiceStub2 = {
+  getUser: jasmine.createSpy('getUser').and.returnValue(of('users')),
+};
 
 describe('UserDetailsDialogComponent', () => {
   let component: UserDetailsDialogComponent;
@@ -37,6 +42,7 @@ describe('UserDetailsDialogComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: UserInfo },
         { provide: MatDialogRef, useValue: mockDialogRef },
+        { provide: AuthService, useValue: waiterCockpitServiceStub2},
         WaiterCockpitService,
         PriceCalculatorService,
         provideMockStore({ initialState }),
@@ -72,12 +78,6 @@ describe('UserDetailsDialogComponent', () => {
     expect(username.value).toBe('franka');
     expect(email.value).toBe('franky@hi.de');
 
-    /* TODO: default-role value
-    const role = el.query(By.css('.formRoleData'));
-    console.log(role.nativeElement.value)
-    expect(role.nativeElement.value).toBe(2);
-    */
-
     expect(component).toBeTruthy();
   });
 
@@ -90,7 +90,7 @@ describe('UserDetailsDialogComponent', () => {
   // old values
   expect(username.value).toBe('franka');
   expect(email.value).toBe('franky@hi.de');
-  //expect(role.value).toBe(2);
+  expect(role.value).toBe(2);
 
   // new values
   username.setValue('horst'); // new value

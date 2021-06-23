@@ -134,7 +134,7 @@ describe('UsermanagementCockpitComponent', () => {
     expect(snackBar.openSnack).not.toHaveBeenCalled();
   }));
 
-
+  /* function got removed
   it('should open snackbar-error when clicking on the admin-user', fakeAsync(() => {
     fixture.detectChanges();
     spyOn(snackBar, 'openSnack');
@@ -144,6 +144,7 @@ describe('UsermanagementCockpitComponent', () => {
     tick(200);
     expect(snackBar.openSnack).toHaveBeenCalled();
   }));
+  */
 
   it('should open changePassword dialog when clicking on the button', fakeAsync(() => {
     fixture.detectChanges();
@@ -155,6 +156,7 @@ describe('UsermanagementCockpitComponent', () => {
     expect(dialog.open).toHaveBeenCalled();
   }));
 
+  /* function got removed
   it('should open snackbar-error dialog when clicking on the admin', fakeAsync(() => {
     fixture.detectChanges();
     spyOn(snackBar, 'openSnack');
@@ -164,6 +166,7 @@ describe('UsermanagementCockpitComponent', () => {
     tick(200);
     expect(snackBar.openSnack).toHaveBeenCalled();
   }));
+  */
 
   it('should open addNewUser-dialog when clicking on the add-user button', fakeAsync(() => {
     fixture.detectChanges();

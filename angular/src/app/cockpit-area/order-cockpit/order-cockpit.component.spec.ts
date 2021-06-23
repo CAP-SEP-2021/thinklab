@@ -47,6 +47,9 @@ const translocoServiceStub = {
 const waiterCockpitServiceStub = {
   getOrders: jasmine.createSpy('getOrders').and.returnValue(of(orderData)),
   postOrderPaymentStatus: jasmine.createSpy('getPaymentStatus'),
+  postOrderStauts: jasmine.createSpy('getOrderStatus')
+  
+  
 };
 
 const waiterCockpitServiceSortStub = {
@@ -76,7 +79,7 @@ class TestBedSetUp {
   }
 }
 
-fdescribe('OrderCockpitComponent', () => {
+describe('OrderCockpitComponent', () => {
   let component: OrderCockpitComponent;
   let fixture: ComponentFixture<OrderCockpitComponent>;
   let store: Store<State>;
@@ -155,7 +158,7 @@ fdescribe('OrderCockpitComponent', () => {
     fixture.detectChanges();
     expect(component.orders[0].order.paid).toBe(false);
     const payementButton = el.queryAll(By.css('.mat-checkbox'));
-    click(payementButton[0]);
+    payementButton[0].triggerEventHandler('change', null);
     
     expect(component.orders[0].order.paid).toBe(true);
   });
@@ -165,47 +168,44 @@ fdescribe('OrderCockpitComponent', () => {
     fixture.detectChanges();
     spyOn(component, 'sendPaymentStatus');
     const payementButton = el.queryAll(By.css('.mat-checkbox'));
-    click(payementButton[0]);
+    payementButton[0].triggerEventHandler('change', null);
     tick();
     expect(component.sendPaymentStatus).toHaveBeenCalled();
     }));
 
-    /*
-  it('should call the method sendStatus when clicking a status-change-button ', fakeAsync(() => {
+    
+  it('should call the method sendStatus when clicking a status-change-button ', () => {
     fixture.detectChanges();
     spyOn(component, 'sendStatus');
-    const statusButtona = el.queryAll(By.css('.mat-button-toggle'));
-    console.log(statusButtona.length);
-    console.log(component.orders[0].order.status);
-    click(statusButtona[8]);
-    component.sendStatus(0, component.orders[0]);
-    fixture.detectChanges();
+    const statusButton = el.queryAll(By.css('.mat-button-toggle'));
+    click(statusButton[8]);
     expect(component.sendStatus).toHaveBeenCalled();
-    expect(component.orders[0].order.status).toBe('0');
-    }));
+    });
 
-    /*
-  it('should change its status from Food is being prepared(1) to Order taken(0)', fakeAsync(() => {
-      fixture.detectChanges();
-      expect(component.orders[0].order.status).toBe("1");
-      const orderTakenButton = el.queryAll(By.css('.statusButtons'));
-      click(orderTakenButton[0]);
-      tick();
-      expect(component.orders[0].order.status).toBe("0");
-      //todo: when sendStatus() is being called, option value does not match the expected one.
-      }));
+    
+  it('should change between all possible status-options',() => {
+    fixture.detectChanges();
+    expect(component.orders[0].order.status).toBe("1");
+    const statusButton = el.queryAll(By.css('.mat-button-toggle'));
+    click(statusButton[0]);
+    expect(component.orders[0].order.status).toBe("0");
+    click(statusButton[2]);
+    expect(component.orders[0].order.status).toBe("2");
+    click(statusButton[3]);
+    expect(component.orders[0].order.status).toBe("3");
+    click(statusButton[0]);
+    expect(component.orders[0].order.status).toBe("0");
+      });
+
 
   it('should call the method sendGetCancelOrder when clicking the cancel-order button ', fakeAsync(() => {
       fixture.detectChanges();
       spyOn(component, 'sendGetCancelOrder');
-      const cancelButton = el.queryAll(By.css('.TODO'));
+      const cancelButton = el.queryAll(By.css('.mat-mini-fab'));
       click(cancelButton[0]);
       tick();
-      expect(component.sendgetCancelOrder).toHaveBeenCalled();
+      expect(component.sendGetCancelOrder).toHaveBeenCalled();
       }));
-
-*/
-      
   });
 
 

@@ -9,6 +9,7 @@ export const orderData: any = {
         bookingToken: null,
         hostId: 0,
         status: "1",
+        canceled: false,
         paid: false
       },
       booking: {
