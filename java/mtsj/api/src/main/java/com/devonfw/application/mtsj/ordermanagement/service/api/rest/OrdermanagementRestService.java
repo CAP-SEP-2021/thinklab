@@ -25,123 +25,140 @@ import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderedDishesS
 import com.devonfw.application.mtsj.ordermanagement.logic.api.Ordermanagement;
 
 /**
- * The service interface for REST calls in order to execute the logic of component {@link Ordermanagement}.
+ * The service interface for REST calls in order to execute the logic of
+ * component {@link Ordermanagement}.
  */
 @Path("/ordermanagement/v1")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface OrdermanagementRestService {
 
-  /**
-   * Delegates to {@link Ordermanagement#findOrder}.
-   *
-   * @param id the ID of the {@link OrderEto}
-   * @return the {@link OrderEto}
-   */
-  @GET
-  @Path("/order/{id}/")
-  public OrderCto getOrder(@PathParam("id") long id);
+	/**
+	 * Delegates to {@link Ordermanagement#findOrder}.
+	 *
+	 * @param id the ID of the {@link OrderEto}
+	 * @return the {@link OrderEto}
+	 */
+	@GET
+	@Path("/order/{id}/")
+	public OrderCto getOrder(@PathParam("id") long id);
 
-  /**
-   * Delegates to {@link Ordermanagement#saveOrder}.
-   *
-   * @param order the {@link OrderEto} to be saved
-   * @return the recently created {@link OrderEto}
-   */
-  @POST
-  @Path("/order/")
-  public OrderEto saveOrder(OrderCto order);
+	/**
+	 * Delegates to {@link Ordermanagement#saveOrder}.
+	 *
+	 * @param order the {@link OrderEto} to be saved
+	 * @return the recently created {@link OrderEto}
+	 */
+	@POST
+	@Path("/order/")
+	public OrderEto saveOrder(OrderCto order);
 
-  @POST
-  @Path("/order/status/update/")
-  public OrderEto statusUpdate(@Valid OrderCto order);
+	/**
+	 * Delegates to {@link Ordermanagement#statusUpdate}.
+	 *
+	 * @param order the {@link OrderCto} to be updated
+	 * @return the recently created {@link OrderEto}
+	 */
+	@POST
+	@Path("/order/status/update/")
+	public OrderEto statusUpdate(@Valid OrderCto order);
 
-  @POST
-  @Path("/order/payment/update/")
-  public OrderEto paymentUpdate(@Valid OrderCto order);
-  /**
-   * Delegates to {@link Ordermanagement#deleteOrder}.
-   *
-   * @param id ID of the {@link OrderEto} to be deleted
-   */
-  @DELETE
-  @Path("/order/{id}/")
-  public boolean deleteOrder(@PathParam("id") long id);
+	/**
+	 * Delegates to {@link Ordermanagement#paymentUpdate}.
+	 *
+	 * @param order the {@link OrderCto} to be updated
+	 * @return the recently created {@link OrderEto}
+	 */
+	@POST
+	@Path("/order/payment/update/")
+	public OrderEto paymentUpdate(@Valid OrderCto order);
 
-  @GET
-  @Path("/order/cancelorder/{id}/")
-  public void cancelOrder(@PathParam("id") long id);
+	/**
+	 * Delegates to {@link Ordermanagement#deleteOrder}.
+	 *
+	 * @param id ID of the {@link OrderEto} to be deleted
+	 */
+	@DELETE
+	@Path("/order/{id}/")
+	public boolean deleteOrder(@PathParam("id") long id);
 
-  /**
-   * Delegates to {@link Ordermanagement#findOrderCtos}.
-   *
-   * @param searchCriteriaTo the pagination and search criteria to be used for finding orders.
-   * @return the {@link Page list} of matching {@link OrderCto}s.
-   */
-  @Path("/order/search")
-  @POST
-  public Page<OrderCto> findOrdersByPost(OrderSearchCriteriaTo searchCriteriaTo);
+	/**
+	 * Delegates to {@link Ordermanagement#cancelOrder}.
+	 *
+	 * @param id ID of the {@link OrderEto} to be deleted
+	 */
+	@GET
+	@Path("/order/cancelorder/{id}/")
+	public void cancelOrder(@PathParam("id") long id);
 
-  /**
-   * Delegates to {@link Ordermanagement#findOrderCtos}.
-   *
-   * @param searchCriteriaTo the pagination and search criteria to be used for finding orders.
-   * @return the {@link Page list} of matching {@link OrderCto}s.
-   */
-  @Path("/order/archived")
-  @POST
-  public Page<OrderCto> findArchivedOrders(OrderSearchCriteriaTo searchCriteriaTo);
-  
-  /**
-   * Delegates to {@link Ordermanagement#findOrderLine}.
-   *
-   * @param id the ID of the {@link OrderLineEto}
-   * @return the {@link OrderLineEto}
-   */
-  @GET
-  @Path("/orderline/{id}/")
-  public OrderLineEto getOrderLine(@PathParam("id") long id);
+	/**
+	 * Delegates to {@link Ordermanagement#findOrderCtos}.
+	 *
+	 * @param searchCriteriaTo the pagination and search criteria to be used for
+	 *                         finding orders.
+	 * @return the {@link Page list} of matching {@link OrderCto}s.
+	 */
+	@Path("/order/search")
+	@POST
+	public Page<OrderCto> findOrdersByPost(OrderSearchCriteriaTo searchCriteriaTo);
 
-  /**
-   * Delegates to {@link Ordermanagement#saveOrderLine}.
-   *
-   * @param orderline the {@link OrderLineEto} to be saved
-   * @return the recently created {@link OrderLineEto}
-   */
-  @POST
-  @Path("/orderline/")
-  public OrderLineEto saveOrderLine(OrderLineEto orderline);
+	/**
+	 * Delegates to {@link Ordermanagement#findOrderCtos}.
+	 *
+	 * @param searchCriteriaTo the pagination and search criteria to be used for
+	 *                         finding orders.
+	 * @return the {@link Page list} of matching {@link OrderCto}s.
+	 */
+	@Path("/order/archived")
+	@POST
+	public Page<OrderCto> findArchivedOrders(OrderSearchCriteriaTo searchCriteriaTo);
 
-  /*
-  @POST
-  @Path("/orderlineupdate/")
-  public OrderLineEto updateOrderLine(OrderLineEto orderline);
-  */
-  
-  @POST
-  @Path("/orderline/update/")
-  public OrderLineEto updateOrderLine(OrderLineCto orderline);
-  /**
-   * Delegates to {@link Ordermanagement#deleteOrderLine}.
-   *
-   * @param id ID of the {@link OrderLineEto} to be deleted
-   */
-  @DELETE
-  @Path("/orderline/{id}/")
-  public void deleteOrderLine(@PathParam("id") long id);
+	/**
+	 * Delegates to {@link Ordermanagement#findOrderLine}.
+	 *
+	 * @param id the ID of the {@link OrderLineEto}
+	 * @return the {@link OrderLineEto}
+	 */
+	@GET
+	@Path("/orderline/{id}/")
+	public OrderLineEto getOrderLine(@PathParam("id") long id);
 
-  /**
-   * Delegates to {@link Ordermanagement#findOrderLineEtos}.
-   *
-   * @param searchCriteriaTo the pagination and search criteria to be used for finding orderlines.
-   * @return the {@link Page list} of matching {@link OrderLineEto}s.
-   */
-  @Path("/orderline/search")
-  @POST
-  public Page<OrderLineCto> findOrderLinesByPost(OrderLineSearchCriteriaTo searchCriteriaTo);
+	/**
+	 * Delegates to {@link Ordermanagement#saveOrderLine}.
+	 *
+	 * @param orderline the {@link OrderLineEto} to be saved
+	 * @return the recently created {@link OrderLineEto}
+	 */
+	@POST
+	@Path("/orderline/")
+	public OrderLineEto saveOrderLine(OrderLineEto orderline);
 
-  @Path("/ordereddishes/history")
-  @POST
-  public Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo searchCriteriaTo);
+	@POST
+	@Path("/orderline/update/")
+	public OrderLineEto updateOrderLine(OrderLineCto orderline);
+
+	/**
+	 * Delegates to {@link Ordermanagement#deleteOrderLine}.
+	 *
+	 * @param id ID of the {@link OrderLineEto} to be deleted
+	 */
+	@DELETE
+	@Path("/orderline/{id}/")
+	public void deleteOrderLine(@PathParam("id") long id);
+
+	/**
+	 * Delegates to {@link Ordermanagement#findOrderLineEtos}.
+	 *
+	 * @param searchCriteriaTo the pagination and search criteria to be used for
+	 *                         finding orderlines.
+	 * @return the {@link Page list} of matching {@link OrderLineEto}s.
+	 */
+	@Path("/orderline/search")
+	@POST
+	public Page<OrderLineCto> findOrderLinesByPost(OrderLineSearchCriteriaTo searchCriteriaTo);
+
+	@Path("/ordereddishes/history")
+	@POST
+	public Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo searchCriteriaTo);
 
 }

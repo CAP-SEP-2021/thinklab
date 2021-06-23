@@ -1,36 +1,36 @@
 <mat-tab-group mat-stretch-tabs>
-    <mat-tab label="User Information" class="UserInfoTab">
+    <mat-tab label="{{'userManagement.userInformation.userInformation' | transloco}}" class="UserInfoTab">
        <div class="float-container">
 
-        <div class="float-child">
-            <img src="./assets/images/star.person.info.s.png" alt="this is my pic">
+       <!-- <div class="float-child">
+           <img src="./assets/images/star.person.info.s.png" alt="this is my pic">
         </div>
-    
+    --> 
         <div class="float-child">
-        <form [formGroup]="checkoutForm2" (ngSubmit)="onSubmit2()">
+        <form [formGroup]="Form" (ngSubmit)="onSubmit()">
         <p>
             <mat-form-field appearance="outline" class="matfield">
-              <mat-label>User Name</mat-label>
-              <input matInput value="{{UserInfo.username}}" formControlName="username">
+              <mat-label>{{'userManagement.userInformation.userName' | transloco}}</mat-label>
+              <input matInput value="{{userInfo.username}}" formControlName="username">
               <mat-icon matSuffix>person_outline</mat-icon>
               <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">
                 <div *ngIf="username.errors.required">
-                 please insert a Username
+                    {{'userManagement.formErrors.addUserNameRequired' | transloco}}
                 </div>
               </mat-error>
             </mat-form-field>
           </p>
           <p>
             <mat-form-field appearance="outline" class="matfield">
-              <mat-label>User Email</mat-label>
-              <input matInput value="{{UserInfo.email}}" formControlName="email">
+              <mat-label>{{'userManagement.userInformation.userEmail' | transloco}}</mat-label>
+              <input matInput value="{{userInfo.email}}" formControlName="email">
               <mat-icon matSuffix>email</mat-icon>
               <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
                 <div *ngIf="email.errors.required">
-                 please insert the Email adress
+                    {{'userManagement.formErrors.addUserEmailRequired' | transloco}}
                 </div>
                 <div *ngIf="email.errors.pattern">
-                  Email is not valid
+                    {{'userManagement.formErrors.addUserEmailPattern' | transloco}}
                 </div>
               </mat-error>
              
@@ -39,12 +39,12 @@
    
           <p class="ng-hide">
             <mat-form-field appearance="outline" class="matfield" >
-              <mat-label class="col-sm-2 col-form-label">User Role</mat-label>
-              <mat-select value="{{UserInfo.userRoleId}}" placeholder="{{UserInfo.userRoleId}}" formControlName="userRoleId" >
-                <mat-option value="0">User</mat-option>
-                <mat-option value="1">Waiter</mat-option>
-                <mat-option value="2">Manager</mat-option>
-                <mat-option value="3">Admin</mat-option>
+              <mat-label class="col-sm-2 col-form-label">{{'userManagement.userRole' | transloco}}</mat-label>
+              <mat-select value="{{userInfo.userRoleId}}" placeholder="{{userInfo.userRoleId}}" formControlName="userRoleId" >
+                <mat-option value="0">{{'userManagement.roleCustomer' | transloco}}</mat-option>
+                <mat-option value="1">{{'userManagement.roleWaiter' | transloco}}</mat-option>
+                <mat-option value="2">{{'userManagement.roleManager' | transloco}}</mat-option>
+                <mat-option value="3">{{'userManagement.roleAdmin' | transloco}}</mat-option>
               </mat-select>
               <mat-icon matSuffix>account_circle</mat-icon>
             </mat-form-field>
@@ -55,16 +55,15 @@
         <div class="btn-toolbar">
     
             <div class="left-btn">
-                <button mat-button type="submit" mat-dialog-close [disabled]="!checkoutForm2.valid"><mat-icon matSuffix>update</mat-icon>Update User Information 
-                    
+                <button mat-button type="submit" mat-dialog-close color="accent" [disabled]="!Form.valid"><mat-icon matSuffix>update</mat-icon>{{'buttons.updateUserInformation' | transloco}}
                 </button>
-                <button mat-stroked-button mat-dialog-close color="warn" (click)="deleteUser()"><mat-icon matSuffix>
+                <button mat-stroked-button type="button" color="warn" (click)="deleteUser()"><mat-icon matSuffix>
                     <span class="material-icons-outlined">
                         delete_forever
-                        </span></mat-icon>Delete user</button>
+                        </span></mat-icon>{{'buttons.deleteUser' | transloco}}</button>
             </div>
             <div class="right-btn">
-                <button mat-button mat-dialog-close color="accent">{{'buttons.close' | transloco |
+                <button mat-button mat-dialog-close type="button"  >{{'buttons.close' | transloco |
                     uppercase}}</button>
             </div>
 
@@ -126,8 +125,11 @@
     </mat-tab>
 -->
 
+   
 
-    <mat-tab label='Manage Password' class="PasswordTab">
+ <!--  
+     <mat-tab label="{{'userManagement.managePassword' | transloco}}" class="PasswordTab">
+
        
         <div class="float-container">
 
@@ -136,17 +138,18 @@
         </div>
     
         <div class="float-child">
-        <!--    <h3> Username: <p>{{UserInfo.username}}</p> <br>  Email: <p>{{UserInfo.email}}</p> </h3>-->
-            <h3>Username:<span>{{UserInfo.username}}</span></h3>
-            <h3>Email:<span>{{UserInfo.email}}</span> </h3>
+        
+            <h3>{{'userManagement.userManagement.usernameH' | transloco}}<span>{{UserInfo.username}}</span></h3>
+            <h3>{{'userManagement.userManagement.emailH' | transloco}}<span>{{UserInfo.email}}</span> </h3>
+
             <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
                 <div class="form-group row">
                     <mat-form-field class="matfield" appearance="outline">
-                        <mat-label class="col-sm-2 col-form-label">password</mat-label>
+                        <mat-label class="col-sm-2 col-form-label">{{'userManagement.userManagement.password' | transloco}}</mat-label>
                         <input type="password" matInput formControlName="password"   [type]="fieldTextType ? 'text' : 'password'">
                         <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
                             <div *ngIf="password.errors.required">
-                                please insert a password
+                                {{'userManagement.formErrors.passwordRequiredPrompt' | transloco}}
                             </div>
                         </mat-error>
                         <mat-icon matSuffix (click)="toggleFieldTextType()" ><span class="material-icons-outlined">
@@ -157,12 +160,12 @@
     
                 <div class="form-group row">
                     <mat-form-field class="matfield" appearance="outline">
-                        <mat-label class="col-sm-2 col-form-label">Repeat Password</mat-label>
+                        <mat-label class="col-sm-2 col-form-label">{{'userManagement.userManagement.repeatPassword' | transloco}}</mat-label>
                         <input type="confirmedPassword" matInput formControlName="confirmedPassword" [type]="fieldTextType ? 'text' : 'password'">
                         <mat-error *ngIf="f.confirmedPassword.touched && f.confirmedPassword.invalid"
                             class="alert alert-danger">
-                            <div *ngIf="f.confirmedPassword.errors.required">Password is required.</div>
-                            <div *ngIf="f.confirmedPassword.errors.confirmedValidator">Password must be match.</div>
+                            <div *ngIf="f.confirmedPassword.errors.required">{{'userManagement.formErrors.passwordRequiredPrompt' | transloco}}</div>
+                            <div *ngIf="f.confirmedPassword.errors.confirmedValidator">{{'userManagement.formErrors.passwordMatchPrompt' | transloco}}</div>
                         </mat-error>
                         <mat-icon matSuffix (click)="toggleFieldTextType()" ><span class="material-icons-outlined">
                             {{icon}}
@@ -171,14 +174,6 @@
     
     
     
-                        <!--  <mat-error *ngIf="confirmedPassword.touched && confirmedPassword.invalid">
-                            <div *ngIf="confirmedPassword.errors.required">
-                                please repeat password
-                            </div>
-                        </mat-error>
-                        <mat-error *ngIf="checkoutForm.hasError('notSame')">
-                            your new passwords are not match
-                        </mat-error>-->
                     </mat-form-field>
                 </div>
     
@@ -189,11 +184,11 @@
                             <span class="material-icons-outlined">
                                 vpn_key
                                 </span></mat-icon>
-                                Update User Password                          
+                                {{'buttons.updatePassword' | transloco}}                         
                         </button>
-                        <button mat-stroked-button mat-dialog-close color="warn" (click)="sendGetCancelOrder()">
+                        <button mat-stroked-button mat-dialog-close color="warn" (click)="resetUserPassword()">
                             <mat-icon matSuffix> email</mat-icon>
-                            Send reset Link
+                            {{'buttons.sendResetLink' | transloco}}
                              </button>
                     </div>
                     <div class="right-btn">
@@ -216,5 +211,5 @@
         
 
     </mat-tab>
-
+-->
 </mat-tab-group>

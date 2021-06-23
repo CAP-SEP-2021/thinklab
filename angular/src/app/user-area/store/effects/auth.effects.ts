@@ -20,6 +20,7 @@ import { LoginDialogComponent } from '../../components/login-dialog/login-dialog
 import { UserAreaService } from '../../services/user-area.service';
 import * as authActions from '../actions/auth.actions';
 import { TranslocoService } from '@ngneat/transloco';
+import { TokenString } from 'app/user-area/models/user';
 
 @Injectable()
 export class AuthEffects {
@@ -184,7 +185,7 @@ export class AuthEffects {
             return this.router.navigate(['orders']);
           } else if (role === 'MANAGER') {
             return this.router.navigate(['orders']);
-          }else if (role === 'ADMIN') { //@mo added to navigate to automaticllay usermangement component 
+          }else if (role === 'ADMIN') { 
             return this.router.navigate(['usermanagement']);}
         }),
       ),
@@ -220,6 +221,62 @@ export class AuthEffects {
       ),
     { dispatch: false },
   );
+
+
+
+
+updatePassword$ = createEffect(() =>
+this.actions$.pipe(
+  ofType(authActions.updatePassword),
+  map((UserPasswordToken) => UserPasswordToken),
+  switchMap((UserPasswordToken: any) => {
+    return this.userService.resetPassword(UserPasswordToken.UserInfo).pipe(
+      map((res: any) =>
+      authActions.updatePasswordSuccess(),
+      ),
+      catchError((error) => of(authActions.updatePasswordFail({ error }))),
+    );
+  }),
+),
+);
+
+updatePasswordSuccess$ = createEffect(
+() =>
+  this.actions$.pipe(
+    ofType(authActions.updatePasswordSuccess),
+    tap(() => {
+      this.snackBar.openSnack(
+        this.translocoService.translate('userManagement.userManagement.updateSuccess'),
+        7000,
+        'green',
+      );
+      this.router.navigateByUrl('/restaurant');
+    }),
+  ),
+{ dispatch: false },
+);
+
+updatePasswordFail$ = createEffect(
+() =>
+  this.actions$.pipe(
+    ofType(authActions.updatePasswordFail),
+    tap(() => {
+      this.snackBar.openSnack(
+        "Error please try again later",
+        7000,
+        'red',
+      );
+      this.router.navigateByUrl('/restaurant');
+    }),
+  ),
+{ dispatch: false },
+);
+
+
+
+
+
+
 
   constructor(
     private actions$: Actions,

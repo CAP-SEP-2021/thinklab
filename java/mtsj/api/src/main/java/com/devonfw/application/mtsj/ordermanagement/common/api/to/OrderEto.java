@@ -107,13 +107,13 @@ public class OrderEto extends AbstractEto implements Order {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (archived ? 1231 : 1237);
-//	result = prime * result + ((available_status == null) ? 0 : available_status.hashCode()); // TODO
+		result = prime * result + status;
 		result = prime * result + ((bookingId == null) ? 0 : bookingId.hashCode());
 		result = prime * result + ((bookingToken == null) ? 0 : bookingToken.hashCode());
 		result = prime * result + (canceled ? 1231 : 1237);
 		result = prime * result + ((hostId == null) ? 0 : hostId.hashCode());
 		result = prime * result + ((invitedGuestId == null) ? 0 : invitedGuestId.hashCode());
-//	result = prime * result + ((status == null) ? 0 : status.hashCode());	// TODO
+		result = prime * result + (archived ? 1231 : 1237);
 		return result;
 	}
 

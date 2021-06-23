@@ -34,31 +34,17 @@ export class UsermanagementCockpitService {
   
   private readonly getUsersRestPath: string =
   'usermanagement/v1/user/search';
-
-
-
   private readonly createUserRestPath: string =
   'usermanagement/v1/user/';
   private readonly deleteUserRestPath: string =
   'usermanagement/v1/user/';
   private readonly updateUserRestPath: string =
   'usermanagement/v1/user/update/';
-/*
-  private readonly getReservationsRestPath: string =
-  'bookingmanagement/v1/booking/search';
-private readonly getOrdersRestPath: string =
-  'ordermanagement/v1/order/search';
-private readonly filterOrdersRestPath: string =
-  'ordermanagement/v1/order/search';
-private readonly orderUpdateRestPath: string =
-  'ordermanagement/v1/order/status/update'; 
-  private readonly orderCancelRestPath: string =
-  'ordermanagement/v1/order/cancelorder';
-  private readonly orderArchivRestPath: string =
-  'ordermanagement/v1/order/archived';
-  private readonly filtersDishRestPath: string = 
-  'dishmanagement/v1/dish/search';
-*/
+  private readonly resetUserPasswordRestPath: string =
+  'usermanagement/v1/user/reset/password/request/';
+
+
+  
 private readonly restServiceRoot$: Observable<
   string
 > = this.config.getRestServiceRoot();
@@ -109,6 +95,14 @@ updateUser(UserInfo :UserInfo){
   return this.restServiceRoot$.pipe(
     exhaustMap((restServiceRoot) =>
       this.http.post(`${restServiceRoot}${this.updateUserRestPath}`, UserInfo),
+    ),
+  );
+}
+resetUserPassword(Email :String){
+ let body = {email : Email};
+  return this.restServiceRoot$.pipe(
+    exhaustMap((restServiceRoot) =>
+      this.http.post(`${restServiceRoot}${this.resetUserPasswordRestPath}`, body),
     ),
   );
 }

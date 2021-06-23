@@ -1,5 +1,6 @@
 package com.devonfw.application.mtsj.usermanagement.logic.impl;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -137,8 +138,8 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			
 			host.setModificationCounter(host.getModificationCounter());
 			host.setUser(null);
-			host.setEmail(null);
-			host.setName(null);
+			host.setEmail("deleted");
+			host.setName("deleted");
 			bookingRepository.save(host);
 		}
 		
@@ -150,14 +151,21 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
 		UserEntity user = getUserDao().find(userId);
 		
-		//preDeleteFromBooking(user);
+		preDeleteFromBooking(user);
 		//preDeleteFromOrder(user);
 		
 		if(user.getUserRoleId() == 3L) {
-			throw new IllegalStateException("Admin cant be deleted.");
+			throw new IllegalStateException("User cant be deleted because its an Admin.");
 		}
 		
 		// delete the user
+		try {
+			getUserDao().delete(user);			
+		} catch (Exception e) {
+			throw new IllegalStateException("Is there perhaps an existing reference "
+					+ "of the user in another table?");
+		}
+		
 		getUserDao().delete(user);
 		
 		LOG.debug("The user with id '{}' has been deleted.", userId);
@@ -186,7 +194,8 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			// check timestamps
 			if(checkTimeStampsForToken(tokenEntity)) {
 				resetTokenDao.delete(tokenEntity);
-				return notifyUser(user.getUsername(), "Your Token expired. Please request a new Token");
+				throw new EntityNotFoundException("Given Token not bound to any Account");
+//				return notifyUser(user.getUsername(), "Your Token expired. Please request a new Token");
 				//return "Your Token expired. Please request a new Token";
 			}
 			
@@ -209,14 +218,14 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			return notifyUser(user.getUsername(), "Your Password changed.");
 
 		} else {
-			return notifyUser(null, "Given Token not bound to any Account");
-			//return "Given Token not bound to any Account";
+			throw new EntityNotFoundException("Given Token not bound to any Account");
+			//return notifyUser(null, "Given Token not bound to any Account");
 		}
 	}
 	
 	// Alternative: GET with token only for validating, return success or failure
 	@Override
-	public String validateToken(String token) {
+	public void validateToken(String token) {
 
 		// grab the requested token
 		ResetTokenEntity tokenEntity = resetTokenDao.findByToken(token);
@@ -226,12 +235,11 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			// check timestamps
 			if(checkTimeStampsForToken(tokenEntity)) {
 				resetTokenDao.delete(tokenEntity);
-				return "failure";
+				throw new EntityNotFoundException("Token invalid - not validated within time");
 			}
-			return "success";
 			
 		} else {
-			return "failure";
+			throw new EntityNotFoundException("Token invalid - does not exists");
 		}
 	}
 	
@@ -273,7 +281,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			resetTokenDao.save(checkedTokenEntity);
 
 			// inform the user
-			utils.send_reset_mail(requester, checkedTokenEntity);
+			utils.send_resettoken_mail(requester, checkedTokenEntity);
 
 			return notifyUser(requester.getUsername(), "Email sent.");
 

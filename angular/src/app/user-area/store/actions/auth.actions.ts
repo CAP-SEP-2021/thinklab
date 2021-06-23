@@ -1,5 +1,5 @@
 import { props, createAction, union } from '@ngrx/store';
-import { TokenString, UserDataResponse } from '../../models/user';
+import { TokenString, UserDataResponse, UserPasswordToken } from '../../models/user';
 
 export const openDialog = createAction('[Auth] Open Dialog');
 
@@ -37,6 +37,22 @@ export const verifyTwoFactor = createAction(
   props<{ username: string; password: string }>(),
 );
 
+
+export const updatePassword = createAction(
+  '[updatePassword] updatePassword ',
+  props<{UserInfo :UserPasswordToken }>(),
+);
+
+export const updatePasswordSuccess = createAction(
+  '[updatePassword] updatePassword success',
+  
+);
+
+export const updatePasswordFail = createAction(
+  '[updatePassword] updatePassword Fail',
+  props<{ error: Error }>(),
+);
+
 // action types
 const all = union({
   openDialog,
@@ -48,5 +64,8 @@ const all = union({
   logout,
   logoutFail,
   verifyTwoFactor,
+  updatePassword,
+  updatePasswordSuccess,
+  updatePasswordFail,
 });
 export type AuthActions = typeof all;

@@ -55,10 +55,11 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
     'booking.bookingDate',
     'booking.tableId',
-    'booking.email',
-    'booking.bookingToken',
+    'booking.name',
+   // 'booking.bookingToken', no need to display bookingToken on order-cockpit
     'paymentStatus',
     'status',
+    'cancel',
   ];
   status: string[];
 
@@ -93,7 +94,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   }
 
   sendStatus(option, element: OrderListView): void {
-    let newStatus = this.status.indexOf(option).toString();
+    let newStatus = option.toString();
     element.order.status = newStatus;
     let temp = { order: { id: element.order.id, status: newStatus } }; // @mo change later
     this.waiterCockpitService.postOrderStauts(temp).subscribe((data: any) => {
@@ -102,7 +103,18 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     });
   }
 
+  sendGetCancelOrder(element: OrderListView): void{
+    console.log("ts started ");
+    
+    this.waiterCockpitService.getCancelOrder(element.order.id).subscribe((data: any) => {
+     console.log("this is the response data ");
+     this.applyFilters();
+     
+    });; 
+  }
+
   sendPaymentStatus(newPaymentStatus: boolean, element: OrderListView): void {
+    element.order.paid = newPaymentStatus;
     let temp = { order: { id: element.order.id, paid: newPaymentStatus } }; // @mo change later
     this.waiterCockpitService.postOrderPaymentStatus(temp).subscribe((data: any) => {
       // @mo musst be changed
@@ -118,10 +130,11 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         this.columns = [
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
           { name: 'booking.tableId', label: cockpitTable.tableIdH },
-          { name: 'booking.email', label: cockpitTable.emailH },
-          { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
+          { name: 'booking.name', label: cockpitTable.ownerH },
+        //  { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH }, no need to display bookingToken on order-cockpit
           { name: 'paymentStatus', label: cockpitTable.paymentStatusH },
           { name: 'status', label: cockpitTable.statusH },
+          { name: 'cancel', label: cockpitTable.cancelH},
         ];
          this.status = [
             cockpitTable.statusTaken ,
@@ -151,8 +164,6 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           this.orders = [];
         } else {
           this.orders = data.content;
-      /*    console.log('all data ');
-          console.log(this.orders);*/
         }
         this.totalOrders = data.totalElements;
       });

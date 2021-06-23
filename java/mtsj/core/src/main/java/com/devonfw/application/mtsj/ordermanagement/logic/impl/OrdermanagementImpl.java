@@ -270,45 +270,45 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 	boolean doOrderExists(OrderCto order) {
 		return orderDao.findById(order.getOrder().getId()) == null ? false : true;
 	}
-	
+
 	@Override
 	public boolean cancelOrder(Long orderId) {
-				
+
 		try {
 			OrderEntity updatingEntity = getOrderDao().find(orderId);
 			updatingEntity.setCanceled(!updatingEntity.getCanceled());
-			
-			if(updatingEntity.getArchived()) {
+
+			if (updatingEntity.getArchived()) {
 				updatingEntity.setArchived(!updatingEntity.getArchived());
 				updatingEntity.setCanceled(false);
-				
-				if(updatingEntity.getPaid()==true && updatingEntity.getStatus()==3)
+
+				if (updatingEntity.getPaid() == true && updatingEntity.getStatus() == 3)
 					updatingEntity.setStatus(0);
-				
+
 			} else {
 				updatingEntity.setArchived(true);
 			}
-			
+
 			getOrderDao().save(updatingEntity);
 			return true;
-			
+
 		} catch (EntityNotFoundException e) {
 			LOG.debug("Order with id '{}' for set canceling not found in db.", orderId);
 			throw new EntityNotFoundException("Order for change cancel-state not found");
 		}
 	}
-	
+
 	@Override
 	public OrderEto updatePaymentStatus(@Valid OrderCto order) {
 		Objects.requireNonNull(order, "order");
-		
-		if(doOrderExists(order)) {
+
+		if (doOrderExists(order)) {
 			OrderEntity updatingEntity = getOrderDao().find(order.getOrder().getId());
 			updatingEntity.setId(order.getOrder().getId());
-			updatingEntity.setPaid(order.getOrder().getPaid());			
+			updatingEntity.setPaid(order.getOrder().getPaid());
 
 			updatingEntity.setArchived(shouldBeArchived(updatingEntity));
-			
+
 			OrderEntity resultEntity = getOrderDao().save(updatingEntity);
 			return getBeanMapper().map(resultEntity, OrderEto.class);
 		} else {
@@ -316,28 +316,24 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 			throw new EntityNotFoundException("Order for updating not found");
 		}
 	}
-	
-	
-	
+
 	private boolean shouldBeArchived(OrderEntity order) {
-		
-		return order.getStatus()==3 && 
-				order.getPaid()==true &&
-					order.getArchived()==false;
+
+		return order.getStatus() == 3 && order.getPaid() == true && order.getArchived() == false;
 	}
-	
+
 	@Override
 	public OrderEto updateWaiterStatus(OrderCto order) {
 		Objects.requireNonNull(order, "order");
-		
-		if(doOrderExists(order)) {
+
+		if (doOrderExists(order)) {
 			OrderEntity updatingEntity = getOrderDao().find(order.getOrder().getId());
 			updatingEntity.setId(order.getOrder().getId());
 			updatingEntity.setStatus(order.getOrder().getStatus());
-			
-			if(updatingEntity.getArchived()==false)
+
+			if (updatingEntity.getArchived() == false)
 				updatingEntity.setArchived(shouldBeArchived(updatingEntity));
-			
+
 			OrderEntity resultEntity = getOrderDao().save(updatingEntity);
 			return getBeanMapper().map(resultEntity, OrderEto.class);
 		} else {
@@ -347,25 +343,26 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 	}
 
 	@Override
-	public OrderLineEto updateOrderLine(OrderLineCto orderLine) {		
+	public OrderLineEto updateOrderLine(OrderLineCto orderLine) {
 		Objects.requireNonNull(orderLine, "orderLine");
-		
+
 		// mapping
 		OrderLineEntity orderLineEntity = getBeanMapper().map(orderLine.getOrderLine(), OrderLineEntity.class);
 
 		// mapping new extras if exists, delete existing extraingreds
-		// do not touch auto_increment https://stackoverflow.com/questions/2214141/auto-increment-after-delete-in-mysql
+		// do not touch auto_increment
+		// https://stackoverflow.com/questions/2214141/auto-increment-after-delete-in-mysql
 		orderLineEntity.setExtras(getBeanMapper().mapList(orderLine.getExtras(), IngredientEntity.class));
-		
-		// find existing orderline and set		
+
+		// find existing orderline and set
 		OrderLineEntity toFind = orderLineDao.find(orderLine.getOrderLine().getId());
 		orderLineEntity.setModificationCounter(toFind.getModificationCounter());
-		
+
 		// update and return new orderline
 		OrderLineEntity resultOrderLineEntity = getOrderLineDao().save(orderLineEntity);
 		return getBeanMapper().map(resultOrderLineEntity, OrderLineEto.class);
 	}
-	
+
 	@Override
 	public OrderEto saveOrder(OrderCto order) {
 
@@ -456,7 +453,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 
 		return getBeanMapper().map(resultEntity, OrderLineEto.class);
 	}
-	
+
 	/**
 	 * Returns the field 'orderLineDao'.
 	 *

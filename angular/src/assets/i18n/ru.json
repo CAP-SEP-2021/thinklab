@@ -16,7 +16,11 @@
         "cancelOrder" : "отменить заказ",
         "reactivateOrder" : "Активировать заказ",
         "addUser" : "Добавить пользователей",
-        "copyBookingId": "Скопируйте идентификатор бронирования"
+        "copyBookingId": "Скопируйте идентификатор бронирования",
+        "updateUserInformation": "Обновить информацию о пользователе",
+        "deleteUser": "Удалить пользователя",
+        "updatePassword": "Обновить пароль",
+        "sendResetLink": "Отправить ссылку для сброса"
     },
     "table": {
         "rowsPage": "Строк на страницу",
@@ -206,13 +210,15 @@
             "statusDelivered" : "Еда прибыла",
             "statusTaken" :"Заказ принят",
             "statusPrepared": "Еда готовится",
-            "statusInDelivery":"Еда доставляется"
+            "statusInDelivery":"Еда доставляется",
+            "cancelH": "Отмена",
+            "reactivateH": "Реактивировать"
         },
         "userTable": {
             "userName" : "Имя пользователя",
             "userRole" : "Роль пользователя",
             "id" : "Идентификатор",
-            "emailH": "Email"
+            "emailH": "Электронное письмо"
           }
     },
     "userManagement": {
@@ -222,11 +228,30 @@
         "roleWaiter" : "Официант",
         "roleManager" : "Менеджер",
         "roleAdmin" : "Админ",
+        "managePassword": "Управлять паролем",
         "formErrors" : {
-        "addUserNameRequired" : "Обязательное поле. Пожалуйста введите имя пользователя",
-        "addUserEmailRequired" : "Обязательное поле. Пожалуйста, введите адрес электронной почты",
-        "addUserEmailPattern" : "Введите действующий адрес электронной почты, например, email@email.com",
-        "addUserPasswordRequired" : "Обязательное поле. Пожалуйста, введите пароль"
+            "addUserNameRequired" : "Обязательное поле. Пожалуйста введите имя пользователя.",
+            "addUserEmailRequired" : "Обязательное поле. Пожалуйста, введите адрес электронной почты.",
+            "addUserEmailPattern" : "Введите действующий адрес электронной почты, например, email@email.com.",
+            "passwordRequiredPrompt" : "Обязательное поле. Пожалуйста, введите пароль.",
+            "passwordMatchPrompt": "Пароли не совпадают."
+        },
+        "userInformation": {
+          "userInformation": "информация о пользователе",
+          "userName": "Имя пользователя",
+          "userEmail": "Электронная почта пользователя"
+        },
+        "userManagement":{
+          "usernameH": "Имя пользователя:",
+          "emailH": "Электронное письмо:",
+          "password": "пароль",
+          "repeatPassword": "повторить пароль",
+          "updatePassword": "Обновить пароль пользователя",
+          "resetLink": "Отправить ссылку для сброса",
+          "updateSuccess": "Обновление данных пользователя прошло успешно",
+          "checkLink": "Проверка ссылки ...",
+          "redirect": "скоро вы будете перенаправлены",
+          "wait": "Пожалуйста, подождите"
         }
       }
 }

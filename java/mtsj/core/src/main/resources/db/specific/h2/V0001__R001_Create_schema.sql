@@ -60,7 +60,7 @@ CREATE TABLE Booking (
   expirationDate TIMESTAMP,
   creationDate TIMESTAMP,
   canceled BOOLEAN NOT NULL DEFAULT ((0)) ,
---  bezahlt BOOLEAN NOT NULL DEFAULT ((0)),
+  delivery BOOLEAN DEFAULT ((0)) ,
   bookingType INTEGER,
   idTable BIGINT,
   idOrder BIGINT,

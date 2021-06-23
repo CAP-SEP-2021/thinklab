@@ -5,11 +5,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.devonfw.module.basic.common.api.to.AbstractEto;
 
+/**
+ * Entity transport object of ResetTokenEto
+ */
 public class ResetTokenEto extends AbstractEto {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private String token;

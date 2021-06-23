@@ -68,10 +68,10 @@ export class OrderDialogComponent implements OnInit {
     "maxPrice":null,"minLikes":null
     };
     this.dishes = this.waiterCockpitService.getDishes(tempbody);
-    console.log("dishes");
-    console.log(this.dishes);
+    
+    
 
-    console.log(this.data) ;
+    
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
     });
@@ -79,8 +79,8 @@ export class OrderDialogComponent implements OnInit {
     this.totalPrice = this.waiterCockpitService.getTotalPrice(
       this.data.orderLines,
     );
-    console.log("befor filtered data ");
-    console.log(this.filteredData);
+    
+    
     this.datao = this.waiterCockpitService.orderComposer(this.data.orderLines);
     this.datat.push(this.data.booking);
     this.filter();
@@ -141,8 +141,7 @@ export class OrderDialogComponent implements OnInit {
     let newData: any[] = this.datao;
     newData = newData.slice(this.fromRow, this.currentPage * this.pageSize);
     setTimeout(() => (this.filteredData = newData));
-    console.log("filtered data ");
-    console.log(this.filteredData);
+    
   }
 /*
   logrow(element :OrderView , event : any ) :void{

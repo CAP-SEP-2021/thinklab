@@ -16,7 +16,11 @@
     "cancelOrder" : "Anuluj zamówienie",
     "reactivateOrder" : "Ponownie aktywuj zamówienie",
     "addUser" : "Dodaj użytkowników",
-    "copyBookingId": "Skopiuj identyfikator rezerwacji"
+    "copyBookingId": "Skopiuj identyfikator rezerwacji",
+    "updateUserInformation": "Zaktualizuj informacje o użytkowniku",
+    "deleteUser": "Usuń użytkownika",
+    "updatePassword": "Aktualizować hasło",
+    "sendResetLink": "Wyślij link do resetowania"
   },
   "table": {
     "rowsPage": "Ilosc rzedów na stronie",
@@ -215,13 +219,15 @@
       "statusDelivered" : "Przyszło jedzenie",
       "statusTaken" :"Zamówienie przyjęte",
       "statusPrepared": "Przygotowywane jest jedzenie",
-      "statusInDelivery":"Dostarczono jedzenie"
+      "statusInDelivery":"Dostarczono jedzenie",
+      "cancelH": "Anuluj",
+      "reactivateH": "Reaktywować"
     },
     "userTable": {
       "userName" : "Nazwa Użytkownika",
       "userRole" : "Rola użytkownika",
       "id" : "ID",
-      "emailH": "Email"
+      "emailH": "E-mail"
     }
   },
   "userManagement": {
@@ -231,11 +237,30 @@
     "roleWaiter" : "Kelner",
     "roleManager" : "Menedżer",
     "roleAdmin" : "Administrator",
+    "managePassword": "Zarządzaj hasłem",
     "formErrors" : {
-    "addUserNameRequired" : "Pole wymagane. Proszę, wpisz nazwę użytkownika",
-    "addUserEmailRequired" : "Pole wymagane. Proszę wpisać email",
-    "addUserEmailPattern" : "Wpisz prawidłowy adres e-mail, np. Email@email.com",
-    "addUserPasswordRequired" : "Pole wymagane. proszę wprowadzić hasło"
+      "addUserNameRequired" : "Pole wymagane. Proszę, wpisz nazwę użytkownika.",
+      "addUserEmailRequired" : "Pole wymagane. Wprowadź adres e-mail.",
+      "addUserEmailPattern" : "Wprowadź prawidłowy adres e-mail, na przykład email@email.com.",
+      "passwordRequiredPrompt" : "Pole wymagane. Proszę wprowadzić hasło.",
+      "passwordMatchPrompt": "Hasła się nie zgadzają."
+    },
+    "userInformation": {
+      "userInformation": "Informacje o użytkowniku",
+      "userName": "Nazwa Użytkownika",
+      "userEmail": "Adres e-mail użytkownika"
+    },
+    "userManagement":{
+      "usernameH": "Nazwa Użytkownika:",
+      "emailH": "E-mail:",
+      "password": "hasło",
+      "repeatPassword": "Powtórz hasło",
+      "updatePassword": "Zaktualizuj hasło użytkownika",
+      "resetLink": "Wyślij link do resetowania",
+      "updateSuccess": "Aktualizacja danych użytkownika powiodła się",
+      "checkLink": "Sprawdzam link...",
+      "redirect": "wkrótce zostaniesz przekierowany",
+      "wait": "Proszę czekać"
     }
   }
 }

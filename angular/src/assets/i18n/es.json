@@ -16,7 +16,11 @@
     "cancelOrder" : "Cancelar orden",
     "reactivateOrder" : "Reactivar orden",
     "addUser" : "Agregar usuarios",
-    "copyBookingId": "Copiar ID de reserva"
+    "copyBookingId": "Copiar ID de reserva",
+    "updateUserInformation": "Actualitzeu la informació de l'usuari",
+    "deleteUser": "Suprimeix l'usuari",
+    "updatePassword": "Actualiza contraseña",
+    "sendResetLink": "Enviar enlace de restablecimiento"
   },
   "table": {
     "rowsPage": "Filas por página",
@@ -206,13 +210,15 @@
       "statusDelivered" : "Ha llegado la comida",
       "statusTaken" :"Orden tomada",
       "statusPrepared": "Se está preparando la comida",
-      "statusInDelivery":"Se entrega comida"
+      "statusInDelivery":"Se entrega comida",
+      "cancelH": "Cancelar",
+      "reactivateH": "Reactivar"
     },
     "userTable": {
       "userName" : "Nombre de usuario",
       "userRole" : "Rol del usuario",
       "id" : "Identificación",
-      "emailH": "Email"
+      "emailH": "Correo electrónico"
     }
   },
   "userManagement": {
@@ -222,11 +228,30 @@
     "roleWaiter" : "Mesero",
     "roleManager" : "Gerente",
     "roleAdmin" : "Administración",
+    "managePassword": "Administrar contraseña",
     "formErrors" : {
-    "addUserNameRequired" : "Campo requerido. por favor, ingrese un nombre de usuario",
-    "addUserEmailRequired" : "Campo requerido. Por favor ingrese un correo electrónico",
-    "addUserEmailPattern" : "Introduzca una dirección de correo electrónico válida, p. Ej. B. email@email.com",
-    "addUserPasswordRequired" : "Campo requerido. porfavor ingrese una contraseña"
+      "addUserNameRequired" : "Campo requerido. Por favor, ingrese un nombre de usuario.",
+      "addUserEmailRequired" : "Campo requerido. Ingrese un correo electrónico.",
+      "addUserEmailPattern" : "Ingrese una dirección de correo electrónico válida, por ejemplo, email@email.com.",
+      "passwordRequiredPrompt" : "Campo requerido. Porfavor ingrese una contraseña.",
+      "passwordMatchPrompt": "Las contraseñas no coinciden."
+    },
+    "userInformation": {
+      "userInformation": "informacion del usuario",
+      "userName": "Nombre de usuario",
+      "userEmail": "Correo electrónico del usuario"
+    },
+    "userManagement":{
+      "usernameH": "Nombre de usuario:",
+      "emailH": "Correo electrónico:",
+      "password": "contraseña",
+      "repeatPassword": "repite la contraseña",
+      "updatePassword": "Actualizar contraseña de usuario",
+      "resetLink": "Enviar enlace de restablecimiento",
+      "updateSuccess": "La actualización de los datos del usuario se realizó correctamente",
+      "checkLink": "Comprobando el enlace ...",
+      "redirect": "pronto serás redirigido",
+      "wait": "Espere por favor"
     }
   }
 }

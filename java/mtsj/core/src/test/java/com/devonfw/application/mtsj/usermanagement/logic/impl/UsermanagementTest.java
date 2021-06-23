@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -22,18 +21,14 @@ import org.junit.jupiter.api.TestInfo;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.Rollback;
 
 import com.devonfw.application.mtsj.SpringBootApp;
-import com.devonfw.application.mtsj.dishmanagement.logic.api.Dishmanagement;
 import com.devonfw.application.mtsj.general.common.ApplicationComponentTest;
-import com.devonfw.application.mtsj.ordermanagement.logic.impl.OrdermanagementTestUtility;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetTokenEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetTokenMessageEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserCto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
-import com.devonfw.application.mtsj.usermanagement.common.api.to.UserSearchCriteriaTo;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.ResetTokenEntity;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserEntity;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.ResetTokenRepository;
@@ -41,7 +36,6 @@ import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.UserRepos
 import com.devonfw.application.mtsj.usermanagement.logic.api.Usermanagement;
 import com.devonfw.application.mtsj.usermanagement.logic.impl.helperinterfaces.UsermanagementUtility;
 
-//<=== Ab hier
 
 /**
  * Tests for {@link Usermanagement} component.
@@ -102,6 +96,9 @@ public class UsermanagementTest extends ApplicationComponentTest {
 	// {@link UsermanagementImpl} General User
 	// ================================================================================
 
+	/*
+	 * This test saves some users with same username and check if everything was fine
+	 */
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
@@ -133,6 +130,9 @@ public class UsermanagementTest extends ApplicationComponentTest {
 //				-> this.userManagement.saveUser(user), "");
 //	}
 
+	/*
+	 * This test checks if an user can be saved without user role
+	 */
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
@@ -152,7 +152,7 @@ public class UsermanagementTest extends ApplicationComponentTest {
 	// ================================================================================
 
 	/**
-	 * Tests if an order is created
+	 * Tests if an user is created
 	 */
 	@Test
 	@Rollback(true)
@@ -162,6 +162,9 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		assertThat(createdUser).isNotNull();
 	}
 
+	/*
+	 * Tests if the email can be changed
+	 */
 	@Test
 	@Rollback(true)
 	public void changeUserMail() {
@@ -172,6 +175,9 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		assertEquals("newEmail@web.de", result.getEmail());
 	}
 
+	/*
+	 * Test if Userrole can be changed
+	 */
 	@Test
 	@Rollback(true)
 	public void changeUserRole() {
@@ -182,6 +188,9 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		assertEquals(1L, result.getUserRoleId());
 	}
 
+	/*
+	 * Test if Username can be changed
+	 */
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
@@ -194,6 +203,9 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		assertEquals("Lilith", result.getUsername());
 	}
 
+	/*
+	 * Test if saving email twice throws exception
+	 */
 	@Test
 	@Rollback(true)
 	public void saveEmailTwice() {
@@ -207,6 +219,9 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		}
 	}
 
+	/*
+	 * Test if updating an not existing user throws exception
+	 */
 	@Test
 	@Rollback(true)
 	public void updateNotExistingUser() {
@@ -225,6 +240,9 @@ public class UsermanagementTest extends ApplicationComponentTest {
 	// {@link UsermanagementImpl} Passwordmanagement Tests
 	// ================================================================================
 
+	/*
+	 * Test if password can be reset for an user with reset token
+	 */
 	@Test
 	@Rollback(true)
 	public void resetPasswordProcess() {
@@ -244,6 +262,11 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		assertEquals("Your Password changed.", successMessage.getMessage());
 	}
 
+	/*
+	 * Test if password can be reset with invalid time
+	 * reset token can be only used for 20 minutes
+	 * should throw exception
+	 */
 	@Test
 	@Rollback(true)
 	@Tag("DropTokenRepository")
@@ -266,10 +289,13 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		request.setToken(token.getToken());
 		request.setPassword("newPass");
 
-		ResetTokenMessageEto successMessage = this.userManagement.changeForgetPassword(request);
-		assertEquals("Your Token expired. Please request a new Token", successMessage.getMessage());
+		assertThrows(EntityNotFoundException.class, () -> this.userManagement.changeForgetPassword(request), "");
 	}
 
+	/*
+	 * Test if password can be reset with invalid token
+	 * should throw exception
+	 */
 	@Test
 	@Rollback(true)
 	@Tag("DropTokenRepository")
@@ -285,10 +311,12 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		request.setToken("WRONGTOKEN");
 		request.setPassword("newPass");
 
-		ResetTokenMessageEto successMessage = this.userManagement.changeForgetPassword(request);
-		assertEquals("Given Token not bound to any Account", successMessage.getMessage());
+		assertThrows(EntityNotFoundException.class, () -> this.userManagement.changeForgetPassword(request), "");
 	}
 
+	/*
+	 * Test if password can be reset with not existing email
+	 */
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
@@ -298,19 +326,23 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		assertEquals("Email adress not found.", requestMessage.getMessage());
 	}
 
+	/*
+	 * Test if not existing token for validating process should throw exception
+	 */
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
-	public void resetPasswordWithNotExistingToken() {
-
-		String proceedMessage = this.userManagement.validateToken("not_existing_token");
-		assertEquals("failure", proceedMessage);
+	public void validateNotExistingToken() {
+		assertThrows(EntityNotFoundException.class, () -> this.userManagement.validateToken("not_existing_token"), "");
 	}
 
 	// ================================================================================
 	// {@link UsermanagementUtilityImpl} Email sending Tests
 	// ================================================================================
 
+	/*
+	 * check if static token mail throws no exception (token in mail content)
+	 */
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
@@ -324,6 +356,9 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		assertDoesNotThrow(() -> this.userManagementUtility.send_reset_mail(user, tokenEntity));
 	}
 
+	/*
+	 * check if dynamic token mail throws no exception (token as url)
+	 */
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
@@ -337,6 +372,9 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		assertDoesNotThrow(() -> this.userManagementUtility.send_resettoken_mail(user, tokenEntity));
 	}
 
+	/*
+	 * check if sending confirmation mail throws no exception
+	 */
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
@@ -354,6 +392,9 @@ public class UsermanagementTest extends ApplicationComponentTest {
 	// {@link UsermanagementImpl} Adminmanagement Tests
 	// ================================================================================
 
+	/*
+	 * check if deleting user works
+	 */
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
@@ -361,6 +402,10 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		assertDoesNotThrow(() -> this.userManagement.deleteUser(4L));
 	}
 
+	/*
+	 * check if not existing user can be deleted
+	 * throws exception
+	 */
 	@Test
 	@Rollback(true)
 	@Tag("Skip")
@@ -368,6 +413,10 @@ public class UsermanagementTest extends ApplicationComponentTest {
 		assertThrows(EmptyResultDataAccessException.class, () -> this.userManagement.deleteUser(99L), "");
 	}
 
+	/*
+	 * check if admin can be deleted
+	 * should throws exception
+	 */
 	@Test
 	@Rollback(true)
 	@Tag("Skip")

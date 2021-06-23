@@ -17,7 +17,11 @@
     "cancelOrder" : "Cancel order",
     "reactivateOrder" : "Reactivate order",
     "addUser" : "Add User",
-    "copyBookingId": "Copy Booking-ID"
+    "copyBookingId": "Copy Booking-ID",
+    "updateUserInformation": "Update User Information",
+    "deleteUser": "Delete User",
+    "updatePassword": "Update password",
+    "sendResetLink": "Send reset link"
   },
   "table": {
     "rowsPage": "Rows per page",
@@ -216,19 +220,26 @@
       "paymentStatusH": "Payment status",
       "paymentStatusPaid": "Paid",
       "paymentStatusNotPaid": "Payment pending",
-      "creationDateH": "Creation date"
+      "creationDateH": "Creation date",
+      "cancelH": "Cancel",
+      "reactivateH": "Reactivate"
+
     } ,
+
      "userTabel" :{
       "id" : "ID" ,
       "username" : "Username" ,
       "email" : "E-mail" ,
-      "role" : "Role" 
+      "role" : "Role" ,
+      "Avatar" : "Avatar"
     },
+
     "userTable": {
-      "userName" : "User name",
+      "userName" : "Username",
       "userRole" : "User role",
       "id" : "ID",
-      "emailH": "Email"
+      "emailH": "Email",
+      "Avatar" : "Avatar"
     }
   },
   "userManagement": {
@@ -238,11 +249,30 @@
     "roleWaiter" : "Waiter",
     "roleManager" : "Manager",
     "roleAdmin" : "Admin",
+    "managePassword": "Manage password",
     "formErrors" : {
-    "addUserNameRequired" : "Required. Please enter a username",
-    "addUserEmailRequired" : "Required. Please enter an email",
-    "addUserEmailPattern" : "Enter a valid email address e.g. email@email.com",
-    "addUserPasswordRequired" : "Required. Please enter a password"
+    "addUserNameRequired" : "Required field. Please enter a username.",
+    "addUserEmailRequired" : "Required field. Please enter an email.",
+    "addUserEmailPattern" : "Enter a valid email address e.g. email@email.com.",
+    "passwordRequiredPrompt": "Required field. Please enter a password.",
+    "passwordMatchPrompt": "The passwords do not match."
+    },
+    "userInformation": {
+      "userInformation": "User Information",
+      "userName": "Username",
+      "userEmail": "User Email"
+    },
+    "userManagement":{
+      "usernameH": "Username:",
+      "emailH": "E-mail:",
+      "password": "password",
+      "repeatPassword": "Repeat password",
+      "updatePassword": "Update user password",
+      "resetLink": "Send reset link",
+      "updateSuccess": "Update of user data was successful",
+      "checkLink": "Checking the link ...",
+      "redirect": "You will be redirected soon",
+      "wait": "Please wait"
     }
   }
 }

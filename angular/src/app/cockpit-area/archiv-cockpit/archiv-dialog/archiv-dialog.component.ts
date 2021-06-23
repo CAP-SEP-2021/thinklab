@@ -55,7 +55,6 @@ export class ArchivDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data) ;
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
     });
@@ -63,8 +62,6 @@ export class ArchivDialogComponent implements OnInit {
     this.totalPrice = this.waiterCockpitService.getTotalPrice(
       this.data.orderLines,
     );
-    console.log("befor filtered data ");
-    console.log(this.filteredData);
     this.datao = this.waiterCockpitService.orderComposer(this.data.orderLines);
     this.datat.push(this.data.booking);
     this.filter();
@@ -112,12 +109,7 @@ export class ArchivDialogComponent implements OnInit {
     this.filter();
   }
   sendGetCancelOrder(){
-    console.log("ts started ");
-   
-    console.log(this.data.order.id);
     this.waiterCockpitService.getCancelOrder(this.data.order.id).subscribe((data: any) => {
-     console.log("this is the response data ");
-     console.log(data);
     });; 
   }
 
@@ -125,12 +117,9 @@ export class ArchivDialogComponent implements OnInit {
     let newData: any[] = this.datao;
     newData = newData.slice(this.fromRow, this.currentPage * this.pageSize);
     setTimeout(() => (this.filteredData = newData));
-    console.log("filtered data ");
-    console.log(this.filteredData);
   }
 
   logrow(element :any) :void{
-    console.log(element);
   }
   
 }

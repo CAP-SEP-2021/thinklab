@@ -45,6 +45,19 @@ export const deleteUserFail = createAction(
   '[deleteUser] deleteUser Fail',
   props<{ error: Error }>(),
 );
+export const resetUserPassword = createAction(
+  '[resetUserPassword] resetUserPassword ',
+  props<{Email :String }>(),
+);
+
+export const resetUserPasswordSuccess = createAction(
+  '[resetUserPassword] resetUserPassword success',
+);
+
+export const resetUserPasswordFail = createAction(
+  '[resetUserPassword] resetUserPassword Fail',
+  props<{ error: Error }>(),
+);
 
 // action types
 const all = union({
@@ -56,7 +69,9 @@ const all = union({
   updateUserFail,
   deleteUser,
   deleteUserSuccess,
-  deleteUserFail
-
+  deleteUserFail,
+  resetUserPassword,
+  resetUserPasswordSuccess,
+  resetUserPasswordFail
 });
 export type CockpitAreaActions = typeof all;
