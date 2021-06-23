@@ -19,6 +19,36 @@ items:
       io.kompose.service: reverse-proxy
   status:
     loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      io.kompose.service: angular
+    name: angular
+  spec:
+    ports:
+    - name: "80"
+      port: 80
+      targetPort: 80
+    selector:
+      io.kompose.service: angular
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      io.kompose.service: java
+    name: java
+  spec:
+    ports:
+    - name: "8081"
+      port: 8081
+      targetPort: 8081
+    selector:
+      io.kompose.service: java
+  status:
+    loadBalancer: {}    
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
@@ -54,7 +84,7 @@ items:
         serviceAccountName: ""
         volumes: null
   status: {}
-- apiVersion: extensions/v1beta1
+- apiVersion: networking.k8s.io/v1
   kind: NetworkPolicy
   metadata:
     creationTimestamp: null
@@ -103,7 +133,7 @@ items:
         serviceAccountName: ""
         volumes: null
   status: {}
-- apiVersion: extensions/v1beta1
+- apiVersion: networking.k8s.io/v1
   kind: NetworkPolicy
   metadata:
     creationTimestamp: null
@@ -154,7 +184,7 @@ items:
         serviceAccountName: ""
         volumes: null
   status: {}
-- apiVersion: extensions/v1beta1
+- apiVersion: networking.k8s.io/v1
   kind: NetworkPolicy
   metadata:
     creationTimestamp: null
