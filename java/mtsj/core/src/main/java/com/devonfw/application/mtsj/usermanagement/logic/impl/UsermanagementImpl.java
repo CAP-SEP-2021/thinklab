@@ -1,5 +1,6 @@
 package com.devonfw.application.mtsj.usermanagement.logic.impl;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -154,10 +155,17 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 		//preDeleteFromOrder(user);
 		
 		if(user.getUserRoleId() == 3L) {
-			throw new IllegalStateException("Admin cant be deleted.");
+			throw new IllegalStateException("User cant be deleted because its an Admin.");
 		}
 		
 		// delete the user
+		try {
+			getUserDao().delete(user);			
+		} catch (Exception e) {
+			throw new IllegalStateException("Is there perhaps an existing reference "
+					+ "of the user in another table?");
+		}
+		
 		getUserDao().delete(user);
 		
 		LOG.debug("The user with id '{}' has been deleted.", userId);

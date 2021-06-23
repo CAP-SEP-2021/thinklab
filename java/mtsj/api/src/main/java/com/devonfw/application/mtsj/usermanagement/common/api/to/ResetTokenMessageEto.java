@@ -1,5 +1,8 @@
 package com.devonfw.application.mtsj.usermanagement.common.api.to;
 
+/**
+ * Entity transport object of ResetTokenMessageEto
+ */
 public class ResetTokenMessageEto {
 	
 	private String userName;

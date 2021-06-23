@@ -11,127 +11,127 @@ import com.devonfw.module.basic.common.api.to.AbstractEto;
  */
 public class UserEto extends AbstractEto implements User {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  private String username;
+	private String username;
 
-  private String email;
+	private String email;
 
-  private boolean twoFactorStatus;
+	private boolean twoFactorStatus;
 
-  private Long userRoleId;
-  
-  private String password;
+	private Long userRoleId;
 
-  private PasswordEncoder myEncoder = new PasswordEncoder() {
-		
+	private String password;
+
+	private PasswordEncoder myEncoder = new PasswordEncoder() {
+
+		@Override
+		public boolean matches(CharSequence rawPassword, String encodedPassword) {
+			return (new BCryptPasswordEncoder().encode(rawPassword) == encodedPassword ? true : false);
+		}
+
+		@Override
+		public String encode(CharSequence rawPassword) {
+			return "{bcrypt}" + new BCryptPasswordEncoder().encode(rawPassword);
+		}
+	};
+
 	@Override
-	public boolean matches(CharSequence rawPassword, String encodedPassword) {
-		return (new BCryptPasswordEncoder().encode(rawPassword) == encodedPassword ? true : false);
+	public String getUsername() {
+
+		return this.username;
 	}
-	
+
 	@Override
-	public String encode(CharSequence rawPassword) {
-		return "{bcrypt}" + new BCryptPasswordEncoder().encode(rawPassword);
+	public void setUsername(String username) {
+
+		this.username = username;
 	}
-  };
-  
-  @Override
-  public String getUsername() {
 
-    return this.username;
-  }
+	@Override
+	public String getEmail() {
 
-  @Override
-  public void setUsername(String username) {
+		return this.email;
+	}
 
-    this.username = username;
-  }
+	@Override
+	public void setEmail(String email) {
 
-  @Override
-  public String getEmail() {
+		this.email = email;
+	}
 
-    return this.email;
-  }
+	@Override
+	public boolean getTwoFactorStatus() {
 
-  @Override
-  public void setEmail(String email) {
+		return this.twoFactorStatus;
+	}
 
-    this.email = email;
-  }
+	@Override
+	public void setTwoFactorStatus(boolean twoFactorStatus) {
 
-  @Override
-  public boolean getTwoFactorStatus() {
+		this.twoFactorStatus = twoFactorStatus;
+	}
 
-    return this.twoFactorStatus;
-  }
+	@Override
+	public Long getUserRoleId() {
 
-  @Override
-  public void setTwoFactorStatus(boolean twoFactorStatus) {
+		return this.userRoleId;
+	}
 
-    this.twoFactorStatus = twoFactorStatus;
-  }
+	@Override
+	public void setUserRoleId(Long userRoleId) {
 
-  @Override
-  public Long getUserRoleId() {
+		this.userRoleId = userRoleId;
+	}
 
-    return this.userRoleId;
-  }
+	@Override
+	public int hashCode() {
 
-  @Override
-  public void setUserRoleId(Long userRoleId) {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
+		result = prime * result + ((this.userRoleId == null) ? 0 : this.userRoleId.hashCode());
+		result = prime * result + ((this.username == null) ? 0 : this.username.hashCode());
+		return result;
+	}
 
-    this.userRoleId = userRoleId;
-  }
+	@Override
+	public boolean equals(Object obj) {
 
-  @Override
-  public int hashCode() {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserEto other = (UserEto) obj;
+		if (this.email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!this.email.equals(other.email))
+			return false;
+		if (this.userRoleId == null) {
+			if (other.userRoleId != null)
+				return false;
+		} else if (!this.userRoleId.equals(other.userRoleId))
+			return false;
+		if (this.username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!this.username.equals(other.username))
+			return false;
+		return true;
+	}
 
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
-    result = prime * result + ((this.userRoleId == null) ? 0 : this.userRoleId.hashCode());
-    result = prime * result + ((this.username == null) ? 0 : this.username.hashCode());
-    return result;
-  }
+	@Override
+	public void setPassword(String password) {
+		this.password = myEncoder.encode(password);
+	}
 
-  @Override
-  public boolean equals(Object obj) {
+	@Override
+	public String getPassword() {
 
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    UserEto other = (UserEto) obj;
-    if (this.email == null) {
-      if (other.email != null)
-        return false;
-    } else if (!this.email.equals(other.email))
-      return false;
-    if (this.userRoleId == null) {
-      if (other.userRoleId != null)
-        return false;
-    } else if (!this.userRoleId.equals(other.userRoleId))
-      return false;
-    if (this.username == null) {
-      if (other.username != null)
-        return false;
-    } else if (!this.username.equals(other.username))
-      return false;
-    return true;
-  }
-
-@Override
-public void setPassword(String password) {
-	this.password = myEncoder.encode(password);
-}
-
-@Override
-public String getPassword() {
-
-	return this.password;
-}
+		return this.password;
+	}
 
 }

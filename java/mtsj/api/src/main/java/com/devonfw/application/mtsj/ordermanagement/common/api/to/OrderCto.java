@@ -10,21 +10,6 @@ import com.devonfw.module.basic.common.api.to.AbstractCto;
  * Composite transport object of Order
  */
 public class OrderCto extends AbstractCto {
-
-	// Working
-//	public static class Pipe {
-//		private OrderEto orderEto;
-//		
-//		public Pipe() {}
-//		public Pipe putNewOrder(OrderEto val) { orderEto	= val; return this; }
-//		public OrderCto build() {return new OrderCto(this); }
-//	}
-//	
-//	public OrderCto(Pipe extend) {
-//		this.order = extend.orderEto;
-//	}
-//	
-//	public OrderCto() {}
 	
 	private static final long serialVersionUID = 1L;
 

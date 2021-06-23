@@ -156,12 +156,18 @@ public interface Bookingmanagement {
 	 */
 	TableEto saveTable(TableEto table);
 
+	/**
+	 * Saves a bookingdate to find the closest booking to an specific table number
+	 *
+	 * @param bookingDate the {@link BookingEto} to create.
+	 * @return the new {@link BookingEto} that has been found by the closest date.
+	 */
+	BookingEto findBy(@Valid findByCto findBy);
+	
 	InvitedGuestEto acceptInvite(String guestToken);
 
 	InvitedGuestEto declineInvite(String guestToken);
 
 	String buildToken(String email, String type) throws NoSuchAlgorithmException;
-
-	BookingEto findBy(@Valid findByCto findBy);
 
 }

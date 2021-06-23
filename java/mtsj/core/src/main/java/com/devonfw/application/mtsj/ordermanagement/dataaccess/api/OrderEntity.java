@@ -17,205 +17,223 @@ import com.devonfw.application.mtsj.general.dataaccess.api.ApplicationPersistenc
 import com.devonfw.application.mtsj.ordermanagement.common.api.Order;
 
 /**
- * The {@link com.devonfw.application.mtsj.general.dataaccess.api.ApplicationPersistenceEntity persistent entity} for
- * {@link Order}.
+ * The
+ * {@link com.devonfw.application.mtsj.general.dataaccess.api.ApplicationPersistenceEntity
+ * persistent entity} for {@link Order}.
  */
 @Entity
 @Table(name = "Orders")
 public class OrderEntity extends ApplicationPersistenceEntity implements Order {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  private BookingEntity booking;
-  
-  private int status;
-  
-  private boolean canceled;
-  
-  private boolean archived;
+	private BookingEntity booking;
+	private int status;
+	private boolean canceled;
+	private boolean archived;
+	private boolean paid;
+	private InvitedGuestEntity invitedGuest;
+	private BookingEntity host;
+	private List<OrderLineEntity> orderLines;
 
-  private boolean paid;
-  
-  private InvitedGuestEntity invitedGuest;
+	/**
+	 * @return booking
+	 */
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idBooking")
+	public BookingEntity getBooking() {
 
-  private BookingEntity host;
+		return this.booking;
+	}
 
-  private List<OrderLineEntity> orderLines;
+	/**
+	 * @param booking new value of {@link #getbooking}.
+	 */
+	public void setBooking(BookingEntity booking) {
 
-  /**
-   * @return booking
-   */
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "idBooking")
-  public BookingEntity getBooking() {
+		this.booking = booking;
+	}
 
-    return this.booking;
-  }
+	/**
+	 * @return invitedGuest
+	 */
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idInvitedGuest")
+	public InvitedGuestEntity getInvitedGuest() {
 
-  /**
-   * @param booking new value of {@link #getbooking}.
-   */
-  public void setBooking(BookingEntity booking) {
+		return this.invitedGuest;
+	}
 
-    this.booking = booking;
-  }
+	/**
+	 * @param invitedGuest new value of {@link #getinvitedGuest}.
+	 */
+	public void setInvitedGuest(InvitedGuestEntity invitedGuest) {
 
-  /**
-   * @return invitedGuest
-   */
-  @OneToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "idInvitedGuest")
-  public InvitedGuestEntity getInvitedGuest() {
+		this.invitedGuest = invitedGuest;
+	}
 
-    return this.invitedGuest;
-  }
+	/**
+	 * @return orderLines
+	 */
+	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+	public List<OrderLineEntity> getOrderLines() {
 
-  /**
-   * @param invitedGuest new value of {@link #getinvitedGuest}.
-   */
-  public void setInvitedGuest(InvitedGuestEntity invitedGuest) {
+		return this.orderLines;
+	}
 
-    this.invitedGuest = invitedGuest;
-  }
+	/**
+	 * @param orderLines new value of {@link #getorderLines}.
+	 */
+	public void setOrderLines(List<OrderLineEntity> orderLines) {
 
-  /**
-   * @return orderLines
-   */
-  @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
-  public List<OrderLineEntity> getOrderLines() {
-
-    return this.orderLines;
-  }
-
-  /**
-   * @param orderLines new value of {@link #getorderLines}.
-   */
-  public void setOrderLines(List<OrderLineEntity> orderLines) {
-
-    this.orderLines = orderLines;
-  }
-
-  @Override
-  @Transient
-  public Long getBookingId() {
-
-    if (this.booking == null) {
-      return null;
-    }
-    return this.booking.getId();
-  }
-
-  @Override
-  public void setBookingId(Long bookingId) {
-
-    if (bookingId == null) {
-      this.booking = null;
-    } else {
-      BookingEntity bookingEntity = new BookingEntity();
-      bookingEntity.setId(bookingId);
-      this.booking = bookingEntity;
-    }
-  }
-
-  @Override
-  @Transient
-  public Long getInvitedGuestId() {
-
-    if (this.invitedGuest == null) {
-      return null;
-    }
-    return this.invitedGuest.getId();
-  }
-
-  @Override
-  public void setInvitedGuestId(Long invitedGuestId) {
-
-    if (invitedGuestId == null) {
-      this.invitedGuest = null;
-    } else {
-      InvitedGuestEntity invitedGuestEntity = new InvitedGuestEntity();
-      invitedGuestEntity.setId(invitedGuestId);
-      this.invitedGuest = invitedGuestEntity;
-    }
-  }
-
-  /**
-   * @return host
-   */
-  @OneToOne
-  @JoinColumn(name = "idHost")
-  public BookingEntity getHost() {
-
-    return this.host;
-  }
-
-  /**
-   * @param host new value of {@link #gethost}.
-   */
-  public void setHost(BookingEntity host) {
-
-    this.host = host;
-  }
-
-  @Override
-  @Transient
-  public Long getHostId() {
-
-    if (this.host == null) {
-      return null;
-    }
-    return this.host.getId();
-  }
-
-  @Override
-  public void setHostId(Long hostId) {
-
-    if (hostId == null) {
-      this.host = null;
-    } else {
-      BookingEntity bookingEntity = new BookingEntity();
-      bookingEntity.setId(hostId);
-      this.host = bookingEntity;
-    }
-  }
+		this.orderLines = orderLines;
+	}
 
 	@Override
+	@Transient
+	public Long getBookingId() {
+
+		if (this.booking == null) {
+			return null;
+		}
+		return this.booking.getId();
+	}
+
+	@Override
+	public void setBookingId(Long bookingId) {
+
+		if (bookingId == null) {
+			this.booking = null;
+		} else {
+			BookingEntity bookingEntity = new BookingEntity();
+			bookingEntity.setId(bookingId);
+			this.booking = bookingEntity;
+		}
+	}
+
+	@Override
+	@Transient
+	public Long getInvitedGuestId() {
+
+		if (this.invitedGuest == null) {
+			return null;
+		}
+		return this.invitedGuest.getId();
+	}
+
+	@Override
+	public void setInvitedGuestId(Long invitedGuestId) {
+
+		if (invitedGuestId == null) {
+			this.invitedGuest = null;
+		} else {
+			InvitedGuestEntity invitedGuestEntity = new InvitedGuestEntity();
+			invitedGuestEntity.setId(invitedGuestId);
+			this.invitedGuest = invitedGuestEntity;
+		}
+	}
+
+	/**
+	 * @return host
+	 */
+	@OneToOne
+	@JoinColumn(name = "idHost")
+	public BookingEntity getHost() {
+
+		return this.host;
+	}
+
+	/**
+	 * @param host new value of {@link #gethost}.
+	 */
+	public void setHost(BookingEntity host) {
+
+		this.host = host;
+	}
+
+	@Override
+	@Transient
+	public Long getHostId() {
+
+		if (this.host == null) {
+			return null;
+		}
+		return this.host.getId();
+	}
+
+	@Override
+	public void setHostId(Long hostId) {
+
+		if (hostId == null) {
+			this.host = null;
+		} else {
+			BookingEntity bookingEntity = new BookingEntity();
+			bookingEntity.setId(hostId);
+			this.host = bookingEntity;
+		}
+	}
+
+	/**
+	 * @param status new value of {@link #getstatus}.
+	 */
+	@Override
 	public void setStatus(int status) {
-		
+
 		this.status = status;
 	}
-	
+
+	/**
+	 * @return status
+	 */
 	@Override
 	public int getStatus() {
 
 		return this.status;
 	}
 
+	/**
+	 * @return canceled
+	 */
 	@Override
 	public boolean getCanceled() {
 		return this.canceled;
 	}
 
+	/**
+	 * @param canceled new value of {@link #getcanceled}.
+	 */
 	@Override
 	public void setCanceled(boolean canceled) {
 		this.canceled = canceled;
 	}
 
+	/**
+	 * @return archived
+	 */
 	@Override
 	public boolean getArchived() {
 		return this.archived;
 	}
 
+	/**
+	 * @param archived new value of {@link #getarchived}.
+	 */
 	@Override
 	public void setArchived(boolean archived) {
 		this.archived = archived;
 	}
 
+	/**
+	 * @return paid
+	 */
 	@Override
 	public boolean getPaid() {
 		return this.paid;
 	}
 
+	/**
+	 * @param paid new value of {@link #getpaid}.
+	 */
 	@Override
 	public void setPaid(boolean paid) {
 		this.paid = paid;

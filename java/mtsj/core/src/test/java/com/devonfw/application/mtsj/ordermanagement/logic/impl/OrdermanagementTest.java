@@ -194,12 +194,13 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 		}
 	}
 	
-	// <=== Ab hier
-	
 	// ================================================================================
 	// {@link OrdermanagementImpl} edited ordersearches
 	// ================================================================================
 
+	/*
+	 * Test for get all non-archived orders as list and is not null
+	 */
 	@Test
 	@Rollback(true)
 	public void getNonArchivedOrders() {
@@ -211,6 +212,9 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 		assertThat(aCtos).isNotNull();
 	}
 
+	/*
+	 * Test for get all archived orders as list and is not null
+	 */
 	@Test
 	@Rollback(true)
 	public void getArchivedOrders() {
@@ -293,6 +297,9 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 	// {@link OrdermanagementImpl} archived / canceled states tests
 	// ================================================================================
 
+	/*
+	 * Test if a new Order is not archived
+	 */
 	@Test
 	@Rollback(true)
 	public void NotArchivedOnNewCreatedOrder() {
@@ -300,6 +307,9 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 		assertEquals(false, b);
 	}
 
+	/*
+	 * Test if a new order is not canceled
+	 */
 	@Test
 	@Rollback(true)
 	public void NotCanceledOnNewCreatedOrder() {
@@ -307,6 +317,9 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 		assertEquals(false, b);
 	}
 
+	/*
+	 * Test if a order with default status can be canceled
+	 */
 	@Test
 	@Rollback(true)
 	public void CancelOrderWithDefaultStatus() {
@@ -317,6 +330,9 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 		assertEquals(true, orderDao.find(0L).getCanceled());
 	}
 
+	/*
+	 * Test if a order that is canceled gonna be archived
+	 */
 	@Test
 	@Rollback(true)
 	public void ArchivedIfItsCanceled() {
@@ -327,6 +343,9 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 		assertEquals(true, orderDao.find(0L).getArchived());
 	}
 
+	/*
+	 * Test if anorder is archived if its set on paid and deliveried state
+	 */
 	@Test
 	@Rollback(true)
 	public void ArchivedIfSetOnPaid() {
@@ -345,6 +364,9 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 		assertEquals(true, result.getArchived());
 	}
 
+	/*
+	 * Test if reactivated order is not archived anymore
+	 */
 	@Test
 	@Rollback(true)
 	public void NotArchivedAnymoreOnReactivated() {
@@ -356,6 +378,9 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 		assertEquals(false, orderDao.find(0L).getArchived());
 	}
 
+	/*
+	 * test if order that is reactivated the status is set back on default
+	 */
 	@Test
 	public void ChangedStatusToDefaultOnReactivated() {
 

@@ -41,39 +41,46 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 
 	@Inject
 	Bookingmanagement bookingManagement;
-	
+
 	@Inject
 	private BookingRepository bookingDao;
-	
+
 	BookingCto bookingCto;
 	BookingEto b;
 
-	  @Override
-	  public void doSetUp() {
+	@Override
+	public void doSetUp() {
 
-	    super.doSetUp();
-	    
-	    BookingEto bookingEto = new BookingEto();
-	    
-	    bookingEto.setBookingDate(Instant.now());
+		super.doSetUp();
+
+		BookingEto bookingEto = new BookingEto();
+
+		bookingEto.setBookingDate(Instant.now());
 //	    		.plus(5, ChronoUnit.HOURS)
 //	    		.plus(10, ChronoUnit.MINUTES));
-	    bookingEto.setName("Lilith");
-	    bookingEto.setEmail("gemini@web.de");
-	    bookingEto.setAssistants(2);
-	    bookingEto.setTableId(0L);
-	    
-	    this.bookingCto = new BookingCto();
-	    this.bookingCto.setBooking(bookingEto);
-	  }
-	  
-		@AfterEach
-		public void after(TestInfo testInfo) {
-			if (testInfo.getTags().contains("Skip")) {
-				return;
-			}
-		}
+		bookingEto.setName("Lilith");
+		bookingEto.setEmail("gemini@web.de");
+		bookingEto.setAssistants(2);
+		bookingEto.setTableId(0L);
 
+		this.bookingCto = new BookingCto();
+		this.bookingCto.setBooking(bookingEto);
+	}
+
+	@AfterEach
+	public void after(TestInfo testInfo) {
+		if (testInfo.getTags().contains("Skip")) {
+			return;
+		}
+	}
+	
+	// ================================================================================
+	// {@link BookingmanagementImpl} Booking cases
+	// ================================================================================
+	
+	/*
+	 * Test for save an booking without exception
+	 */
 	@Test
 	public void saveAnBooking() {
 
@@ -81,33 +88,45 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 		assertThat(createdBooking).isNotNull();
 		bookingDao.deleteById(createdBooking.getId());
 	}
-	
+
+	/*
+	 * Test to save too much guests (maximum guests is 8)
+	 * should throw exception
+	 */
 	@Test
 	public void saveAnBookingWithToMuchGuests() {
-		
-		this.bookingCto.getBooking().setAssistants(9);	
-		
+
+		this.bookingCto.getBooking().setAssistants(9);
+
 		try {
 			BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);
 			bookingDao.deleteById(createdBooking.getId());
 		} catch (Exception e) {
 			IllegalStateException ex = new IllegalStateException();
-		    assertThat(e.getClass()).isEqualTo(ex.getClass());
-		}		
-	}
-	
-	@Test
-	public void saveAnBookingWithInvalidDate() {		
-		this.bookingCto.getBooking().setBookingDate(Instant.now().minus(10, ChronoUnit.HOURS));		
-		try {
-			BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);
-			bookingDao.deleteById(createdBooking.getId());
-		} catch (Exception e) {
-			IllegalStateException ex = new IllegalStateException();
-		    assertThat(e.getClass()).isEqualTo(ex.getClass());
+			assertThat(e.getClass()).isEqualTo(ex.getClass());
 		}
 	}
-	
+
+	/*
+	 * Test for saving an Booking with invalid Date (in the past)
+	 * should throw Exception
+	 */
+	@Test
+	public void saveAnBookingWithInvalidDate() {
+		this.bookingCto.getBooking().setBookingDate(Instant.now().minus(10, ChronoUnit.HOURS));
+		try {
+			BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);
+			bookingDao.deleteById(createdBooking.getId());
+		} catch (Exception e) {
+			IllegalStateException ex = new IllegalStateException();
+			assertThat(e.getClass()).isEqualTo(ex.getClass());
+		}
+	}
+
+	/*
+	 * Test for save too much booking until no tables left
+	 * should throw exception
+	 */
 	@Test
 	@Rollback(true)
 	public void saveToMuchBookingNoTableLeft() {
@@ -120,93 +139,101 @@ public class BookingmanagementTest extends ApplicationComponentTest {
 			});
 		} catch (Exception e) {
 			IllegalStateException ex = new IllegalStateException();
-		    assertThat(e.getClass()).isEqualTo(ex.getClass());
+			assertThat(e.getClass()).isEqualTo(ex.getClass());
 		} finally {
 			for (Long id : savedBookings) {
 				bookingDao.deleteById(id);
 			}
 		}
 	}
-	
+
+	/*
+	 * Test save booking with null assistant should not throw an error
+	 */
 	@Test
 	@Rollback(true)
-	public void saveBookingWithoutAssistantsShouldNotThrowError() {		
+	public void saveBookingWithoutAssistantsShouldNotThrowError() {
 
-		BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);	
+		BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);
 		assertThat(createdBooking).isNotNull();
-		bookingDao.deleteById(createdBooking.getId());
-		
-//		assertDoesNotThrow(() -> this.bookingManagement.saveBooking(this.bookingCto));		
+		bookingDao.deleteById(createdBooking.getId());	
 	}
+
+	// ================================================================================
+	// {@link BookingmanagementImpl} Testcases for Alexa
+	// ================================================================================
 	
+	/*
+	 * Test for Alexa, check the closest valid booking date
+	 * category: Alexa In-House
+	 */
 	@Test
 	@Rollback(true)
 	public void ALEXA_findClosestValidBooking() {
-		
+
 		// save booking
 		BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);
-		
+
 		// create findby
-		findByCto findBy = new findByCto();		
-		findBy.setBookingDate(Instant.now()
-	    		.plus(10, ChronoUnit.MINUTES));
+		findByCto findBy = new findByCto();
+		findBy.setBookingDate(Instant.now().plus(10, ChronoUnit.MINUTES));
 		findBy.setTableId(0L);
-		
+
 		// dont throw
 		assertDoesNotThrow(() -> this.bookingManagement.findBy(findBy), "");
 		bookingDao.deleteById(createdBooking.getId());
 
 	}
-	
+
+	/*
+	 * Test for Alexa, check for no valid booking by closest date
+	 * should throw exception
+	 * category: Alexa In-House
+	 */
 	@Test
 	@Rollback(true)
 	public void ALEXA_findNoValidBookingByDate() {
-		
+
 		// save booking
 		BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);
-		
+
 		// create findby
-		findByCto findBy = new findByCto();		
-		findBy.setBookingDate(Instant.now()
-	    		.minus(10, ChronoUnit.MINUTES));
+		findByCto findBy = new findByCto();
+		findBy.setBookingDate(Instant.now().minus(10, ChronoUnit.MINUTES));
 //				.minus(3, ChronoUnit.HOURS));
 		findBy.setTableId(0L);
-		
+
 		assertThrows(EntityNotFoundException.class, () -> this.bookingManagement.findBy(findBy), "");
-		bookingDao.deleteById(createdBooking.getId());		
+		bookingDao.deleteById(createdBooking.getId());
 	}
-	
+
+	/*
+	 * Test for Alexa, set delivery on true
+	 * should throw exception
+	 * category: Alexa
+	 */
 	@Test
 	@Rollback(true)
 	public void ALEXA_setDeliveryBooking() {
 
 		this.bookingCto.getBooking().setDelivery(true);
-		
-		BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);		
+
+		BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);
 		bookingDao.deleteById(createdBooking.getId());
-		
+
 		assertEquals(createdBooking.getDelivery(), true);
 	}
-	
+
+	/*
+	 * Test for Alexa, set assistant on null, should not throw an exception
+	 * category: Alexa
+	 */
 	@Test
 	@Rollback(true)
 	public void ALEXA_setNullAssistantIsValid() {
-		this.bookingCto.getBooking().setAssistants(null);		
-		BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);		
-		bookingDao.deleteById(createdBooking.getId());		
+		this.bookingCto.getBooking().setAssistants(null);
+		BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);
+		bookingDao.deleteById(createdBooking.getId());
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
