@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 
 import com.devonfw.application.mtsj.bookingmanagement.common.api.Table;
 import com.devonfw.application.mtsj.general.dataaccess.api.ApplicationPersistenceEntity;
-import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderEto;
-import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderEto.Create;
 
 @Entity
 @javax.persistence.Table(name = "\"Table\"")

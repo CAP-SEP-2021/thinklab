@@ -13,6 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.annotation.Rollback;
 
 import com.devonfw.application.mtsj.SpringBootApp;
@@ -193,7 +196,7 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 			assertThat(e.getClass()).isEqualTo(ni.getClass());
 		}
 	}
-	
+
 	// ================================================================================
 	// {@link OrdermanagementImpl} edited ordersearches
 	// ================================================================================
@@ -206,7 +209,8 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 	public void getNonArchivedOrders() {
 
 		OrderSearchCriteriaTo to = new OrderSearchCriteriaTo();
-		to.setPageable(OrdermanagementTestUtility.getPageable());
+		PageRequest pageable = PageRequest.of(0, 8, Sort.by(Direction.ASC, "id"));
+		to.setPageable(pageable);
 		Page<OrderCto> aCtos = orderManagement.findOrderCtos(to);
 
 		assertThat(aCtos).isNotNull();
@@ -220,7 +224,8 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 	public void getArchivedOrders() {
 
 		OrderSearchCriteriaTo to = new OrderSearchCriteriaTo();
-		to.setPageable(OrdermanagementTestUtility.getPageable());
+		PageRequest pageable = PageRequest.of(0, 8, Sort.by(Direction.ASC, "id"));
+		to.setPageable(pageable);
 		orderManagement.cancelOrder(5L);
 		Page<OrderCto> aCtos = orderManagement.findArchivedCtos(to);
 
@@ -240,8 +245,9 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 
 		OrderEntity entity = orderDao.find(0L);
 		OrderCto cto = new OrderCto();
-		OrderEto transferObject = new OrderEto.Create().Id(entity.getId()).build();
-		
+		OrderEto transferObject = new OrderEto();
+		transferObject.setId(entity.getId());
+
 		cto.setOrder(transferObject);
 		OrderEto result = orderManagement.updateWaiterStatus(cto);
 
@@ -256,9 +262,10 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 	public void checkIfDefaultWaiterStatusOnInvalidStatus() {
 
 		OrderEntity updatingEntity = orderDao.find(0L);
-		
-		OrderEto transferObject = new OrderEto.Create()
-				.Id(updatingEntity.getId()).status(4).build();
+
+		OrderEto transferObject = new OrderEto();
+		transferObject.setId(updatingEntity.getId());
+		transferObject.setStatus(4);
 
 		OrderCto cto = new OrderCto();
 		cto.setOrder(transferObject);
@@ -276,17 +283,11 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 
 		OrderEntity entity = orderDao.find(0L);
 
-		OrderEto transferObject = new OrderEto.Create()
-				.Id(entity.getId()).status(1).build();
+		OrderEto transferObject = new OrderEto();
+		transferObject.setId(entity.getId());
+		transferObject.setStatus(1);
 		OrderCto cto = new OrderCto();
 		cto.setOrder(transferObject);
-		
-//		OrderCto cto = new OrderCto.Pipe().putNewOrder(
-//				new OrderEto.Create()
-//				.Id(entity.getId())
-//				.status(1)
-//				.build()
-//		).build();
 
 		OrderEto result = orderManagement.updateWaiterStatus(cto);
 
@@ -351,15 +352,15 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 	public void ArchivedIfSetOnPaid() {
 
 		OrderCto cto = new OrderCto();
-		
-		OrderEto transferObject = new OrderEto.Create()
-				.Id(0L).paid(true).status(3).build();
 
+		OrderEto transferObject = new OrderEto();
+		transferObject.setId(0L);
+		transferObject.setPaid(true);
+		transferObject.setStatus(3);
 		cto.setOrder(transferObject);
-		
+
 		orderManagement.updateWaiterStatus(cto);
 		OrderEto result = orderManagement.updatePaymentStatus(cto);
-		
 
 		assertEquals(true, result.getArchived());
 	}
@@ -386,15 +387,17 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 
 		OrderCto cto = new OrderCto();
 
-		OrderEto transferObject = new OrderEto.Create()
-				.Id(0L).paid(true).status(3).build();
-		
+		OrderEto transferObject = new OrderEto();
+		transferObject.setId(0L);
+		transferObject.setPaid(true);
+		transferObject.setStatus(3);
+
 		cto.setOrder(transferObject);
-		
+
 		orderManagement.updateWaiterStatus(cto);
-		orderManagement.updatePaymentStatus(cto);		
+		orderManagement.updatePaymentStatus(cto);
 		orderManagement.cancelOrder(transferObject.getId());
-		
+
 		assertEquals(0, orderDao.find(0L).getStatus());
 	}
 }
