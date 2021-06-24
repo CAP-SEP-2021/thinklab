@@ -12,7 +12,15 @@
     "clearFilters": "Verwijder filters",
     "applyFilters": "Voeg filters toe",
     "removeComment": "Verwijder commentaar",
-    "addComment": "Voeg commentaar toe"
+    "addComment": "Voeg commentaar toe",
+    "cancelOrder" : "Annuleer bestelling",
+    "reactivateOrder" : "Heractiveer bestelling",
+    "addUser" : "Voeg gebruikers toe",
+    "copyBookingId": "Kopieer boekings-ID",
+    "updateUserInformation": "Gebruikersinformatie bijwerken",
+    "deleteUser": "Verwijder gebruiker",
+    "updatePassword": "Vernieuw wachtwoord",
+    "sendResetLink": "Stuur reset-link"
   },
   "table": {
     "rowsPage": "Rijen per pagina",
@@ -70,7 +78,9 @@
     "dialog": {
       "title": "Boek tafel",
       "bookingSuccess": "Tafel succesvol geboekt",
-      "bookingError": "Fout tijdens boeking, probeer het later nog een keer"
+      "bookingError": "Fout tijdens boeking, probeer het later nog een keer",
+      "bookingId": "Boekings-ID",
+      "bookingIdTooltip": "Voeg de boekings-ID toe aan het winkelwagentje om een ​​bestelling af te ronden"
     },
     "formErrors": {
       "nameRequired": "Verplicht. Voer een naam in om een tafel te reserveren",
@@ -92,6 +102,10 @@
     "book": "Boek tafel",
     "orders": "Bestellingen",
     "reservations": "Reserveringen",
+    "archiv" : "Archief",
+    "users" : "Gebruikers lijst",
+    "prediction" : "Voorspelling",
+    "clustering" : "Clustering",
     "userActions": {
       "user": "Gebruiker",
       "pairing": "Definieer een two-factor authenticatie",
@@ -193,11 +207,61 @@
     },
     "table": {
       "reservationDateH": "Reserveer datum",
+      "tableIdH": "Tabel nummer",
       "emailH": "Email",
       "bookingTokenH": "Boekingsnummer",
       "ownerH": "Eigenaar",
       "tableH": "Tafel",
-      "creationDateH": "Aanmaakdatum"
+      "paymentStatusH": "Betalingsstatus",
+      "paymentStatusPaid": "Betaald",
+      "paymentStatusNotPaid": "Betaling in behandeling",
+      "creationDateH": "Aanmaakdatum",
+      "statusH" : "Toestand",
+      "statusDelivered" : "Eten is gearriveerd",
+      "statusTaken" :"Bestelling genomen",
+      "statusPrepared": "Er wordt eten bereid",
+      "statusInDelivery":"Er wordt eten bezorgd",
+      "cancelH": "Annuleren",
+      "reactivateH": "Opnieuw activeren"
+    },
+    "userTable": {
+      "userName" : "Gebruikersnaam",
+      "userRole" : "Gebruikersrol",
+      "id" : "ID kaart",
+      "emailH": "E-mail"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Maak een nieuwe gebruiker aan",
+    "userRole" : "Gebruikersrol",
+    "roleCustomer" : "Klant",
+    "roleWaiter" : "Ober",
+    "roleManager" : "Manager",
+    "roleAdmin" : "Beheerder",
+    "managePassword": "Beheer wachtwoord",
+    "formErrors" : {
+      "addUserNameRequired" : "Verplicht veld. Voer een gebruikersnaam in.",
+      "addUserEmailRequired" : "Verplicht veld. Voer een e-mail in.",
+      "addUserEmailPattern" : "Voer een geldig e-mailadres in, bijvoorbeeld email@email.com.",
+      "passwordRequiredPrompt" : "Verplicht veld. Voer een wachtwoord in alstublieft.",
+      "passwordMatchPrompt": "De wachtwoorden komen niet overeen."
+    },
+    "userInformation": {
+      "userInformation": "gebruikers informatie",
+      "userName": "Gebruikersnaam",
+      "userEmail": "E-mail gebruiker"
+    },
+    "userManagement":{
+      "usernameH": "Gebruikersnaam:",
+      "emailH": "E-mailadres:",
+      "password": "wachtwoord",
+      "repeatPassword": "herhaal wachtwoord",
+      "updatePassword": "Gebruikerswachtwoord bijwerken",
+      "resetLink": "Stuur reset-link",
+      "updateSuccess": "Update van gebruikersgegevens is gelukt",
+      "checkLink": "De link checken...",
+      "redirect": "je wordt snel doorgestuurd",
+      "wait": "Wacht alsjeblieft"
     }
   }
 }

@@ -12,7 +12,15 @@
     "clearFilters": "Wyczysc filtry",
     "applyFilters": "Zastosuj filtry",
     "removeComment": "Usun komentarz",
-    "addComment": "Dodaj komentarz"
+    "addComment": "Dodaj komentarz",
+    "cancelOrder" : "Anuluj zamówienie",
+    "reactivateOrder" : "Ponownie aktywuj zamówienie",
+    "addUser" : "Dodaj użytkowników",
+    "copyBookingId": "Skopiuj identyfikator rezerwacji",
+    "updateUserInformation": "Zaktualizuj informacje o użytkowniku",
+    "deleteUser": "Usuń użytkownika",
+    "updatePassword": "Aktualizować hasło",
+    "sendResetLink": "Wyślij link do resetowania"
   },
   "table": {
     "rowsPage": "Ilosc rzedów na stronie",
@@ -68,7 +76,9 @@
     "dialog": {
       "title": "Zarezerwuj stolik",
       "bookingSuccess": "Stolik zarezerwowany",
-      "bookingError": "Rezerwacja nieudana, spróbuj ponownie"
+      "bookingError": "Rezerwacja nieudana, spróbuj ponownie",
+      "bookingId": "Identyfikator rezerwacji",
+      "bookingIdTooltip": "Dodaj identyfikator rezerwacji do koszyka, aby sfinalizować zamówienie"
     },
     "formErrors": {
       "nameRequired":
@@ -91,6 +101,10 @@
     "book": "Zarezerwuj stolik",
     "orders": "Zamówienia",
     "reservations": "Rezerwacje",
+    "archiv" : "Archiwum",
+    "users" : "Lista użytkowników",
+    "prediction" : "Prognoza",
+    "clustering" : "Grupowanie",
     "userActions": {
       "user": "Uzytkownik",
       "pairing": "Ustaw uwierzytelnianie dwuskładnikowe",
@@ -192,11 +206,61 @@
     },
     "table": {
       "reservationDateH": "Data rezerwacji",
+      "tableIdH": "Numer tabeli",
       "emailH": "Email",
       "bookingTokenH": "Numer referencyjny",
       "ownerH": "Wlasciciel",
       "tableH": "Stolik",
-      "creationDateH": "Data utworzenia"
+      "paymentStatusH": "Status płatności",
+      "paymentStatusPaid": "Płatny",
+      "paymentStatusNotPaid": "Płatność w toku",
+      "creationDateH": "Data utworzenia",
+      "statusH" : "Status",
+      "statusDelivered" : "Przyszło jedzenie",
+      "statusTaken" :"Zamówienie przyjęte",
+      "statusPrepared": "Przygotowywane jest jedzenie",
+      "statusInDelivery":"Dostarczono jedzenie",
+      "cancelH": "Anuluj",
+      "reactivateH": "Reaktywować"
+    },
+    "userTable": {
+      "userName" : "Nazwa Użytkownika",
+      "userRole" : "Rola użytkownika",
+      "id" : "ID",
+      "emailH": "E-mail"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Utwórz nowego użytkownika",
+    "userRole" : "Rola użytkownika",
+    "roleCustomer" : "Klient",
+    "roleWaiter" : "Kelner",
+    "roleManager" : "Menedżer",
+    "roleAdmin" : "Administrator",
+    "managePassword": "Zarządzaj hasłem",
+    "formErrors" : {
+      "addUserNameRequired" : "Pole wymagane. Proszę, wpisz nazwę użytkownika.",
+      "addUserEmailRequired" : "Pole wymagane. Wprowadź adres e-mail.",
+      "addUserEmailPattern" : "Wprowadź prawidłowy adres e-mail, na przykład email@email.com.",
+      "passwordRequiredPrompt" : "Pole wymagane. Proszę wprowadzić hasło.",
+      "passwordMatchPrompt": "Hasła się nie zgadzają."
+    },
+    "userInformation": {
+      "userInformation": "Informacje o użytkowniku",
+      "userName": "Nazwa Użytkownika",
+      "userEmail": "Adres e-mail użytkownika"
+    },
+    "userManagement":{
+      "usernameH": "Nazwa Użytkownika:",
+      "emailH": "E-mail:",
+      "password": "hasło",
+      "repeatPassword": "Powtórz hasło",
+      "updatePassword": "Zaktualizuj hasło użytkownika",
+      "resetLink": "Wyślij link do resetowania",
+      "updateSuccess": "Aktualizacja danych użytkownika powiodła się",
+      "checkLink": "Sprawdzam link...",
+      "redirect": "wkrótce zostaniesz przekierowany",
+      "wait": "Proszę czekać"
     }
   }
 }

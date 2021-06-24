@@ -54,25 +54,22 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = [
     'booking.bookingDate',
-    'booking.email',
-    'booking.bookingToken',
-    'status',
+    'booking.tableId',
+    'booking.name',
+    'reactivate',
   ];
-  status: string[] = [
-    'Order placed',
-    'Food is prepared',
-    'Food is delivered',
-    'Paid',
-  ];
-  //status2: any[];
-  //myvar: Subscription;
+  status: string[];
 
+
+  status2 :any[];
+  
   pageSizes: number[];
 
   filters: FilterCockpit = {
     bookingDate: undefined,
     email: undefined,
     bookingToken: undefined,
+    paymentStatus: undefined,
     status: undefined, //@mo added to comlete the structure
   };
   reslut: any;
@@ -94,8 +91,9 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
   }
 
   sendStatus(option, element: OrderListView): void {
-    element.order.status = option;
-    let temp = { order: { id: element.order.id, status: option } }; // @mo change later
+    let newStatus = this.status.indexOf(option).toString();
+    element.order.status = newStatus;
+    let temp = { order: { id: element.order.id, status: newStatus } }; // @mo change later
     this.waiterCockpitService.postOrderStauts(temp).subscribe((data: any) => {
       this.applyFilters();
     });
@@ -109,17 +107,23 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
       .subscribe((cockpitTable) => {
         this.columns = [
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
-          { name: 'booking.email', label: cockpitTable.emailH },
-          { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
-          { name: 'status', label: cockpitTable.statusH },
+          { name: 'booking.tableId', label: cockpitTable.tableIdH },
+          { name: 'booking.name', label: cockpitTable.ownerH },
+          { name: 'reactivate', label: cockpitTable.reactivateH},
         ];
-    /*    this.status2 = [
-          cockpitTable.statusHtaken,
-          cockpitTable.statusHprepared,
-          cockpitTable.statusHdelivered,
-          cockpitTable.statusHPaid,
-        ];*/
+          this.status = [
+          cockpitTable.statusTaken,
+          cockpitTable.statusPrepared,
+          cockpitTable.statusInDelivery,
+          cockpitTable.statusDelivered,
+        ];
       });
+  }
+
+  sendGetCancelOrder(element: OrderListView ): void{
+    this.waiterCockpitService.getCancelOrder(element.order.id).subscribe((data: any) => {
+      this.applyFilters();
+    });; 
   }
 
   applyFilters(): void {

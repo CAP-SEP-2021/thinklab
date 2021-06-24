@@ -30,6 +30,13 @@
               }
             ],
             "styles": [
+              "./node_modules/animate.css/animate.css",
+              "./node_modules/@fortawesome/fontawesome-free/scss/brands.scss",
+              "./node_modules/@fortawesome/fontawesome-free/scss/regular.scss",
+              "./node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
+              "./node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
+              "./node_modules/angular-bootstrap-md/assets/scss/mdb.scss",
+              "./node_modules/angular-bootstrap-md/assets/scss/bootstrap/bootstrap.scss",
               "src/styles.scss",
               "src/theme.scss",
               "node_modules/flag-icon-css/css/flag-icon.min.css",
@@ -37,7 +44,9 @@
               "node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": [
-              "node_modules/showdown/dist/showdown.js"
+              "node_modules/showdown/dist/showdown.js",
+              "./node_modules/chart.js/dist/Chart.js",
+              "./node_modules/hammerjs/hammer.min.js"
             ],
             "allowedCommonJsDependencies": [
               "lodash",
@@ -219,7 +228,9 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "scripts": ["node_modules/showdown/dist/showdown.js"],
+            "scripts": [
+              "node_modules/showdown/dist/showdown.js"
+            ],
             "styles": [
               "src/styles.scss",
               "src/theme.scss",
@@ -237,7 +248,10 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
             "exclude": []
           }
         }

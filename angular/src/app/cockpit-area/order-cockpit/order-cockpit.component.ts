@@ -54,17 +54,16 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = [
     'booking.bookingDate',
-    'booking.email',
-    'booking.bookingToken',
+    'booking.tableId',
+    'booking.name',
+   // 'booking.bookingToken', no need to display bookingToken on order-cockpit
+    'paymentStatus',
     'status',
+    'cancel',
   ];
-  status: string[] = [
-    'Order placed',
-    'Food is prepared',
-    'Food is delivered',
-    'Paid',
-  ];
-  //status2 :any []; // @mo use later for lang change
+  status: string[];
+
+  paymentStatus: string[];
 
   pageSizes: number[];
 
@@ -72,7 +71,9 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     bookingDate: undefined,
     email: undefined,
     bookingToken: undefined,
+    paymentStatus: undefined,
     status: undefined, //@mo added to comlete the structure
+
   };
   reslut: any;
   constructor(
@@ -93,9 +94,29 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   }
 
   sendStatus(option, element: OrderListView): void {
-    element.order.status = option;
-    let temp = { order: { id: element.order.id, status: option } }; // @mo change later
+    let newStatus = option.toString();
+    element.order.status = newStatus;
+    let temp = { order: { id: element.order.id, status: newStatus } }; // @mo change later
     this.waiterCockpitService.postOrderStauts(temp).subscribe((data: any) => {
+      // @mo musst be changed
+      this.applyFilters();
+    });
+  }
+
+  sendGetCancelOrder(element: OrderListView): void{
+    console.log("ts started ");
+    
+    this.waiterCockpitService.getCancelOrder(element.order.id).subscribe((data: any) => {
+     console.log("this is the response data ");
+     this.applyFilters();
+     
+    });; 
+  }
+
+  sendPaymentStatus(newPaymentStatus: boolean, element: OrderListView): void {
+    element.order.paid = newPaymentStatus;
+    let temp = { order: { id: element.order.id, paid: newPaymentStatus } }; // @mo change later
+    this.waiterCockpitService.postOrderPaymentStatus(temp).subscribe((data: any) => {
       // @mo musst be changed
       this.applyFilters();
     });
@@ -108,16 +129,23 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       .subscribe((cockpitTable) => {
         this.columns = [
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
-          { name: 'booking.email', label: cockpitTable.emailH },
-          { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
+          { name: 'booking.tableId', label: cockpitTable.tableIdH },
+          { name: 'booking.name', label: cockpitTable.ownerH },
+        //  { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH }, no need to display bookingToken on order-cockpit
+          { name: 'paymentStatus', label: cockpitTable.paymentStatusH },
           { name: 'status', label: cockpitTable.statusH },
+          { name: 'cancel', label: cockpitTable.cancelH},
         ];
-        /* this.status2 = [
-             cockpitTable.statusHtaken ,
-            cockpitTable.statusHprepared ,
-           cockpitTable.statusHdelivered ,
-            cockpitTable.statusHPaid
-         ];*/
+         this.status = [
+            cockpitTable.statusTaken ,
+            cockpitTable.statusPrepared ,
+            cockpitTable.statusInDelivery ,
+            cockpitTable.statusDelivered
+         ];
+         this.paymentStatus = [
+            cockpitTable.paymentStatusNotPaid,
+            cockpitTable.paymentStatusPaid
+         ]
       });
   }
 
@@ -125,6 +153,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     if (this.sorting.length === 0) {
       // setting two default search crietria first the status of the order second is the date
       this.sorting.push({ property: 'status', direction: 'desc' });
+      this.sorting.push({ property: 'paid', direction: 'desc' });
       this.sorting.push({ property: 'booking.bookingDate', direction: 'desc' });
     }
    
@@ -135,8 +164,6 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           this.orders = [];
         } else {
           this.orders = data.content;
-      /*    console.log('all data ');
-          console.log(this.orders);*/
         }
         this.totalOrders = data.totalElements;
       });

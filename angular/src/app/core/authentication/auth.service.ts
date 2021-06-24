@@ -40,5 +40,8 @@ export class AuthService {
 
   public getRole(): Observable<string> {
     return this.role$;
+  }  
+  public getAvatar(): string {
+    return "./assets/images/Hnet.com-image (1).png";
   }
 }

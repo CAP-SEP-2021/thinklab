@@ -26,6 +26,8 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 	private boolean archived;
 
 	private boolean canceled;
+	
+	private boolean paid;
 
 	private String bookingToken;
 
@@ -195,5 +197,10 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
 	public void setArchivedOption(StringSearchConfigTo archivedOption) {
 		this.archivedOption = archivedOption;
-	}	
+	}
+
+	public boolean getPaid() {
+		return this.paid;
+	}
+	
 }

@@ -8,6 +8,9 @@ export const orderData: any = {
         invitedGuestId: null,
         bookingToken: null,
         hostId: 0,
+        status: "1",
+        canceled: false,
+        paid: false
       },
       booking: {
         modificationCounter: 1,
@@ -20,6 +23,7 @@ export const orderData: any = {
         creationDate: 1590057676.190929,
         email: 'user0@mail.com',
         canceled: false,
+        status: 0,
         bookingType: 'COMMON',
         tableId: 0,
         orderId: 0,

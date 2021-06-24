@@ -1,12 +1,19 @@
 package com.devonfw.application.mtsj.ordermanagement.logic.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.test.annotation.Rollback;
 
 import com.devonfw.application.mtsj.SpringBootApp;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingEto;
@@ -21,6 +28,9 @@ import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderCto;
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderEto;
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderLineCto;
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderLineEto;
+import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderSearchCriteriaTo;
+import com.devonfw.application.mtsj.ordermanagement.dataaccess.api.OrderEntity;
+import com.devonfw.application.mtsj.ordermanagement.dataaccess.api.repo.OrderRepository;
 import com.devonfw.application.mtsj.ordermanagement.logic.api.Ordermanagement;
 
 /**
@@ -28,144 +38,363 @@ import com.devonfw.application.mtsj.ordermanagement.logic.api.Ordermanagement;
  *
  */
 @SpringBootTest(classes = SpringBootApp.class)
+@Transactional
 public class OrdermanagementTest extends ApplicationComponentTest {
 
-  @Inject
-  private Ordermanagement orderManagement;
+	@Inject
+	private Ordermanagement orderManagement;
 
-  OrderCto orderCto;
+	@Inject
+	private OrderRepository orderDao;
 
-  /**
-   * Creation of needed objects
-   */
-  @Override
-  public void doSetUp() {
+	OrderCto orderCto;
 
-    super.doSetUp();
+	/**
+	 * Creation of needed objects
+	 */
+	@Override
+	public void doSetUp() {
 
-    // extra ingredients
-    IngredientEntity i1 = new IngredientEntity();
-    i1.setId(0L);
-    IngredientEntity i2 = new IngredientEntity();
-    i2.setId(1L);
-    List<IngredientEntity> extras = new ArrayList<>();
-    extras.add(i1);
-    extras.add(i2);
+		super.doSetUp();
 
-    // Dish
-    DishEto dishEto = new DishEto();
-    dishEto.setId(5L);
+		// extra ingredients
+		IngredientEntity i1 = new IngredientEntity();
+		i1.setId(0L);
+		IngredientEntity i2 = new IngredientEntity();
+		i2.setId(1L);
+		List<IngredientEntity> extras = new ArrayList<>();
+		extras.add(i1);
+		extras.add(i2);
 
-    // OrderLine Eto 1
-    OrderLineEto olEto1 = new OrderLineEto();
-    olEto1.setAmount(3);
-    olEto1.setComment("This is a test order line");
-    olEto1.setDishId(dishEto.getId());
+		// Dish
+		DishEto dishEto = new DishEto();
+		dishEto.setId(5L);
 
-    // OrderLine Eto 2
-    OrderLineEto olEto2 = new OrderLineEto();
-    olEto2.setAmount(1);
-    olEto2.setComment("This is another order line");
-    olEto2.setDishId(dishEto.getId());
+		// OrderLine Eto 1
+		OrderLineEto olEto1 = new OrderLineEto();
+		olEto1.setAmount(3);
+		olEto1.setComment("This is a test order line");
+		olEto1.setDishId(dishEto.getId());
 
-    // order line 1
-    OrderLineCto ol1 = new OrderLineCto();
-    ol1.setDish(dishEto);
-    ol1.setOrderLine(olEto1);
+		// OrderLine Eto 2
+		OrderLineEto olEto2 = new OrderLineEto();
+		olEto2.setAmount(1);
+		olEto2.setComment("This is another order line");
+		olEto2.setDishId(dishEto.getId());
 
-    // order line 2
-    OrderLineCto ol2 = new OrderLineCto();
-    ol2.setDish(dishEto);
-    ol1.setOrderLine(olEto2);
+		// order line 1
+		OrderLineCto ol1 = new OrderLineCto();
+		ol1.setDish(dishEto);
+		ol1.setOrderLine(olEto1);
 
-    // order
-    List<OrderLineCto> lines = new ArrayList<>();
-    lines.add(ol1);
-    // lines.add(ol2);
+		// order line 2
+		OrderLineCto ol2 = new OrderLineCto();
+		ol2.setDish(dishEto);
+		ol1.setOrderLine(olEto2);
 
-    BookingEto bookingEto = new BookingEto();
-    bookingEto.setBookingToken("CB_20170510_123502595Z");
-    this.orderCto = new OrderCto();
-    this.orderCto.setBooking(bookingEto);
-    this.orderCto.setOrderLines(lines);
+		// order
+		List<OrderLineCto> lines = new ArrayList<>();
+		lines.add(ol1);
+		// lines.add(ol2);
 
-  }
+		BookingEto bookingEto = new BookingEto();
+		bookingEto.setBookingToken("CB_20170510_123502595Z");
+		this.orderCto = new OrderCto();
+		this.orderCto.setBooking(bookingEto);
+		this.orderCto.setOrderLines(lines);
 
-  /**
-   * Tests if an order is created
-   */
-  @Test
-  public void orderAnOrder() {
+	}
 
-    OrderEto createdOrder = this.orderManagement.saveOrder(this.orderCto);
-    assertThat(createdOrder).isNotNull();
-  }
+	@AfterEach
+	public void after(TestInfo testInfo) {
+		if (testInfo.getTags().contains("Revert")) {
+			this.orderDao.deleteById(0L);
+		}
+	}
 
-  /**
-   * Tests that an order with a wrong token is not created
-   */
-  @Test
-  public void orderAnOrderWithWrongToken() {
+	/**
+	 * Tests if an order is created
+	 */
+	@Test
+	public void orderAnOrder() {
 
-    BookingEto bookingEto = new BookingEto();
-    bookingEto.setBookingToken("wrongToken");
-    this.orderCto.setBooking(bookingEto);
-    try {
-      this.orderManagement.saveOrder(this.orderCto);
-    } catch (Exception e) {
-      WrongTokenException wte = new WrongTokenException();
-      assertThat(e.getClass()).isEqualTo(wte.getClass());
-    }
-  }
+		OrderEto createdOrder = this.orderManagement.saveOrder(this.orderCto);
+		assertThat(createdOrder).isNotNull();
+	}
 
-  /**
-   * Tests that an already created order is not created again
-   */
-  @Test
-  public void orderAnOrderAlreadyCreated() {
+	// ================================================================================
+	// {@link OrdermanagementImpl} TOKEN Tests
+	// ================================================================================
 
-    BookingEto bookingEto = new BookingEto();
-    bookingEto.setBookingToken("CB_20170509_123502555Z");
-    this.orderCto.setBooking(bookingEto);
-    try {
-      this.orderManagement.saveOrder(this.orderCto);
-    } catch (Exception e) {
-      OrderAlreadyExistException oae = new OrderAlreadyExistException();
-      assertThat(e.getClass()).isEqualTo(oae.getClass());
-    }
-  }
+	/**
+	 * Tests that an order with a wrong token is not created
+	 */
+	@Test
+	public void orderAnOrderWithWrongToken() {
 
-  /**
-   * Tests that an order with a booking token that does not exist is not created
-   */
-  @Test
-  public void orderAnOrderBookingNotExist() {
+		BookingEto bookingEto = new BookingEto();
+		bookingEto.setBookingToken("wrongToken");
+		this.orderCto.setBooking(bookingEto);
+		try {
+			this.orderManagement.saveOrder(this.orderCto);
+		} catch (Exception e) {
+			WrongTokenException wte = new WrongTokenException();
+			assertThat(e.getClass()).isEqualTo(wte.getClass());
+		}
+	}
 
-    BookingEto bookingEto = new BookingEto();
-    bookingEto.setBookingToken("CB_Not_Existing_Token");
-    this.orderCto.setBooking(bookingEto);
-    try {
-      this.orderManagement.saveOrder(this.orderCto);
-    } catch (Exception e) {
-      NoBookingException nb = new NoBookingException();
-      assertThat(e.getClass()).isEqualTo(nb.getClass());
-    }
-  }
+	/**
+	 * Tests that an already created order is not created again
+	 */
+	@Test
+	public void orderAnOrderAlreadyCreated() {
 
-  /**
-   * Tests that an order with a guest token that does not exist is not created
-   */
-  @Test
-  public void orderAnOrderInviteNotExist() {
+		BookingEto bookingEto = new BookingEto();
+		bookingEto.setBookingToken("CB_20170509_123502555Z");
+		this.orderCto.setBooking(bookingEto);
+		try {
+			this.orderManagement.saveOrder(this.orderCto);
+		} catch (Exception e) {
+			OrderAlreadyExistException oae = new OrderAlreadyExistException();
+			assertThat(e.getClass()).isEqualTo(oae.getClass());
+		}
+	}
 
-    BookingEto bookingEto = new BookingEto();
-    bookingEto.setBookingToken("GB_Not_Existing_Token");
-    this.orderCto.setBooking(bookingEto);
-    try {
-      this.orderManagement.saveOrder(this.orderCto);
-    } catch (Exception e) {
-      NoInviteException ni = new NoInviteException();
-      assertThat(e.getClass()).isEqualTo(ni.getClass());
-    }
-  }
+	/**
+	 * Tests that an order with a booking token that does not exist is not created
+	 */
+	@Test
+	public void orderAnOrderBookingNotExist() {
+
+		BookingEto bookingEto = new BookingEto();
+		bookingEto.setBookingToken("CB_Not_Existing_Token");
+		this.orderCto.setBooking(bookingEto);
+		try {
+			this.orderManagement.saveOrder(this.orderCto);
+		} catch (Exception e) {
+			NoBookingException nb = new NoBookingException();
+			assertThat(e.getClass()).isEqualTo(nb.getClass());
+		}
+	}
+
+	/**
+	 * Tests that an order with a guest token that does not exist is not created
+	 */
+	@Test
+	public void orderAnOrderInviteNotExist() {
+
+		BookingEto bookingEto = new BookingEto();
+		bookingEto.setBookingToken("GB_Not_Existing_Token");
+		this.orderCto.setBooking(bookingEto);
+		try {
+			this.orderManagement.saveOrder(this.orderCto);
+		} catch (Exception e) {
+			NoInviteException ni = new NoInviteException();
+			assertThat(e.getClass()).isEqualTo(ni.getClass());
+		}
+	}
+	
+	// ================================================================================
+	// {@link OrdermanagementImpl} edited ordersearches
+	// ================================================================================
+
+	/*
+	 * Test for get all non-archived orders as list and is not null
+	 */
+	@Test
+	@Rollback(true)
+	public void getNonArchivedOrders() {
+
+		OrderSearchCriteriaTo to = new OrderSearchCriteriaTo();
+		to.setPageable(OrdermanagementTestUtility.getPageable());
+		Page<OrderCto> aCtos = orderManagement.findOrderCtos(to);
+
+		assertThat(aCtos).isNotNull();
+	}
+
+	/*
+	 * Test for get all archived orders as list and is not null
+	 */
+	@Test
+	@Rollback(true)
+	public void getArchivedOrders() {
+
+		OrderSearchCriteriaTo to = new OrderSearchCriteriaTo();
+		to.setPageable(OrdermanagementTestUtility.getPageable());
+		orderManagement.cancelOrder(5L);
+		Page<OrderCto> aCtos = orderManagement.findArchivedCtos(to);
+
+		assertThat(aCtos).isNotNull();
+	}
+
+	// ================================================================================
+	// {@link OrdermanagementImpl} waiter status tests
+	// ================================================================================
+
+	/**
+	 * Tests that an default waiter-status is on default
+	 */
+	@Test
+	@Rollback(true)
+	public void checkDefaultStatusOnCreate() {
+
+		OrderEntity entity = orderDao.find(0L);
+		OrderCto cto = new OrderCto();
+		OrderEto transferObject = new OrderEto.Create().Id(entity.getId()).build();
+		
+		cto.setOrder(transferObject);
+		OrderEto result = orderManagement.updateWaiterStatus(cto);
+
+		assertEquals(0, result.getStatus());
+	}
+
+	/**
+	 * Tests wrong default status that is detected
+	 */
+	@Test
+	@Rollback(true)
+	public void checkIfDefaultWaiterStatusOnInvalidStatus() {
+
+		OrderEntity updatingEntity = orderDao.find(0L);
+		
+		OrderEto transferObject = new OrderEto.Create()
+				.Id(updatingEntity.getId()).status(4).build();
+
+		OrderCto cto = new OrderCto();
+		cto.setOrder(transferObject);
+		OrderEto result = orderManagement.updateWaiterStatus(cto);
+
+		assertEquals(0, result.getStatus());
+	}
+
+	/**
+	 * Tests changed new waiter-status is successful
+	 */
+	@Test
+	@Rollback(true)
+	public void checkChangedWaiterStatus() {
+
+		OrderEntity entity = orderDao.find(0L);
+
+		OrderEto transferObject = new OrderEto.Create()
+				.Id(entity.getId()).status(1).build();
+		OrderCto cto = new OrderCto();
+		cto.setOrder(transferObject);
+		
+//		OrderCto cto = new OrderCto.Pipe().putNewOrder(
+//				new OrderEto.Create()
+//				.Id(entity.getId())
+//				.status(1)
+//				.build()
+//		).build();
+
+		OrderEto result = orderManagement.updateWaiterStatus(cto);
+
+		assertEquals(1, result.getStatus());
+	}
+
+	// ================================================================================
+	// {@link OrdermanagementImpl} archived / canceled states tests
+	// ================================================================================
+
+	/*
+	 * Test if a new Order is not archived
+	 */
+	@Test
+	@Rollback(true)
+	public void NotArchivedOnNewCreatedOrder() {
+		boolean b = orderDao.find(0L).getArchived();
+		assertEquals(false, b);
+	}
+
+	/*
+	 * Test if a new order is not canceled
+	 */
+	@Test
+	@Rollback(true)
+	public void NotCanceledOnNewCreatedOrder() {
+		boolean b = orderDao.find(0L).getCanceled();
+		assertEquals(false, b);
+	}
+
+	/*
+	 * Test if a order with default status can be canceled
+	 */
+	@Test
+	@Rollback(true)
+	public void CancelOrderWithDefaultStatus() {
+
+		OrderEntity entity = orderDao.find(0L);
+		orderManagement.cancelOrder(entity.getId());
+
+		assertEquals(true, orderDao.find(0L).getCanceled());
+	}
+
+	/*
+	 * Test if a order that is canceled gonna be archived
+	 */
+	@Test
+	@Rollback(true)
+	public void ArchivedIfItsCanceled() {
+
+		OrderEntity entity = orderDao.find(0L);
+		orderManagement.cancelOrder(entity.getId());
+
+		assertEquals(true, orderDao.find(0L).getArchived());
+	}
+
+	/*
+	 * Test if anorder is archived if its set on paid and deliveried state
+	 */
+	@Test
+	@Rollback(true)
+	public void ArchivedIfSetOnPaid() {
+
+		OrderCto cto = new OrderCto();
+		
+		OrderEto transferObject = new OrderEto.Create()
+				.Id(0L).paid(true).status(3).build();
+
+		cto.setOrder(transferObject);
+		
+		orderManagement.updateWaiterStatus(cto);
+		OrderEto result = orderManagement.updatePaymentStatus(cto);
+		
+
+		assertEquals(true, result.getArchived());
+	}
+
+	/*
+	 * Test if reactivated order is not archived anymore
+	 */
+	@Test
+	@Rollback(true)
+	public void NotArchivedAnymoreOnReactivated() {
+
+		OrderEntity entity = orderDao.find(0L);
+		orderManagement.cancelOrder(entity.getId());
+		orderManagement.cancelOrder(entity.getId());
+
+		assertEquals(false, orderDao.find(0L).getArchived());
+	}
+
+	/*
+	 * test if order that is reactivated the status is set back on default
+	 */
+	@Test
+	public void ChangedStatusToDefaultOnReactivated() {
+
+		OrderCto cto = new OrderCto();
+
+		OrderEto transferObject = new OrderEto.Create()
+				.Id(0L).paid(true).status(3).build();
+		
+		cto.setOrder(transferObject);
+		
+		orderManagement.updateWaiterStatus(cto);
+		orderManagement.updatePaymentStatus(cto);		
+		orderManagement.cancelOrder(transferObject.getId());
+		
+		assertEquals(0, orderDao.find(0L).getStatus());
+	}
 }

@@ -108,6 +108,8 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     "/services/rest/usermanagement/v1/user/",
     "/services/rest/usermanagement/v1/user/*",
     "/services/rest/usermanagement/v1/user/**",
+    
+    "/services/rest/usermanagement/v1/user/search",
     /*
      * from capgimini
      */
@@ -128,6 +130,10 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     "/services/rest/ordermanagement/v1/order/status/update/",
     "/services/rest/ordermanagement/v1/order/status/update/*",
     "/services/rest/ordermanagement/v1/order/status/update/**",
+    
+    "/services/rest/ordermanagement/v1/order/payment/update/",
+    "/services/rest/ordermanagement/v1/order/payment/update/*",
+    "/services/rest/ordermanagement/v1/order/payment/update/**",
     /*
      * for external testing via postman for canceled states
      */
@@ -145,9 +151,16 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     
     "/services/rest/ordermanagement/v1/orderline/update","/services/rest/ordermanagement/v1/orderline/update/",
     
-    "/services/rest/usermanagement/v1/user/update/","/services/rest/usermanagement/v1/user/update/"
+    "/services/rest/usermanagement/v1/user/update/",
     
+    "/services/rest/usermanagement/v1/user/reset/password/request/",
+    "/services/rest/usermanagement/v1/user/reset/password/new/",
+    "/services/rest/usermanagement/v1/user/reset/password/validate/**",
     
+    "/services/rest/bookingmanagement/v1/booking/findBy/",
+    
+    "images/**", "/images/**"
+    //"pw_image.PNG", "/pw_image.PNG"
     };
     
     http.userDetailsService(this.userDetailsService).csrf().disable().exceptionHandling().and().sessionManagement()

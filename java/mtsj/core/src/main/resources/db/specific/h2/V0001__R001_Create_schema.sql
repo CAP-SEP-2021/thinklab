@@ -36,6 +36,17 @@ CREATE TABLE User (
   CONSTRAINT PK_User_idRole FOREIGN KEY(idRole) REFERENCES UserRole(id) NOCHECK
 );
 
+-- *** ResetToken ***
+CREATE TABLE ResetToken (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  modificationCounter INTEGER NOT NULL,
+  idUser BIGINT NOT NULL,  
+  token VARCHAR (255) NULL,
+  creationDate TIMESTAMP,
+  CONSTRAINT PK_ResetToken PRIMARY KEY(id),
+  CONSTRAINT FK_ResetToken_user FOREIGN KEY(idUser) REFERENCES User(id) NOCHECK
+);
+
 -- *** Booking ***
 CREATE TABLE Booking (
   id BIGINT NOT NULL AUTO_INCREMENT,
@@ -49,7 +60,7 @@ CREATE TABLE Booking (
   expirationDate TIMESTAMP,
   creationDate TIMESTAMP,
   canceled BOOLEAN NOT NULL DEFAULT ((0)) ,
---  bezahlt BOOLEAN NOT NULL DEFAULT ((0)),
+  delivery BOOLEAN DEFAULT ((0)) ,
   bookingType INTEGER,
   idTable BIGINT,
   idOrder BIGINT,
@@ -78,9 +89,10 @@ CREATE TABLE Orders (
   id BIGINT NOT NULL AUTO_INCREMENT,
   modificationCounter INTEGER NOT NULL,
   idBooking BIGINT NOT NULL,
-  status VARCHAR (255),
+  status INTEGER,
   canceled BOOLEAN,
   archived BOOLEAN,
+  paid BOOLEAN,
   idInvitedGuest BIGINT,
   idHost BIGINT,
   CONSTRAINT PK_Order PRIMARY KEY(id),

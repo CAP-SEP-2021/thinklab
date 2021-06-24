@@ -20,6 +20,7 @@ import { Store } from '@ngrx/store';
 import { TranslocoService } from '@ngneat/transloco';
 import { find } from 'lodash';
 import { Lang } from 'app/core/config/config'; 
+import { AvatarModule } from 'ngx-avatar';
 
 @Component({
   selector: 'app-public-header',

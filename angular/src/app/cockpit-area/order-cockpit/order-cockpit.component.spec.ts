@@ -26,6 +26,7 @@ import { click } from '../../shared/common/test-utils';
 import { ascSortOrder } from '../../../in-memory-test-data/db-order-asc-sort';
 import { orderData } from '../../../in-memory-test-data/db-order';
 
+
 const mockDialog = {
   open: jasmine.createSpy('open').and.returnValue({
     afterClosed: () => of(true),
@@ -45,11 +46,16 @@ const translocoServiceStub = {
 
 const waiterCockpitServiceStub = {
   getOrders: jasmine.createSpy('getOrders').and.returnValue(of(orderData)),
+  postOrderPaymentStatus: jasmine.createSpy('getPaymentStatus'),
+  postOrderStauts: jasmine.createSpy('getOrderStatus')
+  
+  
 };
 
 const waiterCockpitServiceSortStub = {
   getOrders: jasmine.createSpy('getOrders').and.returnValue(of(ascSortOrder)),
 };
+
 
 class TestBedSetUp {
   static loadWaiterCockpitServiceStud(waiterCockpitStub: any): any {
@@ -146,7 +152,68 @@ describe('OrderCockpitComponent', () => {
     expect(component.orders).toEqual(orderData.content);
     expect(component.totalOrders).toBe(8);
   }));
-});
+
+
+  it('should change payement-status from false to true and from true to false on checkbox-click', () => {
+    fixture.detectChanges();
+    expect(component.orders[0].order.paid).toBe(false);
+    const payementButton = el.queryAll(By.css('.mat-checkbox'));
+    payementButton[0].triggerEventHandler('change', null);
+    
+    expect(component.orders[0].order.paid).toBe(true);
+  });
+
+
+  it('should call the method sendPaymentStatus when clicking payment-checkbox ', fakeAsync(() => {
+    fixture.detectChanges();
+    spyOn(component, 'sendPaymentStatus');
+    const payementButton = el.queryAll(By.css('.mat-checkbox'));
+    payementButton[0].triggerEventHandler('change', null);
+    tick();
+    expect(component.sendPaymentStatus).toHaveBeenCalled();
+    }));
+
+    
+  it('should call the method sendStatus when clicking a status-change-button ', () => {
+    fixture.detectChanges();
+    spyOn(component, 'sendStatus');
+    const statusButton = el.queryAll(By.css('.mat-button-toggle'));
+    click(statusButton[8]);
+    expect(component.sendStatus).toHaveBeenCalled();
+    });
+
+    
+  it('should change between all possible status-options',() => {
+    fixture.detectChanges();
+    expect(component.orders[0].order.status).toBe("1");
+    const statusButton = el.queryAll(By.css('.mat-button-toggle'));
+    click(statusButton[0]);
+    expect(component.orders[0].order.status).toBe("0");
+    click(statusButton[2]);
+    expect(component.orders[0].order.status).toBe("2");
+    click(statusButton[3]);
+    expect(component.orders[0].order.status).toBe("3");
+    click(statusButton[0]);
+    expect(component.orders[0].order.status).toBe("0");
+      });
+
+
+  it('should call the method sendGetCancelOrder when clicking the cancel-order button ', fakeAsync(() => {
+      fixture.detectChanges();
+      spyOn(component, 'sendGetCancelOrder');
+      const cancelButton = el.queryAll(By.css('.mat-mini-fab'));
+      click(cancelButton[0]);
+      tick();
+      expect(component.sendGetCancelOrder).toHaveBeenCalled();
+      }));
+  });
+
+
+
+
+
+
+
 
 describe('TestingOrderCockpitComponentWithSortOrderData', () => {
   let component: OrderCockpitComponent;

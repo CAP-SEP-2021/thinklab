@@ -39,7 +39,7 @@ public class BookingEto extends AbstractEto implements Booking {
 
   private boolean canceled;
   
-//  private boolean bezahlt;
+  private boolean delivery;
 
   private BookingType bookingType;
 
@@ -285,14 +285,15 @@ public class BookingEto extends AbstractEto implements Booking {
 
     this.userId = userId;
   }
-//	@Override
-//	public void setBezahlt(boolean bezahlt) {
-//		this.bezahlt = bezahlt;
-//	}
-//
-//	@Override
-//	public boolean getBezahlt() {
-//		return this.bezahlt;
-//	}
+
+	@Override
+	public void setDelivery(boolean delivery) {
+		this.delivery = delivery;
+	}
+
+	@Override
+	public boolean getDelivery() {
+		return this.delivery;
+	}
 
 }

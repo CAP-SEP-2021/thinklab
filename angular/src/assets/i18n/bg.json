@@ -12,7 +12,15 @@
     "clearFilters": "Изчисти филтри",
     "applyFilters": "Приложи филтри",
     "removeComment": "Изтрий коментар",
-    "addComment": "Добави коментар"
+    "addComment": "Добави коментар",
+    "cancelOrder" : "Анулиране на поръчка",
+    "reactivateOrder" : "Реактивирайте поръчката",
+    "addUser" : "Добавете потребители",
+    "copyBookingId": "Копирайте номера на резервацията",
+    "updateUserInformation": "Актуализирайте информацията за потребителя",
+    "deleteUser": "Изтриване на потребител",
+    "updatePassword": "Актуализирайте паролата",
+    "sendResetLink": "Изпращане на връзката за нулиране"
   },
   "table": {
     "rowsPage": "Редове на страница",
@@ -69,7 +77,9 @@
     "dialog": {
       "title": "Запази маса",
       "bookingSuccess": "Масата е запазена успешно",
-      "bookingError": "Грешка при резервацията, моля опитай по-късно"
+      "bookingError": "Грешка при резервацията, моля опитай по-късно",
+      "bookingId": "номер на резервация",
+      "bookingIdTooltip": "Добавете номера на резервацията в пазарската количка, за да завършите поръчка"
     },
     "formErrors": {
       "nameRequired": "Задължително. Моля въведи име, за да запазиш маса",
@@ -90,6 +100,10 @@
     "book": "Запази маса",
     "orders": "Поръчки",
     "reservations": "Резервации",
+    "archiv" : "архив",
+    "users" : "Списък с потребители",
+    "prediction" : "прогнозиране",
+    "clustering" : "клъстериране",
     "userActions": {
       "user": "Потребител",
       "pairing": "Задайте двуфакторно удостоверяване",
@@ -191,11 +205,61 @@
     },
     "table": {
       "reservationDateH": "Дата на резервация",
+      "tableIdH": "Номер на таблицата",
       "emailH": "Email",
       "bookingTokenH": "Номер на резервация",
       "ownerH": "Създател",
-      "tableH": "Маса",
-      "creationDateH": "Дата на създаване"
+      "tableH": "маса",
+      "paymentStatusH": "Статус на плащането",
+      "paymentStatusPaid": "платени",
+      "paymentStatusNotPaid": "Неплатено плащане",
+      "creationDateH": "Дата на създаване",
+      "statusH" : "статус",
+      "statusDelivered" : "Храната пристигна",
+      "statusTaken" :"Поръчката взета",
+      "statusPrepared": "Приготвя се храна",
+      "statusInDelivery":"Доставя се храна",
+      "cancelH": "Отказ",
+      "reactivateH": "Повторно активиране"
+    },
+    "userTable": {
+      "userName" : "Потребителско име",
+      "userRole" : "Потребителска роля",
+      "id" : "Идентификационен номер",
+      "emailH": "електронна поща"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Създайте нов потребител",
+    "userRole" : "Потребителска роля",
+    "roleCustomer" : "клиент",
+    "roleWaiter" : "Сервитьор",
+    "roleManager" : "Мениджър",
+    "roleAdmin" : "Администратор",
+    "managePassword": "Управление на паролата",
+    "formErrors" : {
+      "addUserNameRequired" : "Задължително поле. Моля, въведете потребителско име.",
+      "addUserEmailRequired" : "Задължително поле. Моля, въведете имейл.",
+      "addUserEmailPattern" : "Въведете валиден имейл адрес, например email@email.com.",
+      "passwordRequiredPrompt" : "Задължително поле. Моля, въведете парола.",
+      "passwordMatchPrompt": "Паролите не съвпадат."
+    },
+    "userInformation": {
+      "userInformation": "Информация за потребителя",
+      "userName": "Потребителско име",
+      "userEmail": "Имейл на потребителя"
+    },
+    "userManagement":{
+      "usernameH": "Потребителско име:",
+      "emailH": "Електронна поща:",
+      "password": "парола",
+      "repeatPassword": "Повтори паролата",
+      "updatePassword": "Актуализирайте потребителската парола",
+      "resetLink": "Изпращане на връзката за нулиране",
+      "updateSuccess": "Актуализацията на потребителските данни беше успешна",
+      "checkLink": "Проверка на връзката ...",
+      "redirect": "скоро ще бъдете пренасочени",
+      "wait": "Моля Изчакай"
     }
   }
 }

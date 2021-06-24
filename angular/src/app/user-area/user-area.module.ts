@@ -15,6 +15,9 @@ import { TwoFactorDialogComponent } from './components/two-factor-dialog/two-fac
 import { UserAreaService } from './services/user-area.service';
 import { effects, reducers } from './store';
 import { TranslocoModule } from '@ngneat/transloco';
+import { ResetPasswordComponent } from './components/authorize-reset-token/reset-password/reset-password.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthorizeResetTokenComponent } from './components/authorize-reset-token/authorize-reset-token.component';
 
 @NgModule({
   imports: [
@@ -22,6 +25,8 @@ import { TranslocoModule } from '@ngneat/transloco';
     SharedModule,
     TranslocoModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     CoreModule,
     StoreModule.forFeature('auth', reducers),
     EffectsModule.forFeature(effects),
@@ -34,6 +39,8 @@ import { TranslocoModule } from '@ngneat/transloco';
     TwitterDialogComponent,
     TwoFactorDialogComponent,
     QrCodeDialogComponent,
+    ResetPasswordComponent,
+    AuthorizeResetTokenComponent,
   ],
   exports: [
     LoginDialogComponent,

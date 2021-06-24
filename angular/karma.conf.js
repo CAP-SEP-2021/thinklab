@@ -40,7 +40,10 @@ module.exports = function (config) {
       }
     },
     client: {
-      clearContext: false // leave Jasmine Spec Runner output visible in browser
+      clearContext: false, // leave Jasmine Spec Runner output visible in browser
+      jasmine: {
+        random: false
+      }
     },
     files: [
       // Include all Angular dependencies

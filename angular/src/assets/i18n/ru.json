@@ -12,7 +12,15 @@
         "clearFilters": "Очистить фильтры",
         "applyFilters": "Применить фильтры",
         "removeComment": "Удалить комментарий",
-        "addComment": "Добавить комментарий"
+        "addComment": "Добавить комментарий",
+        "cancelOrder" : "отменить заказ",
+        "reactivateOrder" : "Активировать заказ",
+        "addUser" : "Добавить пользователей",
+        "copyBookingId": "Скопируйте идентификатор бронирования",
+        "updateUserInformation": "Обновить информацию о пользователе",
+        "deleteUser": "Удалить пользователя",
+        "updatePassword": "Обновить пароль",
+        "sendResetLink": "Отправить ссылку для сброса"
     },
     "table": {
         "rowsPage": "Строк на страницу",
@@ -67,7 +75,9 @@
         "dialog": {
             "title": "Заказать стол",
             "bookingSuccess": "Стол успешно заказан",
-            "bookingError": "Ошибка при заказе, повторите попытку позже"
+            "bookingError": "Ошибка при заказе, повторите попытку позже",
+            "bookingId": "Идентификатор бронирования",
+            "bookingIdTooltip": "Добавьте идентификатор бронирования в корзину, чтобы завершить заказ"
         },
         "formErrors": {
             "nameRequired": "Необходимo. Введите имя, чтобы заказать стол",
@@ -85,6 +95,10 @@
         "book": "Заказать стол",
         "orders": "Заказы",
         "reservations": "Бронирование",
+        "archiv" : "архив",
+        "users" : "Список пользователей",
+        "prediction" : "прогноз",
+        "clustering" : "кластеризация",
         "userActions": {
             "user": "Пользовател",
             "pairing": "Установить двухфакторную аутентификацию",
@@ -183,11 +197,61 @@
         },
         "table": {
             "reservationDateH": "Число бронирования",
+            "tableIdH": "Номер стола",
             "emailH": "Эл. почта",
             "bookingTokenH": "Номер ссылки",
             "ownerH": "Владелец",
             "tableH": "Стол",
-            "creationDateH": "Число создания"
+            "paymentStatusH": "Статус платежа",
+            "paymentStatusPaid": "Оплаченный",
+            "paymentStatusNotPaid": "Ожидается платеж",
+            "creationDateH": "Число создания",
+            "statusH" : "ста́тус",
+            "statusDelivered" : "Еда прибыла",
+            "statusTaken" :"Заказ принят",
+            "statusPrepared": "Еда готовится",
+            "statusInDelivery":"Еда доставляется",
+            "cancelH": "Отмена",
+            "reactivateH": "Реактивировать"
+        },
+        "userTable": {
+            "userName" : "Имя пользователя",
+            "userRole" : "Роль пользователя",
+            "id" : "Идентификатор",
+            "emailH": "Электронное письмо"
+          }
+    },
+    "userManagement": {
+        "createUser" : "Создать нового пользователя",
+        "userRole" : "Роль пользователя",
+        "roleCustomer" : "клиент",
+        "roleWaiter" : "Официант",
+        "roleManager" : "Менеджер",
+        "roleAdmin" : "Админ",
+        "managePassword": "Управлять паролем",
+        "formErrors" : {
+            "addUserNameRequired" : "Обязательное поле. Пожалуйста введите имя пользователя.",
+            "addUserEmailRequired" : "Обязательное поле. Пожалуйста, введите адрес электронной почты.",
+            "addUserEmailPattern" : "Введите действующий адрес электронной почты, например, email@email.com.",
+            "passwordRequiredPrompt" : "Обязательное поле. Пожалуйста, введите пароль.",
+            "passwordMatchPrompt": "Пароли не совпадают."
+        },
+        "userInformation": {
+          "userInformation": "информация о пользователе",
+          "userName": "Имя пользователя",
+          "userEmail": "Электронная почта пользователя"
+        },
+        "userManagement":{
+          "usernameH": "Имя пользователя:",
+          "emailH": "Электронное письмо:",
+          "password": "пароль",
+          "repeatPassword": "повторить пароль",
+          "updatePassword": "Обновить пароль пользователя",
+          "resetLink": "Отправить ссылку для сброса",
+          "updateSuccess": "Обновление данных пользователя прошло успешно",
+          "checkLink": "Проверка ссылки ...",
+          "redirect": "скоро вы будете перенаправлены",
+          "wait": "Пожалуйста, подождите"
         }
-    }
+      }
 }

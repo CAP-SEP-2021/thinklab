@@ -11,6 +11,7 @@ import * as authActions from '../store/actions/auth.actions';
 import * as fromAuth from '../store/reducers/';
 import { SnackService } from './snack-bar.service';
 import { TranslocoService } from '@ngneat/transloco';
+import { UserPasswordToken } from '../models/user';
 
 @Injectable()
 export class UserAreaService {
@@ -26,6 +27,8 @@ export class UserAreaService {
   private readonly twofactorRestPath: string = 'twofactor/';
   private readonly registerRestPath: string = 'register';
   private readonly changePasswordRestPath: string = 'changepassword';
+  private readonly resetPasswordPath: string = 'reset/password/new/'; 
+  private readonly authorizeTokenPath: string = 'reset/password/validate/'; 
   authAlerts: any;
 
   constructor(
@@ -156,4 +159,29 @@ export class UserAreaService {
   logout(): void {
     this.store.dispatch(authActions.logout());
   }
+  /*
+    sending the new reseted password with the reset  token to the Backend 
+  */  
+  resetPassword(userToken : UserPasswordToken){
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post(
+          `${restServiceRoot}${this.usermanagementRestPath}${this.resetPasswordPath}`,
+          userToken,
+        ),
+      ),
+    );
+  }
+  /*
+   checking the reset Password Token in the Backend 
+  */  
+  checkToken(token : String){
+  //token+="/"
+  console.log(`${this.usermanagementRestPath}${this.authorizeTokenPath}${token}`);
+      
+      return   this.restServiceRoot$.pipe(
+        exhaustMap((restServiceRoot) => 
+        this.http.get(
+          `${restServiceRoot}${this.usermanagementRestPath}${this.authorizeTokenPath}${token}` )));
+}
 }

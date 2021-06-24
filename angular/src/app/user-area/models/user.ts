@@ -7,3 +7,7 @@ export class UserDataResponse {
 export class TokenString {
   token: string;
 }
+export class UserPasswordToken{
+  token : string;
+  password : string;
+}

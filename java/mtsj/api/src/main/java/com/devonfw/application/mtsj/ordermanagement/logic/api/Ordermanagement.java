@@ -20,117 +20,151 @@ import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderedDishesS
  */
 public interface Ordermanagement {
 
-  /**
-   * Returns a Order by its id 'id'.
-   *
-   * @param id The id 'id' of the Order.
-   * @return The {@link OrderEto} with id 'id'
-   */
-  OrderCto findOrder(Long id);
+	/**
+	 * Returns a Order by its id 'id'.
+	 *
+	 * @param id The id 'id' of the Order.
+	 * @return The {@link OrderEto} with id 'id'
+	 */
+	OrderCto findOrder(Long id);
 
-  /**
-   * Returns a paginated list of Orders matching the search criteria. Needs Authorization.
-   *
-   * @param criteria the {@link OrderSearchCriteriaTo}.
-   * @return the {@link List} of matching {@link OrderCto}s.
-   */
-  Page<OrderCto> findOrdersByPost(OrderSearchCriteriaTo criteria);
+	/**
+	 * Returns a paginated list of Orders matching the search criteria. Needs
+	 * Authorization.
+	 *
+	 * @param criteria the {@link OrderSearchCriteriaTo}.
+	 * @return the {@link List} of matching {@link OrderCto}s.
+	 */
+	Page<OrderCto> findOrdersByPost(OrderSearchCriteriaTo criteria);
 
-  Page<OrderCto> findArchivedOrders(OrderSearchCriteriaTo searchCriteriaTo);
-  
-  /**
-   * Returns a paginated list of Orders matching the search criteria.
-   *
-   * @param criteria the {@link OrderSearchCriteriaTo}.
-   * @return the {@link List} of matching {@link OrderCto}s.
-   */
-  Page<OrderCto> findOrderCtos(OrderSearchCriteriaTo criteria);
-  Page<OrderCto> findArchivedCtos(OrderSearchCriteriaTo searchCriteriaTo);
-  /**
-   * Returns the list of OrderCto
-   *
-   * @param invitedGuestId
-   * @return the list {@link OrderCto}
-   */
-  List<OrderCto> findOrdersByInvitedGuest(Long invitedGuestId);
+	/**
+	 * Returns a paginated list of Orders matching the search criteria. Needs
+	 * Authorization.
+	 *
+	 * @param criteria the {@link OrderSearchCriteriaTo}.
+	 * @return the {@link List} of matching {@link OrderCto}s.
+	 */
+	Page<OrderCto> findArchivedOrders(OrderSearchCriteriaTo searchCriteriaTo);
 
-  /**
-   * Returns the list of OrderCtos
-   *
-   * @param bookingToken
-   * @return the list {@link OrderCto}
-   */
-  List<OrderCto> findOrdersByBookingToken(String bookingToken);
+	/**
+	 * Returns a paginated list of Orders matching the search criteria.
+	 *
+	 * @param criteria the {@link OrderSearchCriteriaTo}.
+	 * @return the {@link List} of matching {@link OrderCto}s.
+	 */
+	Page<OrderCto> findOrderCtos(OrderSearchCriteriaTo criteria);
 
-  /**
-   * Returns the list of OrderCtos
-   *
-   * @param idBooking
-   * @return the list {@link OrderCto}
-   */
-  List<OrderCto> findOrders(Long idBooking);
+	Page<OrderCto> findArchivedCtos(OrderSearchCriteriaTo searchCriteriaTo);
 
-  /**
-   * Deletes a order from the database by its id 'orderId'.
-   *
-   * @param orderId Id of the order to delete
-   * @return boolean <code>true</code> if the order can be deleted, <code>false</code> otherwise
-   */
-  boolean deleteOrder(Long orderId);
-  
-  /**
-   * set the state canceled of a order from the database by its id 'orderId'.
-   *
-   * @param orderId Id of the order to change the state
-   * @return boolean <code>true</code> if the order can be deleted, <code>false</code> otherwise
-   */
-  boolean cancelOrder(Long orderId);
+	/**
+	 * Returns the list of OrderCto
+	 *
+	 * @param invitedGuestId
+	 * @return the list {@link OrderCto}
+	 */
+	List<OrderCto> findOrdersByInvitedGuest(Long invitedGuestId);
 
-  /**
-   * Saves a order and store it in the database.
-   *
-   * @param order the {@link OrderEto} to create.
-   * @return the new {@link OrderEto} that has been saved with ID and version.
-   */
-  OrderEto saveOrder(OrderCto order);
+	/**
+	 * Returns the list of OrderCtos
+	 *
+	 * @param bookingToken
+	 * @return the list {@link OrderCto}
+	 */
+	List<OrderCto> findOrdersByBookingToken(String bookingToken);
 
-  /**
-   * Returns a OrderLine by its id 'id'.
-   *
-   * @param id The id 'id' of the OrderLine.
-   * @return The {@link OrderLineEto} with id 'id'
-   */
-  OrderLineEto findOrderLine(Long id);
+	/**
+	 * Returns the list of OrderCtos
+	 *
+	 * @param idBooking
+	 * @return the list {@link OrderCto}
+	 */
+	List<OrderCto> findOrders(Long idBooking);
 
-  /**
-   * Returns a paginated list of OrderLines matching the search criteria.
-   *
-   * @param criteria the {@link OrderLineSearchCriteriaTo}.
-   * @return the {@link List} of matching {@link OrderLineEto}s.
-   */
-  // PaginatedListTo<OrderLineEto> findOrderLineEtos(OrderLineSearchCriteriaTo criteria);
-  Page<OrderLineCto> findOrderLineCtos(OrderLineSearchCriteriaTo criteria);
+	/**
+	 * Deletes a order from the database by its id 'orderId'.
+	 *
+	 * @param orderId Id of the order to delete
+	 * @return boolean <code>true</code> if the order can be deleted,
+	 *         <code>false</code> otherwise
+	 */
+	boolean deleteOrder(Long orderId);
 
-  /**
-   * Deletes a orderLine from the database by its id 'orderLineId'.
-   *
-   * @param orderLineId Id of the orderLine to delete
-   * @return boolean <code>true</code> if the orderLine can be deleted, <code>false</code> otherwise
-   */
-  boolean deleteOrderLine(Long orderLineId);
+	/**
+	 * set the state canceled of a order from the database by its id 'orderId'.
+	 *
+	 * @param orderId Id of the order to change the state
+	 * @return boolean <code>true</code> if the order can be deleted,
+	 *         <code>false</code> otherwise
+	 */
+	boolean cancelOrder(Long orderId);
 
-  /**
-   * Saves a orderLine and store it in the database.
-   *
-   * @param orderLine the {@link OrderLineEto} to create.
-   * @return the new {@link OrderLineEto} that has been saved with ID and version.
-   */
-  OrderLineEto saveOrderLine(OrderLineEto orderLine);
-  
-  OrderLineEto updateOrderLine(OrderLineCto orderLine);
+	/**
+	 * Saves a order and store it in the database.
+	 *
+	 * @param order the {@link OrderEto} to create.
+	 * @return the new {@link OrderEto} that has been saved with ID and version.
+	 */
+	OrderEto saveOrder(OrderCto order);
 
-  Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo criteria);
+	/**
+	 * Returns a OrderLine by its id 'id'.
+	 *
+	 * @param id The id 'id' of the OrderLine.
+	 * @return The {@link OrderLineEto} with id 'id'
+	 */
+	OrderLineEto findOrderLine(Long id);
 
-  OrderEto statusUpdate(@Valid OrderCto order);
+	/**
+	 * Returns a paginated list of OrderLines matching the search criteria.
+	 *
+	 * @param criteria the {@link OrderLineSearchCriteriaTo}.
+	 * @return the {@link List} of matching {@link OrderLineEto}s.
+	 */
+	// PaginatedListTo<OrderLineEto> findOrderLineEtos(OrderLineSearchCriteriaTo
+	// criteria);
+	Page<OrderLineCto> findOrderLineCtos(OrderLineSearchCriteriaTo criteria);
+
+	/**
+	 * Deletes a orderLine from the database by its id 'orderLineId'.
+	 *
+	 * @param orderLineId Id of the orderLine to delete
+	 * @return boolean <code>true</code> if the orderLine can be deleted,
+	 *         <code>false</code> otherwise
+	 */
+	boolean deleteOrderLine(Long orderLineId);
+
+	/**
+	 * Saves a orderLine and store it in the database.
+	 *
+	 * @param orderLine the {@link OrderLineEto} to create.
+	 * @return the new {@link OrderLineEto} that has been saved with ID and version.
+	 */
+	OrderLineEto saveOrderLine(OrderLineEto orderLine);
+
+	/**
+	 * update a orderLine and store it in the database.
+	 *
+	 * @param orderLine the {@link OrderLineCto} to update.
+	 * @return the new {@link OrderLineEto} that has been updated.
+	 */
+	OrderLineEto updateOrderLine(OrderLineCto orderLine);
+
+	/**
+	 * update a order-state and store it in the database.
+	 *
+	 * @param order the {@link OrderCto} to update.
+	 * @return the new {@link OrderEto} that has been updated.
+	 */
+	OrderEto updateWaiterStatus(@Valid OrderCto order);
+
+	/**
+	 * update a payment state and store it in the database.
+	 *
+	 * @param order the {@link OrderCto} to update the payment state.
+	 * @return the new {@link OrderEto} that has been updated.
+	 */
+	OrderEto updatePaymentStatus(@Valid OrderCto order);
+
+	Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo criteria);
 
 }
