@@ -86,10 +86,14 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     if( archived!=null && alias.getBooking() != null) {
     	query.where(Alias.$(alias.getArchived()).eq(archived));	
     }
+    
+    
+//    query.orderBy(new OrderSpecifier<OrderEntity>(OrderEntity.class, "orderId"));
+    
 //    OrderSpecifier<String> sortOrder1 = QDealer.dealer.dealerType.asc();
-    OrderSpecifier<Long> severity = 
-    		new OrderSpecifier<>(Order.DESC, Expressions.numberPath(Long.class, "orderId"));
-    query.orderBy(severity);
+//    OrderSpecifier<Long> severity = 
+//    		new OrderSpecifier<>(Order.DESC, Expressions.numberPath(Long.class, "orderId"));
+//    query.orderBy(severity);
     
     //        jpaQuery.orderBy(orderSpecifierList.toArray(new OrderSpecifier[orderSpecifierList.size()]));
     
