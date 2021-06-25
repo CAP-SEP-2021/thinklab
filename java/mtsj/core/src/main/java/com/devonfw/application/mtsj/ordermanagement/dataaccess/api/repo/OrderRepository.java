@@ -73,9 +73,11 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     if ((bookingToken != null) && alias.getBooking() != null) {
       query.where(Alias.$(alias.getBooking().getBookingToken()).toLowerCase().eq(bookingToken.toLowerCase()));
     }
-    
-    boolean archived = criteria.getArchived();
-    query.where(Alias.$(alias.getArchived()).eq(archived));
+    Boolean archived = criteria.getArchived();
+    if( archived!=null && alias.getBooking() != null) {
+    	query.where(Alias.$(alias.getArchived()).eq(archived));	
+    }
+//    query.where(Alias.$(alias.getArchived()).eq(archived));
     
     return QueryUtil.get().findPaginated(criteria.getPageable(), query, true);
   }
