@@ -82,7 +82,6 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     if( archived!=null && alias.getBooking() != null) {
     	query.where(Alias.$(alias.getArchived()).eq(archived));	
     }
-//    query.where(Alias.$(alias.getArchived()).eq(archived));
     
     return QueryUtil.get().findPaginated(criteria.getPageable(), query, true);
   }
