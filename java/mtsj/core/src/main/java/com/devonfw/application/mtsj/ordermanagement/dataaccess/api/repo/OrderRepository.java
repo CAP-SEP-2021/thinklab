@@ -1,5 +1,6 @@
 package com.devonfw.application.mtsj.ordermanagement.dataaccess.api.repo;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -69,6 +70,10 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     if ((email != null) && alias.getBooking() != null) {
       query.where(Alias.$(alias.getBooking().getEmail()).toLowerCase().like(email.toLowerCase()));
     }
+	Instant bookingDate = criteria.getBookingDate();
+	if (bookingDate != null ) {
+		query.where(Alias.$(alias.getBooking().getBookingDate()).eq(bookingDate));
+	}
     String bookingToken = criteria.getBookingToken();
     if ((bookingToken != null) && alias.getBooking() != null) {
       query.where(Alias.$(alias.getBooking().getBookingToken()).toLowerCase().eq(bookingToken.toLowerCase()));

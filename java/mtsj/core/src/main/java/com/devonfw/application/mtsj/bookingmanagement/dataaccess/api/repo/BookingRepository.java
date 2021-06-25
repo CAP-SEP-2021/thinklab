@@ -99,10 +99,12 @@ public interface BookingRepository extends DefaultRepository<BookingEntity> {
 		if (comment != null && !comment.isEmpty()) {
 			QueryUtil.get().whereString(query, $(alias.getComment()), comment, criteria.getCommentOption());
 		}
+		
 		Instant bookingDate = criteria.getBookingDate();
-		if (bookingDate != null) {
+		if (bookingDate != null ) {
 			query.where(Alias.$(alias.getBookingDate()).eq(bookingDate));
 		}
+		
 		Instant expirationDate = criteria.getExpirationDate();
 		if (expirationDate != null) {
 			query.where(Alias.$(alias.getExpirationDate()).eq(expirationDate));
@@ -120,10 +122,7 @@ public interface BookingRepository extends DefaultRepository<BookingEntity> {
 		if (canceled != null) {
 			query.where(Alias.$(alias.getCanceled()).eq(canceled));
 		}
-//    Boolean bezahlt = criteria.getBezahlung();
-//    if (bezahlt != null) {
-//      query.where(Alias.$(alias.getBezahlt()).eq(bezahlt));
-//    }
+
 		BookingType bookingType = criteria.getBookingType();
 		if (bookingType != null) {
 			query.where(Alias.$(alias.getBookingType()).eq(bookingType));

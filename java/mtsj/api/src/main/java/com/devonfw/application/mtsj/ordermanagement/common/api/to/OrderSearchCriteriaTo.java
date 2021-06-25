@@ -1,5 +1,7 @@
 package com.devonfw.application.mtsj.ordermanagement.common.api.to;
 
+import java.time.Instant;
+
 import com.devonfw.application.mtsj.general.common.api.to.AbstractSearchCriteriaTo;
 import com.devonfw.module.basic.common.api.query.StringSearchConfigTo;
 
@@ -30,6 +32,8 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 	private boolean paid;
 
 	private String bookingToken;
+	
+	private Instant bookingDate;
 
 	private StringSearchConfigTo hostTokenOption;
 
@@ -201,6 +205,14 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
 	public boolean getPaid() {
 		return this.paid;
+	}
+
+	public void setBookingDate(Instant bookingDate) {
+		this.bookingDate = bookingDate;
+	}
+	
+	public Instant getBookingDate() {
+		return this.bookingDate;
 	}
 	
 }
