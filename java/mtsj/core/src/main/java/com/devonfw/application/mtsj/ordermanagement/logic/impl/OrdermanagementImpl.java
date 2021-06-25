@@ -206,9 +206,9 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 			processOrders(ctos, order);
 		}
 		
-		ctos = ctos.stream().sorted((s1, s2)
-				-> s1.getBooking().getBookingDate().compareTo(s2.getBooking().getBookingDate()))
-					.collect(Collectors.toList());		
+//		ctos = ctos.stream().sorted((s1, s2)
+//				-> s1.getBooking().getBookingDate().compareTo(s2.getBooking().getBookingDate()))
+//					.collect(Collectors.toList());
 		
 		if (ctos.size() > 0) {
 			Pageable pagResultTo = PageRequest.of(criteria.getPageable().getPageNumber(), ctos.size());

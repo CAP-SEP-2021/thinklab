@@ -14,6 +14,9 @@ import com.devonfw.application.mtsj.ordermanagement.dataaccess.api.OrderEntity;
 import com.devonfw.module.jpa.dataaccess.api.QueryUtil;
 import com.devonfw.module.jpa.dataaccess.api.data.DefaultRepository;
 import com.querydsl.core.alias.Alias;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQuery;
 
 /**
@@ -74,6 +77,7 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
 	if (bookingDate != null ) {
 		query.where(Alias.$(alias.getBooking().getBookingDate()).eq(bookingDate));
 	}
+
     String bookingToken = criteria.getBookingToken();
     if ((bookingToken != null) && alias.getBooking() != null) {
       query.where(Alias.$(alias.getBooking().getBookingToken()).toLowerCase().eq(bookingToken.toLowerCase()));
@@ -82,6 +86,12 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     if( archived!=null && alias.getBooking() != null) {
     	query.where(Alias.$(alias.getArchived()).eq(archived));	
     }
+//    OrderSpecifier<String> sortOrder1 = QDealer.dealer.dealerType.asc();
+    OrderSpecifier<Long> severity = 
+    		new OrderSpecifier<>(Order.DESC, Expressions.numberPath(Long.class, "orderId"));
+    query.orderBy(severity);
+    
+    //        jpaQuery.orderBy(orderSpecifierList.toArray(new OrderSpecifier[orderSpecifierList.size()]));
     
     return QueryUtil.get().findPaginated(criteria.getPageable(), query, true);
   }
