@@ -81,10 +81,10 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     if( archived!=null && alias.getBooking() != null) {
     	query.where(Alias.$(alias.getArchived()).eq(archived));	
     }
-//    Boolean paid = criteria.getPaid();
-//    if( paid!=null && alias.getBooking().getOrder().getPaid()) {
-//    	query.where(Alias.$(alias.getPaid()).eq(paid));	
-//    }
+    Boolean paid = criteria.getPaid();
+    if( paid!=null && alias.getBooking().getOrder().getPaid()) {
+    	query.where(Alias.$(alias.getPaid()).eq(paid));	
+    }
 	Instant bookingDate = criteria.getBookingDate();
 	if (bookingDate != null ) {
 		query.where(Alias.$(alias.getBooking().getBookingDate()).eq(bookingDate));
