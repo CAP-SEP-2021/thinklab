@@ -22,10 +22,9 @@ import { NewUserDialogComponent } from './new-user-dialog/new-user-dialog.compon
 import { UserDetailsDialogComponent } from './user-details-dialog/user-details-dialog.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { UserPasswordDialogComponent } from './user-password-dialog/user-password-dialog.component';
-import { MDBBootstrapModule } from "angular-bootstrap-md"; //delete later if do wana use 
 import { AuthService } from 'app/core/authentication/auth.service';
 import { SnackBarService } from '../../core/snack-bar/snack-bar.service';
-import { AvatarModule } from 'ngx-avatar';
+
 @Component({
   selector: 'app-usermanagement-cockpit',
   templateUrl: './usermanagement-cockpit.component.html',
@@ -170,6 +169,8 @@ export class UsermanagementCockpitComponent implements OnInit {
     if (userInfo) {
     let dialog = this.dialog.open(ConfirmationDialogComponent, { data: userInfo });
     dialog.afterClosed().subscribe(() => setTimeout(() => this.applyFilters(), 200)); 
+    }else{
+      setTimeout(() => this.applyFilters(), 100); 
     }
   }
 

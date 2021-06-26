@@ -1,15 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-  Filter,
   FilterCockpit,
   Pageable,
   Sort,
 } from 'app/shared/backend-models/interfaces';
-import { cloneDeep, map, template } from 'lodash';
-import { BookingInfo } from 'app/shared/backend-models/interfaces';
+import { cloneDeep, map } from 'lodash';
 import { Observable } from 'rxjs';
-import { debounceTime, exhaustMap, publishReplay, share } from 'rxjs/operators';
+import {  exhaustMap } from 'rxjs/operators';
 import { ConfigService } from '../../core/config/config.service';
 import {
   BookingResponse,
@@ -19,6 +17,7 @@ import {
   OrderViewResult,
 } from '../../shared/view-models/interfaces';
 import { PriceCalculatorService } from '../../sidenav/services/price-calculator.service';
+import { OrderStatus } from '../models/orders';
 
 @Injectable()
 export class WaiterCockpitService {
@@ -29,27 +28,26 @@ export class WaiterCockpitService {
   private readonly filterOrdersRestPath: string =
     'ordermanagement/v1/order/search';
   private readonly orderStatusUpdateRestPath: string =
-    'ordermanagement/v1/order/status/update'; 
-    private readonly orderCancelRestPath: string =
+    'ordermanagement/v1/order/status/update';
+  private readonly orderCancelRestPath: string =
     'ordermanagement/v1/order/cancelorder';
-    private readonly orderPaymentStatusUpdateRestPath: string =
+  private readonly orderPaymentStatusUpdateRestPath: string =
     'ordermanagement/v1/order/payment/update';
-    private readonly orderArchivRestPath: string =
+  private readonly orderArchivRestPath: string =
     'ordermanagement/v1/order/archived';
-    private readonly filtersDishRestPath: string = 
+  private readonly filtersDishRestPath: string =
     'dishmanagement/v1/dish/search';
-
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
-temp :any;
+  temp: any;
   constructor(
     private http: HttpClient,
     private priceCalculator: PriceCalculatorService,
     private config: ConfigService,
-  ) {}
+  ) { }
 
-  
+
   getDishes(
     filters: any,
   ): Observable<{ pageable: Pageable; content: DishView[] }> {
@@ -80,10 +78,9 @@ temp :any;
       path = this.getOrdersRestPath;
     }
     return this.restServiceRoot$.pipe(
-      //debounceTime(500),.pipe(share())
       exhaustMap((restServiceRoot) =>
         this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderArchivRestPath}`, filters),
-      ) ,  
+      ) ,
     );
   }
   getOrders(
@@ -102,43 +99,46 @@ temp :any;
       path = this.getOrdersRestPath;
     }
     return this.restServiceRoot$.pipe(
- 
+
       exhaustMap((restServiceRoot) =>
         this.http.post<OrderResponse[]>(`${restServiceRoot}${path}`, filters),
       ),
     );
   }
-  
-  getCancelOrder(id :number): Observable<any> {
-    var pathID= "/" +id.toString() + "/";
-    this.temp = this.restServiceRoot$.pipe( //@mo muust be changed 
+
+  /**
+   * send a http get request to the backend to cancel an order
+   * @param id the id of the order 
+   */
+  getCancelOrder(id: number): Observable<any> {
+    var pathID = "/" + id.toString() + "/";
+    return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
         this.http.get(`${restServiceRoot}${this.orderCancelRestPath}${pathID}`),
       ),
     );
-   
-    return this.temp;
   }
-  postOrderStauts(orderInfo: any): Observable<any> {
-   
-      this.temp = this.restServiceRoot$.pipe( //@mo muust be changed 
-        exhaustMap((restServiceRoot) =>
-          this.http.post(`${restServiceRoot}${this.orderStatusUpdateRestPath}`, orderInfo),
-        ),
-      );
-     
-      return this.temp;
-    }
-  
-  postOrderPaymentStatus(orderInfo: any): Observable<any> {
-  
-    this.temp = this.restServiceRoot$.pipe( //@mo muust be changed 
+/**
+ * sending the order status to the backend via Http Post 
+ * @param orderStaus  object containg  the id of the order and status 
+ */
+  postOrderStauts(orderStaus: OrderStatus): Observable<any> {
+    return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
-        this.http.post(`${restServiceRoot}${this.orderPaymentStatusUpdateRestPath}`, orderInfo),
+        this.http.post(`${restServiceRoot}${this.orderStatusUpdateRestPath}`, orderStaus),
       ),
     );
-    
-    return this.temp;
+  }
+/**
+ * sending the order paid status to the backend via Http Post 
+ * @param orderStaus  object containg  the id of the order and paid status 
+ */
+  postOrderPaymentStatus(orderStaus: OrderStatus): Observable<any> {
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post(`${restServiceRoot}${this.orderPaymentStatusUpdateRestPath}`, orderStaus),
+      ),
+    );
   }
 
 
@@ -171,5 +171,5 @@ temp :any;
   getTotalPrice(orderLines: OrderView[]): number {
     return this.priceCalculator.getTotalPrice(orderLines);
   }
- 
+
 }

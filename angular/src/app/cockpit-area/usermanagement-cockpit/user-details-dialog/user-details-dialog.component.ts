@@ -73,10 +73,21 @@ export class UserDetailsDialogComponent implements OnInit {
 
   onSubmit(): void {
     delete this.userInfo.password;
+/*
     this.userInfo.username = this.Form.get("username").value;
     this.userInfo.email = this.Form.get("email").value;
     this.userInfo.userRoleId = this.Form.get("userRoleId").value;
-    this.store.dispatch(cockpitAreaActions.updateUser({ UserInfo: this.userInfo }));
+*/
+var userInfoTemp: UserInfo = {
+  id: this.userInfo.id,
+  username:this.Form.get("username").value,
+  password: '',
+  email: this.Form.get("email").value,
+  userRoleId:this.Form.get("userRoleId").value,
+  twoFactorStatus: undefined,
+};
+delete userInfoTemp.password;
+    this.store.dispatch(cockpitAreaActions.updateUser({ UserInfo: userInfoTemp }));
   }
 
 

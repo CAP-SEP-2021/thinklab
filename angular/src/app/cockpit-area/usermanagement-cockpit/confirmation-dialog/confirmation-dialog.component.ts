@@ -24,37 +24,23 @@ export class ConfirmationDialogComponent implements OnInit {
     twoFactorStatus: undefined,
 
   };
-    
-
-  dialog : MatDialog;
-  constructor( 
-
+  constructor(
     private UsermanagementCockpitService: UsermanagementCockpitService,
     private translocoService: TranslocoService,
     @Inject(MAT_DIALOG_DATA) dialogData: any,
     private configService: ConfigService,
     private fb: FormBuilder,
-    private store: Store<fromApp.State> , 
-    ) { 
-   
-      this.UserInfo  = dialogData;
-    }
+    private store: Store<fromApp.State>,
+  ) {
+    this.UserInfo = dialogData;
+  }
 
   ngOnInit(): void {
   }
   deleteUser(): void {
+    this.store.dispatch(cockpitAreaActions.deleteUser({ UserInfo: this.UserInfo }));
 
-        console.log();
-        this.store.dispatch(cockpitAreaActions.deleteUser({ UserInfo: this.UserInfo }));
-       
-      }
+  }
 
-      public decline() {
-       
-      }
-    
-      public accept() {
-        
-      }
 }
 

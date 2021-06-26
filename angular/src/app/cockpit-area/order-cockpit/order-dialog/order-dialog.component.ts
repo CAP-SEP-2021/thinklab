@@ -2,10 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { ConfigService } from '../../../core/config/config.service';
-import { BookingView, DishView, OrderListView, OrderView } from '../../../shared/view-models/interfaces';
+import { BookingView, OrderListView, OrderView } from '../../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../../services/waiter-cockpit.service';
 import { TranslocoService } from '@ngneat/transloco';
-import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-cockpit-order-dialog',
@@ -15,9 +15,8 @@ import { Observable } from 'rxjs';
 export class OrderDialogComponent implements OnInit {
   private fromRow = 0;
   private currentPage = 1;
-
   pageSize = 4;
-  dishes: any ; 
+  dishes: any;
   data: OrderListView;
   tempData: OrderListView;
   datat: BookingView[] = [];
@@ -29,7 +28,6 @@ export class OrderDialogComponent implements OnInit {
     'email',
     'tableId',
   ];
-
   datao: OrderView[] = [];
   columnso: any[];
   displayedColumnsO: string[] = [
@@ -38,9 +36,8 @@ export class OrderDialogComponent implements OnInit {
     'extras',
     'orderLine.amount',
     'dish.price',
- 
-  ];
 
+  ];
   pageSizes: number[];
   filteredData: OrderView[] = this.datao;
   totalPrice: number;
@@ -51,43 +48,32 @@ export class OrderDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) dialogData: any,
     private configService: ConfigService,
   ) {
-    
-  
     this.data = dialogData;
     this.pageSizes = this.configService.getValues().pageSizesDialog;
   }
 
   ngOnInit(): void {
-    var tempbody  = {"categories":[],     ///@mo change later
-    "searchBy":"",
-    "pageable":{
-        "pageSize":8,
-        "pageNumber":0,
-        "sort":[{"property":"price","direction":"DESC"}] 
-        },
-    "maxPrice":null,"minLikes":null
+    var tempbody = {
+      "categories": [],     ///@mo change later
+      "searchBy": "",
+      "pageable": {
+        "pageSize": 8,
+        "pageNumber": 0,
+        "sort": [{ "property": "price", "direction": "DESC" }]
+      },
+      "maxPrice": null, "minLikes": null
     };
     this.dishes = this.waiterCockpitService.getDishes(tempbody);
-    
-    
-
-    
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
     });
-
     this.totalPrice = this.waiterCockpitService.getTotalPrice(
       this.data.orderLines,
     );
-    
-    
     this.datao = this.waiterCockpitService.orderComposer(this.data.orderLines);
     this.datat.push(this.data.booking);
     this.filter();
   }
-
-
-  
 
 
   setTableHeaders(lang: string): void {
@@ -107,7 +93,7 @@ export class OrderDialogComponent implements OnInit {
       .selectTranslateObject('cockpit.orders.dialogTable', {}, lang)
       .subscribe((cockpitDialogTable) => {
         this.columnso = [
-         
+
           { name: 'dish.name', label: cockpitDialogTable.dishH },
           { name: 'orderLine.comment', label: cockpitDialogTable.commentsH },
           { name: 'extras', label: cockpitDialogTable.extrasH },
@@ -117,7 +103,7 @@ export class OrderDialogComponent implements OnInit {
             label: cockpitDialogTable.priceH,
             numeric: true,
             format: (v: number) => v.toFixed(2),
-          }, 
+          },
         ];
       });
   }
@@ -128,51 +114,16 @@ export class OrderDialogComponent implements OnInit {
     this.fromRow = pagingEvent.pageSize * pagingEvent.pageIndex;
     this.filter();
   }
-  sendGetCancelOrder(){
-    console.log("ts started ");
-    console.log(this.data.order.id);
+  sendGetCancelOrder() {
     this.waiterCockpitService.getCancelOrder(this.data.order.id).subscribe((data: any) => {
-     console.log("this is the response data ");
-     console.log(data);
-    });; 
+    });
   }
 
   filter(): void {
     let newData: any[] = this.datao;
     newData = newData.slice(this.fromRow, this.currentPage * this.pageSize);
     setTimeout(() => (this.filteredData = newData));
-    
-  }
-/*
-  logrow(element :OrderView , event : any ) :void{
-    this.tempData = this.data;
-    console.log("for each loop");
-    this.tempData.orderLines.forEach (function (value) {
-     if (value.orderLine.id == element.orderLine.id){
-        value.orderLine.amount = event.target.value;
-      }
-      console.log(value.orderLine.id);
-      console.log(value.orderLine);
-    }); 
-    console.log("event data ");
-    console.log(event.target.value);
-    console.log(element);
-    console.log("temp data ");
-    console.log(this.tempData);
+
   }
 
-  deleterow(element :OrderView) :void{
-    this.tempData = this.data;
-    console.log("for each loop");
-    this.tempData.orderLines.forEach (function (value) { 
-     if (value.orderLine.id == element.orderLine.id){ // @mo need to be fixed  
-       delete value.orderLine ;
-      }
-      
-    }); 
-   
-    console.log(element);
-    console.log("temp data ");
-    console.log(this.tempData);
-  }*/
 }

@@ -210,10 +210,151 @@ export class CockpitAreaEffects {
   );
 
 
+
+
+  updatePaymentStatus$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(cockpitActions.updatePaymentStatus),
+    map((order) => order),
+    switchMap((order: any) => {
+      return this.waiterCockpitService.postOrderPaymentStatus(order.order).pipe(
+        map((res: any) =>
+          cockpitActions.updatePaymentStatusSuccess(),
+        ),
+        catchError((error) => of(cockpitActions.updatePaymentStatusFail({ error }))),
+      );
+    }),
+  ),
+);
+
+updatePaymentStatusSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(cockpitActions.updatePaymentStatusSuccess),
+      tap(() => {
+        this.snackBar.openSnack(
+          this.translocoService.translate('userManagement.userManagement.updateSuccess'), //@patrik please translate 
+          4000,
+          'green',
+        );
+      }),
+    ),
+  { dispatch: false },
+);
+
+updatePaymentStatusFail$ = createEffect(
+  () =>
+    this.actions$.pipe(
+      ofType(cockpitActions.updatePaymentStatusFail),
+      tap(() => {
+        this.snackBar.openSnack(
+          "Error please try again later", //@patrik please translate 
+          4000,
+          'red',
+        );
+      }),
+    ),
+  { dispatch: false },
+);
+
+
+
+updateOrderStatus$ = createEffect(() =>
+this.actions$.pipe(
+  ofType(cockpitActions.updateOrderStatus),
+  map((order) => order),
+  switchMap((order: any) => {
+    return this.waiterCockpitService.postOrderStauts(order.order).pipe(
+      map((res: any) =>
+        cockpitActions.updateOrderStatusSuccess(),
+      ),
+      catchError((error) => of(cockpitActions.updateOrderStatusFail({ error }))),
+    );
+  }),
+),
+);
+
+updateOrderStatusSuccess$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(cockpitActions.updateOrderStatusSuccess),
+    tap(() => {
+      this.snackBar.openSnack(
+        this.translocoService.translate('userManagement.userManagement.updateSuccess'), //@patrik please translate 
+        4000,
+        'green',
+      );
+    }),
+  ),
+{ dispatch: false },
+);
+
+updateOrderStatusFail$ = createEffect(
+() =>
+  this.actions$.pipe(
+    ofType(cockpitActions.updateOrderStatusFail),
+    tap(() => {
+      this.snackBar.openSnack(
+        "Error please try again later", //@patrik please translate 
+        4000,
+        'red',
+      );
+    }),
+  ),
+{ dispatch: false },
+);
+
+
+
+cancelOrder$ = createEffect(() =>
+this.actions$.pipe(
+  ofType(cockpitActions.cancelOrder),
+  map((order) => order),
+  switchMap((order: any) => {
+    return this.waiterCockpitService.getCancelOrder(order.id).pipe(
+      map((res: any) =>
+        cockpitActions.cancelOrderSuccess(),
+      ),
+      catchError((error) => of(cockpitActions.cancelOrderFail({ error }))),
+    );
+  }),
+),
+);
+
+cancelOrderSuccess$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(cockpitActions.cancelOrderSuccess),
+    tap(() => {
+      this.snackBar.openSnack(
+        this.translocoService.translate('userManagement.userManagement.updateSuccess'), //@patrik please translate 
+        4000,
+        'green',
+      );
+    }),
+  ),
+{ dispatch: false },
+);
+
+cancelOrderFail$ = createEffect(
+() =>
+  this.actions$.pipe(
+    ofType(cockpitActions.cancelOrderFail),
+    tap(() => {
+      this.snackBar.openSnack(
+        "Error please try again later", //@patrik please translate 
+        4000,
+        'red',
+      );
+    }),
+  ),
+{ dispatch: false },
+);
+
+
+
+
   constructor(
     private actions$: Actions,
     public translocoService: TranslocoService,
-    private WaiterCockpitService: WaiterCockpitService,
+    private waiterCockpitService: WaiterCockpitService,
     private UsermanagementCockpitService: UsermanagementCockpitService,
     public snackBar: SnackBarService,
   ) { }
