@@ -22,7 +22,7 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
   private String email;
 
-  private String status;
+  private Integer status;
 
   private boolean archived;
 
@@ -126,12 +126,12 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
     return this.archived;
   }
 
-  public String getStatus() {
+  public Integer getStatus() {
 
     return this.status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(Integer status) {
 
     this.status = status;
   }

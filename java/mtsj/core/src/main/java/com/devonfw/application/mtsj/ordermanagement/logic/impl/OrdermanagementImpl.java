@@ -201,8 +201,9 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
     for (OrderEntity order : orders.getContent()) {
       processOrders(ctos, order);
     }
-    System.out.println("HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
     System.out.println(criteria.getPageable().getSort().toString());
+
     if (criteria.getPageable().getSort().isEmpty()
         || criteria.getPageable().getSort().toString().contains("booking.bookingDate")) {
       ctos = ctos.stream().sorted((s1, s2) -> s1.getOrder().getId().compareTo(s2.getOrder().getId()))

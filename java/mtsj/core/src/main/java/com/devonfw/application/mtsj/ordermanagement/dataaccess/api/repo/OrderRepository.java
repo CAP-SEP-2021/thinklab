@@ -76,6 +76,10 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     if (archived != null && alias.getBooking() != null) {
       query.where(Alias.$(alias.getArchived()).eq(archived));
     }
+    Integer status = criteria.getStatus();
+    if (status != null) {
+      query.where(Alias.$(alias.getStatus()).eq(status));
+    }
     Boolean paid = criteria.getPaid();
     if (paid != null) {
       query.where(Alias.$(alias.getPaid()).eq(paid));
