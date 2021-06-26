@@ -1,6 +1,7 @@
 package com.devonfw.application.mtsj.ordermanagement.logic.impl;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -207,7 +208,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 		}
 		
 		ctos = ctos.stream().sorted((s1, s2)
-				-> s1.getBooking().getOrderId().compareTo(s2.getBooking().getOrderId()))
+				-> s1.getOrder().getId().compareTo(s2.getOrder().getId()))
 					.collect(Collectors.toList());
 		
 		if (ctos.size() > 0) {
@@ -597,13 +598,17 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 			}
 
 			// dish cost
-			sb.append(" ==>").append(". Dish cost: ").append(linePrice.toString());
+			sb.append(" ==>").append(". Dish cost: ")
+				.append(linePrice.setScale(2, RoundingMode.HALF_EVEN).toString())
+				.append("€");
 			sb.append("\n");
 			// increase the finalPrice of the order
 			finalPrice = finalPrice.add(linePrice);
 		}
 
-		return sb.append("Total Order cost: ").append(finalPrice.toString()).toString();
+		return sb.append("Total Order cost: ")
+				.append(finalPrice.setScale(2, RoundingMode.HALF_EVEN).toString())
+				.append("€").toString();
 	}
 
 	private String getBookingOrGuestEmail(String token) {
