@@ -6,223 +6,236 @@ import com.devonfw.application.mtsj.general.common.api.to.AbstractSearchCriteria
 import com.devonfw.module.basic.common.api.query.StringSearchConfigTo;
 
 /**
- * used to find {@link com.devonfw.application.mtsj.ordermanagement.common.api.Order}s.
+ * used to find
+ * {@link com.devonfw.application.mtsj.ordermanagement.common.api.Order}s.
  */
 public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  private Long bookingId;
+	private Long bookingId;
 
-  private Long invitedGuestId;
+	private Long invitedGuestId;
 
-  private String hostToken;
+	private String hostToken;
 
-  private Long hostId;
+	private Long hostId;
 
-  private String email;
+	private Long tableId;
 
-  private Integer status;
+	private String email;
 
-  private boolean archived;
+	private Integer status;
 
-  private boolean canceled;
+	private boolean archived;
 
-  private Boolean paid;
+	private boolean canceled;
 
-  private String bookingToken;
+	private Boolean paid;
 
-  private Instant bookingDate;
+	private String bookingToken;
 
-  private StringSearchConfigTo hostTokenOption;
+	private Instant bookingDate;
 
-  private StringSearchConfigTo emailOption;
+	private StringSearchConfigTo hostTokenOption;
 
-  private StringSearchConfigTo bookingTokenOption;
+	private StringSearchConfigTo emailOption;
 
-  private StringSearchConfigTo archivedOption;
+	private StringSearchConfigTo bookingTokenOption;
 
-  /**
-   * The constructor.
-   */
-  public OrderSearchCriteriaTo() {
+	private StringSearchConfigTo archivedOption;
 
-    super();
-  }
+	/**
+	 * The constructor.
+	 */
+	public OrderSearchCriteriaTo() {
 
-  public Long getBookingId() {
+		super();
+	}
 
-    return this.bookingId;
-  }
+	public Long getBookingId() {
 
-  public void setBookingId(Long bookingId) {
+		return this.bookingId;
+	}
 
-    this.bookingId = bookingId;
-  }
+	public void setBookingId(Long bookingId) {
 
-  public boolean isCanceled() {
+		this.bookingId = bookingId;
+	}
 
-    return this.canceled;
-  }
+	public boolean isCanceled() {
 
-  public void setCanceled(boolean canceled) {
+		return this.canceled;
+	}
 
-    this.canceled = canceled;
-  }
+	public void setCanceled(boolean canceled) {
 
-  public Long getInvitedGuestId() {
+		this.canceled = canceled;
+	}
 
-    return this.invitedGuestId;
-  }
+	public Long getInvitedGuestId() {
 
-  public void setInvitedGuestId(Long invitedGuestId) {
+		return this.invitedGuestId;
+	}
 
-    this.invitedGuestId = invitedGuestId;
-  }
+	public void setInvitedGuestId(Long invitedGuestId) {
 
-  public String getHostToken() {
+		this.invitedGuestId = invitedGuestId;
+	}
 
-    return this.hostToken;
-  }
+	public String getHostToken() {
 
-  public void setHostToken(String hostToken) {
+		return this.hostToken;
+	}
 
-    this.hostToken = hostToken;
-  }
+	public void setHostToken(String hostToken) {
 
-  public Long getHostId() {
+		this.hostToken = hostToken;
+	}
 
-    return this.hostId;
-  }
+	public Long getHostId() {
 
-  public void setHostId(Long hostId) {
+		return this.hostId;
+	}
 
-    this.hostId = hostId;
-  }
+	public void setHostId(Long hostId) {
 
-  /**
-   * @return email
-   */
-  public String getEmail() {
+		this.hostId = hostId;
+	}
 
-    return this.email;
-  }
+	public Long getTableId() {
 
-  /**
-   * @param email new value of {@link #getEmail}.
-   */
-  public void setEmail(String email) {
+		return this.tableId;
+	}
 
-    this.email = email;
-  }
+	public void setTableId(Long tableId) {
 
-  public void setArchived(boolean archived) {
+		this.hostId = tableId;
+	}
 
-    this.archived = archived;
-  }
+	/**
+	 * @return email
+	 */
+	public String getEmail() {
 
-  public boolean getArchived() {
+		return this.email;
+	}
 
-    return this.archived;
-  }
+	/**
+	 * @param email new value of {@link #getEmail}.
+	 */
+	public void setEmail(String email) {
 
-  public Integer getStatus() {
+		this.email = email;
+	}
 
-    return this.status;
-  }
+	public void setArchived(boolean archived) {
 
-  public void setStatus(Integer status) {
+		this.archived = archived;
+	}
 
-    this.status = status;
-  }
+	public boolean getArchived() {
 
-  /**
-   * @return bookingToken
-   */
-  public String getBookingToken() {
+		return this.archived;
+	}
 
-    return this.bookingToken;
-  }
+	public Integer getStatus() {
 
-  /**
-   * @param bookingToken new value of {@link #getBookingToken}.
-   */
-  public void setBookingToken(String bookingToken) {
+		return this.status;
+	}
 
-    this.bookingToken = bookingToken;
-  }
+	public void setStatus(Integer status) {
 
-  /**
-   * @return hostTokenOption
-   */
-  public StringSearchConfigTo getHostTokenOption() {
+		this.status = status;
+	}
 
-    return this.hostTokenOption;
-  }
+	/**
+	 * @return bookingToken
+	 */
+	public String getBookingToken() {
 
-  /**
-   * @param hostTokenOption new value of {@link #gethostTokenOption}.
-   */
-  public void setHostTokenOption(StringSearchConfigTo hostTokenOption) {
+		return this.bookingToken;
+	}
 
-    this.hostTokenOption = hostTokenOption;
-  }
+	/**
+	 * @param bookingToken new value of {@link #getBookingToken}.
+	 */
+	public void setBookingToken(String bookingToken) {
 
-  /**
-   * @return emailOption
-   */
-  public StringSearchConfigTo getEmailOption() {
+		this.bookingToken = bookingToken;
+	}
 
-    return this.emailOption;
-  }
+	/**
+	 * @return hostTokenOption
+	 */
+	public StringSearchConfigTo getHostTokenOption() {
 
-  /**
-   * @param emailOption new value of {@link #getemailOption}.
-   */
-  public void setEmailOption(StringSearchConfigTo emailOption) {
+		return this.hostTokenOption;
+	}
 
-    this.emailOption = emailOption;
-  }
+	/**
+	 * @param hostTokenOption new value of {@link #gethostTokenOption}.
+	 */
+	public void setHostTokenOption(StringSearchConfigTo hostTokenOption) {
 
-  /**
-   * @return bookingTokenOption
-   */
-  public StringSearchConfigTo getBookingTokenOption() {
+		this.hostTokenOption = hostTokenOption;
+	}
 
-    return this.bookingTokenOption;
-  }
+	/**
+	 * @return emailOption
+	 */
+	public StringSearchConfigTo getEmailOption() {
 
-  /**
-   * @param bookingTokenOption new value of {@link #getbookingTokenOption}.
-   */
-  public void setBookingTokenOption(StringSearchConfigTo bookingTokenOption) {
+		return this.emailOption;
+	}
 
-    this.bookingTokenOption = bookingTokenOption;
-  }
+	/**
+	 * @param emailOption new value of {@link #getemailOption}.
+	 */
+	public void setEmailOption(StringSearchConfigTo emailOption) {
 
-  public StringSearchConfigTo getArchivedOption() {
+		this.emailOption = emailOption;
+	}
 
-    return this.archivedOption;
-  }
+	/**
+	 * @return bookingTokenOption
+	 */
+	public StringSearchConfigTo getBookingTokenOption() {
 
-  public void setArchivedOption(StringSearchConfigTo archivedOption) {
+		return this.bookingTokenOption;
+	}
 
-    this.archivedOption = archivedOption;
-  }
+	/**
+	 * @param bookingTokenOption new value of {@link #getbookingTokenOption}.
+	 */
+	public void setBookingTokenOption(StringSearchConfigTo bookingTokenOption) {
 
-  public Boolean getPaid() {
+		this.bookingTokenOption = bookingTokenOption;
+	}
 
-    return this.paid;
-  }
+	public StringSearchConfigTo getArchivedOption() {
 
-  public void setBookingDate(Instant bookingDate) {
+		return this.archivedOption;
+	}
 
-    this.bookingDate = bookingDate;
-  }
+	public void setArchivedOption(StringSearchConfigTo archivedOption) {
 
-  public Instant getBookingDate() {
+		this.archivedOption = archivedOption;
+	}
 
-    return this.bookingDate;
-  }
+	public Boolean getPaid() {
+
+		return this.paid;
+	}
+
+	public void setBookingDate(Instant bookingDate) {
+
+		this.bookingDate = bookingDate;
+	}
+
+	public Instant getBookingDate() {
+
+		return this.bookingDate;
+	}
 
 }
