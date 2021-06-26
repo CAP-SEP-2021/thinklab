@@ -73,7 +73,6 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     if ((email != null) && alias.getBooking() != null) {
       query.where(Alias.$(alias.getBooking().getEmail()).toLowerCase().like(email.toLowerCase()));
     }
-
     String bookingToken = criteria.getBookingToken();
     if ((bookingToken != null) && alias.getBooking() != null) {
       query.where(Alias.$(alias.getBooking().getBookingToken()).toLowerCase().eq(bookingToken.toLowerCase()));
@@ -81,6 +80,10 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     Boolean archived = criteria.getArchived();
     if( archived!=null && alias.getBooking() != null) {
     	query.where(Alias.$(alias.getArchived()).eq(archived));	
+    }
+    Boolean paid = criteria.getPaid();
+    if( paid!=null && alias.getBooking().getOrder().getPaid()) {
+    	query.where(Alias.$(alias.getPaid()).eq(paid));	
     }
 	Instant bookingDate = criteria.getBookingDate();
 	if (bookingDate != null ) {
