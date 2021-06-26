@@ -60,6 +60,10 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     if (invitedGuest != null && alias.getInvitedGuest() != null) {
       query.where(Alias.$(alias.getInvitedGuest().getId()).eq(invitedGuest));
     }
+    Long table = criteria.getTableId();
+    if (table  != null && alias.getBooking().getTable() != null) {
+      query.where(Alias.$(alias.getBooking().getTableId()).eq(table));
+    }
     String hostToken = criteria.getHostToken();
     if (hostToken != null && alias.getHost() != null) {
       query.where(Alias.$(alias.getBooking().getBookingToken()).eq(hostToken));
