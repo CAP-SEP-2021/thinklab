@@ -246,9 +246,10 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
 //    		bookingEntity.getBookingDate().minus(2, ChronoUnit.HOURS)
 //    );
     
-    if(bookingEntity.getAssistants()!=null) {
+    if(bookingEntity.getAssistants()!=null || booking.getInvitedGuests()!=null) {
 	    List<InvitedGuestEntity> invited = getBeanMapper().mapList(booking.getInvitedGuests(), InvitedGuestEntity.class);
-	
+	    bookingEntity.setAssistants(invited.size());
+	    
 	    for (InvitedGuestEntity invite : invited) {
 	      try {
 	        invite.setGuestToken(buildToken(invite.getEmail(), "GB_"));
@@ -679,14 +680,24 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     return (now > cancellationLimit) ? false : true;
   }
 
-  private String getClientUrl() {
+	private String getClientUrl() {
 
-    HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-    String clientUrl = request.getHeader("origin");
-    if (clientUrl == null) {
-      return "http://localhost:" + this.clientPort;
-    }
-    return clientUrl;
-  }
+		try {
+			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+					.getRequest();
+			String clientUrl = request.getHeader("origin");			
+			return clientUrl;
+		} catch (Exception e) {
+			return "http://localhost:" + this.clientPort;
+		}
+		
+//		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+//				.getRequest();
+//		String clientUrl = request.getHeader("origin");
+//		if (clientUrl == null) {
+//			return "http://localhost:" + this.clientPort;
+//		}
+//		return clientUrl;
+	}
 
 }
