@@ -69,7 +69,6 @@ export class UserAreaService {
           }),
         ),
       )
-      // .map((res: LoginInfo) => res)
       .subscribe(
         () => {
           this.snackBar.success(this.authAlerts.registerSuccess);
@@ -176,7 +175,6 @@ export class UserAreaService {
    checking the reset Password Token in the Backend 
   */  
   checkToken(token : String){
-  //token+="/"
   console.log(`${this.usermanagementRestPath}${this.authorizeTokenPath}${token}`);
       
       return   this.restServiceRoot$.pipe(

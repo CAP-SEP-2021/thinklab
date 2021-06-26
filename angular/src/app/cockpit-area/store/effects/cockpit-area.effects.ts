@@ -3,8 +3,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { SnackBarService } from '../../../core/snack-bar/snack-bar.service';
-import * as fromRoot from '../../../store';
-import { UserInfo } from '../../../shared/backend-models/interfaces';
 import { UsermanagementCockpitService } from '../../services/usermanagement-cockpit.service';
 import { WaiterCockpitService } from '../../services/waiter-cockpit.service';
 import * as cockpitActions from '../actions/cockpit-area.actions';
@@ -43,7 +41,7 @@ export class CockpitAreaEffects {
         ofType(cockpitActions.createUserSuccess),
         tap(() => {
           this.snackBar.openSnack(
-            // this.translocoService.translate('bookTable.dialog.bookingSuccess'),
+            // this.translocoService.translate('bookTable.dialog.bookingSuccess'),//@patrik please translate 
             "User was successfully Created",
             4000,
             'green',
@@ -60,7 +58,7 @@ export class CockpitAreaEffects {
         ofType(cockpitActions.createUserFail),
         tap(() => {
           this.snackBar.openSnack(
-            //this.translocoService.translate('bookTable.dialog.bookingError'),
+            //this.translocoService.translate('bookTable.dialog.bookingError'), //@patrik please translate 
             "Error please try again later",
             4000,
             'red',
@@ -91,7 +89,7 @@ export class CockpitAreaEffects {
         ofType(cockpitActions.deleteUserSuccess),
         tap(() => {
           this.snackBar.openSnack(
-            "User was successfully deleted",
+            "User was successfully deleted",//@patrik please translate 
             4000,
             'green',
           );
@@ -107,7 +105,7 @@ export class CockpitAreaEffects {
         ofType(cockpitActions.deleteUserFail),
         tap(() => {
           this.snackBar.openSnack(
-            "Error please try again later",
+            "Error please try again later",//@patrik please translate 
             4000,
             'red',
           );
@@ -136,7 +134,7 @@ export class CockpitAreaEffects {
         ofType(cockpitActions.updateUserSuccess),
         tap(() => {
           this.snackBar.openSnack(
-            "the update of User Details was successful",
+            "the update of User Details was successful", //@patrik please translate 
             4000,
             'green',
           );
@@ -152,7 +150,7 @@ export class CockpitAreaEffects {
         ofType(cockpitActions.updateUserFail),
         tap(() => {
           this.snackBar.openSnack(
-            "Error please try again later",
+            "Error please try again later",//@patrik please translate 
             4000,
             'red',
           );

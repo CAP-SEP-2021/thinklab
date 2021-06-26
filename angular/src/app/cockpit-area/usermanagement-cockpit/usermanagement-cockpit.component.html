@@ -1,68 +1,58 @@
 <mat-card>
-    <div class="btn-toolbar">
-        <div class="right-btn">
-
-           <button mat-button color="accent" (click)="handelNewUserDialog()" >
-            <mat-icon matSuffix>
-            <span class="material-icons-outlined">
-              person_add_alt
-              </span></mat-icon>
-              {{'buttons.addUser' | transloco}}</button>
-
-        </div>
+  <div class="btn-toolbar">
+    <div class="right-btn">
+      <button mat-button color="accent" (click)="handelNewUserDialog()">
+        <mat-icon matSuffix>
+          <span class="material-icons-outlined">
+            person_add_alt
+          </span>
+        </mat-icon>
+        {{'buttons.addUser' | transloco}}
+      </button>
     </div>
+  </div>
 
-        <!-- <div class="right-btn">
-          <button mat-button mat-dialog-close   (click)="sendGetCancelOrder()" color="accent">{{'buttons.close' | transloco | uppercase}}</button>
-         -->
-<div class="tableContainer">
+  <div class="tableContainer">
     <table mat-table [dataSource]="users" matSort (matSortChange)="sort($event)">
-  
-    
-
-      <!-- Email Column -->
+      <!-- Username Column -->
       <ng-container matColumnDef="username">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[0].label}} </th>
         <td mat-cell *matCellDef="let element"> {{element.username}} </td>
       </ng-container>
 
-      <!-- Ref No Column -->
+      <!-- Email Column -->
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[1].label}} </th>
         <td mat-cell *matCellDef="let element"> {{element.email}} </td>
       </ng-container>
+      <!-- Role Column -->
       <ng-container matColumnDef="role">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[2].label}} </th>
-        <td mat-cell *matCellDef="let element" >{{getUserRoleText(element)}} </td>
+        <td mat-cell *matCellDef="let element">{{getUserRoleText(element)}} </td>
       </ng-container>
 
-     
 
+      <!-- Avatar Column -->
       <ng-container matColumnDef="Avatar">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'userManagement.managePassword' | transloco}}</th>
-        <td mat-cell *matCellDef="let element"  (click)="$event.stopPropagation();"> 
+        <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation();">
           <div class="left-btn">
-          <!--   <button mdbBtn type="button" color="primary" rounded="true" outline="true" size="sm" mdbWavesEffect>manage user Information</button>Avatar list -->
-            <button mat-mini-fab color="primary" (click)="handelPasswordDialog(element)" aria-label="Example icon button with a menu icon">
+            <button mat-mini-fab color="primary" (click)="handelPasswordDialog(element)"
+              aria-label="Example icon button with a menu icon">
               <mat-icon><span class="material-icons-outlined">
-                vpn_key
+                  vpn_key
                 </span>
               </mat-icon>
             </button>
-           
-        </div>
+
+          </div>
         </td>
       </ng-container>
 
-    
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"  class="table-row"
-       (click)="handelUserDetailsDialog(row)"></tr>
-<!--
-[ngClass]="{'highlight': selectedRowIndex == row.id}"
-
--->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"
+        (click)="handelUserDetailsDialog(row)">
+      </tr>
     </table>
   </div>
 
@@ -72,11 +62,5 @@
   <mat-paginator #pagingBar [length]="totalOrders" [pageSize]="pageSize" [pageSizeOptions]="pageSizes"
     [showFirstLastButtons]="true" (page)="page($event)">
   </mat-paginator>
-     <!--<div class="left-btn">
-  <button mat-button color="blue">
-      <mat-icon></mat-icon>Bestellung bearbeiten
-    </button>
-    <button mat-stroked-button color="warn" >Archiv anzeigen</button>
-    
-  </div>-->
+
 </mat-card>

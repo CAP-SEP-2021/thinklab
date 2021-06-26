@@ -5,6 +5,7 @@ import { ConfigService } from '../../../core/config/config.service';
 import { BookingView, OrderListView, OrderView } from '../../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../../services/waiter-cockpit.service';
 import { TranslocoService } from '@ngneat/transloco';
+import { Filter, Pageable } from 'app/shared/backend-models/interfaces';
 
 
 @Component({
@@ -53,17 +54,19 @@ export class OrderDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var tempbody = {
-      "categories": [],     ///@mo change later
-      "searchBy": "",
-      "pageable": {
-        "pageSize": 8,
-        "pageNumber": 0,
-        "sort": [{ "property": "price", "direction": "DESC" }]
-      },
-      "maxPrice": null, "minLikes": null
+    let pageable :Pageable ={
+      pageSize: 8,
+      pageNumber: 0,
+      sort: [{ "property": "price", "direction": "DESC" }]
     };
-    this.dishes = this.waiterCockpitService.getDishes(tempbody);
+    let body : Filter ={
+      categories:[],
+      searchBy: "",
+      pageable: pageable,
+      maxPrice : null, 
+      minLikes : null,
+    };
+    this.dishes = this.waiterCockpitService.getDishes(body);
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
     });

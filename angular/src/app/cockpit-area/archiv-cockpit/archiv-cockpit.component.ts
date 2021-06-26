@@ -107,7 +107,7 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
 
   applyFilters(): void {
     if (this.sorting.length === 0) {
-      // setting two defualt search crietria first the status of the order second the date
+      // setting two defualt search crietria first the status of the order and the second is the date
       this.sorting.push({ property: 'status', direction: 'desc' });
       this.sorting.push({ property: 'booking.bookingDate', direction: 'desc' });
     }
