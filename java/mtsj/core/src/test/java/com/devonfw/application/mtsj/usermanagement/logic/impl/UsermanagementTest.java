@@ -399,17 +399,6 @@ public class UsermanagementTest extends ApplicationComponentTest {
     assertThrows(EmptyResultDataAccessException.class, () -> this.userManagement.deleteUser(99L), "");
   }
 
-  /**
-   * check if admin can be deleted should throws exception
-   */
-  @Test
-  @Rollback(true)
-  @Tag("Skip")
-  public void deleteUserAdmin() {
-
-    assertThrows(IllegalStateException.class, () -> this.userManagement.deleteUser(3L), "");
-  }
-
   // ================================================================================
   // {@link UsermanagementImpl} Others
   // ================================================================================
