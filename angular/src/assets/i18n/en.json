@@ -19,7 +19,7 @@
     "addUser" : "Add User",
     "copyBookingId": "Copy Booking-ID",
     "updateUserInformation": "Update User Information",
-    "deleteUser": "Delete User",
+    "deleteUser": "Remove User",
     "updatePassword": "Update password",
     "sendResetLink": "Send reset link"
   },
