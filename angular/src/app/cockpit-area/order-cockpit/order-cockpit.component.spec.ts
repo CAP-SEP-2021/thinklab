@@ -200,11 +200,11 @@ describe('OrderCockpitComponent', () => {
 
   it('should call the method sendGetCancelOrder when clicking the cancel-order button ', fakeAsync(() => {
       fixture.detectChanges();
-      spyOn(component, 'sendGetCancelOrder');
+      spyOn(component, 'cancelOrder');
       const cancelButton = el.queryAll(By.css('.mat-mini-fab'));
       click(cancelButton[0]);
       tick();
-      expect(component.sendGetCancelOrder).toHaveBeenCalled();
+      expect(component.cancelOrder).toHaveBeenCalled();
       }));
   });
 

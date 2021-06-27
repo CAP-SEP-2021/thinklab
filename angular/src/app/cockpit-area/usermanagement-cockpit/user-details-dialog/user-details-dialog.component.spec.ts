@@ -104,9 +104,7 @@ describe('UserDetailsDialogComponent', () => {
   expect(email.value).toBe('horst@mail.de');
   expect(role.value).toBe(2);
 
-  expect(component.userInfo.username).toBe('horst');
-  expect(component.userInfo.email).toBe('horst@mail.de');
-  expect(component.userInfo.userRoleId).toBe(2);
+  
   });
 
   it('should close user-details when clicking the delete button',() => {

@@ -124,15 +124,14 @@ describe('UsermanagementCockpitComponent', () => {
   });
 
 
-  it('should open user-dialog when clicking on a user', fakeAsync(() => {
+  it('should open user-dialog when clicking on a user', () => {
     fixture.detectChanges();
     spyOn(snackBar, 'openSnack');
     const clearFilter = el.queryAll(By.css('.mat-row'));
     click(clearFilter[0]);
-    tick(200);
     expect(dialog.open).toHaveBeenCalled();
     expect(snackBar.openSnack).not.toHaveBeenCalled();
-  }));
+  });
 
   /* function got removed
   it('should open snackbar-error when clicking on the admin-user', fakeAsync(() => {
@@ -146,15 +145,14 @@ describe('UsermanagementCockpitComponent', () => {
   }));
   */
 
-  it('should open changePassword dialog when clicking on the button', fakeAsync(() => {
+  it('should open changePassword dialog when clicking on the button', () => {
     fixture.detectChanges();
     spyOn(snackBar, 'openSnack');
     const clearFilter = el.queryAll(By.css('.mat-mini-fab'));
     click(clearFilter[0]);
-    tick(200);
     expect(snackBar.openSnack).not.toHaveBeenCalled();
     expect(dialog.open).toHaveBeenCalled();
-  }));
+  });
 
   /* function got removed
   it('should open snackbar-error dialog when clicking on the admin', fakeAsync(() => {
@@ -168,12 +166,11 @@ describe('UsermanagementCockpitComponent', () => {
   }));
   */
 
-  it('should open addNewUser-dialog when clicking on the add-user button', fakeAsync(() => {
+  it('should open addNewUser-dialog when clicking on the add-user button', () => {
     fixture.detectChanges();
     const clearFilter = el.queryAll(By.css('.mat-button'));
     click(clearFilter[0]);
-    tick(200);
     expect(dialog.open).toHaveBeenCalled();
-  }));
+  });
 });
 
