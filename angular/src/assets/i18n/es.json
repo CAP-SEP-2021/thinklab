@@ -28,6 +28,11 @@
     "noResults": "Sin resultados que mostrar"
   },
   "alerts": {
+    "updateOrderStatusSuccess" : "El estado se cambió con éxito",
+    "updateOrderStatusFail" : "El cambio de estado falló",
+    "cancelOrderSuccess" : "El pedido se canceló con éxito",
+    "cancelOrderFail" : "No se pudo cancelar el pedido",
+    "reactivateOrderSuccess" : "El pedido se reactivó con éxito",
     "accessError": "Acceso prohibido, por favor identifíquese primero",
     "genericError": "Ha ocurrido un error, por favor vuelva a intentarlo más tarde",
     "urlError": "Url no encontrada, por favor vuelva a intentarlo",
@@ -249,6 +254,13 @@
       "updatePassword": "Actualizar contraseña de usuario",
       "resetLink": "Enviar enlace de restablecimiento",
       "updateSuccess": "La actualización de los datos del usuario se realizó correctamente",
+      "updateFail": "La actualización de los datos del usuario ha fallado",
+      "createUserSuccess": "El usuario fue creado con éxito",
+      "createUserFail": "Falló la creación del usuario",
+      "deleteUserSuccess": "El usuario fue eliminado con éxito",
+      "deleteUserFail": "No se pudo borrar al usuario",
+      "confirmText1" : "Está seguro de que desea eliminar el usuario '",
+      "confirmText2" : "' ?",
       "checkLink": "Comprobando el enlace ...",
       "redirect": "pronto serás redirigido",
       "wait": "Espere por favor"

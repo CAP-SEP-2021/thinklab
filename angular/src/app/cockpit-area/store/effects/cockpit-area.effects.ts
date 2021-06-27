@@ -41,8 +41,7 @@ export class CockpitAreaEffects {
         ofType(cockpitActions.createUserSuccess),
         tap(() => {
           this.snackBar.openSnack(
-            // this.translocoService.translate('bookTable.dialog.bookingSuccess'),//@patrik please translate 
-            "User was successfully Created",
+            this.translocoService.translate('userManagement.userManagement.createUserSuccess'),
             4000,
             'green',
           );
@@ -58,8 +57,7 @@ export class CockpitAreaEffects {
         ofType(cockpitActions.createUserFail),
         tap(() => {
           this.snackBar.openSnack(
-            //this.translocoService.translate('bookTable.dialog.bookingError'), //@patrik please translate 
-            "Error please try again later",
+            this.translocoService.translate('userManagement.userManagement.createUserFail'),
             4000,
             'red',
           );
@@ -89,11 +87,11 @@ export class CockpitAreaEffects {
         ofType(cockpitActions.deleteUserSuccess),
         tap(() => {
           this.snackBar.openSnack(
-            "User was successfully deleted",//@patrik please translate 
+            this.translocoService.translate('userManagement.userManagement.deleteUserSuccess'),
             4000,
             'green',
           );
-
+          
         }),
       ),
     { dispatch: false },
@@ -105,7 +103,7 @@ export class CockpitAreaEffects {
         ofType(cockpitActions.deleteUserFail),
         tap(() => {
           this.snackBar.openSnack(
-            "Error please try again later",//@patrik please translate 
+            this.translocoService.translate('userManagement.userManagement.deleteUserFail'),
             4000,
             'red',
           );
@@ -134,11 +132,11 @@ export class CockpitAreaEffects {
         ofType(cockpitActions.updateUserSuccess),
         tap(() => {
           this.snackBar.openSnack(
-            "the update of User Details was successful", //@patrik please translate 
+            this.translocoService.translate('userManagement.userManagement.updateSuccess'),
             4000,
             'green',
           );
-
+          
         }),
       ),
     { dispatch: false },
@@ -150,7 +148,7 @@ export class CockpitAreaEffects {
         ofType(cockpitActions.updateUserFail),
         tap(() => {
           this.snackBar.openSnack(
-            "Error please try again later",//@patrik please translate 
+            this.translocoService.translate('userManagement.userManagement.updateFail'),
             4000,
             'red',
           );
@@ -230,7 +228,7 @@ updatePaymentStatusSuccess$ = createEffect(() =>
       ofType(cockpitActions.updatePaymentStatusSuccess),
       tap(() => {
         this.snackBar.openSnack(
-          this.translocoService.translate('userManagement.userManagement.updateSuccess'), //@patrik please translate 
+          this.translocoService.translate('alerts.updateOrderStatusSuccess'),
           4000,
           'green',
         );
@@ -245,7 +243,7 @@ updatePaymentStatusFail$ = createEffect(
       ofType(cockpitActions.updatePaymentStatusFail),
       tap(() => {
         this.snackBar.openSnack(
-          "Error please try again later", //@patrik please translate 
+          this.translocoService.translate('alerts.updateOrderStatusFail'),
           4000,
           'red',
         );
@@ -276,7 +274,7 @@ updateOrderStatusSuccess$ = createEffect(() =>
     ofType(cockpitActions.updateOrderStatusSuccess),
     tap(() => {
       this.snackBar.openSnack(
-        this.translocoService.translate('userManagement.userManagement.updateSuccess'), //@patrik please translate 
+        this.translocoService.translate('alerts.updateOrderStatusSuccess'),
         4000,
         'green',
       );
@@ -291,7 +289,7 @@ updateOrderStatusFail$ = createEffect(
     ofType(cockpitActions.updateOrderStatusFail),
     tap(() => {
       this.snackBar.openSnack(
-        "Error please try again later", //@patrik please translate 
+        this.translocoService.translate('alerts.updateOrderStatusFail'),
         4000,
         'red',
       );
@@ -322,7 +320,7 @@ cancelOrderSuccess$ = createEffect(() =>
     ofType(cockpitActions.cancelOrderSuccess),
     tap(() => {
       this.snackBar.openSnack(
-        this.translocoService.translate('userManagement.userManagement.updateSuccess'), //@patrik please translate 
+        this.translocoService.translate('alerts.updateOrderStatusSuccess'),
         4000,
         'green',
       );
@@ -337,7 +335,7 @@ cancelOrderFail$ = createEffect(
     ofType(cockpitActions.cancelOrderFail),
     tap(() => {
       this.snackBar.openSnack(
-        "Error please try again later", //@patrik please translate 
+        this.translocoService.translate('alerts.updateOrderStatusFail'),
         4000,
         'red',
       );

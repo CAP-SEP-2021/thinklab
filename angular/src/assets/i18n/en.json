@@ -19,7 +19,7 @@
     "addUser" : "Add User",
     "copyBookingId": "Copy Booking-ID",
     "updateUserInformation": "Update User Information",
-    "deleteUser": "Delete User",
+    "deleteUser": "Remove User",
     "updatePassword": "Update password",
     "sendResetLink": "Send reset link"
   },
@@ -29,6 +29,11 @@
     "noResults": "No results to display"
   },
   "alerts": {
+    "updateOrderStatusSuccess" : "The status was changed successfully",
+    "updateOrderStatusFail" : "The status change failed",
+    "cancelOrderSuccess" : "The order was successfully canceled",
+    "cancelOrderFail" : "Canceling the order failed",
+    "reactivateOrderSuccess" : "The order was successfully reactivated",
     "accessError": "Access denied, please log in first",
     "genericError": "An error has ocurred, please try again later",
     "urlError": "Url not found, please try again",
@@ -270,6 +275,13 @@
       "updatePassword": "Update user password",
       "resetLink": "Send reset link",
       "updateSuccess": "Update of user data was successful",
+      "updateFail": "Update of user data has failed",
+      "createUserSuccess": "The user was created successfully",
+      "createUserFail": "The creation of the user failed",
+      "deleteUserSuccess": "The user was deleted successfully",
+      "deleteUserFail": "Deleting the user failed",
+      "confirmText1" : "Are you sure, that you want to delete the user '",
+      "confirmText2" : "' ?",
       "checkLink": "Checking the link ...",
       "redirect": "You will be redirected soon",
       "wait": "Please wait"

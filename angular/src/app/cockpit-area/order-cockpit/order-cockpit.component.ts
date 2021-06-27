@@ -82,6 +82,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   }
 
   sendStatus(status: number, element: OrderListView): void {
+    element.order.status = status.toString(); // for testing purposes
     var oderStatus: OrderStatus = {
       order: {
         id: element.order.id,
@@ -99,6 +100,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
 
  
   sendPaymentStatus(newPaymentStatus: boolean, element: OrderListView): void {
+    element.order.paid = newPaymentStatus; // for testing purposes
     var oderStatus: OrderStatus = {
       order: {
         id: element.order.id,
