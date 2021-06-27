@@ -28,6 +28,11 @@
     "noResults": "Geen resultaten"
   },
   "alerts": {
+    "updateOrderStatusSuccess" : "De status is succesvol gewijzigd",
+    "updateOrderStatusFail" : "De statuswijziging is mislukt",
+    "cancelOrderSuccess" : "De bestelling is succesvol geannuleerd",
+    "cancelOrderFail" : "Het annuleren van de bestelling is mislukt",
+    "reactivateOrderSuccess" : "De bestelling is opnieuw geactiveerd",
     "accessError": "Geen toegang. U dient in te loggen",
     "genericError":
       "Er heeft zich een fout voorgedaan. Probeer het later nog een keer",
@@ -259,6 +264,13 @@
       "updatePassword": "Gebruikerswachtwoord bijwerken",
       "resetLink": "Stuur reset-link",
       "updateSuccess": "Update van gebruikersgegevens is gelukt",
+      "updateFail": "Update van gebruikersgegevens is mislukt",
+      "createUserSuccess": "De gebruiker is succesvol aangemaakt",
+      "createUserFail": "Het aanmaken van de gebruiker is mislukt",
+      "deleteUserSuccess": "De gebruiker is succesvol verwijderd",
+      "deleteUserFail": "Het verwijderen van de gebruiker is mislukt",
+      "confirmText1" : "Weet u zeker dat u de gebruiker wilt verwijderen '",
+      "confirmText2" : "' ?",
       "checkLink": "De link checken...",
       "redirect": "je wordt snel doorgestuurd",
       "wait": "Wacht alsjeblieft"

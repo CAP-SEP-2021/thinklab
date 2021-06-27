@@ -28,6 +28,11 @@
     "noResults": "Sense resultats que mostrar"
   },
   "alerts": {
+    "updateOrderStatusSuccess" : "L'estat s'ha canviat correctament",
+    "updateOrderStatusFail" : "El canvi d'estat ha fallat",
+    "cancelOrderSuccess" : "La comanda s'ha cancel·lat correctament",
+    "cancelOrderFail" : "La cancel·lació de la comanda ha fallat",
+    "reactivateOrderSuccess" : "La comanda es va reactivar amb èxit",
     "accessError": "Accés prohibit, si us plau identifiqui's primer",
     "genericError":
       "Ha ocorregut un error, si us plau torni a intentar-ho més tard",
@@ -260,6 +265,13 @@
       "updatePassword": "Actualitzeu la contrasenya d'usuari",
       "resetLink": "Envia l'enllaç de restabliment",
       "updateSuccess": "L'actualització de les dades de l'usuari s'ha realitzat correctament",
+      "updateFail": "No s'ha pogut actualitzar les dades de l'usuari",
+      "createUserSuccess": "L'usuari s'ha creat correctament",
+      "createUserFail": "La creació de l'usuari ha fallat",
+      "deleteUserSuccess": "L'usuari s'ha suprimit correctament",
+      "deleteUserFail": "No s'ha pogut suprimir l'usuari",
+      "confirmText1" : "Esteu segur que voleu suprimir l'usuari '",
+      "confirmText2" : "' ?",
       "checkLink": "S'està comprovant l'enllaç ...",
       "redirect": "aviat se us redirigirà",
       "wait": "Espereu, si us plau"

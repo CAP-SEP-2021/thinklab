@@ -28,6 +28,11 @@
     "noResults": "Brak wyników"
   },
   "alerts": {
+    "updateOrderStatusSuccess" : "Status został pomyślnie zmieniony",
+    "updateOrderStatusFail" : "Zmiana statusu nie powiodła się",
+    "cancelOrderSuccess" : "Zamówienie zostało pomyślnie anulowane",
+    "cancelOrderFail" : "Anulowanie zamówienia nie powiodło się",
+    "reactivateOrderSuccess" : "Zamówienie zostało pomyślnie reaktywowane",
     "accessError": "Odmowa dostepu, zaloguj sie",
     "genericError": "Wystapil blad, spróbuj ponownie",
     "urlError": "Strona nieznaleziona, spróbuj ponownie",
@@ -258,6 +263,13 @@
       "updatePassword": "Zaktualizuj hasło użytkownika",
       "resetLink": "Wyślij link do resetowania",
       "updateSuccess": "Aktualizacja danych użytkownika powiodła się",
+      "updateFail": "Aktualizacja danych użytkownika nie powiodła się",
+      "createUserSuccess": "Użytkownik został pomyślnie utworzony",
+      "createUserFail": "Utworzenie użytkownika nie powiodło się",
+      "deleteUserSuccess": "Użytkownik został pomyślnie usunięty",
+      "deleteUserFail": "Nie udało się usunąć użytkownika",
+      "confirmText1" : "Czy na pewno chcesz usunąć użytkownika '",
+      "confirmText2" : "' ?",
       "checkLink": "Sprawdzam link...",
       "redirect": "wkrótce zostaniesz przekierowany",
       "wait": "Proszę czekać"

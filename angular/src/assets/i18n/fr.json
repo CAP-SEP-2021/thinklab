@@ -28,6 +28,11 @@
     "noResults": "Aucun résultat à afficher"
   },
   "alerts": {
+    "updateOrderStatusSuccess" : "Le statut a été modifié avec succès",
+    "updateOrderStatusFail" : "Le changement de statut a échoué",
+    "cancelOrderSuccess" : "La commande a été annulée avec succès",
+    "cancelOrderFail" : "L'annulation de la commande a échoué",
+    "reactivateOrderSuccess" : "La commande a été réactivée avec succès",
     "accessError": "L'accès interdit, veuillez d'abord vous identifier",
     "genericError": "Une erreur s'est produite, veuillez réessayer plus tard",
     "urlError": "Url introuvable, veuillez réessayer",
@@ -260,6 +265,13 @@
       "updatePassword": "Mettre à jour le mot de passe de l'utilisateur",
       "resetLink": "Envoyer le lien de réinitialisation",
       "updateSuccess": "La mise à jour des données utilisateur a réussi",
+      "updateFail": "La mise à jour des données utilisateur a échoué",
+      "createUserSuccess": "L'utilisateur a été créé avec succès",
+      "createUserFail": "La création de l'utilisateur a échoué",
+      "deleteUserSuccess": "L'utilisateur a été supprimé avec succès",
+      "deleteUserFail": "Échec de la suppression de l'utilisateur",
+      "confirmText1" : "Êtes-vous sûr de vouloir supprimer l'utilisateur '",
+      "confirmText2" : "' ?",
       "checkLink": "Vérification du lien...",
       "redirect": "vous serez bientôt redirigé",
       "wait": "S'il vous plaît, attendez"

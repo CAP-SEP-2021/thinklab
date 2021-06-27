@@ -29,6 +29,11 @@
     "noResults": "Keine Ergebnisse"
   },
   "alerts": {
+    "updateOrderStatusSuccess" : "Der Status wurde erfolgreich geändert",
+    "updateOrderStatusFail" : "Die Statusänderung ist fehlgeschlagen",
+    "cancelOrderSuccess" : "Die Bestellung wurde erfolgreich storniert",
+    "cancelOrderFail" : "Das stornieren der Bestellung ist fehlgeschlagen",
+    "reactivateOrderSuccess" : "Die Bestellung wurde erfolgreich reaktiviert",
     "accessError": "Zugang verweigert, bitte erst einloggen",
     "genericError":
       "Ein Fehler ist aufgetreten, bitte versuche es später noch einmal",
@@ -264,6 +269,13 @@
       "updatePassword": "Nutzerpasswort aktualisieren",
       "resetLink": "Rücksetzlink versenden",
       "updateSuccess": "Aktualisierung der Nutzerdaten war erfolgreich",
+      "updateFail": "Aktualisierung der Nutzerdaten ist fehlgeschlagen",
+      "createUserSuccess": "Der Benutzer wurde erfolgreich angelegt",
+      "createUserFail": "Das Anlegen des Benutzers ist fehlgeschlagen",
+      "deleteUserSuccess": "Der Benutzer wurde erfolgreich gelöscht",
+      "deleteUserFail": "Das Löschen des Benutzers ist fehlgeschlagen",
+      "confirmText1" : "Bist du dir sicher, dass du den Benutzer '",
+      "confirmText2" : "' löschen möchtest?",
       "checkLink": "Link wird überprüft...",
       "redirect": "Du wirst gleich weitergeleitet",
       "wait": "Bitte warten Sie"
