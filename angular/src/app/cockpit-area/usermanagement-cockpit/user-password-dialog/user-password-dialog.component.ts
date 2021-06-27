@@ -71,7 +71,7 @@ export class UserPasswordDialogComponent implements OnInit {
       }
     }
   }
-  get f() {
+  get Form() {
     return this.checkoutForm.controls;
   }
   get password(): AbstractControl {
@@ -82,12 +82,7 @@ export class UserPasswordDialogComponent implements OnInit {
     return this.checkoutForm.get('confirmedPassword');
   }
   onSubmit(): void {
-    console.log("submited");
-    console.log('checkoutForm bevor editing ', this.checkoutForm.value);
-
-
     this.UserInfo.password = this.checkoutForm.get("password").value;
-    console.log(this.UserInfo);
     this.store.dispatch(cockpitAreaActions.updateUser({ UserInfo: this.UserInfo }));
 
   }
@@ -96,7 +91,6 @@ export class UserPasswordDialogComponent implements OnInit {
       this.icon = 'visibility';
     } else {
       this.icon = 'visibility_off';
-
     }
     this.fieldTextType = !this.fieldTextType;
   }

@@ -11,7 +11,11 @@
 min-width: 400px;
 padding-left: 357px;
 }
-
+.cancelBtn{
+  background-color: white;
+  color: red ;
+  border-color : red ;
+}
 
 .statusCell{
   max-height: fit-content;

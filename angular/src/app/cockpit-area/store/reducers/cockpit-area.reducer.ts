@@ -89,8 +89,49 @@ const cockpitReducer = createReducer(
     ...state,
     pending: false,
     errorMessage: error.message,
-  }))
-
+  })),
+  on(cockpitActions.updatePaymentStatus, (state,  {order : OrderStatus }  ) => ({
+    ...state,
+    pending: true,
+     OrderStatus ,
+  })),
+  on(cockpitActions.updatePaymentStatusSuccess, (state  ) => ({
+    ...state,
+    pending: false,
+  })),
+  on(cockpitActions.updatePaymentStatusFail, (state, { error }) => ({
+    ...state,
+    pending: false,
+    errorMessage: error.message,
+  })),
+  on(cockpitActions.updateOrderStatus, (state,  {order : OrderStatus }  ) => ({
+    ...state,
+    pending: true,
+     OrderStatus ,
+  })),
+  on(cockpitActions.updateOrderStatusSuccess, (state  ) => ({
+    ...state,
+    pending: false,
+  })),
+  on(cockpitActions.updateOrderStatusFail, (state, { error }) => ({
+    ...state,
+    pending: false,
+    errorMessage: error.message,
+  })),
+  on(cockpitActions.cancelOrder, (state, {id : number }  ) => ({
+    ...state,
+    pending: true,
+    number ,
+  })),
+  on(cockpitActions.cancelOrderSuccess, (state  ) => ({
+    ...state,
+    pending: false,
+  })),
+  on(cockpitActions.cancelOrderFail, (state, { error }) => ({
+    ...state,
+    pending: false,
+    errorMessage: error.message,
+  })),
 );
 
 export function reducer(state: State | undefined, action: Action): State {

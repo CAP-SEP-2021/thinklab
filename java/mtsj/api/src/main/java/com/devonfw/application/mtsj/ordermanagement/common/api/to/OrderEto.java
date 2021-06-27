@@ -9,39 +9,6 @@ import com.devonfw.module.basic.common.api.to.AbstractEto;
  */
 public class OrderEto extends AbstractEto implements Order {
 
-	public static class Create {
-		private long id;
-		private int status;
-		private boolean paid;
-		private boolean canceled;
-		private boolean archived;
-		private String bookingToken;
-		private Long bookingId;
-		
-		public Create() {}
-		public Create Id(long val) 				{ id	 		= val; return this; }
-		public Create status(int val) 			{ status 		= val; return this; }
-		public Create paid(boolean val)			{ paid	 		= val; return this; }
-		public Create canceled(boolean val)		{ canceled	 	= val; return this; }
-		public Create bookingToken(String val)	{ bookingToken	= val; return this; }
-		public Create bookingId(Long val)		{ bookingId	 	= val; return this; }
-		public Create archived(boolean val)		{ archived	 	= val; return this; }
-		
-		public OrderEto build() { return new OrderEto(this); }
-	}
-	
-	private OrderEto(Create factory) {
-		this.setId(factory.id);
-		this.bookingId = factory.bookingId;
-		this.bookingToken = factory.bookingToken;
-		this.status = factory.status;
-		this.paid = factory.paid;
-		this.canceled = factory.canceled;
-		this.archived = factory.archived;
-	}
-	
-	public OrderEto() {}
-
 	private static final long serialVersionUID = 1L;
 
 	private Long bookingId;

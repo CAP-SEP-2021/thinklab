@@ -154,10 +154,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 		preDeleteFromBooking(user);
 		//preDeleteFromOrder(user);
 		
-		if(user.getUserRoleId() == 3L) {
-			throw new IllegalStateException("User cant be deleted because its an Admin.");
-		}
-		
 		// delete the user
 		try {
 			getUserDao().delete(user);			

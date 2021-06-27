@@ -1,6 +1,5 @@
 import {
   Component,
-  HostListener,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -11,22 +10,21 @@ import { Sort as MaterialSort } from '@angular/material/sort';
 import { TranslocoService } from '@ngneat/transloco';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
-import { debounceTime, share, timeout } from 'rxjs/operators';
 import { ConfigService } from '../../core/config/config.service';
 import {
-  BookingInfo,
   FilterCockpit,
   Pageable,
   Sort,
 } from '../../shared/backend-models/interfaces';
 import {
-  BookingView,
   OrderListView,
-  ReservationView,
   SaveOrderResponse,
 } from '../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../services/waiter-cockpit.service';
 import { ArchivDialogComponent } from './archiv-dialog/archiv-dialog.component';
+import * as fromApp from '../../store/reducers';
+import * as cockpitAreaActions from "../store/actions/cockpit-area.actions";
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-archiv-cockpit',
@@ -34,24 +32,19 @@ import { ArchivDialogComponent } from './archiv-dialog/archiv-dialog.component';
   styleUrls: ['./archiv-cockpit.component.scss'],
 })
 export class ArchivCockpitComponent implements OnInit, OnDestroy {
+  @ViewChild('pagingBar', { static: true }) pagingBar: MatPaginator;
   private translocoSubscription = Subscription.EMPTY;
   private pageable: Pageable = {
     pageSize: 8,
     pageNumber: 0,
-    // total: 1,
   };
   private sorting: Sort[] = [];
-
   pageSize = 8;
-
-  @ViewChild('pagingBar', { static: true }) pagingBar: MatPaginator;
-
+  pageSizes: number[];
   orders: OrderListView[] = [];
   totalOrders: number;
-
   columns: any[];
   tempData: SaveOrderResponse;
-
   displayedColumns: string[] = [
     'booking.bookingDate',
     'booking.tableId',
@@ -59,18 +52,12 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
     'reactivate',
   ];
   status: string[];
-
-
-  status2 :any[];
-  
-  pageSizes: number[];
-
   filters: FilterCockpit = {
     bookingDate: undefined,
     email: undefined,
     bookingToken: undefined,
     paymentStatus: undefined,
-    status: undefined, //@mo added to comlete the structure
+    status: undefined, 
   };
   reslut: any;
   constructor(
@@ -78,6 +65,7 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
     private translocoService: TranslocoService,
     private waiterCockpitService: WaiterCockpitService,
     private configService: ConfigService,
+    private store: Store<fromApp.State>,
   ) {
     this.pageSizes = this.configService.getValues().pageSizes;
   }
@@ -90,17 +78,6 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
     });
   }
 
-  sendStatus(option, element: OrderListView): void {
-    let newStatus = this.status.indexOf(option).toString();
-    element.order.status = newStatus;
-    let temp = { order: { id: element.order.id, status: newStatus } }; // @mo change later
-    this.waiterCockpitService.postOrderStauts(temp).subscribe((data: any) => {
-      this.applyFilters();
-    });
-  }
-
- 
-
   setTableHeaders(lang: string): void {
     this.translocoSubscription = this.translocoService
       .selectTranslateObject('cockpit.table', {}, lang)
@@ -109,9 +86,9 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
           { name: 'booking.tableId', label: cockpitTable.tableIdH },
           { name: 'booking.name', label: cockpitTable.ownerH },
-          { name: 'reactivate', label: cockpitTable.reactivateH},
+          { name: 'reactivate', label: cockpitTable.reactivateH },
         ];
-          this.status = [
+        this.status = [
           cockpitTable.statusTaken,
           cockpitTable.statusPrepared,
           cockpitTable.statusInDelivery,
@@ -119,20 +96,22 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
         ];
       });
   }
-
-  sendGetCancelOrder(element: OrderListView ): void{
-    this.waiterCockpitService.getCancelOrder(element.order.id).subscribe((data: any) => {
-      this.applyFilters();
-    });; 
+  /**
+   * send a http get request to the backend to reactivate the order
+   * @param order the order to be reactivated 
+   */
+  reactivateOrder(order: OrderListView): void {
+    this.store.dispatch(cockpitAreaActions.cancelOrder({ id: order.order.id }));
+    setTimeout(() => this.applyFilters(), 500);
   }
 
   applyFilters(): void {
     if (this.sorting.length === 0) {
-      // setting two defualt search crietria first the status of the order second the date
+      // setting two defualt search crietria first the status of the order and the second is the date
       this.sorting.push({ property: 'status', direction: 'desc' });
       this.sorting.push({ property: 'booking.bookingDate', direction: 'desc' });
     }
- 
+
     this.waiterCockpitService
       .getArchivedOrders(this.pageable, this.sorting, this.filters)
       .subscribe((data: any) => {
@@ -140,7 +119,6 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
           this.orders = [];
         } else {
           this.orders = data.content;
-          //console.log(this.orders);
         }
         this.totalOrders = data.totalElements;
       });
@@ -173,7 +151,6 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
   }
 
   selected(selection: OrderListView): void {
-
     var dialgoref = this.dialog.open(ArchivDialogComponent, {
       width: '80%',
       data: selection,
@@ -183,6 +160,6 @@ export class ArchivCockpitComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.translocoSubscription.unsubscribe();
-   
+
   }
 }

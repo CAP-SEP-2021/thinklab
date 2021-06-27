@@ -1,12 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ConfigService } from '../../../core/config/config.service';
-import { WaiterCockpitService } from '../../services/waiter-cockpit.service';
-import { TranslocoService } from '@ngneat/transloco';
+import {  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserInfo } from 'app/shared/backend-models/interfaces';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
-import { UsermanagementCockpitService } from '../../services/usermanagement-cockpit.service';
 import * as fromApp from '../../../store/reducers';
 import * as cockpitAreaActions from "../../store/actions/cockpit-area.actions";
 import { Store } from '@ngrx/store';
@@ -18,7 +13,6 @@ import { SnackBarService } from '../../../core/snack-bar/snack-bar.service';
   styleUrls: ['./user-details-dialog.component.scss']
 })
 export class UserDetailsDialogComponent implements OnInit {
-
 
   Form: FormGroup = new FormGroup({});
   REGEXP_EMAIL = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -34,17 +28,10 @@ export class UserDetailsDialogComponent implements OnInit {
   icon = 'visibility_off';
   fieldTextType: boolean = false;
 
-
   constructor(
     public dialogRef: MatDialogRef<UserDetailsDialogComponent>,
-    private dialog: MatDialog,
-    private waiterCockpitService: WaiterCockpitService,
-    private UsermanagementCockpitService: UsermanagementCockpitService,
-    private translocoService: TranslocoService,
     @Inject(MAT_DIALOG_DATA) dialogData: any,
-    private configService: ConfigService,
     private authService: AuthService,
-    private fb: FormBuilder,
     private store: Store<fromApp.State>,
     public snackBar: SnackBarService
   ) {
@@ -65,21 +52,19 @@ export class UserDetailsDialogComponent implements OnInit {
   }
   ngOnInit(): void {
   }
-  /*
-    onSubmit(): void {
-      this.UserInfo.password = this.Form.get("password").value;
-      this.store.dispatch(cockpitAreaActions.updateUser({ UserInfo: this.UserInfo }));
-    }*/
-
   onSubmit(): void {
     delete this.userInfo.password;
-    this.userInfo.username = this.Form.get("username").value;
-    this.userInfo.email = this.Form.get("email").value;
-    this.userInfo.userRoleId = this.Form.get("userRoleId").value;
-    this.store.dispatch(cockpitAreaActions.updateUser({ UserInfo: this.userInfo }));
+    var userInfoTemp: UserInfo = {
+      id: this.userInfo.id,
+      username:this.Form.get("username").value,
+      password: '',
+      email: this.Form.get("email").value,
+      userRoleId:this.Form.get("userRoleId").value,
+      twoFactorStatus: undefined,
+    };
+    delete userInfoTemp.password;
+    this.store.dispatch(cockpitAreaActions.updateUser({ UserInfo: userInfoTemp }));
   }
-
-
   get username(): AbstractControl {
     return this.Form.get('username');
   }
@@ -89,7 +74,6 @@ export class UserDetailsDialogComponent implements OnInit {
   get userRoleId(): AbstractControl {
     return this.Form.get('userRoleId');
   }
-
 
   deleteUser(): void {
     if (this.userInfo.username != this.currentUser) {
@@ -103,7 +87,7 @@ export class UserDetailsDialogComponent implements OnInit {
     }
   }
   closeDialog() {
-    this.dialogRef.close("sad");
+    this.dialogRef.close("");
   }
   toggleFieldTextType() {
     if (this.icon === 'visibility_off') {

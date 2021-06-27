@@ -11,7 +11,7 @@ import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '../../core/config/config.service';
 import {
-  FilterCockpit,
+  FilterAdminCockpit,
   Pageable,
   Sort,
   UserInfo,
@@ -22,10 +22,9 @@ import { NewUserDialogComponent } from './new-user-dialog/new-user-dialog.compon
 import { UserDetailsDialogComponent } from './user-details-dialog/user-details-dialog.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { UserPasswordDialogComponent } from './user-password-dialog/user-password-dialog.component';
-import { MDBBootstrapModule } from "angular-bootstrap-md"; //delete later if do wana use 
 import { AuthService } from 'app/core/authentication/auth.service';
 import { SnackBarService } from '../../core/snack-bar/snack-bar.service';
-import { AvatarModule } from 'ngx-avatar';
+
 @Component({
   selector: 'app-usermanagement-cockpit',
   templateUrl: './usermanagement-cockpit.component.html',
@@ -37,10 +36,8 @@ export class UsermanagementCockpitComponent implements OnInit {
   private pageable: Pageable = {
     pageSize: 8,
     pageNumber: 0,
-    // total: 1,
   };
   private sorting: Sort[] = [];
-  selectedRowIndex = -1;
   pageSize = 8;
   users: UserInfo[] = [];
   totalOrders: number;
@@ -49,18 +46,15 @@ export class UsermanagementCockpitComponent implements OnInit {
     'username',
     'email',
     'role',
-    'Avatar'
+    'Avatar'//@patric please change 
   ];
   currentUser;
   pageSizes: number[];
-  filters: FilterCockpit = {
-    bookingDate: undefined,
-    email: undefined,
-    bookingToken: undefined,
-    paymentStatus: undefined,
-    status: undefined,
+  filters: FilterAdminCockpit = {
+    username: '',
+    email: '',
+    userRole: undefined
   };
-  reslut: any;
   roles: string[];
 
   constructor(
@@ -94,7 +88,7 @@ export class UsermanagementCockpitComponent implements OnInit {
           { name: 'username', label: cockpitUserTable.userName },
           { name: 'email', label: cockpitUserTable.emailH },
           { name: 'role', label: cockpitUserTable.userRole },
-          { name: 'Avatar', label: cockpitUserTable.Avatar },
+          { name: 'Avatar', label: cockpitUserTable.Avatar },//@patric please change 
         ];
 
       });
@@ -152,29 +146,29 @@ export class UsermanagementCockpitComponent implements OnInit {
     let dialogRef = this.dialog.open(UserPasswordDialogComponent, {
       data: userInfo
     });
-    dialogRef.afterClosed().subscribe(() => setTimeout(() => this.applyFilters(), 100));  
+    dialogRef.afterClosed().subscribe(() => setTimeout(() => this.applyFilters(), 300));  
   }
     getUserRoleText(user : UserInfo){
       return this.roles[user.userRoleId];
-
   }
 
   handelNewUserDialog(): void {
     let dialogRef = this.dialog.open(NewUserDialogComponent, {
       width : "30%"
     });
-    dialogRef.afterClosed().subscribe(() => setTimeout(() => this.applyFilters(), 100)); 
+    dialogRef.afterClosed().subscribe(() => setTimeout(() => this.applyFilters(), 300)); 
   }
 
   handelconfirmationDailog(userInfo: UserInfo) :void {
     if (userInfo) {
     let dialog = this.dialog.open(ConfirmationDialogComponent, { data: userInfo });
-    dialog.afterClosed().subscribe(() => setTimeout(() => this.applyFilters(), 200)); 
+    dialog.afterClosed().subscribe(() => setTimeout(() => this.applyFilters(), 300)); 
+    }else{
+      setTimeout(() => this.applyFilters(), 300); 
     }
   }
 
   handelUserDetailsDialog(userInfo: UserInfo): void {
-    this.selectedRowIndex = userInfo.id;//marking ther colum
     let dialogRef = this.dialog.open(UserDetailsDialogComponent, { data: userInfo });
     dialogRef.afterClosed().subscribe((data) => this.handelconfirmationDailog(data));
   }

@@ -15,9 +15,7 @@ import { TranslocoService } from '@ngneat/transloco';
 export class ArchivDialogComponent implements OnInit {
   private fromRow = 0;
   private currentPage = 1;
-
   pageSize = 4;
-
   data: OrderListView;
   datat: BookingView[] = [];
   columnst: any[];
@@ -28,7 +26,6 @@ export class ArchivDialogComponent implements OnInit {
     'email',
     'tableId',
   ];
-
   datao: OrderView[] = [];
   columnso: any[];
   displayedColumnsO: string[] = [
@@ -37,9 +34,8 @@ export class ArchivDialogComponent implements OnInit {
     'extras',
     'orderLine.amount',
     'dish.price',
-  
+
   ];
- 
   pageSizes: number[];
   filteredData: OrderView[] = this.datao;
   totalPrice: number;
@@ -58,7 +54,6 @@ export class ArchivDialogComponent implements OnInit {
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
     });
-
     this.totalPrice = this.waiterCockpitService.getTotalPrice(
       this.data.orderLines,
     );
@@ -66,9 +61,6 @@ export class ArchivDialogComponent implements OnInit {
     this.datat.push(this.data.booking);
     this.filter();
   }
-
-
-
 
   setTableHeaders(lang: string): void {
     this.translocoService
@@ -87,7 +79,7 @@ export class ArchivDialogComponent implements OnInit {
       .selectTranslateObject('cockpit.orders.dialogTable', {}, lang)
       .subscribe((cockpitDialogTable) => {
         this.columnso = [
-         
+
           { name: 'dish.name', label: cockpitDialogTable.dishH },
           { name: 'orderLine.comment', label: cockpitDialogTable.commentsH },
           { name: 'extras', label: cockpitDialogTable.extrasH },
@@ -97,7 +89,7 @@ export class ArchivDialogComponent implements OnInit {
             label: cockpitDialogTable.priceH,
             numeric: true,
             format: (v: number) => v.toFixed(2),
-          }, 
+          },
         ];
       });
   }
@@ -108,9 +100,9 @@ export class ArchivDialogComponent implements OnInit {
     this.fromRow = pagingEvent.pageSize * pagingEvent.pageIndex;
     this.filter();
   }
-  sendGetCancelOrder(){
+  sendGetCancelOrder() {
     this.waiterCockpitService.getCancelOrder(this.data.order.id).subscribe((data: any) => {
-    });; 
+    });;
   }
 
   filter(): void {
@@ -119,7 +111,7 @@ export class ArchivDialogComponent implements OnInit {
     setTimeout(() => (this.filteredData = newData));
   }
 
-  logrow(element :any) :void{
+  logrow(element: any): void {
   }
-  
+
 }

@@ -1,4 +1,5 @@
 import { createAction, props, union } from '@ngrx/store';
+import { OrderStatus } from 'app/cockpit-area/models/orders';
 import { UserInfo } from '../../../shared/backend-models/interfaces';
 
 
@@ -58,7 +59,45 @@ export const resetUserPasswordFail = createAction(
   '[resetUserPassword] resetUserPassword Fail',
   props<{ error: Error }>(),
 );
+export const updatePaymentStatus = createAction(
+  '[updatePaymentStatus] updatePaymentStatus ',
+  props<{order : OrderStatus }>(),
+);
 
+export const updatePaymentStatusSuccess = createAction(
+  '[updatePaymentStatus] updatePaymentStatus success',
+);
+
+export const updatePaymentStatusFail = createAction(
+  '[updatePaymentStatus] updatePaymentStatus Fail',
+  props<{ error: Error }>(),
+);
+export const updateOrderStatus = createAction(
+  '[updateOrderStatus] updateOrderStatus ',
+  props<{order : OrderStatus }>(),
+);
+
+export const updateOrderStatusSuccess = createAction(
+  '[updateOrderStatus] updateOrderStatus success',
+);
+
+export const updateOrderStatusFail = createAction(
+  '[updateOrderStatus] updateOrderStatus Fail',
+  props<{ error: Error }>(),
+);
+export const cancelOrder = createAction(
+  '[cancelOrder] cancelOrder ',
+  props<{id : number }>(),
+);
+
+export const cancelOrderSuccess = createAction(
+  '[cancelOrder] cancelOrder success',
+);
+
+export const cancelOrderFail = createAction(
+  '[cancelOrder] cancelOrder Fail',
+  props<{ error: Error }>(),
+);
 // action types
 const all = union({
   createUser,
@@ -72,6 +111,15 @@ const all = union({
   deleteUserFail,
   resetUserPassword,
   resetUserPasswordSuccess,
-  resetUserPasswordFail
+  resetUserPasswordFail,
+  updatePaymentStatus,
+  updatePaymentStatusSuccess,
+  updatePaymentStatusFail,
+  updateOrderStatus,
+  updateOrderStatusSuccess,
+  updateOrderStatusFail,
+  cancelOrder,
+  cancelOrderSuccess,
+  cancelOrderFail
 });
 export type CockpitAreaActions = typeof all;

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UserPasswordToken } from 'app/user-area/models/user';
-import {UserAreaService} from "../../../services/user-area.service";
 import * as fromApp from '../../../../store/reducers';
 import * as authActions from"../../../store/actions/auth.actions";
 import { Store } from '@ngrx/store';
@@ -10,13 +9,10 @@ import { Store } from '@ngrx/store';
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
-
-
 })
 export class ResetPasswordComponent implements OnInit {
   animationState = false;
   loading = false;
-  username: string;
   token: string;
   passwordToken:UserPasswordToken = {
     password : '',
@@ -29,14 +25,10 @@ export class ResetPasswordComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private userAreaService :UserAreaService,
     private store: Store<fromApp.State>,
     ) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.token = params['token'];
-      this.username = params['username'];
-      console.log(this.token);
-      console.log(this.username);// Print the parameter to the console. 
     });
 
     this.checkoutForm = fb.group({
@@ -71,29 +63,23 @@ export class ResetPasswordComponent implements OnInit {
   get password(): AbstractControl {
     return this.checkoutForm.get('password');
   }
-
   get confirmedPassword(): AbstractControl {
     return this.checkoutForm.get('confirmedPassword');
   }
+
   toggleFieldTextType() {
     if (this.icon === 'visibility_off') {
       this.icon = 'visibility';
     } else {
       this.icon = 'visibility_off';
-
     }
     this.fieldTextType = !this.fieldTextType;
   }
+  
   onSubmit(): void {
-
     this.loading = true;
     this.passwordToken.password = this.checkoutForm.get("password").value;
     this.passwordToken.token = this.token;
-/*
-    this.userAreaService.resetPassword( {password : this.checkoutForm.get("password").value , token : this.token}).subscribe(
-      ()=>
-      console.log("sadasd")
-    ) ;   */
     this.store.dispatch(authActions.updatePassword({UserInfo :{password : this.checkoutForm.get("password").value , token : this.token}}));
     
 

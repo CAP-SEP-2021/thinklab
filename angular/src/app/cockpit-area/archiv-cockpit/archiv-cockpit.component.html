@@ -54,44 +54,20 @@
         <td mat-cell *matCellDef="let element"> {{element.booking.tableId}} </td>
       </ng-container>
 
-      <!-- Owner Column -->
+      <!-- name Column -->
       <ng-container matColumnDef="booking.name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[2].label}} </th>
         <td mat-cell *matCellDef="let element"> {{element.booking.name}} </td>
       </ng-container>
 
-      <!-- Ref No Column no need to display bookingToken on order-cockpit
-        <ng-container matColumnDef="booking.bookingToken">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[3].label}} </th>
-          <td mat-cell *matCellDef="let element"> {{element.booking.bookingToken}} </td>
-        </ng-container>
-        -->
-      <!-- Position Column 
-        <ng-container matColumnDef="booking.status" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header class="statusContainer"> {{columns[3].label}} </th>
-          <td mat-cell *matCellDef="let element"> {{element.booking.status}} </td>
-        </ng-container> 
-      -->
-
-      <!--
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="statusHeader"> {{columns[3].label}} </th>
-        <td mat-cell *matCellDef="let element" class="statusCell" id="statusCell" (click)="$event.stopPropagation();"
-          appearance="fill">
-
-          <mat-select class="statusSelect" placeholder="{{status[element.order.status]}}">
-            <mat-option [value]="option" *ngFor="let option of status" (click)="sendStatus(option,element)">{{ option }}
-            </mat-option>
-          </mat-select>
+      <!-- reactivate Column -->
+      <ng-container matColumnDef="reactivate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{columns[3].label}}</th>
+        <td mat-cell *matCellDef="let element" class="reactivateButton" (click)="$event.stopPropagation();">
+          <button mat-mini-fab (click)="reactivateOrder(element)" class="reactivateBtn">
+            <mat-icon>replay</mat-icon>
+          </button>
         </td>
-      </ng-container>
-      -->
-      <ng-container matColumnDef="reactivate" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header >{{columns[3].label}}</th>
-        <td mat-cell *matCellDef="let element" class="reactivateButton" (click)="$event.stopPropagation();" > 
-          <button mat-mini-fab  (click)="sendGetCancelOrder(element)" style="background-color: white; color:green ; border-color : green ;">
-          <mat-icon>replay</mat-icon>
-        </button> </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -107,9 +83,5 @@
     [showFirstLastButtons]="true" (page)="page($event)">
   </mat-paginator>
   <div class="left-btn">
-    <!--<button mat-button color="blue">
-      <mat-icon></mat-icon>Bestellung bearbeiten
-    </button>-->
-
   </div>
 </mat-card>

@@ -116,20 +116,6 @@ public class UsermanagementTest extends ApplicationComponentTest {
 				.collect(Collectors.toList()).size());
 	}
 
-//	@Test
-//	@Rollback(true)
-//	@Tag("Skip")
-//	public void saveUserWithNullPassword() {
-//		
-//		UserEto user = new UserEto();
-//		user.setUsername("Lilith");
-//		user.setPassword(null);
-//		user.setUserRoleId(0L);
-//		
-//		assertThrows(IllegalStateException.class, () 
-//				-> this.userManagement.saveUser(user), "");
-//	}
-
 	/*
 	 * This test checks if an user can be saved without user role
 	 */

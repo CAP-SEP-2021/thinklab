@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CoreModule } from '../core/core.module';
-
 import { WaiterCockpitService } from './services/waiter-cockpit.service';
 import { WindowService } from '../core/window/window.service';
 import { PredictionService } from './services/prediction.service';
