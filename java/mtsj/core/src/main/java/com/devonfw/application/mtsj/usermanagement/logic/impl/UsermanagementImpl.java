@@ -65,9 +65,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
 	@Inject
 	private UserRoleRepository userRoleDao;
-
-	@Inject
-	private Mail mailService;
 	
 	@Inject
 	private BookingRepository bookingRepository;
@@ -152,7 +149,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 		UserEntity user = getUserDao().find(userId);
 		
 		preDeleteFromBooking(user);
-		//preDeleteFromOrder(user);
 		
 		// delete the user
 		try {
@@ -191,8 +187,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			if(checkTimeStampsForToken(tokenEntity)) {
 				resetTokenDao.delete(tokenEntity);
 				throw new EntityNotFoundException("Given Token not bound to any Account");
-//				return notifyUser(user.getUsername(), "Your Token expired. Please request a new Token");
-				//return "Your Token expired. Please request a new Token";
 			}
 			
 			// get user from db and setup
@@ -226,8 +220,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 		// grab the requested token
 		ResetTokenEntity tokenEntity = resetTokenDao.findByToken(token);
 		
-		if(tokenEntity != null) {
-			
+		if(tokenEntity != null) {			
 			// check timestamps
 			if(checkTimeStampsForToken(tokenEntity)) {
 				resetTokenDao.delete(tokenEntity);
@@ -300,7 +293,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			throw new EntityExistsException("Email already exists - cant use email twice.");
 		}
 
-		
 		// save entity
 		UserEntity resultEntity = getUserDao().save(userEntity);
 
@@ -314,7 +306,8 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 		Objects.requireNonNull(user, "user");
 
 		UserEntity userEntity = getBeanMapper().map(user, UserEntity.class);
-
+		
+		// check if updating user exists
 		if (updateUserIfExist(user)) {
 			userEntity.setModificationCounter(findUser(user.getId()).getModificationCounter());
 			userEntity.setPassword(
@@ -336,7 +329,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 	}
 
 	public boolean updateUserIfExist(UserEto user) {
-		return user.getId() == null ? false : true;
+		return user.getId() == null? false : true;
 	}
 
 	@Override
