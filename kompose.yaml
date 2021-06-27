@@ -78,7 +78,7 @@ items:
           io.kompose.service: angular
       spec:
         containers:
-        - image: my-thai-star/angular:latest
+        - image: 140995890056.dkr.ecr.eu-central-1.amazonaws.com/my-thai-star/angular:latest
           imagePullPolicy: IfNotPresent 
           name: mts-angular
           resources: {}
@@ -127,7 +127,7 @@ items:
           io.kompose.service: java
       spec:
         containers:
-        - image: my-thai-star/java:latest
+        - image: 140995890056.dkr.ecr.eu-central-1.amazonaws.com/my-thai-star/java:latest
           imagePullPolicy: IfNotPresent 
           name: mts-java
           resources: {}
@@ -176,7 +176,7 @@ items:
           io.kompose.service: reverse-proxy
       spec:
         containers:
-        - image: my-thai-star/reverse-proxy:latest
+        - image: 140995890056.dkr.ecr.eu-central-1.amazonaws.com/my-thai-star/reverse-proxy:latest
           imagePullPolicy: IfNotPresent 
           name: mts-reverse-proxy
           ports:
