@@ -45,7 +45,7 @@ export class UsermanagementCockpitComponent implements OnInit {
   displayedColumns: string[] = [
     'username',
     'email',
-    'role',
+    'userRole',
     'Avatar'//@patric please change 
   ];
   currentUser;
@@ -87,7 +87,7 @@ export class UsermanagementCockpitComponent implements OnInit {
         this.columns = [
           { name: 'username', label: cockpitUserTable.userName },
           { name: 'email', label: cockpitUserTable.emailH },
-          { name: 'role', label: cockpitUserTable.userRole },
+          { name: 'userRole', label: cockpitUserTable.userRole },
           { name: 'Avatar', label: cockpitUserTable.Avatar },//@patric please change 
         ];
 
