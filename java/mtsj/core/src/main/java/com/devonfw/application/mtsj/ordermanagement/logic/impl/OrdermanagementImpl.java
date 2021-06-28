@@ -141,6 +141,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
   }
 
   @Override
+  @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_FIND_ORDER)
   public Page<OrderCto> findArchivedOrders(OrderSearchCriteriaTo criteria) {
 
     return findArchivedCtos(criteria);
@@ -304,6 +305,8 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
   }
 
   @Override
+  @RolesAllowed({ApplicationAccessControlConfig.GROUP_WAITER, 
+	  ApplicationAccessControlConfig.GROUP_MANAGER})
   public OrderEto updatePaymentStatus(@Valid OrderCto order) {
 
     Objects.requireNonNull(order, "order");
@@ -329,6 +332,8 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
   }
 
   @Override
+  @RolesAllowed({ApplicationAccessControlConfig.GROUP_WAITER, 
+	  ApplicationAccessControlConfig.GROUP_MANAGER})
   public OrderEto updateWaiterStatus(OrderCto order) {
 
     Objects.requireNonNull(order, "order");
@@ -388,6 +393,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 
     OrderEntity orderEntity = getBeanMapper().map(order, OrderEntity.class);
     String token = orderEntity.getBooking().getBookingToken();
+    
     // initialize, validate orderEntity here if necessary
     orderEntity = getValidatedOrder(orderEntity.getBooking().getBookingToken(), orderEntity);
     orderEntity.setOrderLines(orderLineEntities);
