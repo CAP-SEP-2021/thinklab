@@ -206,10 +206,14 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
     System.out.println(criteria.getPageable().getSort().toString());
 
     if (criteria.getPageable().getSort().isEmpty()
-        || criteria.getPageable().getSort().toString().contains("booking.bookingDate")) {
+        || criteria.getPageable().getSort().toString().contains("booking.bookingDate: DESC")) {
       ctos = ctos.stream().sorted((s1, s2) -> s1.getOrder().getId().compareTo(s2.getOrder().getId()))
           .collect(Collectors.toList());
+    } else if (criteria.getPageable().getSort().toString().contains("booking.bookingDate: ASC")) {
+      ctos = ctos.stream().sorted((s1, s2) -> s2.getOrder().getId().compareTo(s1.getOrder().getId()))
+          .collect(Collectors.toList());
     }
+
     if (ctos.size() > 0) {
       Pageable pagResultTo = PageRequest.of(criteria.getPageable().getPageNumber(), ctos.size());
       pagListTo = new PageImpl<>(ctos, pagResultTo, orders.getTotalElements());
@@ -305,8 +309,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
   }
 
   @Override
-  @RolesAllowed({ApplicationAccessControlConfig.GROUP_WAITER, 
-	  ApplicationAccessControlConfig.GROUP_MANAGER})
+  @RolesAllowed({ ApplicationAccessControlConfig.GROUP_WAITER, ApplicationAccessControlConfig.GROUP_MANAGER })
   public OrderEto updatePaymentStatus(@Valid OrderCto order) {
 
     Objects.requireNonNull(order, "order");
@@ -332,8 +335,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
   }
 
   @Override
-  @RolesAllowed({ApplicationAccessControlConfig.GROUP_WAITER, 
-	  ApplicationAccessControlConfig.GROUP_MANAGER})
+  @RolesAllowed({ ApplicationAccessControlConfig.GROUP_WAITER, ApplicationAccessControlConfig.GROUP_MANAGER })
   public OrderEto updateWaiterStatus(OrderCto order) {
 
     Objects.requireNonNull(order, "order");
@@ -393,7 +395,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 
     OrderEntity orderEntity = getBeanMapper().map(order, OrderEntity.class);
     String token = orderEntity.getBooking().getBookingToken();
-    
+
     // initialize, validate orderEntity here if necessary
     orderEntity = getValidatedOrder(orderEntity.getBooking().getBookingToken(), orderEntity);
     orderEntity.setOrderLines(orderLineEntities);
