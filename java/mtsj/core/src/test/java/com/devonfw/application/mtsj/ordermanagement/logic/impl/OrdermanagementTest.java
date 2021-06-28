@@ -11,18 +11,30 @@ import javax.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.mock.web.MockServletContext;
+import org.springframework.security.test.context.support.ReactorContextTestExecutionListener;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.TestExecutionListeners;
 
 import com.devonfw.application.mtsj.SpringBootApp;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingEto;
 import com.devonfw.application.mtsj.dishmanagement.common.api.to.DishEto;
 import com.devonfw.application.mtsj.dishmanagement.dataaccess.api.IngredientEntity;
 import com.devonfw.application.mtsj.general.common.ApplicationComponentTest;
+import com.devonfw.application.mtsj.general.common.api.constants.Roles;
+import com.devonfw.application.mtsj.general.common.impl.security.ApplicationAccessControlConfig;
 import com.devonfw.application.mtsj.ordermanagement.common.api.exception.NoBookingException;
 import com.devonfw.application.mtsj.ordermanagement.common.api.exception.NoInviteException;
 import com.devonfw.application.mtsj.ordermanagement.common.api.exception.OrderAlreadyExistException;
@@ -35,14 +47,22 @@ import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderSearchCri
 import com.devonfw.application.mtsj.ordermanagement.dataaccess.api.OrderEntity;
 import com.devonfw.application.mtsj.ordermanagement.dataaccess.api.repo.OrderRepository;
 import com.devonfw.application.mtsj.ordermanagement.logic.api.Ordermanagement;
+import com.devonfw.module.basic.common.api.config.SpringProfileConstants;
+import com.devonfw.module.test.common.base.ComponentTest;
 
 /**
  * Test for {@link Ordermanagement}
  *
  */
+@Profile("hana")
+
+@TestExecutionListeners(listeners = { WithSecurityContextTestExecutionListener.class,
+ReactorContextTestExecutionListener.class })
+
 @SpringBootTest(classes = SpringBootApp.class)
 @Transactional
-public class OrdermanagementTest extends ApplicationComponentTest {
+@ExtendWith(MockitoExtension.class)
+public class OrdermanagementTest extends ComponentTest {
 
   @Inject
   private Ordermanagement orderManagement;
@@ -207,8 +227,8 @@ public class OrdermanagementTest extends ApplicationComponentTest {
    */
   @Test
   @Rollback(true)
+  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
   public void getNonArchivedOrders() {
-
     OrderSearchCriteriaTo to = new OrderSearchCriteriaTo();
     PageRequest pageable = PageRequest.of(0, 8, Sort.by(Direction.ASC, "id"));
     to.setPageable(pageable);
@@ -222,6 +242,7 @@ public class OrdermanagementTest extends ApplicationComponentTest {
    */
   @Test
   @Rollback(true)
+  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
   public void getArchivedOrders() {
 
     OrderSearchCriteriaTo to = new OrderSearchCriteriaTo();
@@ -242,6 +263,7 @@ public class OrdermanagementTest extends ApplicationComponentTest {
    */
   @Test
   @Rollback(true)
+  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
   public void checkDefaultStatusOnCreate() {
 
     OrderEntity entity = this.orderDao.find(0L);
@@ -259,6 +281,7 @@ public class OrdermanagementTest extends ApplicationComponentTest {
    * Tests wrong default status that is detected
    */
   @Test
+  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
   @Rollback(true)
   public void checkIfDefaultWaiterStatusOnInvalidStatus() {
 
@@ -279,9 +302,10 @@ public class OrdermanagementTest extends ApplicationComponentTest {
    * Tests changed new waiter-status is successful
    */
   @Test
+  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
   @Rollback(true)
   public void checkChangedWaiterStatus() {
-
+	  
     OrderEntity entity = this.orderDao.find(0L);
 
     OrderEto transferObject = new OrderEto();
@@ -351,6 +375,7 @@ public class OrdermanagementTest extends ApplicationComponentTest {
    * Test if anorder is archived if its set on paid and deliveried state
    */
   @Test
+  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
   @Rollback(true)
   public void ArchivedIfSetOnPaid() {
 
@@ -386,6 +411,7 @@ public class OrdermanagementTest extends ApplicationComponentTest {
    * test if order that is reactivated the status is set back on default
    */
   @Test
+  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
   public void ChangedStatusToDefaultOnReactivated() {
 
     OrderCto cto = new OrderCto();
