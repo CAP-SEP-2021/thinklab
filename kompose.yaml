@@ -1,5 +1,6 @@
 apiVersion: v1
 items:
+# new service for reverse-proxy
 - apiVersion: v1
   kind: Service
   metadata:
@@ -12,11 +13,12 @@ items:
     name: reverse-proxy
   spec:
     ports:
-    - name: "8081"
-      port: 8081
+    - name: "80"
+      port: 80
       targetPort: 80
     selector:
       io.kompose.service: reverse-proxy
+    type: LoadBalancer
   status:
     loadBalancer: {}
 # new service for angular
@@ -51,6 +53,7 @@ items:
       io.kompose.service: java
   status:
     loadBalancer: {}
+# new deployment for angular
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
@@ -100,6 +103,7 @@ items:
     podSelector:
       matchLabels:
         io.kompose.network/my-thai-star: "true"
+# new deployment for java
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
@@ -149,6 +153,7 @@ items:
     podSelector:
       matchLabels:
         io.kompose.network/my-thai-star: "true"
+# new deployment for reverse-proxy
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
