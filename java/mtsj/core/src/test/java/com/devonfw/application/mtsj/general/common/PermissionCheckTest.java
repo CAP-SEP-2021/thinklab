@@ -18,7 +18,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.access.AccessDeniedException;
 
 import com.devonfw.application.mtsj.SpringBootApp;
@@ -27,8 +30,13 @@ import com.devonfw.application.mtsj.bookingmanagement.logic.impl.Bookingmanageme
 import com.devonfw.application.mtsj.dishmanagement.logic.impl.DishmanagementImpl;
 import com.devonfw.application.mtsj.general.common.impl.security.ApplicationAccessControlConfig;
 import com.devonfw.application.mtsj.imagemanagement.logic.impl.ImagemanagementImpl;
+import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderCto;
+import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderEto;
 import com.devonfw.application.mtsj.ordermanagement.common.api.to.OrderSearchCriteriaTo;
+import com.devonfw.application.mtsj.ordermanagement.dataaccess.api.OrderEntity;
 import com.devonfw.application.mtsj.ordermanagement.logic.impl.OrdermanagementImpl;
+import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
+import com.devonfw.application.mtsj.usermanagement.common.api.to.UserSearchCriteriaTo;
 import com.devonfw.application.mtsj.usermanagement.logic.impl.UsermanagementImpl;
 import com.devonfw.module.test.common.base.ComponentTest;
 
@@ -143,13 +151,123 @@ public class PermissionCheckTest extends ComponentTest {
   @Test
   public void permissionFindOrdersByPost() {
 
-    TestUtil.login("user", ApplicationAccessControlConfig.PERMISSION_FIND_ORDER);
+    TestUtil.login("user", ApplicationAccessControlConfig.GROUP_WAITER);
     OrderSearchCriteriaTo criteria = new OrderSearchCriteriaTo();
     PageRequest pageable = PageRequest.of(0, 100);
     criteria.setPageable(pageable);
     this.ordermanagementImpl.findOrdersByPost(criteria);
   }
+  
+  /*
+   * Updating Waiter status without permission should throw access denied
+   */
+  @Test()
+  public void permissionAccessDeniedUpdateWaiterStatus() {
 
+    TestUtil.login("user", ApplicationAccessControlConfig.PERMISSION_FIND_BOOKING);
+
+    OrderEntity updatingEntity = this.ordermanagementImpl.getOrderDao().find(0L);
+    OrderEto transferObject = new OrderEto();
+    transferObject.setId(updatingEntity.getId());
+    transferObject.setStatus(0);
+    OrderCto cto = new OrderCto();
+    cto.setOrder(transferObject);
+    
+    Assertions.assertThrows(AccessDeniedException.class, () -> {
+    	this.ordermanagementImpl.updateWaiterStatus(cto);
+      });
+  }
+
+  /*
+   * Updating payment status without permission should throw access denied
+   * should throw accessdenied
+   */
+  @Test()
+  public void permissionAccessDeniedPaymentStatus() {
+
+    TestUtil.login("user", ApplicationAccessControlConfig.PERMISSION_FIND_BOOKING);
+
+    OrderEntity updatingEntity = this.ordermanagementImpl.getOrderDao().find(0L);
+    OrderEto transferObject = new OrderEto();
+    transferObject.setId(updatingEntity.getId());
+    transferObject.setStatus(0);
+    OrderCto cto = new OrderCto();
+    cto.setOrder(transferObject);
+    
+    Assertions.assertThrows(AccessDeniedException.class, () -> {
+    	this.ordermanagementImpl.updatePaymentStatus(cto);
+      });
+  }
+  
+  /*
+   * load list of archived orders without permission should throw access denied
+   * should throw accessdenied
+   */
+  @Test()
+  public void permissionAccessDeniedFindArchivedOrders() {
+
+    TestUtil.login("user", ApplicationAccessControlConfig.PERMISSION_FIND_BOOKING);
+
+    OrderSearchCriteriaTo to = new OrderSearchCriteriaTo();
+    PageRequest pageable = PageRequest.of(0, 8, Sort.by(Direction.ASC, "id"));
+    to.setPageable(pageable);
+    
+    Assertions.assertThrows(AccessDeniedException.class, () -> {
+    	this.ordermanagementImpl.findArchivedOrders(to);
+      });
+  }
+  
+  /*
+   * trying to cancel order without permission
+   * should throw accessdenied
+   */
+  @Test()
+  public void permissionAccessDeniedCancelOrder() {
+
+    TestUtil.login("user", ApplicationAccessControlConfig.PERMISSION_FIND_BOOKING);
+    
+    Assertions.assertThrows(AccessDeniedException.class, () -> {
+    	this.ordermanagementImpl.cancelOrder(0L);
+      });
+  }
+  
+  // ================================================================================
+  // {@link UsermanagementImpl} method permissions tests
+  // ================================================================================
+
+  /*
+   * try to update an user without permissions (works only for admins)
+   * should throw accessdenied
+   */
+  @Test
+  public void permissionAccessDeniedUpdateUser() {
+
+    TestUtil.login("user", ApplicationAccessControlConfig.PERMISSION_FIND_ORDER);
+    
+    UserEto user = new UserEto();    
+    Assertions.assertThrows(AccessDeniedException.class, () -> {
+    	this.usermanagementImpl.updateUser(user);
+      });    
+  }
+  
+  /*
+   * try to load a list of all registered users without permissions (works only for admins)
+   * should throw accessdenied
+   */
+  @Test
+  public void permissionAccessDeniedLoadUserList() {
+
+    TestUtil.login("user", ApplicationAccessControlConfig.PERMISSION_FIND_ORDER);
+        
+    UserSearchCriteriaTo to = new UserSearchCriteriaTo();
+    PageRequest pageable = PageRequest.of(0, 8, Sort.by(Direction.ASC, "id"));
+    to.setPageable(pageable);
+    
+    Assertions.assertThrows(AccessDeniedException.class, () -> {
+    	this.usermanagementImpl.findUserEtos(to);
+      });    
+  }
+  
   /**
    * It logs out after every test method.
    */

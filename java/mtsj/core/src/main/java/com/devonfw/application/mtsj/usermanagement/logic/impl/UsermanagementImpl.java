@@ -115,6 +115,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 	}
 
 	@Override
+	@RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
 	public Page<UserEto> findUserEtos(UserSearchCriteriaTo criteria) {
 
 		Page<UserEntity> users = getUserDao().findUsers(criteria);

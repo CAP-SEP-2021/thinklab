@@ -227,10 +227,10 @@ public class OrdermanagementTest extends ComponentTest {
    */
   @Test
   @Rollback(true)
-  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
+  @WithMockUser(username = "waiter", authorities = { Roles.WAITER })
   public void getNonArchivedOrders() {
     OrderSearchCriteriaTo to = new OrderSearchCriteriaTo();
-    PageRequest pageable = PageRequest.of(0, 8, Sort.by(Direction.ASC, "id"));
+    PageRequest pageable = PageRequest.of(0, 8); //, Sort.by(Direction.ASC, "booking.date"));
     to.setPageable(pageable);
     Page<OrderCto> aCtos = this.orderManagement.findOrderCtos(to);
 
@@ -242,7 +242,7 @@ public class OrdermanagementTest extends ComponentTest {
    */
   @Test
   @Rollback(true)
-  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
+  @WithMockUser(username = "waiter", authorities = { Roles.WAITER })
   public void getArchivedOrders() {
 
     OrderSearchCriteriaTo to = new OrderSearchCriteriaTo();
@@ -263,7 +263,7 @@ public class OrdermanagementTest extends ComponentTest {
    */
   @Test
   @Rollback(true)
-  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
+  @WithMockUser(username = "waiter", authorities = { Roles.WAITER })
   public void checkDefaultStatusOnCreate() {
 
     OrderEntity entity = this.orderDao.find(0L);
@@ -281,7 +281,7 @@ public class OrdermanagementTest extends ComponentTest {
    * Tests wrong default status that is detected
    */
   @Test
-  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
+  @WithMockUser(username = "waiter", authorities = { Roles.WAITER })
   @Rollback(true)
   public void checkIfDefaultWaiterStatusOnInvalidStatus() {
 
@@ -302,7 +302,7 @@ public class OrdermanagementTest extends ComponentTest {
    * Tests changed new waiter-status is successful
    */
   @Test
-  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
+  @WithMockUser(username = "waiter", authorities = { Roles.WAITER })
   @Rollback(true)
   public void checkChangedWaiterStatus() {
 	  
@@ -350,6 +350,7 @@ public class OrdermanagementTest extends ComponentTest {
    */
   @Test
   @Rollback(true)
+  @WithMockUser(username = "waiter", authorities = { Roles.WAITER })
   public void CancelOrderWithDefaultStatus() {
 
     OrderEntity entity = this.orderDao.find(0L);
@@ -363,6 +364,7 @@ public class OrdermanagementTest extends ComponentTest {
    */
   @Test
   @Rollback(true)
+  @WithMockUser(username = "waiter", authorities = { Roles.WAITER })
   public void ArchivedIfItsCanceled() {
 
     OrderEntity entity = this.orderDao.find(0L);
@@ -375,7 +377,7 @@ public class OrdermanagementTest extends ComponentTest {
    * Test if anorder is archived if its set on paid and deliveried state
    */
   @Test
-  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
+  @WithMockUser(username = "waiter", authorities = { Roles.WAITER })
   @Rollback(true)
   public void ArchivedIfSetOnPaid() {
 
@@ -398,6 +400,7 @@ public class OrdermanagementTest extends ComponentTest {
    */
   @Test
   @Rollback(true)
+  @WithMockUser(username = "waiter", authorities = { Roles.WAITER })
   public void NotArchivedAnymoreOnReactivated() {
 
     OrderEntity entity = this.orderDao.find(0L);
@@ -411,7 +414,7 @@ public class OrdermanagementTest extends ComponentTest {
    * test if order that is reactivated the status is set back on default
    */
   @Test
-  @WithMockUser(username = "alex.r", authorities = { Roles.WAITER })
+  @WithMockUser(username = "waiter", authorities = { Roles.WAITER })
   public void ChangedStatusToDefaultOnReactivated() {
 
     OrderCto cto = new OrderCto();

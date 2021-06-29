@@ -242,10 +242,6 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     BookingEntity bookingEntity = getBeanMapper().map(booking.getBooking(), BookingEntity.class);
     bookingEntity.setCanceled(false);
     
-//    bookingEntity.setBookingDate(
-//    		bookingEntity.getBookingDate().minus(2, ChronoUnit.HOURS)
-//    );
-    
     if(bookingEntity.getAssistants()!=null || booking.getInvitedGuests()!=null) {
 	    List<InvitedGuestEntity> invited = getBeanMapper().mapList(booking.getInvitedGuests(), InvitedGuestEntity.class);
 	    bookingEntity.setAssistants(invited.size());
@@ -289,8 +285,6 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     if(bookingEntity.getTableId()==null) {
     	bookingEntity.setTableId(assignFreeTable(bookingEntity.getAssistants()));
     }
-    
-
 
     try {
       bookingEntity.setBookingToken(buildToken(bookingEntity.getEmail(), "CB_"));
