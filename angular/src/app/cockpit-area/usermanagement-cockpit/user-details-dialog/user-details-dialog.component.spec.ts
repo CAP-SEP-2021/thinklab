@@ -81,7 +81,7 @@ describe('UserDetailsDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should change user-details when filling in new information and submitting',() => {
+  it('should change user-details when filling in new information',() => {
   fixture.detectChanges();
   const username = component.Form.controls.username;
   const email = component.Form.controls.email;
@@ -97,14 +97,9 @@ describe('UserDetailsDialogComponent', () => {
   email.setValue('horst@mail.de');
   role.setValue(2);
 
-  // submit button
-  component.onSubmit();
-
   expect(username.value).toBe('horst');
   expect(email.value).toBe('horst@mail.de');
   expect(role.value).toBe(2);
-
-  
   });
 
   it('should close user-details when clicking the delete button',() => {

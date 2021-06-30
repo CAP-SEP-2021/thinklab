@@ -173,7 +173,6 @@ describe('OrderCockpitComponent', () => {
     expect(component.sendPaymentStatus).toHaveBeenCalled();
     }));
 
-    
   it('should call the method sendStatus when clicking a status-change-button ', () => {
     fixture.detectChanges();
     spyOn(component, 'sendStatus');
@@ -182,17 +181,35 @@ describe('OrderCockpitComponent', () => {
     expect(component.sendStatus).toHaveBeenCalled();
     });
 
-    
-  it('should change between all possible status-options',() => {
+  it('should change status from Food is being prepared to Order taken',() => {
     fixture.detectChanges();
     expect(component.orders[0].order.status).toBe("1");
     const statusButton = el.queryAll(By.css('.mat-button-toggle'));
     click(statusButton[0]);
     expect(component.orders[0].order.status).toBe("0");
+      });
+
+
+  it('should change status from Order taken to Food is being delivered',() => {
+    fixture.detectChanges();
+    expect(component.orders[0].order.status).toBe("0");
+    const statusButton = el.queryAll(By.css('.mat-button-toggle'));
     click(statusButton[2]);
     expect(component.orders[0].order.status).toBe("2");
+      });
+
+  it('should change status from Food is being delivered to Food arrived',() => {
+    fixture.detectChanges();
+    expect(component.orders[0].order.status).toBe("2");
+    const statusButton = el.queryAll(By.css('.mat-button-toggle'));
     click(statusButton[3]);
     expect(component.orders[0].order.status).toBe("3");
+      });
+
+  it('should change status from Food arrived to Order taken',() => {
+    fixture.detectChanges();
+    expect(component.orders[0].order.status).toBe("3");
+    const statusButton = el.queryAll(By.css('.mat-button-toggle'));
     click(statusButton[0]);
     expect(component.orders[0].order.status).toBe("0");
       });

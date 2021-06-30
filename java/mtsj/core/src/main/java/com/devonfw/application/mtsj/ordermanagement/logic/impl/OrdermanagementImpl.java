@@ -134,13 +134,14 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
   }
 
   @Override
-  @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_FIND_ORDER)
+  @RolesAllowed({ ApplicationAccessControlConfig.GROUP_WAITER, ApplicationAccessControlConfig.GROUP_MANAGER })
   public Page<OrderCto> findOrdersByPost(OrderSearchCriteriaTo criteria) {
 
     return findOrderCtos(criteria);
   }
 
   @Override
+  @RolesAllowed({ ApplicationAccessControlConfig.GROUP_WAITER, ApplicationAccessControlConfig.GROUP_MANAGER })
   public Page<OrderCto> findArchivedOrders(OrderSearchCriteriaTo criteria) {
 
     return findArchivedCtos(criteria);
@@ -186,7 +187,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
     return ctos;
 
   }
-
+  
   @Override
   public Page<OrderCto> findOrderCtos(OrderSearchCriteriaTo criteria) {
 
@@ -202,13 +203,21 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
       processOrders(ctos, order);
     }
 
-    System.out.println(criteria.getPageable().getSort().toString());
+    /*
+     * Some Orders can have the exact same date and timestamp.
+     * This makes some troubles if some order details changed, because the list of orders will be
+     * randomly sort. To prevent that, this will sort the orders by id desc or asc based if you want to sort 
+     * by booking date
+     */
+	if (criteria.getPageable().getSort().isEmpty()
+			|| criteria.getPageable().getSort().toString().contains("booking.bookingDate: DESC")) {
+		ctos = ctos.stream().sorted((s1, s2) -> s1.getOrder().getId().compareTo(s2.getOrder().getId()))
+				.collect(Collectors.toList());
+	} else if (criteria.getPageable().getSort().toString().contains("booking.bookingDate: ASC")) {
+		ctos = ctos.stream().sorted((s1, s2) -> s2.getOrder().getId().compareTo(s1.getOrder().getId()))
+				.collect(Collectors.toList());
+	}
 
-    if (criteria.getPageable().getSort().isEmpty()
-        || criteria.getPageable().getSort().toString().contains("booking.bookingDate")) {
-      ctos = ctos.stream().sorted((s1, s2) -> s1.getOrder().getId().compareTo(s2.getOrder().getId()))
-          .collect(Collectors.toList());
-    }
     if (ctos.size() > 0) {
       Pageable pagResultTo = PageRequest.of(criteria.getPageable().getPageNumber(), ctos.size());
       pagListTo = new PageImpl<>(ctos, pagResultTo, orders.getTotalElements());
@@ -277,6 +286,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
   }
 
   @Override
+  @RolesAllowed({ ApplicationAccessControlConfig.GROUP_WAITER, ApplicationAccessControlConfig.GROUP_MANAGER })
   public boolean cancelOrder(Long orderId) {
 
     try {
@@ -304,6 +314,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
   }
 
   @Override
+  @RolesAllowed({ ApplicationAccessControlConfig.GROUP_WAITER, ApplicationAccessControlConfig.GROUP_MANAGER })
   public OrderEto updatePaymentStatus(@Valid OrderCto order) {
 
     Objects.requireNonNull(order, "order");
@@ -329,6 +340,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
   }
 
   @Override
+  @RolesAllowed({ ApplicationAccessControlConfig.GROUP_WAITER, ApplicationAccessControlConfig.GROUP_MANAGER })
   public OrderEto updateWaiterStatus(OrderCto order) {
 
     Objects.requireNonNull(order, "order");
@@ -358,8 +370,6 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
     OrderLineEntity orderLineEntity = getBeanMapper().map(orderLine.getOrderLine(), OrderLineEntity.class);
 
     // mapping new extras if exists, delete existing extraingreds
-    // do not touch auto_increment
-    // https://stackoverflow.com/questions/2214141/auto-increment-after-delete-in-mysql
     orderLineEntity.setExtras(getBeanMapper().mapList(orderLine.getExtras(), IngredientEntity.class));
 
     // find existing orderline and set
@@ -388,6 +398,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 
     OrderEntity orderEntity = getBeanMapper().map(order, OrderEntity.class);
     String token = orderEntity.getBooking().getBookingToken();
+
     // initialize, validate orderEntity here if necessary
     orderEntity = getValidatedOrder(orderEntity.getBooking().getBookingToken(), orderEntity);
     orderEntity.setOrderLines(orderLineEntities);

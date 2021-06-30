@@ -2,9 +2,7 @@
 
 develop: image:https://travis-ci.com/devonfw/my-thai-star.svg?branch=develop["build-status",link="https://travis-ci.com/devonfw/my-thai-star"]
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-This repository is an **ADCS Capgemini** initiative that hosts an application reference called **My Thai Star**. This application is about the management of a restaurant.
+This repository is an **ADCS Capgemini** initiative that hosts an application reference called **My Thai Star**. This application is about the management of a restaurant. 
 
 == Technologies
 

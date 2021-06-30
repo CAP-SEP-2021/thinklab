@@ -141,7 +141,7 @@ describe('newUserDialogComponent', () => {
     expect(component.checkoutForm.value).toEqual(addUserTest);
   }));
 
-  it('should set the checkoutform to invalid when password and confirm password do not match and username or email is missing',() => {
+  it('should set the checkoutform to invalid when username or email is missing',() => {
     fixture.detectChanges();
     const username = component.checkoutForm.controls.username;
     const email = component.checkoutForm.controls.email;
@@ -151,6 +151,7 @@ describe('newUserDialogComponent', () => {
     password.setValue('123');
     confirmPassword.setValue('123');
     userRoleId.setValue(2);
+
     // username and email missing
     expect(component.checkoutForm.valid).toBe(false);
 
@@ -161,7 +162,22 @@ describe('newUserDialogComponent', () => {
     email.setValue("hans@mail.de");
     // all forms are filled correctly
     expect(component.checkoutForm.valid).toBe(true);
+  });
 
+
+  it('should set the checkoutform to invalid when password and confirm password do not match',() => {
+    fixture.detectChanges();
+    const username = component.checkoutForm.controls.username;
+    const email = component.checkoutForm.controls.email;
+    const password = component.checkoutForm.controls.password;
+    const confirmPassword = component.checkoutForm.controls.confirmedPassword;
+    const userRoleId = component.checkoutForm.controls.userRoleId;
+    password.setValue('123');
+    confirmPassword.setValue('123');
+    userRoleId.setValue(2);
+    username.setValue("Hans");
+    email.setValue("hans@mail.de");
+    
     password.setValue("400");
     //passwords do not match
     expect(component.checkoutForm.valid).toBe(false);

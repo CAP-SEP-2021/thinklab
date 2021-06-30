@@ -45,7 +45,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   columns: TextLabel[];
   displayedColumns: string[] = [
     'booking.bookingDate',
-    'booking.tableId',
+    'booking.table',
     'booking.name',
     'paid',
     'status',
@@ -118,7 +118,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       .subscribe((cockpitTable) => {
         this.columns = [
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
-          { name: 'booking.tableId', label: cockpitTable.tableIdH },
+          { name: 'booking.table', label: cockpitTable.tableIdH },
           { name: 'booking.name', label: cockpitTable.ownerH },
           { name: 'paid', label: cockpitTable.paymentStatusH },
           { name: 'status', label: cockpitTable.statusH },
@@ -139,7 +139,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
 
   applyFilters(): void {
     if (this.sorting.length === 0) {
-      this.sorting.push({ property: 'booking.bookingDate', direction: 'desc' });
+      this.sorting.push({ property: 'booking.bookingDate', direction: 'asc' });
      // this.sorting.push({ property: 'paid', direction: 'desc' });
     }
 

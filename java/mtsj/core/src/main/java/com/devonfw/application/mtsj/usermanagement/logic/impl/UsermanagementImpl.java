@@ -65,9 +65,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
 	@Inject
 	private UserRoleRepository userRoleDao;
-
-	@Inject
-	private Mail mailService;
 	
 	@Inject
 	private BookingRepository bookingRepository;
@@ -118,6 +115,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 	}
 
 	@Override
+	@RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
 	public Page<UserEto> findUserEtos(UserSearchCriteriaTo criteria) {
 
 		Page<UserEntity> users = getUserDao().findUsers(criteria);
@@ -126,23 +124,19 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
 	/*
 	 * At this point, only the user is removed. Some laws require that user information 
-	 * be removed legitimately, but orders and the like are subject to country-specific 
-	 * legal retention periods, so in this case only the reference to the user is removed, 
-	 * but not the orders themselves.
+	 * be removed, but the storage of orders are subject to legal requirements 
+	 * of certain countries
+	 * In this case only the reference to the user is removed, but not the order.
 	 */
 	boolean preDeleteFromBooking(UserEntity user) {
-		
 		List<BookingEntity> listOfHosts = bookingRepository.findBookingByHostId(user);
-
-		for(BookingEntity host : listOfHosts) {
-			
+		for(BookingEntity host : listOfHosts) {			
 			host.setModificationCounter(host.getModificationCounter());
 			host.setUser(null);
 			host.setEmail("deleted");
 			host.setName("deleted");
 			bookingRepository.save(host);
 		}
-		
 		return true;
 	}
 	
@@ -152,7 +146,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 		UserEntity user = getUserDao().find(userId);
 		
 		preDeleteFromBooking(user);
-		//preDeleteFromOrder(user);
 		
 		// delete the user
 		try {
@@ -175,7 +168,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 	
 	// POST with token AND password, validating process, using ResetTokenEto
 	@Override
-	// @RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
 	public ResetTokenMessageEto changeForgetPassword(ResetTokenEto request) {
 
 		// grab the requested token
@@ -191,8 +183,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			if(checkTimeStampsForToken(tokenEntity)) {
 				resetTokenDao.delete(tokenEntity);
 				throw new EntityNotFoundException("Given Token not bound to any Account");
-//				return notifyUser(user.getUsername(), "Your Token expired. Please request a new Token");
-				//return "Your Token expired. Please request a new Token";
 			}
 			
 			// get user from db and setup
@@ -226,8 +216,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 		// grab the requested token
 		ResetTokenEntity tokenEntity = resetTokenDao.findByToken(token);
 		
-		if(tokenEntity != null) {
-			
+		if(tokenEntity != null) {			
 			// check timestamps
 			if(checkTimeStampsForToken(tokenEntity)) {
 				resetTokenDao.delete(tokenEntity);
@@ -248,7 +237,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
 	// create token, send email
 	@Override
-	// @RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
 	public ResetTokenMessageEto resetPassword(UserEto user) {
 		
 		UserEntity requester = getUserDao().findUserByEmail(user.getEmail());
@@ -300,7 +288,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 			throw new EntityExistsException("Email already exists - cant use email twice.");
 		}
 
-		
 		// save entity
 		UserEntity resultEntity = getUserDao().save(userEntity);
 
@@ -309,12 +296,13 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 	}
 
 	@Override
-	// @RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
+	@RolesAllowed(ApplicationAccessControlConfig.GROUP_ADMIN)
 	public UserEto updateUser(UserEto user) throws EntityNotFoundException {
 		Objects.requireNonNull(user, "user");
 
 		UserEntity userEntity = getBeanMapper().map(user, UserEntity.class);
-
+		
+		// check if updating user exists
 		if (updateUserIfExist(user)) {
 			userEntity.setModificationCounter(findUser(user.getId()).getModificationCounter());
 			userEntity.setPassword(
@@ -336,7 +324,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 	}
 
 	public boolean updateUserIfExist(UserEto user) {
-		return user.getId() == null ? false : true;
+		return user.getId() == null? false : true;
 	}
 
 	@Override
