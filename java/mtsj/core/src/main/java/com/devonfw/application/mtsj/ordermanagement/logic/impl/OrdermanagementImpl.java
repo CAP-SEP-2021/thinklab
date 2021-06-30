@@ -187,24 +187,6 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
     return ctos;
 
   }
-
-  /*
-   * Some Orders can have the exact same date and timestamp.
-   * This makes some troubles if some order details changed, because the list of orders will be
-   * randomly sort. To prevent that, this will sort the orders by id desc or asc based if you want to sort 
-   * by booking date
-   */
-	List<OrderCto> sortOrdersByExternCriteria(OrderSearchCriteriaTo criteria, List<OrderCto> ctos) {
-		if (criteria.getPageable().getSort().isEmpty()
-				|| criteria.getPageable().getSort().toString().contains("booking.bookingDate: DESC")) {
-			return ctos.stream().sorted((s1, s2) -> s1.getOrder().getId().compareTo(s2.getOrder().getId()))
-					.collect(Collectors.toList());
-		} else if (criteria.getPageable().getSort().toString().contains("booking.bookingDate: ASC")) {
-			return ctos.stream().sorted((s1, s2) -> s2.getOrder().getId().compareTo(s1.getOrder().getId()))
-					.collect(Collectors.toList());
-		}
-		return null;
-	}
   
   @Override
   public Page<OrderCto> findOrderCtos(OrderSearchCriteriaTo criteria) {
@@ -221,7 +203,20 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
       processOrders(ctos, order);
     }
 
-    ctos = sortOrdersByExternCriteria(criteria, ctos);
+    /*
+     * Some Orders can have the exact same date and timestamp.
+     * This makes some troubles if some order details changed, because the list of orders will be
+     * randomly sort. To prevent that, this will sort the orders by id desc or asc based if you want to sort 
+     * by booking date
+     */
+	if (criteria.getPageable().getSort().isEmpty()
+			|| criteria.getPageable().getSort().toString().contains("booking.bookingDate: DESC")) {
+		ctos = ctos.stream().sorted((s1, s2) -> s1.getOrder().getId().compareTo(s2.getOrder().getId()))
+				.collect(Collectors.toList());
+	} else if (criteria.getPageable().getSort().toString().contains("booking.bookingDate: ASC")) {
+		ctos = ctos.stream().sorted((s1, s2) -> s2.getOrder().getId().compareTo(s1.getOrder().getId()))
+				.collect(Collectors.toList());
+	}
 
     if (ctos.size() > 0) {
       Pageable pagResultTo = PageRequest.of(criteria.getPageable().getPageNumber(), ctos.size());
