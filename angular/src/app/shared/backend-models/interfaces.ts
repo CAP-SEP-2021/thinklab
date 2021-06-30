@@ -2,7 +2,7 @@
 
 export class Filter {
     pageable?: Pageable;
-    isFav: boolean;
+    isFav?: boolean;
     searchBy: string;
     // sort: { name: string, direction: string }[];
     maxPrice: number;
@@ -10,13 +10,21 @@ export class Filter {
     categories: { id: string }[];
 }
 
-export class FilterCockpit {//@mo we need ti add status filter 
+export class FilterCockpit {
     pageable?: Pageable;
     // sort?: Sorting[];
     bookingDate: string;
     email: string;
     bookingToken: number;
-    status : string;//@mo added to comlete the structure  
+    paymentStatus: string;
+    status : string;
+}
+
+export class FilterAdminCockpit {
+    username: string;
+    email: string;
+    userRole: number;
+
 }
 
 export class FilterOrdersCockpit {
@@ -70,7 +78,7 @@ export class FriendsInvite {
 
 export class OrderInfo {
     orderLine: OrderLineInfo;
-    extras: {id : number}[];//@ mo scary
+    extras: {id : number}[];
 }
 
 export class OrderLineInfo {
@@ -110,4 +118,18 @@ export class LoginInfo {
 export class Role {
     name: string;
     permission: number;
+}
+//users 
+export class UserInfo {
+   icon?:String;
+    id? :number;
+    username: string;
+    password: string;
+    email: string;
+    userRoleId: number;
+    twoFactorStatus?: Boolean;
+    
+}
+export class UserListCriteria {
+    pageable: Pageable;
 }

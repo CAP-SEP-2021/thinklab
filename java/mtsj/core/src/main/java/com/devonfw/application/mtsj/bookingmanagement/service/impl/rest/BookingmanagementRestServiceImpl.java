@@ -14,6 +14,7 @@ import com.devonfw.application.mtsj.bookingmanagement.common.api.to.InvitedGuest
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.InvitedGuestSearchCriteriaTo;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.TableEto;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.TableSearchCriteriaTo;
+import com.devonfw.application.mtsj.bookingmanagement.common.api.to.findByCto;
 import com.devonfw.application.mtsj.bookingmanagement.logic.api.Bookingmanagement;
 import com.devonfw.application.mtsj.bookingmanagement.service.api.rest.BookingmanagementRestService;
 
@@ -113,8 +114,12 @@ public class BookingmanagementRestServiceImpl implements BookingmanagementRestSe
 
   @Override
   public void cancelInvite(String bookingToken) {
-
     this.bookingmanagement.cancelInvite(bookingToken);
   }
+
+	@Override
+	public BookingEto findBy(@Valid findByCto findBy) {
+		return bookingmanagement.findBy(findBy);
+	}
 
 }

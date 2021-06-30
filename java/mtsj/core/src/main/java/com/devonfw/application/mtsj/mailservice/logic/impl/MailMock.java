@@ -22,7 +22,7 @@ public class MailMock implements Mail {
   private static final Logger LOG = LoggerFactory.getLogger(MailMock.class);
 
   @Override
-  public boolean sendMail(String to, String subject, String text) {
+  public Boolean sendMail(String to, String subject, String text) {
 
     StringBuilder sb = new StringBuilder();
     sb.append("To: ").append(to).append("|").append("Subject: ").append(subject).append("|").append("Text: ")

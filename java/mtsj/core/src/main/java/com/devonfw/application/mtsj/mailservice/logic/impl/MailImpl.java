@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.annotation.Async;
 
 import com.devonfw.application.mtsj.mailservice.logic.api.Mail;
 
@@ -26,7 +27,8 @@ public class MailImpl implements Mail {
   @Autowired
   public MailSender mailSender;
 
-  public boolean sendMail(String to, String subject, String text) {
+  @Async
+  public Boolean sendMail(String to, String subject, String text) {
 
     SimpleMailMessage message = new SimpleMailMessage();
     message.setTo(to);

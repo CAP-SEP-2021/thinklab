@@ -13,7 +13,15 @@
     "clearFilters": "Clear Filters",
     "applyFilters": "Apply Filters",
     "removeComment": "Remove Comment",
-    "addComment": "Add comment"
+    "addComment": "Add comment",
+    "cancelOrder" : "Cancel order",
+    "reactivateOrder" : "Reactivate order",
+    "addUser" : "Add User",
+    "copyBookingId": "Copy Booking-ID",
+    "updateUserInformation": "Update User Information",
+    "deleteUser": "Remove User",
+    "updatePassword": "Update password",
+    "sendResetLink": "Send reset link"
   },
   "table": {
     "rowsPage": "Rows per page",
@@ -21,6 +29,11 @@
     "noResults": "No results to display"
   },
   "alerts": {
+    "updateOrderStatusSuccess" : "The status was changed successfully",
+    "updateOrderStatusFail" : "The status change failed",
+    "cancelOrderSuccess" : "The order was successfully canceled",
+    "cancelOrderFail" : "Canceling the order failed",
+    "reactivateOrderSuccess" : "The order was successfully reactivated",
     "accessError": "Access denied, please log in first",
     "genericError": "An error has ocurred, please try again later",
     "urlError": "Url not found, please try again",
@@ -70,7 +83,9 @@
     "dialog": {
       "title": "Book Table",
       "bookingSuccess": "Table succesfully booked",
-      "bookingError": "Error booking, please try again later"
+      "bookingError": "Error booking, please try again later",
+      "bookingId": "Booking-ID",
+      "bookingIdTooltip": "Add the booking ID to the shopping cart to complete an order"
     },
     "formErrors": {
       "nameRequired": "Required. Please insert a name to reserve the table",
@@ -91,7 +106,10 @@
     "book": "Book table",
     "orders": "Orders",
     "reservations": "Reservations",
-    "archiv": "Archiv",
+    "archiv": "Archive",
+    "users" : "Users",
+    "prediction" : "Prediction",
+    "clustering" : "Clustering",
     "userActions": {
       "user": "User",
       "pairing": "Set two-factor authentication",
@@ -194,16 +212,79 @@
     },
     "table": {
       "reservationDateH": "Reservation Date",
+      "tableIdH": "Table number",
       "emailH": "Email",
       "bookingTokenH": "Reference Number",
       "statusH" : "Status",
       "ownerH": "Owner",
-      "statusHPaid" : "paid",
-      "statusHtaken" :"Order taken",
-      "statusHprepared": "Food is being prepared",
-      "statusHdelivered":"Food is delivered",
+      "statusDelivered" : "Food has arrived",
+      "statusTaken" :"Order taken",
+      "statusPrepared": "Food is being prepared",
+      "statusInDelivery":"Food is being delivered",
       "tableH": "Table",
-      "creationDateH": "Creation date"
+      "paymentStatusH": "Payment status",
+      "paymentStatusPaid": "Paid",
+      "paymentStatusNotPaid": "Payment pending",
+      "creationDateH": "Creation date",
+      "cancelH": "Cancel",
+      "reactivateH": "Reactivate"
+
+    } ,
+
+     "userTabel" :{
+      "id" : "ID" ,
+      "username" : "Username" ,
+      "email" : "E-mail" ,
+      "role" : "Role" ,
+      "Avatar" : "Avatar"
+    },
+
+    "userTable": {
+      "userName" : "Username",
+      "userRole" : "User role",
+      "id" : "ID",
+      "emailH": "Email",
+      "Avatar" : "Avatar"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Create a new User",
+    "userRole" : "User role",
+    "roleCustomer" : "Customer",
+    "roleWaiter" : "Waiter",
+    "roleManager" : "Manager",
+    "roleAdmin" : "Admin",
+    "managePassword": "Manage password",
+    "formErrors" : {
+    "addUserNameRequired" : "Required field. Please enter a username.",
+    "addUserEmailRequired" : "Required field. Please enter an email.",
+    "addUserEmailPattern" : "Enter a valid email address e.g. email@email.com.",
+    "passwordRequiredPrompt": "Required field. Please enter a password.",
+    "passwordMatchPrompt": "The passwords do not match."
+    },
+    "userInformation": {
+      "userInformation": "User Information",
+      "userName": "Username",
+      "userEmail": "User Email"
+    },
+    "userManagement":{
+      "usernameH": "Username:",
+      "emailH": "E-mail:",
+      "password": "password",
+      "repeatPassword": "Repeat password",
+      "updatePassword": "Update user password",
+      "resetLink": "Send reset link",
+      "updateSuccess": "Update of user data was successful",
+      "updateFail": "Update of user data has failed",
+      "createUserSuccess": "The user was created successfully",
+      "createUserFail": "The creation of the user failed",
+      "deleteUserSuccess": "The user was deleted successfully",
+      "deleteUserFail": "Deleting the user failed",
+      "confirmText1" : "Are you sure, that you want to delete the user '",
+      "confirmText2" : "' ?",
+      "checkLink": "Checking the link ...",
+      "redirect": "You will be redirected soon",
+      "wait": "Please wait"
     }
   }
 }

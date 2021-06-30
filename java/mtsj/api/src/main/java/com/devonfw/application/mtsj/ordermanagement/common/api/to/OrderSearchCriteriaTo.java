@@ -1,5 +1,7 @@
 package com.devonfw.application.mtsj.ordermanagement.common.api.to;
 
+import java.time.Instant;
+
 import com.devonfw.application.mtsj.general.common.api.to.AbstractSearchCriteriaTo;
 import com.devonfw.module.basic.common.api.query.StringSearchConfigTo;
 
@@ -19,22 +21,28 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
 	private Long hostId;
 
+	private Long tableId;
+
 	private String email;
 
-	private String status;
-	
+	private Integer status;
+
 	private boolean archived;
 
 	private boolean canceled;
 
+	private Boolean paid;
+
 	private String bookingToken;
+
+	private Instant bookingDate;
 
 	private StringSearchConfigTo hostTokenOption;
 
 	private StringSearchConfigTo emailOption;
 
 	private StringSearchConfigTo bookingTokenOption;
-	
+
 	private StringSearchConfigTo archivedOption;
 
 	/**
@@ -56,10 +64,12 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 	}
 
 	public boolean isCanceled() {
-		return canceled;
+
+		return this.canceled;
 	}
 
 	public void setCanceled(boolean canceled) {
+
 		this.canceled = canceled;
 	}
 
@@ -93,6 +103,16 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 		this.hostId = hostId;
 	}
 
+	public Long getTableId() {
+
+		return this.tableId;
+	}
+
+	public void setTableId(Long tableId) {
+
+		this.hostId = tableId;
+	}
+
 	/**
 	 * @return email
 	 */
@@ -108,20 +128,24 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
 		this.email = email;
 	}
-	
+
 	public void setArchived(boolean archived) {
+
 		this.archived = archived;
 	}
-	
+
 	public boolean getArchived() {
+
 		return this.archived;
 	}
 
-	public String getStatus() {
-		return status;
+	public Integer getStatus() {
+
+		return this.status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
+
 		this.status = status;
 	}
 
@@ -190,10 +214,28 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 	}
 
 	public StringSearchConfigTo getArchivedOption() {
-		return archivedOption;
+
+		return this.archivedOption;
 	}
 
 	public void setArchivedOption(StringSearchConfigTo archivedOption) {
+
 		this.archivedOption = archivedOption;
-	}	
+	}
+
+	public Boolean getPaid() {
+
+		return this.paid;
+	}
+
+	public void setBookingDate(Instant bookingDate) {
+
+		this.bookingDate = bookingDate;
+	}
+
+	public Instant getBookingDate() {
+
+		return this.bookingDate;
+	}
+
 }

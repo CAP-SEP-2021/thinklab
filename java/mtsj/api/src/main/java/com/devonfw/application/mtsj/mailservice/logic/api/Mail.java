@@ -14,5 +14,5 @@ public interface Mail {
    * @param text the content of the mail
    * @return the result of the sending process
    */
-  boolean sendMail(String to, String subject, String text);
+  Boolean sendMail(String to, String subject, String text);
 }

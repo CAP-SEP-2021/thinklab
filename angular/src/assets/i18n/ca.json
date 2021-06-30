@@ -12,7 +12,15 @@
     "clearFilters": "Netejar filtres",
     "applyFilters": "Aplicar filtres",
     "removeComment": "Eliminar comentari",
-    "addComment": "Afegir comentari"
+    "addComment": "Afegir comentari",
+    "cancelOrder" : "cancel lar la comanda",
+    "reactivateOrder" : "Activa la comanda",
+    "addUser" : "Afegiu usuaris",
+    "copyBookingId": "Copia l’identificació de la reserva",
+    "updateUserInformation": "Actualitzeu la informació de l'usuari",
+    "deleteUser": "Suprimeix l'usuari",
+    "updatePassword": "Actualitzeu la contrasenya",
+    "sendResetLink": "Envia l'enllaç de restabliment"
   },
   "table": {
     "rowsPage": "Files per pàgina",
@@ -20,6 +28,11 @@
     "noResults": "Sense resultats que mostrar"
   },
   "alerts": {
+    "updateOrderStatusSuccess" : "L'estat s'ha canviat correctament",
+    "updateOrderStatusFail" : "El canvi d'estat ha fallat",
+    "cancelOrderSuccess" : "La comanda s'ha cancel·lat correctament",
+    "cancelOrderFail" : "La cancel·lació de la comanda ha fallat",
+    "reactivateOrderSuccess" : "La comanda es va reactivar amb èxit",
     "accessError": "Accés prohibit, si us plau identifiqui's primer",
     "genericError":
       "Ha ocorregut un error, si us plau torni a intentar-ho més tard",
@@ -69,7 +82,9 @@
     "dialog": {
       "title": "Reservar una taula",
       "bookingSuccess": "Taula reservada satisfactoriament",
-      "bookingError": "Error reservant, intenti-ho de nou més tard"
+      "bookingError": "Error reservant, intenti-ho de nou més tard",
+      "bookingId": "Identificador de reserva",
+      "bookingIdTooltip": "Afegiu l’identificador de reserva a la cistella de la compra per completar una comanda"
     },
     "formErrors": {
       "nameRequired":
@@ -93,10 +108,15 @@
     "book": "Reservar taula",
     "orders": "Comandes",
     "reservations": "Reserves",
+    "archiv" : "Arxiu",
+    "users" : "Llista d'usuaris",
+    "prediction" : "Predicció",
+    "clustering" : "Agrupació",
     "userActions": {
       "user": "Usuari",
       "logout": "Tancar sessió",
       "changePassword": "Canviar contrasenya",
+      "pairing" : "Definiu l'autenticació de dos factors",
       "twitterAccount": "Compte de Twitter",
       "signOut": "Tancar sessió",
       "orders": "Comandes"
@@ -193,11 +213,68 @@
     },
     "table": {
       "reservationDateH": "Data de reserva",
+      "tableIdH": "Número de taula",
       "emailH": "Email",
       "bookingTokenH": "Nombre de referència",
       "ownerH": "Responsable",
       "tableH": "Taula",
-      "creationDateH": "Data de creació"
+      "paymentStatusH": "Estat de pagament",
+      "paymentStatusPaid": "Pagat",
+      "paymentStatusNotPaid": "Pagament pendent",
+      "creationDateH": "Data de creació",
+      "statusH" : "Estat",
+      "statusDelivered" : "El menjar ha arribat",
+      "statusTaken" :"Comanda acceptada",
+      "statusPrepared": "S’està preparant menjar",
+      "statusInDelivery":"Es lliura menjar",
+      "cancelH": "Cancel · lar",
+      "reactivateH": "Torneu a activar"
+    },
+    "userTable": {
+      "userName" : "Nom d'usuari",
+      "userRole" : "Rol d'usuari",
+      "id" : "Identificació",
+      "emailH": "Correu electrònic"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Crea un usuari nou",
+    "userRole" : "Rol d'usuari",
+    "roleCustomer" : "Client",
+    "roleWaiter" : "Cambrer",
+    "roleManager" : "Gerent",
+    "roleAdmin" : "Administrador",
+    "managePassword": "Gestiona la contrasenya",
+    "formErrors" : {
+      "addUserNameRequired" : "Camp necessari. Introduïu un nom d'usuari.",
+      "addUserEmailRequired" : "Camp necessari. Introduïu un correu electrònic.",
+      "addUserEmailPattern" : "Introduïu una adreça electrònica vàlida, per exemple, email@email.com.",
+      "passwordRequiredPrompt" : "Camp necessari. Introduïu una contrasenya.",
+      "passwordMatchPrompt": "Les contrasenyes no coincideixen."
+    },
+    "userInformation": {
+      "userInformation": "Informació de l'usuari",
+      "userName": "Nom d'usuari",
+      "userEmail": "Correu electrònic d’usuari"
+    },
+    "userManagement":{
+      "usernameH": "Nom d'usuari:",
+      "emailH": "Correu electrònic:",
+      "password": "contrasenya",
+      "repeatPassword": "Repeteix la contrassenya",
+      "updatePassword": "Actualitzeu la contrasenya d'usuari",
+      "resetLink": "Envia l'enllaç de restabliment",
+      "updateSuccess": "L'actualització de les dades de l'usuari s'ha realitzat correctament",
+      "updateFail": "No s'ha pogut actualitzar les dades de l'usuari",
+      "createUserSuccess": "L'usuari s'ha creat correctament",
+      "createUserFail": "La creació de l'usuari ha fallat",
+      "deleteUserSuccess": "L'usuari s'ha suprimit correctament",
+      "deleteUserFail": "No s'ha pogut suprimir l'usuari",
+      "confirmText1" : "Esteu segur que voleu suprimir l'usuari '",
+      "confirmText2" : "' ?",
+      "checkLink": "S'està comprovant l'enllaç ...",
+      "redirect": "aviat se us redirigirà",
+      "wait": "Espereu, si us plau"
     }
   }
 }

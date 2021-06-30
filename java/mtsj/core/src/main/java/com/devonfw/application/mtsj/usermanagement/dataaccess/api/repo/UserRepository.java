@@ -2,7 +2,6 @@ package com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo;
 
 import static com.querydsl.core.alias.Alias.$;
 
-
 import org.springframework.data.domain.Page;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserSearchCriteriaTo;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserEntity;
@@ -20,40 +19,61 @@ import java.util.List;
  */
 public interface UserRepository extends DefaultRepository<UserEntity> {
 
+	/**
+	 * @param email to search the correct user
+	 * @return the {@link UserEntity} object that matched the search.
+	 */
 	@Query("SELECT user FROM UserEntity user" //
-	          + " WHERE user.email = :email")
+			+ " WHERE user.email = :email")
 	Object findByEmail(@Param("email") String email);
-	
-  /**
-   * @param criteria the {@link UserSearchCriteriaTo} with the criteria to search.
-   * @return the {@link Page} of the {@link UserEntity} objects that matched the search.
-   */
-  default Page<UserEntity> findUsers(UserSearchCriteriaTo criteria) {
 
-    UserEntity alias = newDslAlias();
-    JPAQuery<UserEntity> query = newDslQuery(alias);
+	/**
+	 * @param id to search the correct user
+	 * @return the {@link UserEntity} object that matched the search.
+	 */
+	@Query("SELECT user FROM UserEntity user" //
+			+ " WHERE user.email = :email")
+	UserEntity findUserByEmail(@Param("email") String email);
 
-    String username = criteria.getUsername();
-    if ((username != null) && !username.isEmpty()) {
-      QueryUtil.get().whereString(query, $(alias.getUsername()), username, criteria.getUsernameOption());
-    }
-    String email = criteria.getEmail();
-    if ((email != null) && !email.isEmpty()) {
-      QueryUtil.get().whereString(query, $(alias.getEmail()), email, criteria.getEmailOption());
-    }
-    Long userRole = criteria.getUserRoleId();
-    if (userRole != null && alias.getUserRole() != null) {
-      query.where(Alias.$(alias.getUserRole().getId()).eq(userRole));
-    }
+	/**
+	 * @param id to search the correct user
+	 * @return the hashed pass that matched the search.
+	 */
+	@Query("SELECT password FROM UserEntity user" //
+			+ " WHERE user.id = :id")
+	String getHashedPasswordById(@Param("id") Long id);
 
-    return QueryUtil.get().findPaginated(criteria.getPageable(), query, false);
-  }
+	/**
+	 * @param criteria the {@link UserSearchCriteriaTo} with the criteria to search.
+	 * @return the {@link Page} of the {@link UserEntity} objects that matched the
+	 *         search.
+	 */
+	default Page<UserEntity> findUsers(UserSearchCriteriaTo criteria) {
 
-  /**
-   * @param username
-   * @return An {@link UserEntity} objects that matched the search.
-   */
-  @Query("SELECT user FROM UserEntity user" //
-          + " WHERE user.username = :username")
-  UserEntity findByUsername(@Param("username") String username);
+		UserEntity alias = newDslAlias();
+		JPAQuery<UserEntity> query = newDslQuery(alias);
+
+		String username = criteria.getUsername();
+		if ((username != null) && !username.isEmpty()) {
+			QueryUtil.get().whereString(query, $(alias.getUsername()), username, criteria.getUsernameOption());
+		}
+		String email = criteria.getEmail();
+		if ((email != null) && !email.isEmpty()) {
+			QueryUtil.get().whereString(query, $(alias.getEmail()), email, criteria.getEmailOption());
+		}
+		Long userRole = criteria.getUserRoleId();
+		if (userRole != null && alias.getUserRole() != null) {
+			query.where(Alias.$(alias.getUserRole().getId()).eq(userRole));
+		}
+
+		return QueryUtil.get().findPaginated(criteria.getPageable(), query, false);
+	}
+
+	/**
+	 * @param username
+	 * @return An {@link UserEntity} objects that matched the search.
+	 */
+	@Query("SELECT user FROM UserEntity user" //
+			+ " WHERE user.username = :username")
+	UserEntity findByUsername(@Param("username") String username);
 }

@@ -12,7 +12,15 @@
     "clearFilters": "फ़िल्टर साफ़ करें",
     "applyFilters": "फ़िल्टर लागू करें",
     "removeComment": "टिप्पणी निकालें",
-    "addComment": "टिप्पणी जोड़ें"
+    "addComment": "टिप्पणी जोड़ें",
+    "cancelOrder" : "आदेश रद्द",
+    "reactivateOrder" : "आदेश पुनः सक्रिय करें",
+    "addUser" : "उपयोगकर्ताओं को जोड़ें",
+    "copyBookingId": "बुकिंग आईडी कॉपी करें",
+    "updateUserInformation": "उपयोगकर्ता जानकारी अपडेट करें",
+    "deleteUser": "उपभोक्ता मिटायें",
+    "updatePassword": "पासवर्ड अपडेट करें",
+    "sendResetLink": "रीसेट लिंक भेजें"
   },
   "table": {
     "rowsPage": "प्रति पंक्ति पंक्तियाँ",
@@ -20,6 +28,11 @@
     "noResults": "प्रदर्शित करने के लिए कोई परिणाम नहीं"
   },
   "alerts": {
+    "updateOrderStatusSuccess" : "स्थिति सफलतापूर्वक बदल दी गई थी",
+    "updateOrderStatusFail" : "स्थिति परिवर्तन विफल",
+    "cancelOrderSuccess" : "आदेश सफलतापूर्वक रद्द कर दिया गया था",
+    "cancelOrderFail" : "आदेश रद्द करना विफल",
+    "reactivateOrderSuccess" : "आदेश सफलतापूर्वक पुनः सक्रिय किया गया",
     "accessError": "प्रवेश से वंचित, पहले प्रवेश करें",
     "genericError": "एक त्रुटि आ रही है, कृपया बाद में फिर से प्रयास करें",
     "urlError": "यूआरएल नहीं मिला, कृपया पुनः प्रयास करें",
@@ -69,7 +82,9 @@
     "dialog": {
       "title": "टेबल बुक करें",
       "bookingSuccess": "टेबल सफलतापूर्वक बुक की गई",
-      "bookingError": "बुकिंग की गई त्रुटि, कृपया बाद में फिर से प्रयास करें"
+      "bookingError": "बुकिंग की गई त्रुटि, कृपया बाद में फिर से प्रयास करें",
+      "bookingId": "बुकिंग आईडी",
+      "bookingIdTooltip": "ऑर्डर पूरा करने के लिए शॉपिंग कार्ट में बुकिंग आईडी जोड़ें"
     },
     "formErrors": {
       "nameRequired":
@@ -92,6 +107,10 @@
     "book": "टेबल बुक करें",
     "orders": "आदेश",
     "reservations": "आरक्षण",
+    "archiv" : "पुरालेख",
+    "users" : "उपयोगकर्ताओं की सूची",
+    "prediction" : "पूर्वानुमान",
+    "clustering" : "क्लस्टरिंग",
     "userActions": {
       "user": "User",
       "pairing": "एक दो-कारक प्रमाणीकरण को परिभाषित करें",
@@ -192,11 +211,68 @@
     },
     "table": {
       "reservationDateH": "आरक्षण की तिथि",
+      "tableIdH": "तालिका संख्या",
       "emailH": "ईमेल",
       "bookingTokenH": "संदर्भ संख्या",
       "ownerH": "मालिक",
       "tableH": "मेज",
-      "creationDateH": "रचना तिथि"
+      "paymentStatusH": "भुगतान की स्थिति",
+      "paymentStatusPaid": "भुगतान किया",
+      "paymentStatusNotPaid": "भुगतान लंबित",
+      "creationDateH": "रचना तिथि",
+      "statusH" : "स्थिति",
+      "statusDelivered" : "खाना आ गया",
+      "statusTaken" :"आदेश लिया गया",
+      "statusPrepared": "खाना बन रहा है",
+      "statusInDelivery":"खाना पहुंचाया जाता है",
+      "cancelH": "रद्द करना",
+      "reactivateH": "पुन: सक्रिय"
+    },
+    "userTable": {
+      "userName" : "उपयोगकर्ता नाम",
+      "userRole" : "उपयोगकर्ता भूमिका",
+      "id" : "ईद",
+      "emailH": "ईमेल"
+    }
+  },
+  "userManagement": {
+    "createUser" : "एक नया उपयोगकर्ता बनाएं",
+    "userRole" : "उपयोगकर्ता भूमिका",
+    "roleCustomer" : "ग्राहक",
+    "roleWaiter" : "वेटर",
+    "roleManager" : "मैनेजर",
+    "roleAdmin" : "व्यवस्थापक",
+    "managePassword": "पासवर्ड प्रबंधित करें",
+    "formErrors" : {
+      "addUserNameRequired" : "आवश्यक क्षेत्र। कृपया उपयोगकर्तानाम डालें।",
+      "addUserEmailRequired" : "आवश्यक क्षेत्र। कृपया एक ईमेल दर्ज करें।",
+      "addUserEmailPattern" : "एक मान्य ईमेल पता दर्ज करें जैसे ईमेल@email.com।",
+      "passwordRequiredPrompt" : "आवश्यक क्षेत्र। कृपया पासवर्ड दर्ज करें।",
+      "passwordMatchPrompt": "पासवर्ड्स मेल नहीं खा रहे।"
+    },
+    "userInformation": {
+      "userInformation": "यूजर जानकारी",
+      "userName": "उपयोगकर्ता नाम",
+      "userEmail": "उपयोगकर्ता ईमेल"
+    },
+    "userManagement":{
+      "usernameH": "उपयोगकर्ता नाम:",
+      "emailH": "ईमेल:",
+      "password": "पारण शब्द",
+      "repeatPassword": "पासवर्ड दोहराएं",
+      "updatePassword": "उपयोगकर्ता पासवर्ड अपडेट करें",
+      "resetLink": "रीसेट लिंक भेजें",
+      "updateSuccess": "उपयोगकर्ता डेटा का अद्यतन सफल रहा",
+      "updateFail": "उपयोगकर्ता डेटा का अद्यतन विफल रहा है",
+      "createUserSuccess": "उपयोगकर्ता सफलतापूर्वक बनाया गया था",
+      "createUserFail": "उपयोगकर्ता का निर्माण विफल रहा",
+      "deleteUserSuccess": "उपयोगकर्ता को सफलतापूर्वक हटा दिया गया था",
+      "deleteUserFail": "उपयोगकर्ता को हटाना विफल रहा",
+      "confirmText1" : "क्या आप सुनिश्चित हैं, कि आप उपयोगकर्ता को हटाना चाहते हैं '",
+      "confirmText2" : "' ?",
+      "checkLink": "लिंक की जांच की जा रही है...",
+      "redirect": "आपको जल्द ही पुनर्निर्देशित किया जाएगा",
+      "wait": "कृपया प्रतीक्षा करें"
     }
   }
 }

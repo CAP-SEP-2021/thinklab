@@ -13,7 +13,15 @@
     "clearFilters": "Filter zurücksetzen",
     "applyFilters": "Filter anwenden",
     "removeComment": "Kommentar entfernen",
-    "addComment": "Kommentar hinzufügen"
+    "addComment": "Kommentar hinzufügen",
+    "cancelOrder" : "Bestellung stornieren",
+    "reactivateOrder" : "Bestellung reaktivieren",
+    "addUser" : "Benutzer hinzufügen",
+    "copyBookingId": "Buchungs-ID kopieren",
+    "updateUserInformation": "Benutzerinformationen aktualisieren",
+    "deleteUser": "Benutzer löschen",
+    "updatePassword": "Passwort aktualisieren",
+    "sendResetLink": "Rücksetzlink senden"
   },
   "table": {
     "rowsPage": "Zeilen pro Seite",
@@ -21,6 +29,11 @@
     "noResults": "Keine Ergebnisse"
   },
   "alerts": {
+    "updateOrderStatusSuccess" : "Der Status wurde erfolgreich geändert",
+    "updateOrderStatusFail" : "Die Statusänderung ist fehlgeschlagen",
+    "cancelOrderSuccess" : "Die Bestellung wurde erfolgreich storniert",
+    "cancelOrderFail" : "Das stornieren der Bestellung ist fehlgeschlagen",
+    "reactivateOrderSuccess" : "Die Bestellung wurde erfolgreich reaktiviert",
     "accessError": "Zugang verweigert, bitte erst einloggen",
     "genericError":
       "Ein Fehler ist aufgetreten, bitte versuche es später noch einmal",
@@ -73,7 +86,10 @@
     "dialog": {
       "title": "Tisch buchen",
       "bookingSuccess": "Tisch erfolgreich gebucht",
-      "bookingError": "Buchungsfehler, bitter versuche es später erneut"
+      "bookingError": "Buchungsfehler, bitter versuche es später erneut",
+      "bookingId": "Buchungs-ID",
+      "bookingIdTooltip": "Füge die Buchungs-ID dem Warenkorb hinzu, um eine Bestellung abzuschließen"
+
     },
     "formErrors": {
       "nameRequired":
@@ -96,6 +112,10 @@
     "book": "Tisch buchen",
     "orders": "Bestellungen",
     "reservations": "Reservierungen",
+    "archiv": "Archiv",
+    "users" : "Benutzerliste",
+    "prediction" : "Prognose",
+    "clustering" : "Clustering",
     "userActions": {
       "user": "Benutzer",
       "pairing": "Zwei-Faktor-Authentifizierung einstellen",
@@ -197,19 +217,68 @@
     },
     "table": {
       "reservationDateH": "Reservierungsdatum",
+      "tableIdH": "Tischnummer",
       "emailH": "Email",
       "bookingTokenH": "Referenznummer",
       "ownerH": "Eigentümer",
       "tableH": "Tisch",
+      "paymentStatusH": "Bezahlstatus",
+      "paymentStatusPaid": "Bezahlt",
+      "paymentStatusNotPaid": "Zahlung ausstehend",
       "statusH" : "Status",
-      "statusHPaid" : "Bezahlt",
-      "statusHtaken" :"Bestellung Aufgenommen",
-      "statusHprepared": "Essen wird zubereitet",
-      "statusHdelivered":"Essen wird ausgeliefert",
-      "creationDateH": "Erstelldatum"
+      "statusDelivered" : "Essen ist angekommen",
+      "statusTaken" :"Bestellung Aufgenommen",
+      "statusPrepared": "Essen wird zubereitet",
+      "statusInDelivery":"Essen wird ausgeliefert",
+      "creationDateH": "Erstelldatum",
+      "cancelH": "Stornieren",
+      "reactivateH": "Reaktivieren"
+    },
+    "userTable": {
+      "userName" : "Benutzername",
+      "userRole" : "Benutzerrolle",
+      "id" : "ID",
+      "emailH": "Email"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Erstelle einen neuen Benutzer",
+    "userRole" : "Benutzerrolle",
+    "roleCustomer" : "Kunde",
+    "roleWaiter" : "Kellner",
+    "roleManager" : "Manager",
+    "roleAdmin" : "Admin",
+    "managePassword": "Passwort verwalten",
+    "formErrors" : {
+    "addUserNameRequired" : "Pflichtfeld. Bitte gib einen Benutzernamen ein.",
+    "addUserEmailRequired" : "Pflichtfeld. Bitte gib eine Email ein.",
+    "addUserEmailPattern" : "Gib eine gültige Emailadresse ein z.B. email@email.com.",
+    "passwordRequiredPrompt" : "Pflichtfeld. Bitte gib ein Passwort ein.",
+    "passwordMatchPrompt": "Die Passwörter stimmen nicht überein."
+    },
+    "userInformation": {
+      "userInformation": "Benutzerinformationen",
+      "userName": "Nutzername",
+      "userEmail": "Email"
+    },
+    "userManagement":{
+      "usernameH": "Nutzername:",
+      "emailH": "Email:",
+      "password": "Passwort",
+      "repeatPassword": "Passwort wiederholen",
+      "updatePassword": "Nutzerpasswort aktualisieren",
+      "resetLink": "Rücksetzlink versenden",
+      "updateSuccess": "Aktualisierung der Nutzerdaten war erfolgreich",
+      "updateFail": "Aktualisierung der Nutzerdaten ist fehlgeschlagen",
+      "createUserSuccess": "Der Benutzer wurde erfolgreich angelegt",
+      "createUserFail": "Das Anlegen des Benutzers ist fehlgeschlagen",
+      "deleteUserSuccess": "Der Benutzer wurde erfolgreich gelöscht",
+      "deleteUserFail": "Das Löschen des Benutzers ist fehlgeschlagen",
+      "confirmText1" : "Bist du dir sicher, dass du den Benutzer '",
+      "confirmText2" : "' löschen möchtest?",
+      "checkLink": "Link wird überprüft...",
+      "redirect": "Du wirst gleich weitergeleitet",
+      "wait": "Bitte warten Sie"
     }
   }
-
-
-
 }

@@ -9,16 +9,30 @@
 }
 .statusHeader{
 min-width: 400px;
-padding-left: 25px;
+padding-left: 357px;
+}
+.cancelBtn{
+  background-color: white;
+  color: red ;
+  border-color : red ;
 }
 
 .statusCell{
   max-height: fit-content;
   margin-top: 13px;
   padding-bottom: 6px;
-  padding-right: 7px;
+  padding-right: 200px;
  
   }
+
+  #noDeliveryButton {
+    width: 249px;
+  }
+
+  .delete {
+    padding-left: 10px;
+  }
+ 
   
 .formDesktopRow {
   flex: 1;
@@ -52,7 +66,7 @@ table {
 }
 
 th {
-  width: 33.33%;
+  width: 15%;
   font-weight: bold;
 }
 

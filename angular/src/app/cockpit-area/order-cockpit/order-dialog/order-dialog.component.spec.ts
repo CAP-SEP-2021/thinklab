@@ -13,6 +13,9 @@ import { getTranslocoModule } from '../../../transloco-testing.module';
 import { dialogOrderDetails } from '../../../../in-memory-test-data/db-order-dialog-data';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { StoreModule } from '@ngrx/store';
+import * as fromRoot from '../../store/reducers';
+import { EffectsModule } from '@ngrx/effects';
 
 describe('OrderDialogComponent', () => {
   let component: OrderDialogComponent;
@@ -34,7 +37,14 @@ describe('OrderDialogComponent', () => {
         BrowserAnimationsModule,
         WaiterCockpitModule,
         getTranslocoModule(),
-        CoreModule
+        CoreModule,
+        EffectsModule.forRoot([]),
+        StoreModule.forRoot(fromRoot.reducers, {
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          },
+        })
       ],
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(OrderDialogComponent);

@@ -6,7 +6,9 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -14,11 +16,12 @@ import java.util.Optional;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,12 +29,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.devonfw.application.mtsj.bookingmanagement.common.api.datatype.BookingType;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.exception.CancelInviteNotAllowedException;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingCto;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.BookingEto;
@@ -40,6 +41,7 @@ import com.devonfw.application.mtsj.bookingmanagement.common.api.to.InvitedGuest
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.InvitedGuestSearchCriteriaTo;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.TableEto;
 import com.devonfw.application.mtsj.bookingmanagement.common.api.to.TableSearchCriteriaTo;
+import com.devonfw.application.mtsj.bookingmanagement.common.api.to.findByCto;
 import com.devonfw.application.mtsj.bookingmanagement.dataaccess.api.BookingEntity;
 import com.devonfw.application.mtsj.bookingmanagement.dataaccess.api.InvitedGuestEntity;
 import com.devonfw.application.mtsj.bookingmanagement.dataaccess.api.TableEntity;
@@ -77,6 +79,8 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
   @Value("${mythaistar.hourslimitcancellation}")
   private int hoursLimit;
 
+  private final static int MAX_INVITED_GUESTS = 8;
+
   /**
    * @see #getBookingDao()
    */
@@ -110,11 +114,12 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
   }
 
   public boolean found(Long id) {
-	  BookingEntity entity = getBookingDao().find(id);
-	  System.out.println(entity.toString());
-	  return true;
+
+    BookingEntity entity = getBookingDao().find(id);
+    System.out.println(entity.toString());
+    return true;
   }
-  
+
   @Override
   public BookingCto findBooking(Long id) {
 
@@ -197,25 +202,90 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     LOG.debug("The booking with id '{}' has been deleted.", bookingId);
     return true;
   }
+
+  private boolean isGuestAnonymous(Long id) {
+
+    return id == null;
+  }
+
+  private Long getAnonymousGuestId() {
+
+    return 999L;
+  }
   
+  private Long assignFreeTable(Integer numAssistants) {
+	    // assign a correct table once
+	    List<TableEntity> tableList = this.tableDao.findAllTables();
+	    for (TableEntity table : tableList) {
+	      if (table.getSeatsNumber() >= numAssistants) {
+
+	        List<BookingEntity> listOfAlreadyAssignedTablesPerSeats = this.bookingDao.findBookingByTable(table);
+
+	        for (BookingEntity assignedTable : listOfAlreadyAssignedTablesPerSeats) {
+	          if (!assignedTable.getTable().equals(table)) {
+	        	return table.getId();	          }
+	        }
+	        if (listOfAlreadyAssignedTablesPerSeats.isEmpty()) {
+	        	return table.getId();
+	        }
+	      }
+	    }
+	    throw new IllegalStateException("No Table left for this booking");
+  }
+
   @Override
   public BookingEto saveBooking(BookingCto booking) {
 
+	  
+	  
     Objects.requireNonNull(booking, "booking");
     BookingEntity bookingEntity = getBeanMapper().map(booking.getBooking(), BookingEntity.class);
     bookingEntity.setCanceled(false);
-    List<InvitedGuestEntity> invited = getBeanMapper().mapList(booking.getInvitedGuests(), InvitedGuestEntity.class);
-
-    for (InvitedGuestEntity invite : invited) {
-      try {
-        invite.setGuestToken(buildToken(invite.getEmail(), "GB_"));
-      } catch (NoSuchAlgorithmException e) {
-        LOG.debug("MD5 Algorithm not available at the enviroment");
-      }
-      invite.setAccepted(false);
+    
+    if(bookingEntity.getAssistants()!=null || booking.getInvitedGuests()!=null) {
+	    List<InvitedGuestEntity> invited = getBeanMapper().mapList(booking.getInvitedGuests(), InvitedGuestEntity.class);
+	    bookingEntity.setAssistants(invited.size());
+	    
+	    for (InvitedGuestEntity invite : invited) {
+	      try {
+	        invite.setGuestToken(buildToken(invite.getEmail(), "GB_"));
+	      } catch (NoSuchAlgorithmException e) {
+	        LOG.debug("MD5 Algorithm not available at the enviroment");
+	      }
+	      invite.setAccepted(false);
+	    }
+    
+	   bookingEntity.setInvitedGuests(invited);
+	   bookingEntity.setInvitedGuests(getBeanMapper().mapList(invited, InvitedGuestEntity.class));
+    }
+    
+    // check if booking made by anonymous guest or from registered user on webpage
+    if (isGuestAnonymous(bookingEntity.getId())) {
+      bookingEntity.setUserId(getAnonymousGuestId());
+    }
+    
+    // check if booking is Alexa-Booking, then set default table to 0
+    if(bookingEntity.getAssistants()==null) {
+    	bookingEntity.setTableId(0L);
+    	bookingEntity.setDelivery(true);
     }
 
-    bookingEntity.setInvitedGuests(invited);
+    // check if comment type is not set, then set default comment 
+    if (bookingEntity.getComment() == null) {
+      bookingEntity.setComment("Booking Type GSR");
+    }
+
+    // check if more than 8 ppls
+    if (bookingEntity.getAssistants() != null && bookingEntity.getAssistants() > MAX_INVITED_GUESTS) {
+      LOG.debug("Not possible to invite more then {} peoples", MAX_INVITED_GUESTS);
+      throw new IllegalStateException("too many people were invited");
+    }
+
+    // assign an free table
+    if(bookingEntity.getTableId()==null) {
+    	bookingEntity.setTableId(assignFreeTable(bookingEntity.getAssistants()));
+    }
+
     try {
       bookingEntity.setBookingToken(buildToken(bookingEntity.getEmail(), "CB_"));
     } catch (NoSuchAlgorithmException e) {
@@ -225,16 +295,19 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     bookingEntity.setCreationDate(Instant.now());
     bookingEntity.setExpirationDate(bookingEntity.getBookingDate().minus(Duration.ofHours(1)));
 
-    bookingEntity.setInvitedGuests(getBeanMapper().mapList(invited, InvitedGuestEntity.class));
+  
 
     BookingEntity resultEntity = getBookingDao().save(bookingEntity);
     LOG.debug("Booking with id '{}' has been created.", resultEntity.getId());
-    for (InvitedGuestEntity invitedGuest : resultEntity.getInvitedGuests()) {
-      invitedGuest.setBookingId(resultEntity.getId());
-      InvitedGuestEntity resultInvitedGuest = getInvitedGuestDao().save(invitedGuest);
-      LOG.info("OrderLine with id '{}' has been created.", resultInvitedGuest.getId());
+    
+    if(resultEntity.getAssistants()!=null) {
+	    for (InvitedGuestEntity invitedGuest : resultEntity.getInvitedGuests()) {
+	      invitedGuest.setBookingId(resultEntity.getId());
+	      InvitedGuestEntity resultInvitedGuest = getInvitedGuestDao().save(invitedGuest);
+	      LOG.info("OrderLine with id '{}' has been created.", resultInvitedGuest.getId());
+	    }
+	    LOG.debug("Booking with id '{}' has been created.", resultEntity.getId());
     }
-    LOG.debug("Booking with id '{}' has been created.", resultEntity.getId());
 
     sendConfirmationEmails(resultEntity);
 
@@ -279,6 +352,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     return getBeanMapper().map(getInvitedGuestDao().find(id), InvitedGuestEto.class);
   }
 
+  @Override
   public List<InvitedGuestEto> findInvitedGuestByBooking(Long bookingId) {
 
     List<InvitedGuestEntity> invitedGuestList = getInvitedGuestDao().findInvitedGuestByBooking(bookingId);
@@ -333,6 +407,24 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     return this.invitedGuestDao;
   }
 
+  
+	@Override
+	public BookingEto findBy(@Valid findByCto findBy) {
+
+		// find bookings with given criteria and limit it by 1 by using PageRequest
+		// because LIMIT is guess what not working with jpa
+		Page<BookingEntity> result = bookingDao.findClosestBooking(
+				PageRequest.of(0, 1),
+				findBy.getBookingDate(),
+				new TableEntity.Create().Id(findBy.getTableId()).build());
+		
+		if(result.isEmpty())
+			throw new EntityNotFoundException("Cant find closest Booking with this Data");
+		else
+			return getBeanMapper().map(result.getContent().get(0), BookingEto.class);
+	}
+  
+  
   @Override
   public TableEto findTable(Long id) {
 
@@ -369,6 +461,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     return getBeanMapper().map(resultEntity, TableEto.class);
   }
 
+  @Override
   public InvitedGuestEto acceptInvite(String guestToken) {
 
     Objects.requireNonNull(guestToken);
@@ -403,7 +496,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
 
     Objects.requireNonNull(bookingToken, "bookingToken");
     BookingCto bookingCto = findBookingByToken(bookingToken);
-    
+
     if (bookingCto != null) {
       if (!cancelInviteAllowed(bookingCto.getBooking())) {
         throw new CancelInviteNotAllowedException();
@@ -423,7 +516,8 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
 
   private void sendConfirmationEmails(BookingEntity booking) {
 
-    if (!booking.getInvitedGuests().isEmpty()) {
+	  
+    if (booking.getAssistants() != null && !booking.getInvitedGuests().isEmpty()) {
       for (InvitedGuestEntity guest : booking.getInvitedGuests()) {
         sendInviteEmailToGuest(guest, booking);
       }
@@ -467,7 +561,7 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
           .append("\n");
       hostMailContent.append("Booking CODE: ").append(booking.getBookingToken()).append("\n");
       hostMailContent.append("Booking Date: ").append(booking.getBookingDate()).append("\n");
-      if (!booking.getInvitedGuests().isEmpty()) {
+      if (booking.getInvitedGuests()!= null && !booking.getInvitedGuests().isEmpty() && booking.getAssistants()!=null) {
         hostMailContent.append("Guest list:").append("\n");
         for (InvitedGuestEntity guest : booking.getInvitedGuests()) {
           hostMailContent.append("-").append(guest.getEmail()).append("\n");
@@ -580,14 +674,24 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     return (now > cancellationLimit) ? false : true;
   }
 
-  private String getClientUrl() {
+	private String getClientUrl() {
 
-    HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-    String clientUrl = request.getHeader("origin");
-    if (clientUrl == null) {
-      return "http://localhost:" + this.clientPort;
-    }
-    return clientUrl;
-  }
+		try {
+			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+					.getRequest();
+			String clientUrl = request.getHeader("origin");			
+			return clientUrl;
+		} catch (Exception e) {
+			return "http://localhost:" + this.clientPort;
+		}
+		
+//		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+//				.getRequest();
+//		String clientUrl = request.getHeader("origin");
+//		if (clientUrl == null) {
+//			return "http://localhost:" + this.clientPort;
+//		}
+//		return clientUrl;
+	}
 
 }

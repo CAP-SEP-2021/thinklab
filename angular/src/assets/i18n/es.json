@@ -12,7 +12,15 @@
     "clearFilters": "Limpiar filtros",
     "applyFilters": "Aplicar filtros",
     "removeComment": "Eliminar comentario",
-    "addComment": "Añadir comentario"
+    "addComment": "Añadir comentario",
+    "cancelOrder" : "Cancelar orden",
+    "reactivateOrder" : "Reactivar orden",
+    "addUser" : "Agregar usuarios",
+    "copyBookingId": "Copiar ID de reserva",
+    "updateUserInformation": "Actualitzeu la informació de l'usuari",
+    "deleteUser": "Suprimeix l'usuari",
+    "updatePassword": "Actualiza contraseña",
+    "sendResetLink": "Enviar enlace de restablecimiento"
   },
   "table": {
     "rowsPage": "Filas por página",
@@ -20,6 +28,11 @@
     "noResults": "Sin resultados que mostrar"
   },
   "alerts": {
+    "updateOrderStatusSuccess" : "El estado se cambió con éxito",
+    "updateOrderStatusFail" : "El cambio de estado falló",
+    "cancelOrderSuccess" : "El pedido se canceló con éxito",
+    "cancelOrderFail" : "No se pudo cancelar el pedido",
+    "reactivateOrderSuccess" : "El pedido se reactivó con éxito",
     "accessError": "Acceso prohibido, por favor identifíquese primero",
     "genericError": "Ha ocurrido un error, por favor vuelva a intentarlo más tarde",
     "urlError": "Url no encontrada, por favor vuelva a intentarlo",
@@ -67,7 +80,9 @@
     "dialog": {
       "title": "Reservar una mesa",
       "bookingSuccess": "Mesa reservada satisfactoriamente",
-      "bookingError": "Error reservando, inténtelo de nuevo más tarde"
+      "bookingError": "Error reservando, inténtelo de nuevo más tarde",
+      "bookingId": "ID de reserva",
+      "bookingIdTooltip": "Agregue el ID de reserva al carrito de compras para completar un pedido"
     },
     "formErrors": {
       "nameRequired": "Requerido. Por favor inserte su nombre para reservar la mesa.",
@@ -85,6 +100,10 @@
     "book": "Reservar mesa",
     "orders": "Pedidos",
     "reservations": "Reservas",
+    "archiv" : "Archivo",
+    "users" : "Lista de usuarios",
+    "prediction" : "Predicción",
+    "clustering" : "Agrupamiento",
     "userActions": {
       "user": "Usuario",
       "pairing": "Configurar una autenticación de dos factores",
@@ -183,11 +202,68 @@
     },
     "table": {
       "reservationDateH": "Fecha de reserva",
+      "tableIdH": "Numero de mesa",
       "emailH": "Email",
       "bookingTokenH": "Número de referencia",
       "ownerH": "Responsable",
       "tableH": "Mesa",
-      "creationDateH": "Fecha de creación"
+      "paymentStatusH": "Estado de pago",
+      "paymentStatusPaid": "Pagado",
+      "paymentStatusNotPaid": "Pago pendiente",
+      "creationDateH": "Fecha de creación",
+      "statusH" : "Estado",
+      "statusDelivered" : "Ha llegado la comida",
+      "statusTaken" :"Orden tomada",
+      "statusPrepared": "Se está preparando la comida",
+      "statusInDelivery":"Se entrega comida",
+      "cancelH": "Cancelar",
+      "reactivateH": "Reactivar"
+    },
+    "userTable": {
+      "userName" : "Nombre de usuario",
+      "userRole" : "Rol del usuario",
+      "id" : "Identificación",
+      "emailH": "Correo electrónico"
+    }
+  },
+  "userManagement": {
+    "createUser" : "Crea un nuevo usuario",
+    "userRole" : "Rol del usuario",
+    "roleCustomer" : "Cliente",
+    "roleWaiter" : "Mesero",
+    "roleManager" : "Gerente",
+    "roleAdmin" : "Administración",
+    "managePassword": "Administrar contraseña",
+    "formErrors" : {
+      "addUserNameRequired" : "Campo requerido. Por favor, ingrese un nombre de usuario.",
+      "addUserEmailRequired" : "Campo requerido. Ingrese un correo electrónico.",
+      "addUserEmailPattern" : "Ingrese una dirección de correo electrónico válida, por ejemplo, email@email.com.",
+      "passwordRequiredPrompt" : "Campo requerido. Porfavor ingrese una contraseña.",
+      "passwordMatchPrompt": "Las contraseñas no coinciden."
+    },
+    "userInformation": {
+      "userInformation": "informacion del usuario",
+      "userName": "Nombre de usuario",
+      "userEmail": "Correo electrónico del usuario"
+    },
+    "userManagement":{
+      "usernameH": "Nombre de usuario:",
+      "emailH": "Correo electrónico:",
+      "password": "contraseña",
+      "repeatPassword": "repite la contraseña",
+      "updatePassword": "Actualizar contraseña de usuario",
+      "resetLink": "Enviar enlace de restablecimiento",
+      "updateSuccess": "La actualización de los datos del usuario se realizó correctamente",
+      "updateFail": "La actualización de los datos del usuario ha fallado",
+      "createUserSuccess": "El usuario fue creado con éxito",
+      "createUserFail": "Falló la creación del usuario",
+      "deleteUserSuccess": "El usuario fue eliminado con éxito",
+      "deleteUserFail": "No se pudo borrar al usuario",
+      "confirmText1" : "Está seguro de que desea eliminar el usuario '",
+      "confirmText2" : "' ?",
+      "checkLink": "Comprobando el enlace ...",
+      "redirect": "pronto serás redirigido",
+      "wait": "Espere por favor"
     }
   }
 }
