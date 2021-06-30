@@ -217,17 +217,8 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
 	    // assign a correct table once
 	    List<TableEntity> tableList = this.tableDao.findAllTables();
 	    for (TableEntity table : tableList) {
-	      if (table.getSeatsNumber() >= numAssistants) {
-
-	        List<BookingEntity> listOfAlreadyAssignedTablesPerSeats = this.bookingDao.findBookingByTable(table);
-
-	        for (BookingEntity assignedTable : listOfAlreadyAssignedTablesPerSeats) {
-	          if (!assignedTable.getTable().equals(table)) {
-	        	return table.getId();	          }
-	        }
-	        if (listOfAlreadyAssignedTablesPerSeats.isEmpty()) {
-	        	return table.getId();
-	        }
+	      if (table.getSeatsNumber() >= numAssistants) {	    	  
+	    	  return table.getId();
 	      }
 	    }
 	    throw new IllegalStateException("No Table left for this booking");
@@ -236,15 +227,15 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
   @Override
   public BookingEto saveBooking(BookingCto booking) {
 
-	  
-	  
     Objects.requireNonNull(booking, "booking");
     BookingEntity bookingEntity = getBeanMapper().map(booking.getBooking(), BookingEntity.class);
     bookingEntity.setCanceled(false);
     
     if(bookingEntity.getAssistants()!=null || booking.getInvitedGuests()!=null) {
 	    List<InvitedGuestEntity> invited = getBeanMapper().mapList(booking.getInvitedGuests(), InvitedGuestEntity.class);
-	    bookingEntity.setAssistants(invited.size());
+	    
+	    if(bookingEntity.getAssistants()==null)
+	    	bookingEntity.setAssistants(invited.size());
 	    
 	    for (InvitedGuestEntity invite : invited) {
 	      try {
