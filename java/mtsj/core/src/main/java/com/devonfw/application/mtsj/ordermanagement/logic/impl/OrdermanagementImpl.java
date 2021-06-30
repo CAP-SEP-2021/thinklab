@@ -611,13 +611,13 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 
       // dish cost
       sb.append(" ==>").append(". Dish cost: ").append(linePrice.setScale(2, RoundingMode.HALF_EVEN).toString())
-          .append("�");
+          .append(" EUR");
       sb.append("\n");
       // increase the finalPrice of the order
       finalPrice = finalPrice.add(linePrice);
     }
 
-    return sb.append("Total Order cost: ").append(finalPrice.setScale(2, RoundingMode.HALF_EVEN).toString()).append("�")
+    return sb.append("Total Order cost: ").append(finalPrice.setScale(2, RoundingMode.HALF_EVEN).toString()).append(" EUR")
         .toString();
   }
 
