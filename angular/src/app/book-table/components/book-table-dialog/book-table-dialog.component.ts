@@ -22,12 +22,9 @@ export class BookTableDialogComponent implements OnInit {
     private bookingTokenDialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) dialogData: any
   ) {
-
-    this.date = moment(dialogData.bookingDate).format('LLL');
-    var isoDate = this.formatBookingTime(dialogData.bookingDate);
     this.data = {
       booking: {
-        bookingDate: isoDate,
+        bookingDate: dialogData.bookingDate,
         name: dialogData.name,
         email: dialogData.email,
         assistants: dialogData.assistants,
@@ -36,12 +33,8 @@ export class BookTableDialogComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {   }
-
-  formatBookingTime(bookingDate : string) : string{
-    var myDate : Date = new Date(bookingDate);
-    myDate.setHours( myDate.getHours() +2 );
-    return myDate.toISOString();
+  ngOnInit(): void {
+    this.date = moment(this.data.booking.bookingDate).format('LLL');
   }
 
   sendBooking(): void {
