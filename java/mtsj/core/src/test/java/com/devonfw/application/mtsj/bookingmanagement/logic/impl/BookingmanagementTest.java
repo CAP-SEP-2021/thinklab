@@ -121,30 +121,6 @@ public class BookingmanagementTest extends ApplicationComponentTest {
   }
 
   /**
-   * Test to save too many booking until no tables are left should throw exception
-   */
-//  @Test
-//  @Rollback(true)
-//  public void saveToManyBookingsNoTableLeft() {
-//
-//    ArrayList<Long> savedBookings = new ArrayList<Long>();
-//    this.bookingCto.getBooking().setAssistants(8);
-//    try {
-//      IntStream.range(0, 99).forEachOrdered(n -> {
-//        BookingEto createdBooking = this.bookingManagement.saveBooking(this.bookingCto);
-//        savedBookings.add(createdBooking.getId());
-//      });
-//    } catch (Exception e) {
-//      IllegalStateException ex = new IllegalStateException();
-//      assertThat(e.getClass()).isEqualTo(ex.getClass());
-//    } finally {
-//      for (Long id : savedBookings) {
-//        this.bookingDao.deleteById(id);
-//      }
-//    }
-//  }
-
-  /**
    * Test to save booking with null assistants should not throw an error
    */
   @Test
