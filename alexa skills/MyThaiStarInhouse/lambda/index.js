@@ -5,7 +5,7 @@
  * */
 const Alexa = require('ask-sdk-core');
 
-var ngrokLink = " http://010dc70ccd5c.ngrok.io";
+var ngrokLink = "65b9b5a7aa63.ngrok.io";
 
 const http = require('http');
 
